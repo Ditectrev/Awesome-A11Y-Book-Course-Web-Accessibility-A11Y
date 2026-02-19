@@ -91,7 +91,7 @@ We are so thankful for every contribution, which makes sure we can deliver top-n
   - [Accessibility policy and ownership, compliance timeline](#accessibility-policy-and-ownership-compliance-timeline)
  - [Accessibility audit types and conformance timeline](#accessibility-audit-types-and-conformance-timeline)
   - [Quick, full, and continuous audits, risk assessment](#quick-full-and-continuous-audits-risk-assessment)
- - [Summary and review](#summary-and-review-intro)
+ - [Summary: Introduction to Web Accessibility](#summary-introduction-to-web-accessibility)
 - [Understanding Users and Disabilities](#understanding-users-and-disabilities)
  - [Types of disabilities (visual, auditory, motor, cognitive)](#types-of-disabilities-visual-auditory-motor-cognitive)
   - [Visual: blindness, low vision, color blindness](#visual-blindness-low-vision-color-blindness)
@@ -107,13 +107,13 @@ We are so thankful for every contribution, which makes sure we can deliver top-n
  - [Keyboard-only and switch users](#keyboard-only-and-switch-users)
  - [Assistive technologies (magnification, braille, voice control)](#assistive-technologies-magnification-braille-voice-control)
  - [Situational limitations and user research with disabled users](#situational-limitations-and-user-research-with-disabled-users)
- - [Summary and review](#summary-and-review-understanding-users)
+ - [Summary: Understanding Users and Disabilities](#summary-understanding-users-and-disabilities)
 - [Standards and Guidelines](#standards-and-guidelines)
  - [WCAG 2.1 / 2.2 and the POUR principles](#wcag-21--22-and-the-pour-principles)
  - [Conformance levels (A, AA, AAA) and scope](#conformance-levels-a-aa-aaa-and-scope)
  - [How to read success criteria and use techniques](#how-to-read-success-criteria-and-use-techniques)
  - [Sufficient techniques, failures, and exceptions](#sufficient-techniques-failures-and-exceptions)
- - [Summary and review](#summary-and-review-standards)
+ - [Summary: Standards and Guidelines](#summary-standards-and-guidelines)
 - [Text Alternatives](#text-alternatives)
  - [WCAG 1.1.1 Non-text Content](#wcag-111-non-text-content)
  - [Images: alt text, decorative vs meaningful, empty alt](#images-alt-text-decorative-vs-meaningful-empty-alt)
@@ -129,7 +129,7 @@ We are so thankful for every contribution, which makes sure we can deliver top-n
  - [SVG, icons, image maps, and CAPTCHA](#svg-icons-image-maps-and-captcha)
   - [SVG as img vs inline SVG, role="img" and title](#svg-as-img-vs-inline-svg-roleimg-and-title)
   - [Image maps and area alt, CAPTCHA alternatives](#image-maps-and-area-alt-captcha-alternatives)
- - [Summary and review](#summary-and-review-text-alternatives)
+ - [Summary: Text Alternatives](#summary-text-alternatives)
 - [Time-Based Media](#time-based-media)
  - [Audio and video alternatives](#audio-and-video-alternatives)
   - [Transcripts, captions, and audio description as alternatives](#transcripts-captions-and-audio-description-as-alternatives)
@@ -144,7 +144,7 @@ We are so thankful for every contribution, which makes sure we can deliver top-n
   - [1.2.4 Captions live, CART and real-time transcription](#124-captions-live-cart-and-real-time-transcription)
  - [Video player controls and track element](#video-player-controls-and-track-element)
   - [track element and default attribute, keyboard access](#track-element-and-default-attribute-keyboard-access)
- - [Summary and review](#summary-and-review-time-based-media)
+ - [Summary: Time-Based Media](#summary-time-based-media)
 - [Adaptable Content](#adaptable-content)
  - [Semantic structure: headings, one h1, hierarchy](#semantic-structure-headings-one-h1-hierarchy)
   - [Heading hierarchy (h1–h6), skipping levels (avoid)](#heading-hierarchy-h1h6-skipping-levels-avoid)
@@ -161,7 +161,7 @@ We are so thankful for every contribution, which makes sure we can deliver top-n
   - [320px width and 400% zoom, no horizontal scrolling](#320px-width-and-400-zoom-no-horizontal-scrolling)
   - [1.3.2 Meaningful sequence, reading order and DOM order match](#132-meaningful-sequence-reading-order-and-dom-order-match)
  - [Sensory characteristics (1.3.3)](#sensory-characteristics-133)
- - [Summary and review](#summary-and-review-adaptable-content)
+ - [Summary: Adaptable Content](#summary-adaptable-content)
 - [Distinguishable](#distinguishable)
  - [Color and contrast (1.4.3, 4.5:1, large text)](#color-and-contrast-143-451-large-text)
   - [Contrast ratio 4.5:1 and 3:1, large text 18pt or 14pt bold](#contrast-ratio-451-and-31-large-text-18pt-or-14pt-bold)
@@ -173,7 +173,7 @@ We are so thankful for every contribution, which makes sure we can deliver top-n
  - [Resize text, images of text, audio control](#resize-text-images-of-text-audio-control)
   - [1.4.4 Resize text, 200% zoom, rem/em vs px; 1.4.2 Audio control](#144-resize-text-200-zoom-remem-vs-px-142-audio-control)
   - [1.4.5 Images of text, when text can be visual](#145-images-of-text-when-text-can-be-visual)
- - [Summary and review](#summary-and-review-distinguishable)
+ - [Summary: Distinguishable](#summary-distinguishable)
 - [Keyboard Accessible](#keyboard-accessible)
  - [Keyboard operability (2.1.1) and no keyboard trap (2.1.2)](#keyboard-operability-211-and-no-keyboard-trap-212)
   - [All functionality via keyboard, Space vs Enter for buttons and links](#all-functionality-via-keyboard-space-vs-enter-for-buttons-and-links)
@@ -188,44 +188,44 @@ We are so thankful for every contribution, which makes sure we can deliver top-n
   - [Landmark regions and HTML5, region and aria-label](#landmark-regions-and-html5-region-and-aria-label)
   - [contentinfo, search, landmark order and nesting](#contentinfo-search-landmark-order-and-nesting)
  - [Character key shortcuts (2.1.4)](#character-key-shortcuts-214)
- - [Summary and review](#summary-and-review-keyboard)
+ - [Summary: Keyboard Accessible](#summary-keyboard-accessible)
 - [Enough Time](#enough-time)
  - [Timing adjustable (2.2.1): session timeouts, warnings](#timing-adjustable-221-session-timeouts-warnings)
  - [Pause, stop, hide (2.2.2): carousels, animation](#pause-stop-hide-222-carousels-animation)
  - [Exceptions: essential, real-time, ticket/auction](#exceptions-essential-real-time-ticketauction)
- - [Summary and review](#summary-and-review-enough-time)
+ - [Summary: Enough Time](#summary-enough-time)
 - [Seizures and Physical Reactions](#seizures-and-physical-reactions)
  - [Three flashes (2.3.1), general and red flash](#three-flashes-231-general-and-red-flash)
  - [Animation from interactions (2.3.3)](#animation-from-interactions-233)
  - [prefers-reduced-motion and implementing it](#prefers-reduced-motion-and-implementing-it)
- - [Summary and review](#summary-and-review-seizures-and-motion)
+ - [Summary: Seizures and Physical Reactions](#summary-seizures-and-physical-reactions)
 - [Navigable](#navigable)
  - [Page title (2.4.2) and focus order (2.4.3)](#page-title-242-and-focus-order-243)
  - [Link purpose in context (2.4.4), multiple ways (2.4.5)](#link-purpose-in-context-244-multiple-ways-245)
  - [Headings and labels (2.4.6), focus visible (2.4.7)](#headings-and-labels-246-focus-visible-247)
  - [Focus not obscured (2.4.11, 2.4.12)](#focus-not-obscured-2411-2412)
- - [Summary and review](#summary-and-review-navigable)
+ - [Summary: Navigable](#summary-navigable)
 - [Input Modalities](#input-modalities)
  - [Pointer gestures (2.5.1) and single-pointer alternatives](#pointer-gestures-251-and-single-pointer-alternatives)
  - [Pointer cancellation (2.5.2), target size (2.5.8)](#pointer-cancellation-252-target-size-258)
  - [Label in name (2.5.3), motion actuation (2.5.4)](#label-in-name-253-motion-actuation-254)
  - [Input purpose and autocomplete (2.5.6)](#input-purpose-and-autocomplete-2556)
- - [Summary and review](#summary-and-review-input-modalities)
+ - [Summary: Input Modalities](#summary-input-modalities)
 - [Readable](#readable)
  - [Language of page (3.1.1) and language of parts (3.1.2)](#language-of-page-311-and-language-of-parts-312)
  - [Unusual words, abbreviations (3.1.3, 3.1.4)](#unusual-words-abbreviations-313-314)
- - [Summary and review](#summary-and-review-readable)
+ - [Summary: Readable](#summary-readable)
 - [Predictable](#predictable)
  - [On focus (3.2.1) and on input (3.2.2)](#on-focus-321-and-on-input-322)
  - [Consistent navigation and identification (3.2.3, 3.2.4)](#consistent-navigation-and-identification-323-324)
  - [Change on request and common pitfalls](#change-on-request-and-common-pitfalls)
- - [Summary and review](#summary-and-review-predictable)
+ - [Summary: Predictable](#summary-predictable)
 - [Input Assistance](#input-assistance)
  - [Error identification (3.3.1) and labels or instructions (3.3.2)](#error-identification-331-and-labels-or-instructions-332)
  - [Error suggestion (3.3.3) and error prevention (3.3.4)](#error-suggestion-333-and-error-prevention-334)
  - [aria-describedby, aria-invalid, error summary](#aria-describedby-aria-invalid-error-summary)
  - [Required fields, autocomplete, confirmation steps](#required-fields-autocomplete-confirmation-steps)
- - [Summary and review](#summary-and-review-input-assistance)
+ - [Summary: Input Assistance](#summary-input-assistance)
 - [Compatible](#compatible)
  - [Parsing (4.1.1), valid HTML, duplicate IDs](#parsing-411-valid-html-duplicate-ids)
   - [Start and end tags, nesting, duplicate id and ARIA IDs](#start-and-end-tags-nesting-duplicate-id-and-aria-ids)
@@ -235,13 +235,13 @@ We are so thankful for every contribution, which makes sure we can deliver top-n
  - [Status messages (4.1.3), live regions, aria-live](#status-messages-413-live-regions-aria-live)
   - [aria-live, aria-atomic, aria-relevant; polite vs assertive](#aria-live-aria-atomic-aria-relevant-polite-vs-assertive)
   - [role="status" and role="alert" for messages](#role-status-and-role-alert-for-messages)
- - [Summary and review](#summary-and-review-compatible)
+ - [Summary: Compatible](#summary-compatible)
 - [HTML Semantics and ARIA](#html-semantics-and-aria)
  - [When to use native HTML vs ARIA](#when-to-use-native-html-vs-aria)
  - [ARIA roles, states, and properties](#aria-roles-states-and-properties)
  - [Tabs, modals, dialogs (focus trap, escape)](#tabs-modals-dialogs-focus-trap-escape)
  - [Menus, combobox, listbox, disclosure](#menus-combobox-listbox-disclosure)
- - [Summary and review](#summary-and-review-html-and-aria)
+ - [Summary: HTML Semantics and ARIA](#summary-html-semantics-and-aria)
 - [Forms and Validation](#forms-and-validation)
  - [Labels, placeholders, fieldset and legend](#labels-placeholders-fieldset-and-legend)
   - [for and id, wrapping with label, visually hidden label](#for-and-id-wrapping-with-label-visually-hidden-label)
@@ -252,7 +252,7 @@ We are so thankful for every contribution, which makes sure we can deliver top-n
  - [Validation messages, aria-describedby, role=alert](#validation-messages-aria-describedby-rolealert)
   - [Error summary at top of form, focus on first error](#error-summary-at-top-of-form-focus-on-first-error)
   - [role="alert" for critical errors, announcing to screen readers](#rolealert-for-critical-errors-announcing-to-screen-readers)
- - [Summary and review](#summary-and-review-forms)
+ - [Summary: Forms and Validation](#summary-forms-and-validation)
 - [Testing and Evaluation](#testing-and-evaluation)
  - [Manual testing: keyboard and screen readers](#manual-testing-keyboard-and-screen-readers)
   - [Keyboard testing procedure: tab through, Enter/Space, Escape](#keyboard-testing-procedure-tab-through-enterspace-escape)
@@ -264,26 +264,29 @@ We are so thankful for every contribution, which makes sure we can deliver top-n
   - [npm packages, unit tests for a11y, linting rules](#npm-packages-unit-tests-for-a11y-linting-rules)
  - [Reporting issues and prioritization](#reporting-issues-and-prioritization)
   - [Severity and impact, steps to reproduce and WCAG criterion](#severity-and-impact-steps-to-reproduce-and-wcag-criterion)
- - [Summary and review](#summary-and-review-testing)
+ - [Summary: Testing and Evaluation](#summary-testing-and-evaluation)
 - [Documentation and Maintenance](#documentation-and-maintenance)
  - [Accessibility statements and VPATs](#accessibility-statements-and-vpats)
  - [Embedding a11y in design and dev workflows](#embedding-a11y-in-design-and-dev-workflows)
  - [Training, governance, and review cycles](#training-governance-and-review-cycles)
- - [Summary and review](#summary-and-review-documentation)
+ - [Summary: Documentation and Maintenance](#summary-documentation-and-maintenance)
 - [Appendix A: Quick Reference (WCAG 2.x)](#appendix-a-quick-reference-wcag-2x)
  - [Perceivable, Operable, Understandable, Robust quick list](#perceivable-operable-understandable-robust-quick-list)
  - [Criterion ID to title lookup](#criterion-id-to-title-lookup)
- - [Level A, AA, AAA criteria](#level-a-aa-aaa-criteria)
+ - [Summary: Appendix A: Quick Reference (WCAG 2.x)](#summary-appendix-a-quick-reference-wcag-2x)
 - [Appendix B: Glossary](#appendix-b-glossary)
  - [Key terms (accessible name, landmark, live region, etc.)](#key-terms-accessible-name-landmark-live-region-etc)
  - [Acronyms and abbreviations](#acronyms-and-abbreviations)
+ - [Summary: Appendix B: Glossary](#summary-appendix-b-glossary)
 - [Appendix C: Resources and Tools](#appendix-c-resources-and-tools)
  - [Official standards and WAI documentation](#official-standards-and-wai-documentation)
  - [Testing tools and screen readers](#testing-tools-and-screen-readers)
  - [Learning and certification](#learning-and-certification)
+ - [Summary: Appendix C: Resources and Tools](#summary-appendix-c-resources-and-tools)
 - [Appendix D: Checklist Template](#appendix-d-checklist-template)
  - [Design, development, and release checklists](#design-development-and-release-checklists)
  - [Audit report and exemption templates](#audit-report-and-exemption-templates)
+ - [Summary: Appendix D: Checklist Template](#summary-appendix-d-checklist-template)
 
 ## Introduction to Web Accessibility
 
@@ -339,7 +342,7 @@ We are so thankful for every contribution, which makes sure we can deliver top-n
 
 *Content to be added.*
 
-### Summary and review
+### Summary: Introduction to Web Accessibility
 
 *Content to be added.*
 
@@ -397,7 +400,7 @@ We are so thankful for every contribution, which makes sure we can deliver top-n
 
 *Content to be added.*
 
-### Summary and review
+### Summary: Understanding Users and Disabilities
 
 *Content to be added.*
 
@@ -419,7 +422,7 @@ We are so thankful for every contribution, which makes sure we can deliver top-n
 
 *Content to be added.*
 
-### Summary and review
+### Summary: Standards and Guidelines
 
 *Content to be added.*
 
@@ -473,7 +476,7 @@ We are so thankful for every contribution, which makes sure we can deliver top-n
 
 *Content to be added.*
 
-### Summary and review
+### Summary: Text Alternatives
 
 *Content to be added.*
 
@@ -519,7 +522,7 @@ We are so thankful for every contribution, which makes sure we can deliver top-n
 
 *Content to be added.*
 
-### Summary and review
+### Summary: Time-Based Media
 
 *Content to be added.*
 
@@ -575,7 +578,7 @@ We are so thankful for every contribution, which makes sure we can deliver top-n
 
 *Content to be added.*
 
-### Summary and review
+### Summary: Adaptable Content
 
 *Content to be added.*
 
@@ -613,7 +616,7 @@ We are so thankful for every contribution, which makes sure we can deliver top-n
 
 *Content to be added.*
 
-### Summary and review
+### Summary: Distinguishable
 
 *Content to be added.*
 
@@ -663,7 +666,7 @@ We are so thankful for every contribution, which makes sure we can deliver top-n
 
 *Content to be added.*
 
-### Summary and review
+### Summary: Keyboard Accessible
 
 *Content to be added.*
 
@@ -681,7 +684,7 @@ We are so thankful for every contribution, which makes sure we can deliver top-n
 
 *Content to be added.*
 
-### Summary and review
+### Summary: Enough Time
 
 *Content to be added.*
 
@@ -699,7 +702,7 @@ We are so thankful for every contribution, which makes sure we can deliver top-n
 
 *Content to be added.*
 
-### Summary and review
+### Summary: Seizures and Physical Reactions
 
 *Content to be added.*
 
@@ -721,7 +724,7 @@ We are so thankful for every contribution, which makes sure we can deliver top-n
 
 *Content to be added.*
 
-### Summary and review
+### Summary: Navigable
 
 *Content to be added.*
 
@@ -743,7 +746,7 @@ We are so thankful for every contribution, which makes sure we can deliver top-n
 
 *Content to be added.*
 
-### Summary and review
+### Summary: Input Modalities
 
 *Content to be added.*
 
@@ -757,7 +760,7 @@ We are so thankful for every contribution, which makes sure we can deliver top-n
 
 *Content to be added.*
 
-### Summary and review
+### Summary: Readable
 
 *Content to be added.*
 
@@ -775,7 +778,7 @@ We are so thankful for every contribution, which makes sure we can deliver top-n
 
 *Content to be added.*
 
-### Summary and review
+### Summary: Predictable
 
 *Content to be added.*
 
@@ -797,7 +800,7 @@ We are so thankful for every contribution, which makes sure we can deliver top-n
 
 *Content to be added.*
 
-### Summary and review
+### Summary: Input Assistance
 
 *Content to be added.*
 
@@ -829,7 +832,7 @@ We are so thankful for every contribution, which makes sure we can deliver top-n
 
 *Content to be added.*
 
-### Summary and review
+### Summary: Compatible
 
 *Content to be added.*
 
@@ -851,7 +854,7 @@ We are so thankful for every contribution, which makes sure we can deliver top-n
 
 *Content to be added.*
 
-### Summary and review
+### Summary: HTML Semantics and ARIA
 
 *Content to be added.*
 
@@ -887,7 +890,7 @@ We are so thankful for every contribution, which makes sure we can deliver top-n
 
 *Content to be added.*
 
-### Summary and review
+### Summary: Forms and Validation
 
 *Content to be added.*
 
@@ -925,7 +928,7 @@ We are so thankful for every contribution, which makes sure we can deliver top-n
 
 *Content to be added.*
 
-### Summary and review
+### Summary: Testing and Evaluation
 
 *Content to be added.*
 
@@ -943,7 +946,7 @@ We are so thankful for every contribution, which makes sure we can deliver top-n
 
 *Content to be added.*
 
-### Summary and review
+### Summary: Documentation and Maintenance
 
 *Content to be added.*
 
@@ -957,7 +960,7 @@ We are so thankful for every contribution, which makes sure we can deliver top-n
 
 *Content to be added.*
 
-### Level A, AA, AAA criteria
+### Summary: Appendix A: Quick Reference (WCAG 2.x)
 
 *Content to be added.*
 
@@ -967,7 +970,7 @@ We are so thankful for every contribution, which makes sure we can deliver top-n
 
 *Content to be added.*
 
-### Acronyms and abbreviations
+### Summary: Appendix B: Glossary
 
 *Content to be added.*
 
@@ -981,7 +984,7 @@ We are so thankful for every contribution, which makes sure we can deliver top-n
 
 *Content to be added.*
 
-### Learning and certification
+### Summary: Appendix C: Resources and Tools
 
 *Content to be added.*
 
@@ -991,6 +994,6 @@ We are so thankful for every contribution, which makes sure we can deliver top-n
 
 *Content to be added.*
 
-### Audit report and exemption templates
+### Summary: Appendix D: Checklist Template
 
 *Content to be added.*
