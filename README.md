@@ -76,15 +76,34 @@ We are so thankful for every contribution, which makes sure we can deliver top-n
 
 - [Introduction to Web Accessibility](#introduction-to-web-accessibility)
  - [What is accessibility?](#what-is-accessibility)
+  - [Accessibility defined by W3C WAI](#accessibility-defined-by-w3c-wai)
+  - [Definition and scope of web accessibility](#definition-and-scope-of-web-accessibility)
+  - [Accessibility as a continuum, no binary "accessible" vs "inaccessible"](#accessibility-as-a-continuum-no-binary-accessible-vs-inaccessible)
  - [Who benefits and why it matters](#who-benefits-and-why-it-matters)
+  - [Users with disabilities and beyond, demographics](#users-with-disabilities-and-beyond-demographics)
+  - [The business and human case, ROI, legal risk](#the-business-and-human-case-roi-legal-risk)
  - [Inclusive design and the curb-cut effect](#inclusive-design-and-the-curb-cut-effect)
+  - [Universal design principles, examples of curb-cut benefits](#universal-design-principles-examples-of-curb-cut-benefits)
  - [Legal and compliance (ADA, Section 508, WCAG, EAA)](#legal-and-compliance-ada-section-508-wcag-eaa)
+  - [ADA and digital accessibility, Section 508, EAA scope](#ada-and-digital-accessibility-section-508-eaa-scope)
+  - [WCAG as the technical standard, defining scope](#wcag-as-the-technical-standard-defining-scope)
  - [Defining scope, policy, and getting started](#defining-scope-policy-and-getting-started)
+  - [Accessibility policy and ownership, compliance timeline](#accessibility-policy-and-ownership-compliance-timeline)
  - [Accessibility audit types and conformance timeline](#accessibility-audit-types-and-conformance-timeline)
+  - [Quick, full, and continuous audits, risk assessment](#quick-full-and-continuous-audits-risk-assessment)
  - [Summary and review](#summary-and-review-intro)
 - [Understanding Users and Disabilities](#understanding-users-and-disabilities)
  - [Types of disabilities (visual, auditory, motor, cognitive)](#types-of-disabilities-visual-auditory-motor-cognitive)
+  - [Visual: blindness, low vision, color blindness](#visual-blindness-low-vision-color-blindness)
+  - [Protanopia, deuteranopia, tritanopia](#protanopia-deuteranopia-tritanopia)
+  - [Simulating color blindness in dev tools](#simulating-color-blindness-in-dev-tools)
+  - [Auditory: deafness and hard of hearing](#auditory-deafness-and-hard-of-hearing)
+  - [Dyslexia and reading difficulties](#dyslexia-and-reading-difficulties)
+  - [Autism and sensory considerations](#autism-and-sensory-considerations)
+  - [Vestibular disorders and motion sensitivity](#vestibular-disorders-and-motion-sensitivity)
  - [Screen readers and how they interpret content](#screen-readers-and-how-they-interpret-content)
+  - [Navigation by tables, lists, and headings](#navigation-by-tables-lists-and-headings)
+  - [Punctuation and verbosity settings](#punctuation-and-verbosity-settings)
  - [Keyboard-only and switch users](#keyboard-only-and-switch-users)
  - [Assistive technologies (magnification, braille, voice control)](#assistive-technologies-magnification-braille-voice-control)
  - [Situational limitations and user research with disabled users](#situational-limitations-and-user-research-with-disabled-users)
@@ -98,36 +117,76 @@ We are so thankful for every contribution, which makes sure we can deliver top-n
 - [Text Alternatives](#text-alternatives)
  - [WCAG 1.1.1 Non-text Content](#wcag-111-non-text-content)
  - [Images: alt text, decorative vs meaningful, empty alt](#images-alt-text-decorative-vs-meaningful-empty-alt)
+  - [Empty alt vs omitted alt, when to use alt=""](#empty-alt-vs-omitted-alt-when-to-use-alt)
+  - [Decorative vs meaningful images, alt text decision tree](#decorative-vs-meaningful-images-alt-text-decision-tree)
+  - [Alt for linked images (describe destination), image button](#alt-for-linked-images-describe-destination-image-button)
  - [Writing effective alt text and common pitfalls](#writing-effective-alt-text-and-common-pitfalls)
+  - [Length and context, avoid "image of" and "picture of"](#length-and-context-avoid-image-of-and-picture-of)
+  - [Common pitfall: missing or redundant alt](#common-pitfall-missing-or-redundant-alt)
  - [Complex images, long descriptions, and data tables](#complex-images-long-descriptions-and-data-tables)
+  - [Charts, diagrams, longdesc and aria-describedby](#charts-diagrams-longdesc-and-aria-describedby)
+  - [figcaption and figure, providing a data table](#figcaption-and-figure-providing-a-data-table)
  - [SVG, icons, image maps, and CAPTCHA](#svg-icons-image-maps-and-captcha)
+  - [SVG as img vs inline SVG, role="img" and title](#svg-as-img-vs-inline-svg-roleimg-and-title)
+  - [Image maps and area alt, CAPTCHA alternatives](#image-maps-and-area-alt-captcha-alternatives)
  - [Summary and review](#summary-and-review-text-alternatives)
 - [Time-Based Media](#time-based-media)
+ - [Audio and video alternatives](#audio-and-video-alternatives)
+  - [Transcripts, captions, and audio description as alternatives](#transcripts-captions-and-audio-description-as-alternatives)
  - [Captions and subtitles (1.2.2, WebVTT, quality)](#captions-and-subtitles-122-webvtt-quality)
+  - [Open vs closed captions, caption timing and synchronization](#open-vs-closed-captions-caption-timing-and-synchronization)
+  - [WebVTT cue and timestamp format, kind="captions" vs "subtitles"](#webvtt-cue-and-timestamp-format-kindcaptions-vs-kindsubtitles)
  - [Transcripts for audio-only and video-only](#transcripts-for-audio-only-and-video-only)
+  - [1.2.1 and video-only (transcript or description), transcript placement](#121-and-video-only-transcript-or-description-transcript-placement)
  - [Audio description and when it is needed](#audio-description-and-when-it-is-needed)
+  - [Pauses in dialogue, extended vs standard audio description](#pauses-in-dialogue-extended-vs-standard-audio-description)
  - [Live captions and sign language (AAA)](#live-captions-and-sign-language-aaa)
+  - [1.2.4 Captions live, CART and real-time transcription](#124-captions-live-cart-and-real-time-transcription)
  - [Video player controls and track element](#video-player-controls-and-track-element)
+  - [track element and default attribute, keyboard access](#track-element-and-default-attribute-keyboard-access)
  - [Summary and review](#summary-and-review-time-based-media)
 - [Adaptable Content](#adaptable-content)
  - [Semantic structure: headings, one h1, hierarchy](#semantic-structure-headings-one-h1-hierarchy)
+  - [Heading hierarchy (h1–h6), skipping levels (avoid)](#heading-hierarchy-h1h6-skipping-levels-avoid)
  - [Tables: headers, scope, caption, complex tables](#tables-headers-scope-caption-complex-tables)
+  - [scope="col" and scope="row", headers attribute for complex tables](#scopecol-and-scoperow-headers-attribute-for-complex-tables)
+  - [caption and table summary, responsive tables](#caption-and-table-summary-responsive-tables)
  - [Lists, form label relationships, and reading order](#lists-form-label-relationships-and-reading-order)
+  - [ol, ul, dl and programmatic associations, 1.3.1 and form labels](#ol-ul-dl-and-programmatic-associations-131-and-form-labels)
  - [Logical order vs visual order (CSS, flexbox, grid)](#logical-order-vs-visual-order-css-flexbox-grid)
+  - [DOM order vs visual order, CSS order and flexbox/grid](#dom-order-vs-visual-order-css-order-and-flexboxgrid)
+  - [Responsive design](#responsive-design)
+  - [Visually hidden and screen reader only, aria-hidden](#visually-hidden-and-screen-reader-only-aria-hidden)
  - [Reflow (1.4.10), 320px, and meaningful sequence](#reflow-1410-320px-and-meaningful-sequence)
+  - [320px width and 400% zoom, no horizontal scrolling](#320px-width-and-400-zoom-no-horizontal-scrolling)
+  - [1.3.2 Meaningful sequence, reading order and DOM order match](#132-meaningful-sequence-reading-order-and-dom-order-match)
  - [Sensory characteristics (1.3.3)](#sensory-characteristics-133)
  - [Summary and review](#summary-and-review-adaptable-content)
 - [Distinguishable](#distinguishable)
  - [Color and contrast (1.4.3, 4.5:1, large text)](#color-and-contrast-143-451-large-text)
+  - [Contrast ratio 4.5:1 and 3:1, large text 18pt or 14pt bold](#contrast-ratio-451-and-31-large-text-18pt-or-14pt-bold)
+  - [Calculating contrast, tools (Colour Contrast Analyser, WebAIM)](#calculating-contrast-tools-colour-contrast-analyser-webaim)
  - [Not relying on color alone (1.4.1)](#not-relying-on-color-alone-141)
+  - [Icons, patterns, and text as supplements, form validation and error states](#icons-patterns-and-text-as-supplements-form-validation-and-error-states)
  - [Non-text contrast (1.4.11), focus visible](#non-text-contrast-1411-focus-visible)
+  - [1.4.11 and icons/UI components, focus ring contrast (2.4.7, 2.4.11)](#1411-and-iconsui-components-focus-ring-contrast-247-2411)
  - [Resize text, images of text, audio control](#resize-text-images-of-text-audio-control)
+  - [1.4.4 Resize text, 200% zoom, rem/em vs px; 1.4.2 Audio control](#144-resize-text-200-zoom-remem-vs-px-142-audio-control)
+  - [1.4.5 Images of text, when text can be visual](#145-images-of-text-when-text-can-be-visual)
  - [Summary and review](#summary-and-review-distinguishable)
 - [Keyboard Accessible](#keyboard-accessible)
  - [Keyboard operability (2.1.1) and no keyboard trap (2.1.2)](#keyboard-operability-211-and-no-keyboard-trap-212)
+  - [All functionality via keyboard, Space vs Enter for buttons and links](#all-functionality-via-keyboard-space-vs-enter-for-buttons-and-links)
+  - [No keyboard trap, focus must not be trapped in a component](#no-keyboard-trap-focus-must-not-be-trapped-in-a-component)
  - [Focus trap in modals, returning focus, tabindex](#focus-trap-in-modals-returning-focus-tabindex)
+  - [Tab cycle within modal, first and last focusable, inert](#tab-cycle-within-modal-first-and-last-focusable-inert)
+  - [Returning focus on close, tabindex=0 vs tabindex=-1](#returning-focus-on-close-tabindex0-vs-tabindex-1)
  - [Skip links and bypass blocks (2.4.1)](#skip-links-and-bypass-blocks-241)
+  - [Skip to main content, skip link and href="#main"](#skip-to-main-content-skip-link-and-hrefmain)
+  - [Skip link visible on focus only, styling](#skip-link-visible-on-focus-only-styling)
  - [Landmarks (banner, main, navigation, complementary)](#landmarks-banner-main-navigation-complementary)
+  - [Landmark regions and HTML5, region and aria-label](#landmark-regions-and-html5-region-and-aria-label)
+  - [contentinfo, search, landmark order and nesting](#contentinfo-search-landmark-order-and-nesting)
  - [Character key shortcuts (2.1.4)](#character-key-shortcuts-214)
  - [Summary and review](#summary-and-review-keyboard)
 - [Enough Time](#enough-time)
@@ -169,8 +228,13 @@ We are so thankful for every contribution, which makes sure we can deliver top-n
  - [Summary and review](#summary-and-review-input-assistance)
 - [Compatible](#compatible)
  - [Parsing (4.1.1), valid HTML, duplicate IDs](#parsing-411-valid-html-duplicate-ids)
+  - [Start and end tags, nesting, duplicate id and ARIA IDs](#start-and-end-tags-nesting-duplicate-id-and-aria-ids)
+  - [W3C validator and Nu Html Checker](#w3c-validator-and-nu-html-checker)
  - [Name, role, value (4.1.2) for custom controls](#name-role-value-412-for-custom-controls)
+  - [Exposing name, role, value to assistive tech, custom control requirements](#exposing-name-role-value-to-assistive-tech-custom-control-requirements)
  - [Status messages (4.1.3), live regions, aria-live](#status-messages-413-live-regions-aria-live)
+  - [aria-live, aria-atomic, aria-relevant; polite vs assertive](#aria-live-aria-atomic-aria-relevant-polite-vs-assertive)
+  - [role="status" and role="alert" for messages](#role-status-and-role-alert-for-messages)
  - [Summary and review](#summary-and-review-compatible)
 - [HTML Semantics and ARIA](#html-semantics-and-aria)
  - [When to use native HTML vs ARIA](#when-to-use-native-html-vs-aria)
@@ -180,14 +244,26 @@ We are so thankful for every contribution, which makes sure we can deliver top-n
  - [Summary and review](#summary-and-review-html-and-aria)
 - [Forms and Validation](#forms-and-validation)
  - [Labels, placeholders, fieldset and legend](#labels-placeholders-fieldset-and-legend)
+  - [for and id, wrapping with label, visually hidden label](#for-and-id-wrapping-with-label-visually-hidden-label)
+  - [fieldset, legend, radio groups and checkbox groups](#fieldset-legend-radio-groups-and-checkbox-groups)
  - [Grouping, required fields, error association](#grouping-required-fields-error-association)
+  - [Required field indication, aria-required and HTML required](#required-field-indication-aria-required-and-html-required)
+  - [Linking error message to input id, aria-describedby](#linking-error-message-to-input-id-aria-describedby)
  - [Validation messages, aria-describedby, role=alert](#validation-messages-aria-describedby-rolealert)
+  - [Error summary at top of form, focus on first error](#error-summary-at-top-of-form-focus-on-first-error)
+  - [role="alert" for critical errors, announcing to screen readers](#rolealert-for-critical-errors-announcing-to-screen-readers)
  - [Summary and review](#summary-and-review-forms)
 - [Testing and Evaluation](#testing-and-evaluation)
  - [Manual testing: keyboard and screen readers](#manual-testing-keyboard-and-screen-readers)
+  - [Keyboard testing procedure: tab through, Enter/Space, Escape](#keyboard-testing-procedure-tab-through-enterspace-escape)
+  - [Screen reader testing (NVDA, VoiceOver), browse mode vs focus mode](#screen-reader-testing-nvda-voiceover-browse-mode-vs-focus-mode)
  - [Automated testing: axe, WAVE, Lighthouse](#automated-testing-axe-wave-lighthouse)
+  - [axe-core and browser extensions, Lighthouse a11y score](#axe-core-and-browser-extensions-lighthouse-a11y-score)
+  - [Interpreting results, limitations of automation, false positives/negatives](#interpreting-results-limitations-of-automation-false-positivesnegatives)
  - [CI/CD, jest-axe, eslint-plugin-jsx-a11y](#cicd-jest-axe-eslint-plugin-jsx-a11y)
+  - [npm packages, unit tests for a11y, linting rules](#npm-packages-unit-tests-for-a11y-linting-rules)
  - [Reporting issues and prioritization](#reporting-issues-and-prioritization)
+  - [Severity and impact, steps to reproduce and WCAG criterion](#severity-and-impact-steps-to-reproduce-and-wcag-criterion)
  - [Summary and review](#summary-and-review-testing)
 - [Documentation and Maintenance](#documentation-and-maintenance)
  - [Accessibility statements and VPATs](#accessibility-statements-and-vpats)
@@ -212,6 +288,10 @@ We are so thankful for every contribution, which makes sure we can deliver top-n
 ## Introduction to Web Accessibility
 
 ### What is accessibility?
+
+#### Accessibility defined by W3C WAI
+
+*Content to be added.*
 
 #### Definition and scope of web accessibility
 
@@ -267,9 +347,41 @@ We are so thankful for every contribution, which makes sure we can deliver top-n
 
 ### Types of disabilities (visual, auditory, motor, cognitive)
 
+#### Visual: blindness, low vision, color blindness
+
+*Content to be added.*
+
+#### Protanopia, deuteranopia, tritanopia
+
+*Content to be added.*
+
+#### Simulating color blindness in dev tools
+
+*Content to be added.*
+
+#### Auditory: deafness and hard of hearing
+
+*Content to be added.*
+
+#### Dyslexia and reading difficulties
+
+*Content to be added.*
+
+#### Autism and sensory considerations
+
+*Content to be added.*
+
+#### Vestibular disorders and motion sensitivity
+
 *Content to be added.*
 
 ### Screen readers and how they interpret content
+
+#### Navigation by tables, lists, and headings
+
+*Content to be added.*
+
+#### Punctuation and verbosity settings
 
 *Content to be added.*
 
@@ -367,6 +479,12 @@ We are so thankful for every contribution, which makes sure we can deliver top-n
 
 ## Time-Based Media
 
+### Audio and video alternatives
+
+#### Transcripts, captions, and audio description as alternatives
+
+*Content to be added.*
+
 ### Captions and subtitles (1.2.2, WebVTT, quality)
 
 #### Open vs closed captions, caption timing and synchronization
@@ -432,6 +550,10 @@ We are so thankful for every contribution, which makes sure we can deliver top-n
 ### Logical order vs visual order (CSS, flexbox, grid)
 
 #### DOM order vs visual order, CSS order and flexbox/grid
+
+*Content to be added.*
+
+#### Responsive design
 
 *Content to be added.*
 
