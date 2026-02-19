@@ -494,7 +494,7 @@ We are so thankful for every contribution, which makes sure we can deliver top-n
 
 *Content to be added.*
 
-#### WebVTT cue and timestamp format, kind="captions" vs "subtitles"
+#### WebVTT cue and timestamp format, kind="captions" vs "subtitles" {#webvtt-cue-and-timestamp-format-kindcaptions-vs-kindsubtitles}
 
 *Content to be added.*
 
@@ -584,9 +584,9 @@ We are so thankful for every contribution, which makes sure we can deliver top-n
 
 ## Distinguishable
 
-### Color and contrast (1.4.3, 4.5:1, large text)
+### Color and contrast (1.4.3, 4.5:1, large text) {#color-and-contrast-143-451-large-text}
 
-#### Contrast ratio 4.5:1 and 3:1, large text 18pt or 14pt bold
+#### Contrast ratio 4.5:1 and 3:1, large text 18pt or 14pt bold {#contrast-ratio-451-and-31-large-text-18pt-or-14pt-bold}
 
 *Content to be added.*
 
@@ -742,7 +742,7 @@ We are so thankful for every contribution, which makes sure we can deliver top-n
 
 *Content to be added.*
 
-### Input purpose and autocomplete (2.5.6)
+### Input purpose and autocomplete (2.5.6) {#input-purpose-and-autocomplete-2556}
 
 *Content to be added.*
 
@@ -828,7 +828,7 @@ We are so thankful for every contribution, which makes sure we can deliver top-n
 
 *Content to be added.*
 
-#### role="status" and role="alert" for messages
+#### role="status" and role="alert" for messages {#role-status-and-role-alert-for-messages}
 
 *Content to be added.*
 
@@ -970,7 +970,11 @@ We are so thankful for every contribution, which makes sure we can deliver top-n
 
 *Content to be added.*
 
-### Summary: Appendix B: Glossary
+### Acronyms and abbreviations {#acronyms-and-abbreviations}
+
+*Content to be added.*
+
+### Summary: Appendix B: Glossary {#summary-appendix-b-glossary}
 
 *Content to be added.*
 
@@ -980,20 +984,28 @@ We are so thankful for every contribution, which makes sure we can deliver top-n
 
 *Content to be added.*
 
-### Testing tools and screen readers
+### Testing tools and screen readers {#testing-tools-and-screen-readers}
 
 *Content to be added.*
 
-### Summary: Appendix C: Resources and Tools
+### Learning and certification {#learning-and-certification}
 
 *Content to be added.*
 
-## Appendix D: Checklist Template
-
-### Design, development, and release checklists
+### Summary: Appendix C: Resources and Tools {#summary-appendix-c-resources-and-tools}
 
 *Content to be added.*
 
-### Summary: Appendix D: Checklist Template
+## Appendix D: Checklist Template {#appendix-d-checklist-template}
+
+### Design, development, and release checklists {#design-development-and-release-checklists}
+
+*Content to be added.*
+
+### Audit report and exemption templates {#audit-report-and-exemption-templates}
+
+*Content to be added.*
+
+### Summary: Appendix D: Checklist Template {#summary-appendix-d-checklist-template}
 
 *Content to be added.*
