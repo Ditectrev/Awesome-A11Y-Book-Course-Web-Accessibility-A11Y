@@ -76,1331 +76,799 @@ We are so thankful for every contribution, which makes sure we can deliver top-n
 
 - [Introduction to Web Accessibility](#introduction-to-web-accessibility)
  - [What is accessibility?](#what-is-accessibility)
- - [Accessibility defined by W3C WAI](#accessibility-defined-by-w3c-wai)
- - [Definition and scope of web accessibility](#definition-and-scope-of-web-accessibility)
- - [Web vs. physical and digital accessibility](#web-vs-physical-and-digital-accessibility)
- - [Overlap with mobile and IoT accessibility](#overlap-with-mobile-and-iot-accessibility)
- - [Accessible apps and kiosks](#accessible-apps-and-kiosks)
- - [Stakeholders: developers, designers, content, legal](#stakeholders-developers-designers-content-legal)
- - [Accessibility maturity model](#accessibility-maturity-model)
- - [Quick wins vs long-term strategy](#quick-wins-vs-long-term-strategy)
- - [Who benefits from web accessibility?](#who-benefits-from-web-accessibility)
- - [Users with disabilities and beyond](#users-with-disabilities-and-beyond)
- - [Accessibility as a continuum](#accessibility-as-a-continuum)
- - [No binary “accessible” vs “inaccessible”](#no-binary-accessible-vs-inaccessible)
- - [Measuring and improving over time](#measuring-and-improving-over-time)
- - [Baseline assessment and metrics](#baseline-assessment-and-metrics)
- - [Why accessibility matters](#why-accessibility-matters)
+ - [Who benefits and why it matters](#who-benefits-and-why-it-matters)
  - [Inclusive design and the curb-cut effect](#inclusive-design-and-the-curb-cut-effect)
- - [Examples of curb-cut benefits](#examples-of-curb-cut-benefits)
- - [Universal design principles](#universal-design-principles)
- - [Inclusive design vs universal design](#inclusive-design-vs-universal-design)
- - [Demographics and impact](#demographics-and-impact)
- - [Statistics on disability and web use](#statistics-on-disability-and-web-use)
- - [WHO and census data](#who-and-census-data)
- - [Global and regional data](#global-and-regional-data)
- - [The business and human case for A11Y](#the-business-and-human-case-for-a11y)
- - [ROI and market reach](#roi-and-market-reach)
- - [Expanding audience and retention](#expanding-audience-and-retention)
- - [SEO and performance overlaps](#seo-and-performance-overlaps)
- - [Legal risk and reputation](#legal-risk-and-reputation)
- - [Notable lawsuits and settlements](#notable-lawsuits-and-settlements)
- - [Domino’s, Target, and others](#dominos-target-and-others)
- - [Settlement terms and remediation](#settlement-terms-and-remediation)
- - [Ethical and social responsibility](#ethical-and-social-responsibility)
- - [Remediation vs designing for accessibility from the start](#remediation-vs-designing-for-accessibility-from-the-start)
- - [Legal and compliance overview (ADA, Section 508, WCAG, EAA)](#legal-and-compliance-overview-ada-section-508-wcag-eaa)
- - [Americans with Disabilities Act (ADA) and digital accessibility](#americans-with-disabilities-act-ada-and-digital-accessibility)
- - [Title II and Title III applicability](#title-ii-and-title-iii-applicability)
- - [Places of public accommodation](#places-of-public-accommodation)
- - [Retail, hospitality, and services](#retail-hospitality-and-services)
- - [Section 508 and federal requirements](#section-508-and-federal-requirements)
- - [Revised 508 and WCAG 2.0 Level AA](#revised-508-and-wcag-20-level-aa)
- - [Procurement and vendor requirements](#procurement-and-vendor-requirements)
- - [ICT and accessibility in procurement](#ict-and-accessibility-in-procurement)
- - [WCAG as the technical standard](#wcag-as-the-technical-standard)
- - [European Accessibility Act (EAA)](#european-accessibility-act-eaa)
- - [EAA scope and deadlines](#eaa-scope-and-deadlines)
- - [EN 301 549 and harmonized standards](#en-301-549-and-harmonized-standards)
- - [UK Equality Act and Public Sector Bodies](#uk-equality-act-and-public-sector-bodies)
- - [Defining scope: product, platform, or site](#defining-scope-product-platform-or-site)
- - [Accessibility policy and ownership](#accessibility-policy-and-ownership)
- - [Timeline for compliance (EAA, Section 508)](#timeline-for-compliance-eaa-section-508)
- - [Compliance vs beyond compliance](#compliance-vs-beyond-compliance)
- - [Accessibility budget and resourcing](#accessibility-budget-and-resourcing)
- - [Inclusive design process and phases](#inclusive-design-process-and-phases)
- - [Accessibility audit types (quick, full, continuous)](#accessibility-audit-types-quick-full-continuous)
- - [User testing with people with disabilities](#user-testing-with-people-with-disabilities)
- - [Accessibility conformance timeline](#accessibility-conformance-timeline)
- - [Risk assessment and prioritization](#risk-assessment-and-prioritization)
- - [Inclusive design checklist (high level)](#inclusive-design-checklist-high-level)
- - [Accessibility score and metrics (what to track)](#accessibility-score-and-metrics-what-to-track)
- - [Vendor and supplier a11y requirements](#vendor-and-supplier-a11y-requirements)
- - [W3C WAI definition of accessibility (link and summary)](#w3c-wai-definition-of-accessibility-link-and-summary)
- - [Remediation cost vs design-in cost](#remediation-cost-vs-design-in-cost)
- - [Accessibility statement and public commitment](#accessibility-statement-and-public-commitment)
- - [Policy template and scope document](#policy-template-and-scope-document)
- - [Summary: Introduction to Web Accessibility](#summary-introduction-to-web-accessibility)
- - [Key takeaways and next steps](#key-takeaways-and-next-steps-intro)
- - [Further reading: WAI Introduction](#further-reading-wai-introduction)
- - [Exercise: Audit your assumptions](#exercise-audit-your-assumptions-intro)
- - [Review questions: Introduction](#review-questions-introduction)
+ - [Legal and compliance (ADA, Section 508, WCAG, EAA)](#legal-and-compliance-ada-section-508-wcag-eaa)
+ - [Defining scope, policy, and getting started](#defining-scope-policy-and-getting-started)
+ - [Accessibility audit types and conformance timeline](#accessibility-audit-types-and-conformance-timeline)
+ - [Summary and review](#summary-and-review-intro)
 - [Understanding Users and Disabilities](#understanding-users-and-disabilities)
  - [Types of disabilities (visual, auditory, motor, cognitive)](#types-of-disabilities-visual-auditory-motor-cognitive)
- - [Visual: blindness, low vision, color blindness](#visual-blindness-low-vision-color-blindness)
- - [Screen reader users and browsing patterns](#screen-reader-users-and-browsing-patterns)
- - [Linear reading, headings, and landmarks](#linear-reading-headings-and-landmarks)
- - [Navigating by list and by link (screen reader)](#navigating-by-list-and-by-link-screen-reader)
- - [Low vision: zoom, magnification, and contrast](#low-vision-zoom-magnification-and-contrast)
- - [Monocular vision and field loss](#monocular-vision-and-field-loss)
- - [Browser zoom and responsive design](#browser-zoom-and-responsive-design)
- - [Color blindness: types and design implications](#color-blindness-types-and-design-implications)
- - [Protanopia, deuteranopia, tritanopia](#protanopia-deuteranopia-tritanopia)
- - [Simulating color blindness in dev tools](#simulating-color-blindness-in-dev-tools)
- - [Auditory: deafness and hard of hearing](#auditory-deafness-and-hard-of-hearing)
- - [Captioning needs and sign language](#captioning-needs-and-sign-language)
- - [Motor: mobility and dexterity limitations](#motor-mobility-and-dexterity-limitations)
+ - [Screen readers and how they interpret content](#screen-readers-and-how-they-interpret-content)
  - [Keyboard-only and switch users](#keyboard-only-and-switch-users)
- - [Single-switch and scanning](#single-switch-and-scanning)
- - [Dwell time and switch timing](#dwell-time-and-switch-timing)
- - [Voice control and head pointers](#voice-control-and-head-pointers)
- - [Cognitive: learning, memory, and attention](#cognitive-learning-memory-and-attention)
- - [Dyslexia and reading difficulties](#dyslexia-and-reading-difficulties)
- - [Autism and sensory considerations](#autism-and-sensory-considerations)
- - [Plain language and consistent layout](#plain-language-and-consistent-layout)
- - [Reducing cognitive load](#reducing-cognitive-load)
- - [Cognitive overload and content chunking](#cognitive-overload-and-content-chunking)
- - [Vestibular disorders and motion sensitivity](#vestibular-disorders-and-motion-sensitivity)
- - [Speech and multiple disabilities](#speech-and-multiple-disabilities)
- - [Assistive technologies overview](#assistive-technologies-overview)
- - [Screen readers (NVDA, JAWS, VoiceOver, TalkBack)](#screen-readers-nvda-jaws-voiceover-talkback)
- - [How screen readers interpret content](#how-screen-readers-interpret-content)
- - [Screen reader verbosity and punctuation settings](#screen-reader-verbosity-and-punctuation-settings)
- - [Document structure and reading order](#document-structure-and-reading-order)
- - [Heading navigation (H key and rotor)](#heading-navigation-h-key-and-rotor)
- - [List navigation (L key and list landmarks)](#list-navigation-l-key-and-list-landmarks)
- - [Table navigation (T key and table semantics)](#table-navigation-t-key-and-table-semantics)
- - [Form mode and application mode (focus mode)](#form-mode-and-application-mode-focus-mode)
- - [Screen reader output: speech and braille](#screen-reader-output-speech-and-braille)
- - [Button and form control announcement](#button-and-form-control-announcement)
- - [Graphical vs text mode (screen reader)](#graphical-vs-text-mode-screen-reader)
- - [Scenario: Aging user and multiple barriers](#scenario-aging-user-and-multiple-barriers)
- - [Screen reader and link purpose (announcement)](#screen-reader-and-link-purpose-announcement)
- - [Rotor and headings list (VoiceOver)](#rotor-and-headings-list-voiceover)
- - [Keyboard navigation patterns and expectations](#keyboard-navigation-patterns-and-expectations)
- - [Persona: low vision with screen reader](#persona-low-vision-with-screen-reader)
- - [Screen reader and table reading (row and column)](#screen-reader-and-table-reading-row-and-column)
- - [Link vs button announcement (differentiation)](#link-vs-button-announcement-differentiation)
- - [Persona: deaf-blind and tactile feedback](#persona-deaf-blind-and-tactile-feedback)
- - [Research ethics and consent (accessibility)](#research-ethics-and-consent-accessibility)
- - [Braille display and screen reader output](#braille-display-and-screen-reader-output)
- - [NVDA object navigation and virtual buffer](#nvda-object-navigation-and-virtual-buffer)
- - [Application mode vs browse mode (focus mode)](#application-mode-vs-browse-mode-focus-mode)
- - [TalkBack swipe gestures and navigation](#talkback-swipe-gestures-and-navigation)
- - [VoiceOver rotor items (headings, links, form controls)](#voiceover-rotor-items-headings-links-form-controls)
- - [Platform support and differences](#platform-support-and-differences)
- - [Windows, macOS, iOS, Android support](#windows-macos-ios-android-support)
- - [Screen magnification and high contrast](#screen-magnification-and-high-contrast)
- - [Refreshable braille displays and screen readers](#refreshable-braille-displays-and-screen-readers)
- - [Voice control and switch access](#voice-control-and-switch-access)
- - [Captioning and hearing aids](#captioning-and-hearing-aids)
- - [Browser and OS accessibility features](#browser-and-os-accessibility-features)
- - [Situational and temporary limitations](#situational-and-temporary-limitations)
- - [Bright sunlight, noise, one-handed use](#bright-sunlight-noise-one-handed-use)
- - [Glare and outdoor readability](#glare-and-outdoor-readability)
- - [Injury and aging](#injury-and-aging)
- - [User research and testing with disabled users](#user-research-and-testing-with-disabled-users)
- - [Recruiting and inclusive research practices](#recruiting-and-inclusive-research-practices)
- - [Compensation and accessibility of sessions](#compensation-and-accessibility-of-sessions)
- - [Accessible consent and materials](#accessible-consent-and-materials)
- - [Conducting accessibility usability tests](#conducting-accessibility-usability-tests)
- - [Task-based scenarios and success metrics](#task-based-scenarios-and-success-metrics)
- - [Documenting and acting on findings](#documenting-and-acting-on-findings)
- - [Persona and scenario mapping](#persona-and-scenario-mapping)
- - [Scenario: First-time screen reader user](#scenario-first-time-screen-reader-user)
- - [Scenario: Keyboard user with repetitive strain](#scenario-keyboard-user-with-repetitive-strain)
- - [Scenario: Low vision user with high contrast](#scenario-low-vision-user-with-high-contrast)
- - [Scenario: Deaf user and captions](#scenario-deaf-user-and-captions)
- - [Scenario: Cognitive load and long forms](#scenario-cognitive-load-and-long-forms)
- - [Scenario: Switch user and scanning](#scenario-switch-user-and-scanning)
- - [Summary: Understanding Users and Disabilities](#summary-understanding-users-and-disabilities)
- - [Exercise: Experience a screen reader](#exercise-experience-a-screen-reader)
- - [Persona template: Screen reader user](#persona-template-screen-reader-user)
- - [Screen reader commands by platform (quick ref)](#screen-reader-commands-by-platform-quick-ref)
- - [Review questions: Understanding users](#review-questions-understanding-users)
+ - [Assistive technologies (magnification, braille, voice control)](#assistive-technologies-magnification-braille-voice-control)
+ - [Situational limitations and user research with disabled users](#situational-limitations-and-user-research-with-disabled-users)
+ - [Summary and review](#summary-and-review-understanding-users)
 - [Standards and Guidelines](#standards-and-guidelines)
- - [WCAG 2.1 / 2.2 at a glance](#wcag-21--22-at-a-glance)
- - [History and relationship of WCAG 2.0, 2.1, 2.2](#history-and-relationship-of-wcag-20-21-22)
- - [W3C process and future WCAG 3.0](#w3c-process-and-future-wcag-30)
- - [WCAG 2.2 new criteria (focus management, dragging, etc.)](#wcag-22-new-criteria-focus-management-dragging-etc)
- - [WCAG 2.2 criterion IDs (2.4.11, 2.4.12, 2.5.7, 2.5.8)](#wcag-22-criterion-ids-2411-2412-257-258)
- - [2.4.11 Focus Not Obscured, 2.4.12 Focus Not Obscured (Minimum)](#24411-focus-not-obscured-2412-focus-not-obscured-minimum)
- - [2.5.7 Dragging Movements, 2.5.8 Target Size](#257-dragging-movements-258-target-size)
- - [24 by 24 CSS pixels minimum (2.2)](#24-by-24-css-pixels-minimum-22)
- - [New success criteria in 2.1 and 2.2](#new-success-criteria-in-21-and-22)
- - [The four principles: POUR (Perceivable, Operable, Understandable, Robust)](#the-four-principles-pour-perceivable-operable-understandable-robust)
- - [Perceivable: information and UI must be presentable](#perceivable-information-and-ui-must-be-presentable)
- - [Operable: UI and navigation must be operable](#operable-ui-and-navigation-must-be-operable)
- - [Understandable: information and operation must be understandable](#understandable-information-and-operation-must-be-understandable)
- - [Robust: content must be robust and interpretable](#robust-content-must-be-robust-and-interpretable)
- - [Conformance levels (A, AA, AAA)](#conformance-levels-a-aa-aaa)
- - [Level A: minimum, Level AA: target, Level AAA: enhanced](#level-a-minimum-level-aa-target-level-aaa-enhanced)
- - [How many criteria at each level](#how-many-criteria-at-each-level)
- - [Choosing a conformance target](#choosing-a-conformance-target)
- - [Claiming conformance and partial conformance](#claiming-conformance-and-partial-conformance)
- - [Understanding “programmatically determined”](#understanding-programmatically-determined)
- - [Alternate versions and conformance scope](#alternate-versions-and-conformance-scope)
- - [Conformance page and scope](#conformance-page-and-scope)
- - [Statement of partial conformance](#statement-of-partial-conformance)
- - [Full pages, processes, and alternate versions](#full-pages-processes-and-alternate-versions)
- - [Complete processes (e.g. checkout)](#complete-processes-eg-checkout)
- - [How to read and use the WCAG success criteria](#how-to-read-and-use-the-wcag-success-criteria)
- - [Understanding success criteria structure](#understanding-success-criteria-structure)
- - [Normative requirements vs informative techniques](#normative-requirements-vs-informative-techniques)
- - [Intent, key terms, and examples](#intent-key-terms-and-examples)
- - [Testable statements in each criterion](#testable-statements-in-each-criterion)
- - [Sufficient and advisory techniques](#sufficient-and-advisory-techniques)
- - [Technique applicability and testing](#technique-applicability-and-testing)
- - [G and ARIA and general techniques](#g-and-aria-and-general-techniques)
- - [Technique numbering: G, H, F, ARIA, C, SL](#technique-numbering-g-h-f-aria-c-sl)
- - [Failures and testing](#failures-and-testing)
- - [Common failures list and how to avoid them](#common-failures-list-and-how-to-avoid-them)
- - [F1–F100+ and mapping to criteria](#f1f100-and-mapping-to-criteria)
- - [Understanding “exception” in criteria](#understanding-exception-in-criteria)
- - [Understanding “essential” in criteria](#understanding-essential-in-criteria)
- - [Documenting known issues and exemptions](#documenting-known-issues-and-exemptions)
- - [Custom widgets and meeting 4.1.2](#custom-widgets-and-meeting-412)
- - [Summary: Standards and Guidelines](#summary-standards-and-guidelines)
- - [Exercise: Map one criterion to techniques](#exercise-map-one-criterion-to-techniques)
- - [Quick reference: POUR to guidelines mapping](#quick-reference-pour-to-guidelines-mapping)
- - [Technique document structure (W3C)](#technique-document-structure-w3c)
- - [Understanding WCAG document (W3C)](#understanding-wcag-document-w3c)
- - [Success criterion and test procedure](#success-criterion-and-test-procedure)
- - [Advisory techniques when to use](#advisory-techniques-when-to-use)
- - [WCAG 2.2 Understanding documents](#wcag-22-understanding-documents)
- - [Criterion and guideline relationship](#criterion-and-guideline-relationship)
- - [Partial conformance and alternate version](#partial-conformance-and-alternate-version)
- - [Understanding 2.4.11 and 2.4.12 (focus)](#understanding-2411-and-2412-focus)
- - [Understanding document structure (W3C)](#understanding-document-structure-w3c)
- - [Sufficient technique list per criterion](#sufficient-technique-list-per-criterion)
- - [Advisory technique when to apply](#advisory-technique-when-to-apply)
- - [Review questions: Standards](#review-questions-standards)
+ - [WCAG 2.1 / 2.2 and the POUR principles](#wcag-21--22-and-the-pour-principles)
+ - [Conformance levels (A, AA, AAA) and scope](#conformance-levels-a-aa-aaa-and-scope)
+ - [How to read success criteria and use techniques](#how-to-read-success-criteria-and-use-techniques)
+ - [Sufficient techniques, failures, and exceptions](#sufficient-techniques-failures-and-exceptions)
+ - [Summary and review](#summary-and-review-standards)
 - [Text Alternatives](#text-alternatives)
  - [WCAG 1.1.1 Non-text Content](#wcag-111-non-text-content)
- - [Level A and applicable to all non-text content](#level-a-and-applicable-to-all-non-text-content)
- - [Images: alt text and when to use it](#images-alt-text-and-when-to-use-it)
- - [Writing effective alt text](#writing-effective-alt-text)
- - [Length and context: when to be brief vs. detailed](#length-and-context-when-to-be-brief-vs-detailed)
- - [Context from surrounding text](#context-from-surrounding-text)
- - [Avoid “image of” and “picture of”](#avoid-image-of-and-picture-of)
- - [Alt length: under 125 characters guideline](#alt-length-under-125-characters-guideline)
- - [Example: Informative image with alt](#example-informative-image-with-alt)
- - [Alt and filename (never use filename as alt)](#alt-and-filename-never-use-filename-as-alt)
- - [Informative image and surrounding context](#informative-image-and-surrounding-context)
- - [Technique G196: text alternative for img](#technique-g196-text-alternative-for-img)
- - [Logo and branding images (alt strategy)](#logo-and-branding-images-alt-strategy)
- - [HTML img alt attribute syntax](#html-img-alt-attribute-syntax)
- - [Empty alt vs omitted alt](#empty-alt-vs-omitted-alt)
- - [Alt and title (avoid title as substitute for alt)](#alt-and-title-avoid-title-as-substitute-for-alt)
- - [Decorative spacer and layout images](#decorative-spacer-and-layout-images)
- - [Image button (input type=image) and alt](#image-button-input-typeimage-and-alt)
- - [CAPTCHA and alternative text or alternative method](#captcha-and-alternative-text-or-alternative-method)
- - [Example: Image linking to another page](#example-image-linking-to-another-page)
- - [Alt for linked images: describe destination](#alt-for-linked-images-describe-destination)
- - [Decorative vs. meaningful images](#decorative-vs-meaningful-images)
- - [Alt text decision tree (informative vs decorative)](#alt-text-decision-tree-informative-vs-decorative)
- - [When to use empty alt (alt="")](#when-to-use-empty-alt-alt)
- - [CSS background images and decorative SVG](#css-background-images-and-decorative-svg)
- - [SVG as img vs inline SVG and accessibility](#svg-as-img-vs-inline-svg-and-accessibility)
- - [SVG title vs aria-label and desc](#svg-title-vs-aria-label-and-desc)
- - [SVG role="img" and title element](#svg-roleimg-and-title-element)
- - [picture and srcset (alt on img inside)](#picture-and-srcset-alt-on-img-inside)
- - [Lazy loading (loading=lazy) and alt](#lazy-loading-loadinglazy-and-alt)
- - [Example: Decorative image](#example-decorative-image)
- - [Role="presentation" and role="none"](#rolepresentation-and-rolenone)
- - [Image maps and area alt](#image-maps-and-area-alt)
- - [Icons with text vs standalone icon alt](#icons-with-text-vs-standalone-icon-alt)
- - [Functional images (icons in buttons and links)](#functional-images-icons-in-buttons-and-links)
- - [Alt for image inside button](#alt-for-image-inside-button)
- - [Emoji and decorative character alternatives](#emoji-and-decorative-character-alternatives)
- - [Common pitfall: Missing or redundant alt](#common-pitfall-missing-or-redundant-alt)
- - [Pitfall: Alt same as caption or surrounding text](#pitfall-alt-same-as-caption-or-surrounding-text)
- - [Complex images and long descriptions](#complex-images-and-long-descriptions)
- - [Charts, diagrams, and infographics](#charts-diagrams-and-infographics)
- - [Flowcharts and process diagrams](#flowcharts-and-process-diagrams)
- - [Long description and extended descriptions](#long-description-and-extended-descriptions)
- - [Using longdesc and aria-describedby](#using-longdesc-and-aria-describedby)
- - [longdesc (deprecated but valid)](#longdesc-deprecated-but-valid)
- - [Complex image and expandable description](#complex-image-and-expandable-description)
- - [Technique ARIA6: img alt](#technique-aria6-img-alt)
- - [ASCII art and text alternative](#ascii-art-and-text-alternative)
- - [figcaption and figure for captions](#figcaption-and-figure-for-captions)
- - [Example: Complex chart with data table](#example-complex-chart-with-data-table)
- - [Technique: Providing a data table](#technique-providing-a-data-table)
- - [Audio and video alternatives](#audio-and-video-alternatives)
- - [Transcripts and captions as text alternatives](#transcripts-and-captions-as-text-alternatives)
- - [Best practices: Text Alternatives](#best-practices-text-alternatives)
- - [Checklist: Images and non-text content](#checklist-images-and-non-text-content)
- - [Summary: Text Alternatives](#summary-text-alternatives)
- - [Technique G94: Short text alternative](#technique-g94-short-text-alternative)
- - [Technique H37: img alt attribute](#technique-h37-img-alt-attribute)
- - [Technique G73: Long description in same page](#technique-g73-long-description-in-same-page)
- - [Failure F30: Images of text](#failure-f30-images-of-text)
- - [Failure F65: Missing alt on img](#failure-f65-missing-alt-on-img)
- - [Failure F3: No text alternative for image](#failure-f3-no-text-alternative-for-image)
- - [Review questions: Text alternatives](#review-questions-text-alternatives)
+ - [Images: alt text, decorative vs meaningful, empty alt](#images-alt-text-decorative-vs-meaningful-empty-alt)
+ - [Writing effective alt text and common pitfalls](#writing-effective-alt-text-and-common-pitfalls)
+ - [Complex images, long descriptions, and data tables](#complex-images-long-descriptions-and-data-tables)
+ - [SVG, icons, image maps, and CAPTCHA](#svg-icons-image-maps-and-captcha)
+ - [Summary and review](#summary-and-review-text-alternatives)
 - [Time-Based Media](#time-based-media)
- - [Captions and subtitles](#captions-and-subtitles)
- - [WCAG 1.2.1–1.2.5 overview](#wcag-121125-overview)
- - [1.2.1 Audio-only and video-only, 1.2.2 Captions](#121-audio-only-and-video-only-122-captions)
- - [1.2.1 and video-only (transcript or description)](#121-and-video-only-transcript-or-description)
- - [Caption timing and synchronization](#caption-timing-and-synchronization)
- - [Audio description and 1.2.3 (prerecorded)](#audio-description-and-123-prerecorded)
- - [Transcript for audio-only and video-only](#transcript-for-audio-only-and-video-only)
- - [Captions for podcasts and audio-only content](#captions-for-podcasts-and-audio-only-content)
- - [1.2.3 Audio description, 1.2.4 Captions live](#123-audio-description-124-captions-live)
- - [Open vs. closed captions](#open-vs-closed-captions)
- - [Caption quality and formatting](#caption-quality-and-formatting)
- - [Caption line length and line count](#caption-line-length-and-line-count)
- - [Descriptive transcript vs verbatim transcript](#descriptive-transcript-vs-verbatim-transcript)
- - [Timing and synchronization](#timing-and-synchronization)
- - [Speaker identification and sound effects](#speaker-identification-and-sound-effects)
- - [Example: Adding captions to video](#example-adding-captions-to-video)
- - [WebVTT and caption authoring](#webvtt-and-caption-authoring)
- - [WebVTT cue and timestamp format](#webvtt-cue-and-timestamp-format)
- - [SRT to WebVTT conversion and tools](#srt-to-webvtt-conversion-and-tools)
- - [Caption positioning and styling (::cue)](#caption-positioning-and-styling-cue)
- - [Caption font size and readability](#caption-font-size-and-readability)
- - [Audio description timing and placement](#audio-description-timing-and-placement)
- - [1.2.2 Level A and prerecorded video](#122-level-a-and-prerecorded-video)
- - [1.2.2 and synchronized captions](#122-and-synchronized-captions)
- - [Caption file and default track](#caption-file-and-default-track)
- - [Audio-only and transcript placement](#audio-only-and-transcript-placement)
- - [WebVTT regions and positioning](#webvtt-regions-and-positioning)
- - [Caption styling and user override](#caption-styling-and-user-override)
- - [Audio description and extended pauses](#audio-description-and-extended-pauses)
- - [1.2.4 Captions live (real-time)](#124-captions-live-real-time)
- - [Caption display and user preference](#caption-display-and-user-preference)
- - [Video player controls accessibility](#video-player-controls-accessibility)
- - [track element and default attribute](#track-element-and-default-attribute)
- - [kind="captions" vs kind="subtitles"](#kindcaptions-vs-kindsubtitles)
- - [Multiple audio tracks and language selection](#multiple-audio-tracks-and-language-selection)
- - [Audio descriptions](#audio-descriptions)
- - [When audio description is needed](#when-audio-description-is-needed)
- - [Pauses in dialogue for description](#pauses-in-dialogue-for-description)
- - [Extended vs. standard audio description](#extended-vs-standard-audio-description)
- - [Audio description script writing](#audio-description-script-writing)
- - [Example: Audio-described video](#example-audio-described-video)
- - [Sign language interpretation](#sign-language-interpretation)
- - [When to provide sign language](#when-to-provide-sign-language)
- - [1.2.6 Sign language (AAA)](#126-sign-language-aaa)
- - [1.2.5 Audio description extended (AAA)](#125-audio-description-extended-aaa)
- - [Live vs. prerecorded content](#live-vs-prerecorded-content)
- - [WCAG requirements for live and prerecorded](#wcag-requirements-for-live-and-prerecorded)
- - [Live captions and real-time transcription](#live-captions-and-real-time-transcription)
- - [CART and stenography for live](#cart-and-stenography-for-live)
- - [Transcript placement (above or below player)](#transcript-placement-above-or-below-player)
- - [Caption language and default track](#caption-language-and-default-track)
- - [Testing captions with screen readers](#testing-captions-with-screen-readers)
- - [Summary: Time-Based Media](#summary-time-based-media)
- - [Checklist: Video and audio content](#checklist-video-and-audio-content)
- - [Example: WebVTT file structure](#example-webvtt-file-structure)
- - [Review questions: Time-based media](#review-questions-time-based-media)
+ - [Captions and subtitles (1.2.2, WebVTT, quality)](#captions-and-subtitles-122-webvtt-quality)
+ - [Transcripts for audio-only and video-only](#transcripts-for-audio-only-and-video-only)
+ - [Audio description and when it is needed](#audio-description-and-when-it-is-needed)
+ - [Live captions and sign language (AAA)](#live-captions-and-sign-language-aaa)
+ - [Video player controls and track element](#video-player-controls-and-track-element)
+ - [Summary and review](#summary-and-review-time-based-media)
 - [Adaptable Content](#adaptable-content)
- - [Semantic structure and headings](#semantic-structure-and-headings)
- - [Heading hierarchy (h1–h6)](#heading-hierarchy-h1h6)
- - [One h1 per page and logical order](#one-h1-per-page-and-logical-order)
- - [Skipping heading levels (avoid)](#skipping-heading-levels-avoid)
- - [Example: Proper heading structure](#example-proper-heading-structure)
- - [Example: Bad heading structure to avoid](#example-bad-heading-structure-to-avoid)
- - [Layout tables vs data tables (use and markup)](#layout-tables-vs-data-tables-use-and-markup)
- - [Info and relationships (tables, lists, forms)](#info-and-relationships-tables-lists-forms)
- - [WCAG 1.3.1 Info and Relationships](#wcag-131-info-and-relationships)
- - [Table headers, scope, and captions](#table-headers-scope-and-captions)
- - [scope="col" and scope="row"](#scopecol-and-scoperow)
- - [scope, id, headers for complex tables](#scope-id-headers-for-complex-tables)
- - [colgroup and col for column headers](#colgroup-and-col-for-column-headers)
- - [headers attribute linking td to th](#headers-attribute-linking-td-to-th)
- - [th id for headers attribute reference](#th-id-for-headers-attribute-reference)
- - [Responsive tables and horizontal scroll](#responsive-tables-and-horizontal-scroll)
- - [caption and table summary](#caption-and-table-summary)
- - [Table summary vs caption (summary attribute)](#table-summary-vs-caption-summary-attribute)
- - [dir and direction for bidirectional content](#dir-and-direction-for-bidirectional-content)
- - [rowspan and colspan and headers for complex cells](#rowspan-and-colspan-and-headers-for-complex-cells)
- - [Simple vs. complex data tables](#simple-vs-complex-data-tables)
- - [Lists and form field associations](#lists-and-form-field-associations)
- - [ol, ul, dl and programmatic associations](#ol-ul-dl-and-programmatic-associations)
- - [list role when semantics missing](#list-role-when-semantics-missing)
- - [Empty cells in tables and scope](#empty-cells-in-tables-and-scope)
- - [Content order and reading flow](#content-order-and-reading-flow)
- - [Logical order in code vs. visual order](#logical-order-in-code-vs-visual-order)
- - [Flexbox and grid visual order](#flexbox-and-grid-visual-order)
- - [CSS order and visual vs. DOM order](#css-order-and-visual-vs-dom-order)
- - [CSS display and semantics (not lost)](#css-display-and-semantics-not-lost)
- - [Visually hidden and screen reader only content](#visually-hidden-and-screen-reader-only-content)
- - [display none and accessibility tree](#display-none-and-accessibility-tree)
- - [aria-hidden and semantics (content still in DOM)](#aria-hidden-and-semantics-content-still-in-dom)
- - [Logical order and screen reader reading](#logical-order-and-screen-reader-reading)
- - [1.3.1 and form label relationships](#131-and-form-label-relationships)
- - [CSS Grid and visual order vs DOM](#css-grid-and-visual-order-vs-dom)
- - [Flexbox order and reading order](#flexbox-order-and-reading-order)
- - [Responsive table patterns (stack, scroll, hide)](#responsive-table-patterns-stack-scroll-hide)
- - [Source order and visual order (CSS)](#source-order-and-visual-order-css)
- - [Example: Two-column layout reading order](#example-two-column-layout-reading-order)
- - [1.3.2 Meaningful Sequence](#132-meaningful-sequence)
- - [Reading order and DOM order match](#reading-order-and-dom-order-match)
- - [Responsive and reflow](#responsive-and-reflow)
- - [Reflow and no horizontal scrolling](#reflow-and-no-horizontal-scrolling)
- - [WCAG 1.4.10 Reflow](#wcag-1410-reflow)
- - [320px width and 400% zoom](#320px-width-and-400-zoom)
- - [Multi-column layout and reading order](#multi-column-layout-and-reading-order)
- - [Testing reflow with browser zoom](#testing-reflow-with-browser-zoom)
- - [Summary: Adaptable Content](#summary-adaptable-content)
- - [Checklist: Structure and order](#checklist-structure-and-order)
- - [Example: Data table with scope and headers](#example-data-table-with-scope-and-headers)
- - [1.3.3 Sensory Characteristics](#133-sensory-characteristics)
- - [Instructions not relying on shape or position alone](#instructions-not-relying-on-shape-or-position-alone)
- - [Reduced motion and layout (1.3.3 and 2.3.3)](#reduced-motion-and-layout-133-and-233)
- - [Review questions: Adaptable content](#review-questions-adaptable-content)
+ - [Semantic structure: headings, one h1, hierarchy](#semantic-structure-headings-one-h1-hierarchy)
+ - [Tables: headers, scope, caption, complex tables](#tables-headers-scope-caption-complex-tables)
+ - [Lists, form label relationships, and reading order](#lists-form-label-relationships-and-reading-order)
+ - [Logical order vs visual order (CSS, flexbox, grid)](#logical-order-vs-visual-order-css-flexbox-grid)
+ - [Reflow (1.4.10), 320px, and meaningful sequence](#reflow-1410-320px-and-meaningful-sequence)
+ - [Sensory characteristics (1.3.3)](#sensory-characteristics-133)
+ - [Summary and review](#summary-and-review-adaptable-content)
 - [Distinguishable](#distinguishable)
- - [Color and contrast (minimum ratios)](#color-and-contrast-minimum-ratios)
- - [WCAG 1.4.3 Contrast Minimum (AA)](#wcag-143-contrast-minimum-aa)
- - [Contrast ratio 4.5:1 and 3:1](#contrast-ratio-451-and-31)
- - [Contrast and bold or large text](#contrast-and-bold-or-large-text)
- - [Calculating contrast ratio (relative luminance)](#calculating-contrast-ratio-relative-luminance)
- - [Relative luminance formula step-by-step](#relative-luminance-formula-step-by-step)
- - [Large text 18pt or 14pt bold](#large-text-18pt-or-14pt-bold)
- - [Large text and incidental text](#large-text-and-incidental-text)
- - [Decorative and incidental text exceptions](#decorative-and-incidental-text-exceptions)
- - [1.4.11 Non-text Contrast (2.2 AA)](#1411-non-text-contrast-22-aa)
- - [Tools: contrast checkers and simulators](#tools-contrast-checkers-and-simulators)
- - [Colour Contrast Analyser and WebAIM](#colour-contrast-analyser-and-webaim)
- - [1.4.3 and graphical objects (icons)](#143-and-graphical-objects-icons)
- - [Contrast ratio tool usage step-by-step](#contrast-ratio-tool-usage-step-by-step)
- - [Text and background contrast (foreground)](#text-and-background-contrast-foreground)
- - [Example: Checking contrast](#example-checking-contrast)
- - [Example: Before and after contrast fix](#example-before-and-after-contrast-fix)
- - [Gradient and overlay contrast](#gradient-and-overlay-contrast)
- - [Placeholder text contrast](#placeholder-text-contrast)
- - [Not relying on color alone](#not-relying-on-color-alone)
- - [WCAG 1.4.1 Use of Color](#wcag-141-use-of-color)
- - [Conveying information with more than color](#conveying-information-with-more-than-color)
- - [Icons, patterns, and text as supplements](#icons-patterns-and-text-as-supplements)
- - [Example: Status indicated by icon and text](#example-status-indicated-by-icon-and-text)
- - [Form validation and error states](#form-validation-and-error-states-color)
- - [Audio control and no auto-play](#audio-control-and-no-auto-play)
- - [1.4.2 Audio Control](#142-audio-control)
- - [Pause, stop, mute, and no auto-playing audio](#pause-stop-mute-and-no-auto-playing-audio)
- - [Text sizing and resizing](#text-sizing-and-resizing)
- - [Resize text and reflow](#resize-text-and-reflow)
- - [WCAG 1.4.4 Resize Text](#wcag-144-resize-text)
- - [200% zoom without loss of content](#200-zoom-without-loss-of-content)
- - [rem and em vs px for text sizing](#rem-and-em-vs-px-for-text-sizing)
- - [Images of text](#images-of-text)
- - [When text can be visual; avoiding images of text](#when-text-can-be-visual-avoiding-images-of-text)
- - [WCAG 1.4.5 Images of Text](#wcag-145-images-of-text)
- - [1.4.3 and images of text (exception)](#143-and-images-of-text-exception)
- - [Contrast and italic or styled text](#contrast-and-italic-or-styled-text)
- - [Focus visible and 2.4.7 (Section 508)](#focus-visible-and-247-section-508)
- - [Focus ring 3:1 contrast (2.4.11 minimum)](#focus-ring-31-contrast-2411-minimum)
- - [outline: none and visibility pitfall](#outline-none-and-visibility-pitfall)
- - [High contrast mode and focus](#high-contrast-mode-and-focus)
- - [Exceptions: logos and essential](#exceptions-logos-and-essential)
- - [Custom focus ring contrast (2.4.11 and 2.4.12)](#custom-focus-ring-contrast-2411-and-2412)
- - [1.4.13 Content on Hover or Focus (2.2 AA)](#1413-content-on-hover-or-focus-22-aa)
- - [Hover and focus state contrast](#hover-and-focus-state-contrast)
- - [Disabled control appearance and visibility](#disabled-control-appearance-and-visibility)
- - [Dismissible and hoverable and persistent](#dismissible-and-hoverable-and-persistent)
- - [Link underline and non-color indicators (1.4.1)](#link-underline-and-non-color-indicators-141)
- - [Link default underline (browser and override)](#link-default-underline-browser-and-override)
- - [1.4.12 and letter, word, line spacing](#1412-and-letter-word-line-spacing)
- - [Summary: Distinguishable](#summary-distinguishable)
- - [Checklist: Color, contrast, and text](#checklist-color-contrast-and-text)
- - [1.4.6 Contrast Enhanced (AAA), 1.4.12 Text Spacing (2.2 AA)](#146-contrast-enhanced-aaa-1412-text-spacing-22-aa)
- - [Review questions: Distinguishable](#review-questions-distinguishable)
+ - [Color and contrast (1.4.3, 4.5:1, large text)](#color-and-contrast-143-451-large-text)
+ - [Not relying on color alone (1.4.1)](#not-relying-on-color-alone-141)
+ - [Non-text contrast (1.4.11), focus visible](#non-text-contrast-1411-focus-visible)
+ - [Resize text, images of text, audio control](#resize-text-images-of-text-audio-control)
+ - [Summary and review](#summary-and-review-distinguishable)
 - [Keyboard Accessible](#keyboard-accessible)
- - [Keyboard operability](#keyboard-operability)
- - [WCAG 2.1.1 Keyboard](#wcag-211-keyboard)
- - [All functionality available via keyboard](#all-functionality-available-via-keyboard)
- - [Custom widgets and click handlers](#custom-widgets-and-click-handlers)
- - [button type=button vs type=submit](#button-typebutton-vs-typesubmit)
- - [Focus indicator and 2.4.7 compliance](#focus-indicator-and-247-compliance)
- - [Shift+Tab and reverse tab order](#shift-tab-and-reverse-tab-order)
- - [onClick and keyboard event handling](#onclick-and-keyboard-event-handling)
- - [Space vs Enter for buttons and links](#space-vs-enter-for-buttons-and-links)
- - [Activation and keyboard equivalent](#activation-and-keyboard-equivalent)
- - [keyCode and key property (deprecated vs modern)](#keycode-and-key-property-deprecated-vs-modern)
- - [Event preventDefault for shortcuts](#event-preventdefault-for-shortcuts)
- - [Example: Keyboard-only navigation](#example-keyboard-only-navigation)
- - [Double-tap and activation (mobile and touch)](#double-tap-and-activation-mobile-and-touch)
- - [No keyboard trap](#no-keyboard-trap)
- - [WCAG 2.1.2 No Keyboard Trap](#wcag-212-no-keyboard-trap)
- - [Focus must not be trapped in a component](#focus-must-not-be-trapped-in-a-component)
- - [Modal and overlay trap prevention](#modal-and-overlay-trap-prevention)
- - [Tab cycle within modal only](#tab-cycle-within-modal-only)
- - [Focus trap: first and last focusable](#focus-trap-first-and-last-focusable)
- - [inert attribute and focus trap polyfills](#inert-attribute-and-focus-trap-polyfills)
- - [querySelectorAll focusable elements](#queryselectorall-focusable-elements)
- - [Which elements are focusable by default](#which-elements-are-focusable-by-default)
- - [tabindex and dynamically added content](#tabindex-and-dynamically-added-content)
- - [Focus trap sentinels (invisible focusable)](#focus-trap-sentinels-invisible-focusable)
- - [Keyboard shortcuts and focus management](#keyboard-shortcuts-and-focus-management)
- - [Custom shortcuts and conflicts](#custom-shortcuts-and-conflicts)
- - [Avoiding single-character shortcuts](#avoiding-single-character-shortcuts)
- - [2.1.4 Character Key Shortcuts (2.2 AA)](#214-character-key-shortcuts-22-aa)
- - [Focus order and focus management in modals](#focus-order-and-focus-management-in-modals)
- - [Returning focus on close](#returning-focus-on-close)
- - [Storing and restoring focus target](#storing-and-restoring-focus-target)
- - [Enter and Space on buttons and links](#enter-and-space-on-buttons-and-links)
- - [Focus management on route change (SPA)](#focus-management-on-route-change-spa)
- - [Roving tabindex pattern](#roving-tabindex-pattern)
- - [Skip links and landmarks](#skip-links-and-landmarks)
- - [Skip to main content and skip blocks](#skip-to-main-content-and-skip-blocks)
- - [Tab and tabindex order (natural order)](#tab-and-tabindex-order-natural-order)
- - [Modal and inert (browser support)](#modal-and-inert-browser-support)
- - [Skip link and href="#main"](#skip-link-and-hrefmain)
- - [focus() and scrollIntoView on target](#focus-and-scrollintoview-on-target)
- - [Focus trap logic and first/last element](#focus-trap-logic-and-firstlast-element)
- - [inert polyfill and fallback](#inert-polyfill-and-fallback)
- - [Skip link visible on focus only](#skip-link-visible-on-focus-only)
- - [Skip link styling (focus ring and position)](#skip-link-styling-focus-ring-and-position)
- - [2.4.1 Bypass Blocks](#241-bypass-blocks)
- - [Landmark regions (banner, main, navigation, complementary)](#landmark-regions-banner-main-navigation-complementary)
- - [Multiple skip links (skip to nav, skip to footer)](#multiple-skip-links-skip-to-nav-skip-to-footer)
- - [Focus within and scroll-into-view](#focus-within-and-scroll-into-view)
- - [contentinfo and search landmarks](#contentinfo-and-search-landmarks)
- - [Landmark order and nesting](#landmark-order-and-nesting)
- - [region and aria-label for custom sections](#region-and-aria-label-for-custom-sections)
- - [Example: Skip link and landmarks](#example-skip-link-and-landmarks)
- - [Example: Landmark HTML5 and ARIA](#example-landmark-html5-and-aria)
- - [Summary: Keyboard Accessible](#summary-keyboard-accessible)
- - [Checklist: Keyboard and focus](#checklist-keyboard-and-focus)
- - [keydown and keyup: which key and modifier](#keydown-and-keyup-which-key-and-modifier)
- - [Example: Focus trap implementation (invisible focusable)](#example-focus-trap-implementation-invisible-focusable)
- - [Review questions: Keyboard](#review-questions-keyboard)
+ - [Keyboard operability (2.1.1) and no keyboard trap (2.1.2)](#keyboard-operability-211-and-no-keyboard-trap-212)
+ - [Focus trap in modals, returning focus, tabindex](#focus-trap-in-modals-returning-focus-tabindex)
+ - [Skip links and bypass blocks (2.4.1)](#skip-links-and-bypass-blocks-241)
+ - [Landmarks (banner, main, navigation, complementary)](#landmarks-banner-main-navigation-complementary)
+ - [Character key shortcuts (2.1.4)](#character-key-shortcuts-214)
+ - [Summary and review](#summary-and-review-keyboard)
 - [Enough Time](#enough-time)
- - [Adjustable time limits](#adjustable-time-limits)
- - [WCAG 2.2.1 Timing Adjustable](#wcag-221-timing-adjustable)
- - [Session timeouts and extensions](#session-timeouts-and-extensions)
- - [Warning before timeout and extension control](#warning-before-timeout-and-extension-control)
- - [At least 20 seconds to extend or respond](#at-least-20-seconds-to-extend-or-respond)
- - [2.2.1 and non-exempt time limits](#221-and-non-exempt-time-limits)
- - [Preserved data after re-authentication](#preserved-data-after-re-authentication)
- - [Countdown and user control](#countdown-and-user-control)
- - [Stale data and refresh warnings](#stale-data-and-refresh-warnings)
- - [2.2.3 No Timing (AAA), 2.2.4 Interruptions (AAA)](#223-no-timing-aaa-224-interruptions-aaa)
- - [Pause, stop, hide](#pause-stop-hide)
- - [WCAG 2.2.2 Pause, Stop, Hide](#wcag-222-pause-stop-hide)
- - [Moving, blinking, scrolling content](#moving-blinking-scrolling-content)
- - [2.2.2 and auto-updating content (pause)](#222-and-auto-updating-content-pause)
- - [Blinking content and 2.2.2](#blinking-content-and-222)
- - [Marquee and animated text](#marquee-and-animated-text)
- - [Carousels and auto-advancing content](#carousels-and-auto-advancing-content)
- - [Carousel pause and keyboard control](#carousel-pause-and-keyboard-control)
- - [Pause button and stop animation](#pause-button-and-stop-animation)
- - [Animation duration and pause control](#animation-duration-and-pause-control)
- - [No timing as the only requirement](#no-timing-as-the-only-requirement)
- - [2.2.2 and moving content (pause control)](#222-and-moving-content-pause-control)
- - [Timing and adjustable (user setting)](#timing-and-adjustable-user-setting)
- - [Exception: essential (2.2.1)](#exception-essential-221)
- - [Real-time exception (auction, ticket)](#real-time-exception-auction-ticket)
- - [Countdown display and user control](#countdown-display-and-user-control)
- - [Avoiding time limits for reading or interaction](#avoiding-time-limits-for-reading-or-interaction)
- - [Summary: Enough Time](#summary-enough-time)
- - [Example: Session timeout warning and extend](#example-session-timeout-warning-and-extend)
- - [Real-time events and exceptions](#real-time-events-and-exceptions)
- - [Exception: real-time events (2.2.1)](#exception-real-time-events-221)
- - [Auto-save and user control](#auto-save-and-user-control)
- - [Exception: ticket and auction (2.2.1)](#exception-ticket-and-auction-221)
- - [2.2.2 and carousel pause control](#222-and-carousel-pause-control)
- - [Review questions: Enough time](#review-questions-enough-time)
+ - [Timing adjustable (2.2.1): session timeouts, warnings](#timing-adjustable-221-session-timeouts-warnings)
+ - [Pause, stop, hide (2.2.2): carousels, animation](#pause-stop-hide-222-carousels-animation)
+ - [Exceptions: essential, real-time, ticket/auction](#exceptions-essential-real-time-ticketauction)
+ - [Summary and review](#summary-and-review-enough-time)
 - [Seizures and Physical Reactions](#seizures-and-physical-reactions)
- - [Three flashes or below threshold](#three-flashes-or-below-threshold)
- - [WCAG 2.3.1 Three Flashes](#wcag-231-three-flashes)
- - [3 flashes per second and 25% screen](#3-flashes-per-second-and-25-screen)
- - [2.3.1 and area of flash (25% typical)](#231-and-area-of-flash-25-typical)
- - [Red flash threshold (stricter than general)](#red-flash-threshold-stricter-than-general)
- - [Animation and vestibular sensitivity](#animation-and-vestibular-sensitivity)
- - [General flash and red flash thresholds](#general-flash-and-red-flash-thresholds)
- - [Red flash and general flash (different limits)](#red-flash-and-general-flash-different-limits)
- - [Videos and flash boundary testing](#videos-and-flash-boundary-testing)
- - [Measuring flash rate and area](#measuring-flash-rate-and-area)
- - [Video and animated GIF flash risk](#video-and-animated-gif-flash-risk)
- - [Testing for flash threshold](#testing-for-flash-threshold)
- - [2.3.2 Three Flashes (AAA)](#232-three-flashes-aaa)
- - [Animation and motion preferences](#animation-and-motion-preferences)
- - [prefers-reduced-motion and design implications](#prefers-reduced-motion-and-design-implications)
- - [WCAG 2.3.3 Animation from Interactions](#wcag-233-animation-from-interactions)
- - [2.3.3 and no essential motion](#233-and-no-essential-motion)
- - [Essential vs optional animation](#essential-vs-optional-animation)
- - [2.3.3 and essential information in motion](#233-and-essential-information-in-motion)
- - [Reduced motion and animation removal](#reduced-motion-and-animation-removal)
- - [Respecting user motion settings](#respecting-user-motion-settings)
- - [Implementing reduced motion in CSS and JS](#implementing-reduced-motion-in-css-and-js)
- - [Reduced motion for transitions and animations](#reduced-motion-for-transitions-and-animations)
- - [@media (prefers-reduced-motion: reduce)](#media-prefers-reduced-motion-reduce)
- - [prefers-reduced-motion implementation checklist](#prefers-reduced-motion-implementation-checklist)
- - [2.3.3 and can be disabled (user control)](#233-and-can-be-disabled-user-control)
- - [Reduced motion and reduced data preference](#reduced-motion-and-reduced-data-preference)
- - [Animation and no vestibular trigger](#animation-and-no-vestibular-trigger)
- - [prefers-reduced-motion: no-preference and default](#prefers-reduced-motion-no-preference-and-default)
- - [Summary: Seizures and Physical Reactions](#summary-seizures-and-physical-reactions)
- - [Example: CSS reduced-motion media query](#example-css-reduced-motion-media-query)
- - [Review questions: Seizures and motion](#review-questions-seizures-and-motion)
+ - [Three flashes (2.3.1), general and red flash](#three-flashes-231-general-and-red-flash)
+ - [Animation from interactions (2.3.3)](#animation-from-interactions-233)
+ - [prefers-reduced-motion and implementing it](#prefers-reduced-motion-and-implementing-it)
+ - [Summary and review](#summary-and-review-seizures-and-motion)
 - [Navigable](#navigable)
- - [Page title and purpose](#page-title-and-purpose)
- - [Descriptive page titles and page purpose](#descriptive-page-titles-and-page-purpose)
- - [WCAG 2.4.2 Page Titled](#wcag-242-page-titled)
- - [2.4.2 and unique descriptive title](#242-and-unique-descriptive-title)
- - [Page title format (page name – site name)](#page-title-format-page-name--site-name)
- - [Breadcrumb aria-current and nav](#breadcrumb-aria-current-and-nav)
- - [Pagination rel=prev and rel=next](#pagination-relprev-and-relnext)
- - [Focus and scroll into view (2.4.11)](#focus-and-scroll-into-view-2411)
- - [title element and document title](#title-element-and-document-title)
- - [Order of title: page then site](#order-of-title-page-then-site)
- - [Page title on navigation and history](#page-title-on-navigation-and-history)
- - [Duplicate content and skip links](#duplicate-content-and-skip-links)
- - [Focus order and visible focus](#focus-order-and-visible-focus)
- - [Logical focus order and focus indicator](#logical-focus-order-and-focus-indicator)
- - [Tab order and tabindex](#tab-order-and-tabindex)
- - [tabindex=0 vs tabindex=-1 vs positive](#tabindex0-vs-tabindex-1-vs-positive)
- - [When tabindex positive is harmful](#when-tabindex-positive-is-harmful)
- - [Link purpose and multiple ways to find content](#link-purpose-and-multiple-ways-to-find-content)
- - [Link text in context and bypass blocks](#link-text-in-context-and-bypass-blocks)
- - [WCAG 2.4.4 Link Purpose (In Context)](#wcag-244-link-purpose-in-context)
- - [2.4.9 Link Purpose (Link Only) (AAA)](#249-link-purpose-link-only-aaa)
- - [Avoiding “click here” and generic link text](#avoiding-click-here-and-generic-link-text)
- - [Link purpose from title attribute (avoid as sole indicator)](#link-purpose-from-title-attribute-avoid-as-sole-indicator)
- - [Same-window vs new-window and target](#same-window-vs-new-window-and-target)
- - [rel=noopener and security with target=_blank](#relnoopener-and-security-with-target_blank)
- - [Link list length and skip](#link-list-length-and-skip)
- - [aria-label to supplement link text](#aria-label-to-supplement-link-text)
- - [Link opens in new tab (announce to user)](#link-opens-in-new-tab-announce-to-user)
- - [aria-current and link purpose](#aria-current-and-link-purpose)
- - [Skip to content vs skip to main](#skip-to-content-vs-skip-to-main)
- - [Headings and labels](#headings-and-labels)
- - [Descriptive headings and form labels](#descriptive-headings-and-form-labels)
- - [Heading level and nesting (no skip)](#heading-level-and-nesting-no-skip)
- - [2.4.6 Headings and Labels](#246-headings-and-labels)
- - [Focus Visible (Section 508 / 2.4.7)](#focus-visible-section-508--247)
- - [2.4.7 Focus Visible and keyboard](#247-focus-visible-and-keyboard)
- - [Visible focus indicator requirements](#visible-focus-indicator-requirements)
- - [Custom focus styles and visibility](#custom-focus-styles-and-visibility)
- - [outline vs border vs box-shadow](#outline-vs-border-vs-box-shadow)
- - [Minimum size and contrast of focus ring](#minimum-size-and-contrast-of-focus-ring)
- - [:focus-visible and :focus](#focus-visible-and-focus)
- - [Focus outline offset and width](#focus-outline-offset-and-width)
- - [Summary: Navigable](#summary-navigable)
- - [Checklist: Navigation and links](#checklist-navigation-and-links)
- - [2.4.3 Focus Order, 2.4.5 Multiple Ways](#243-focus-order-245-multiple-ways)
- - [2.4.4 and link purpose in context](#244-and-link-purpose-in-context)
- - [Multiple ways (2.4.5) and sitemap](#multiple-ways-245-and-sitemap)
- - [Focus visible and 2.4.7 (keyboard)](#focus-visible-and-247-keyboard)
- - [Link list and headings list (navigation)](#link-list-and-headings-list-navigation)
- - [Breadcrumb markup and aria-current=page](#breadcrumb-markup-and-aria-currentpage)
- - [Pagination and accessible labels](#pagination-and-accessible-labels)
- - [Search, sitemap, and list of links](#search-sitemap-and-list-of-links)
- - [Table of contents and in-page links](#table-of-contents-and-in-page-links)
- - [Fragment identifiers and focus on target](#fragment-identifiers-and-focus-on-target)
- - [Example: Descriptive page title format](#example-descriptive-page-title-format)
- - [Review questions: Navigable](#review-questions-navigable)
+ - [Page title (2.4.2) and focus order (2.4.3)](#page-title-242-and-focus-order-243)
+ - [Link purpose in context (2.4.4), multiple ways (2.4.5)](#link-purpose-in-context-244-multiple-ways-245)
+ - [Headings and labels (2.4.6), focus visible (2.4.7)](#headings-and-labels-246-focus-visible-247)
+ - [Focus not obscured (2.4.11, 2.4.12)](#focus-not-obscured-2411-2412)
+ - [Summary and review](#summary-and-review-navigable)
 - [Input Modalities](#input-modalities)
- - [Pointer gestures and alternatives](#pointer-gestures-and-alternatives)
- - [WCAG 2.5.1 Pointer Gestures](#wcag-251-pointer-gestures)
- - [2.5.1 and path-based gestures (swipe)](#251-and-path-based-gestures-swipe)
- - [Single pointer and drag alternative](#single-pointer-and-drag-alternative)
- - [Pointer and keyboard both supported](#pointer-and-keyboard-both-supported)
- - [Multi-point and path-based gestures](#multi-point-and-path-based-gestures)
- - [Single-pointer alternatives](#single-pointer-alternatives)
- - [Single pointer path alternative](#single-pointer-path-alternative)
- - [Pointer target and 2.5.8 (24×24 minimum)](#pointer-target-and-258-24x24-minimum)
- - [Overlapping targets and spacing](#overlapping-targets-and-spacing)
- - [Drag-and-drop and single-pointer option](#drag-and-drop-and-single-pointer-option)
- - [Swipe and pinch alternatives](#swipe-and-pinch-alternatives)
- - [Pointer cancellation](#pointer-cancellation)
- - [WCAG 2.5.2 Pointer Cancellation](#wcag-252-pointer-cancellation)
- - [Activation on release and abort/undo](#activation-on-release-and-abortundo)
- - [Click and touch target size](#click-and-touch-target-size)
- - [Touch target spacing (adjacent targets)](#touch-target-spacing-adjacent-targets)
- - [44 by 44 CSS pixels (iOS HIG and Material)](#44-by-44-css-pixels-ios-hig-and-material)
- - [Touch target measurement (bounding box)](#touch-target-measurement-bounding-box)
- - [24px vs 44px when to use which](#24px-vs-44px-when-to-use-which)
- - [2.5.5 Target Size (AAA)](#255-target-size-aaa)
- - [Label in name and name, role, value](#label-in-name-and-name-role-value)
- - [WCAG 2.5.3 Label in Name](#wcag-253-label-in-name)
- - [Visible text substring of accessible name](#visible-text-substring-of-accessible-name)
- - [Accessible name computation order](#accessible-name-computation-order)
- - [Accessible name from visible text](#accessible-name-from-visible-text)
- - [Motion actuation](#motion-actuation)
- - [WCAG 2.5.4 Motion Actuation](#wcag-254-motion-actuation)
- - [Device motion and user control](#device-motion-and-user-control)
- - [Shake and orientation alternatives](#shake-and-orientation-alternatives)
- - [Pinch zoom and reflow (2.5.8 and zoom)](#pinch-zoom-and-reflow-258-and-zoom)
- - [Voice control and label-in-name match](#voice-control-and-label-in-name-match)
- - [Summary: Input Modalities](#summary-input-modalities)
- - [2.5.6 Input Purpose (AAA) autocomplete](#2556-input-purpose-aaa-autocomplete)
- - [autocomplete and 2.5.6 Input Purpose](#autocomplete-and-2556-input-purpose)
- - [2.5.8 and touch target (24×24)](#258-and-touch-target-24x24)
- - [Device motion API and user alternative](#device-motion-api-and-user-alternative)
- - [2.5.2 and mousedown vs click (activation)](#252-and-mousedown-vs-click-activation)
- - [Touch and 300ms delay (pointer cancellation)](#touch-and-300ms-delay-pointer-cancellation)
- - [Accessible name and visible label match (2.5.3)](#accessible-name-and-visible-label-match-253)
- - [2.5.8 and pointer target (minimum size)](#258-and-pointer-target-minimum-size)
- - [Gesture and single-pointer alternative (2.5.1)](#gesture-and-single-pointer-alternative-251)
- - [Motion and user request (2.5.4)](#motion-and-user-request-254)
- - [Review questions: Input modalities](#review-questions-input-modalities)
+ - [Pointer gestures (2.5.1) and single-pointer alternatives](#pointer-gestures-251-and-single-pointer-alternatives)
+ - [Pointer cancellation (2.5.2), target size (2.5.8)](#pointer-cancellation-252-target-size-258)
+ - [Label in name (2.5.3), motion actuation (2.5.4)](#label-in-name-253-motion-actuation-254)
+ - [Input purpose and autocomplete (2.5.6)](#input-purpose-and-autocomplete-2556)
+ - [Summary and review](#summary-and-review-input-modalities)
 - [Readable](#readable)
- - [Language of page and parts](#language-of-page-and-parts)
- - [WCAG 3.1.1 Language of Page](#wcag-311-language-of-page)
- - [3.1.1 and default language (html lang)](#311-and-default-language-html-lang)
- - [Lang and translation tools](#lang-and-translation-tools)
- - [Abbr and long form (expansion)](#abbr-and-long-form-expansion)
- - [lang attribute and language changes](#lang-attribute-and-language-changes)
- - [lang on html and on elements](#lang-on-html-and-on-elements)
- - [lang attribute inheritance and override](#lang-attribute-inheritance-and-override)
- - [Language detection and hreflang](#language-detection-and-hreflang)
- - [abbr title and first occurrence](#abbr-title-and-first-occurrence)
- - [BCP 47 language codes](#bcp-47-language-codes)
- - [lang and screen reader pronunciation](#lang-and-screen-reader-pronunciation)
- - [Mixed language content and lang on spans](#mixed-language-content-and-lang-on-spans)
- - [3.1.2 Language of Parts](#312-language-of-parts)
- - [Unusual words and abbreviations](#unusual-words-and-abbreviations)
- - [Definitions and expanded forms](#definitions-and-expanded-forms)
- - [WCAG 3.1.3 Unusual Words, 3.1.4 Abbreviations](#wcag-313-unusual-words-314-abbreviations)
- - [dfn, abbr, and title for abbreviations](#dfn-abbr-and-title-for-abbreviations)
- - [First occurrence and expansion](#first-occurrence-and-expansion)
- - [Abbr on first use in document](#abbr-on-first-use-in-document)
- - [title attribute for abbreviation](#title-attribute-for-abbreviation)
- - [Abbreviation in table headers (th scope)](#abbreviation-in-table-headers-th-scope)
- - [Reading level and pronunciation](#reading-level-and-pronunciation)
- - [Simplified content and pronunciation (ruby, homographs)](#simplified-content-and-pronunciation-ruby-homographs)
- - [ruby, rt, rp elements](#ruby-rt-rp-elements)
- - [Line height and text spacing (1.4.12)](#line-height-and-text-spacing-1412)
- - [3.1.5 Reading Level (AAA), 3.1.6 Pronunciation (AAA)](#315-reading-level-aaa-316-pronunciation-aaa)
- - [Summary: Readable](#summary-readable)
- - [Example: lang attribute on block and inline](#example-lang-attribute-on-block-and-inline)
- - [Language switcher and lang update](#language-switcher-and-lang-update)
- - [Reading order and lang attribute placement](#reading-order-and-lang-attribute-placement)
- - [3.1.4 and first instance of abbreviation](#314-and-first-instance-of-abbreviation)
- - [3.1.2 and language change (lang on element)](#312-and-language-change-lang-on-element)
- - [Reading order and language (lang)](#reading-order-and-language-lang)
- - [Unusual word and definition (3.1.3)](#unusual-word-and-definition-313)
- - [Review questions: Readable](#review-questions-readable)
+ - [Language of page (3.1.1) and language of parts (3.1.2)](#language-of-page-311-and-language-of-parts-312)
+ - [Unusual words, abbreviations (3.1.3, 3.1.4)](#unusual-words-abbreviations-313-314)
+ - [Summary and review](#summary-and-review-readable)
 - [Predictable](#predictable)
- - [On focus and on input](#on-focus-and-on-input)
- - [WCAG 3.2.1 On Focus, 3.2.2 On Input](#wcag-321-on-focus-322-on-input)
- - [3.2.1 and focus change (no auto-advance)](#321-and-focus-change-no-auto-advance)
- - [3.2.2 and select or input change](#322-and-select-or-input-change)
- - [Modal open and context change](#modal-open-and-context-change)
- - [No unexpected context change on focus or input](#no-unexpected-context-change-on-focus-or-input)
- - [No pop-up or new window on load](#no-pop-up-or-new-window-on-load)
- - [Consistent placement of repeated components](#consistent-placement-of-repeated-components)
- - [Auto-submit and focus change pitfalls](#auto-submit-and-focus-change-pitfalls)
- - [Dropdowns that submit on change](#dropdowns-that-submit-on-change)
- - [Select onchange and explicit submit](#select-onchange-and-explicit-submit)
- - [Form autocomplete and unexpected change](#form-autocomplete-and-unexpected-change)
- - [Consistent navigation and identification](#consistent-navigation-and-identification)
- - [Repeated components and consistent identification](#repeated-components-and-consistent-identification)
- - [Same relative order across pages](#same-relative-order-across-pages)
- - [Breadcrumb and navigation consistency](#breadcrumb-and-navigation-consistency)
- - [WCAG 3.2.3 Consistent Navigation, 3.2.4 Consistent Identification](#wcag-323-consistent-navigation-324-consistent-identification)
- - [3.2.1 and new window (user initiated)](#321-and-new-window-user-initiated)
- - [3.2.4 and icon consistency](#324-and-icon-consistency)
- - [Component and consistent accessible name](#component-and-consistent-accessible-name)
- - [3.2.3 and navigation order (consistent)](#323-and-navigation-order-consistent)
- - [3.2.4 and same component name](#324-and-same-component-name)
- - [Change on request (user action only)](#change-on-request-user-action-only)
- - [Change on request](#change-on-request)
- - [User-initiated context changes only](#user-initiated-context-changes-only)
- - [No automatic redirect on selection](#no-automatic-redirect-on-selection)
- - [Timeout warning and 2.2.1](#timeout-warning-and-221)
- - [Consistent id and name for components](#consistent-id-and-name-for-components)
- - [Form reset and confirmation](#form-reset-and-confirmation)
- - [3.2.5 Change on Request (AAA)](#325-change-on-request-aaa)
- - [Summary: Predictable](#summary-predictable)
- - [Common pitfall: Auto-opening dropdowns on focus](#common-pitfall-auto-opening-dropdowns-on-focus)
- - [Review questions: Predictable](#review-questions-predictable)
+ - [On focus (3.2.1) and on input (3.2.2)](#on-focus-321-and-on-input-322)
+ - [Consistent navigation and identification (3.2.3, 3.2.4)](#consistent-navigation-and-identification-323-324)
+ - [Change on request and common pitfalls](#change-on-request-and-common-pitfalls)
+ - [Summary and review](#summary-and-review-predictable)
 - [Input Assistance](#input-assistance)
- - [Error identification and suggestions](#error-identification-and-suggestions)
- - [WCAG 3.3.1 Error Identification, 3.3.2 Labels or Instructions](#wcag-331-error-identification-332-labels-or-instructions)
- - [3.3.2 and instructions (labels or text)](#332-and-instructions-labels-or-text)
- - [Placeholder and 3.3.2 (not sufficient alone)](#placeholder-and-332-not-sufficient-alone)
- - [Error and programmatic association](#error-and-programmatic-association)
- - [3.3.1 and programmatic error identification](#331-and-programmatic-error-identification)
- - [3.3.1 and error in text (identifiable)](#331-and-error-in-text-identifiable)
- - [3.3.2 and label or instructions](#332-and-label-or-instructions)
- - [Error message wording and clarity](#error-message-wording-and-clarity)
- - [autocomplete attribute values (name, email)](#autocomplete-attribute-values-name-email)
- - [Confirmation step and 3.3.4](#confirmation-step-and-334)
- - [Instructions and placeholder (not replacement)](#instructions-and-placeholder-not-replacement)
- - [Review or confirmation step before submit](#review-or-confirmation-step-before-submit)
- - [Identifying errors and suggesting corrections](#identifying-errors-and-suggesting-corrections)
- - [Required field indication (visible and programmatic)](#required-field-indication-visible-and-programmatic)
- - [Password visibility toggle accessibility](#password-visibility-toggle-accessibility)
- - [Example: Accessible error messages](#example-accessible-error-messages)
- - [aria-describedby and aria-invalid](#aria-describedby-and-aria-invalid)
- - [Announcing errors to screen readers](#announcing-errors-to-screen-readers)
- - [Before and after error state](#before-and-after-error-state)
- - [Focus on first error (error summary)](#focus-on-first-error-error-summary)
- - [3.3.4 and legal, financial, data](#3334-and-legal-financial-data)
- - [3.3.3 Error Suggestion (AA)](#333-error-suggestion-aa)
- - [Suggested fix wording and clarity](#suggested-fix-wording-and-clarity)
- - [Error and suggestion in same message](#error-and-suggestion-in-same-message)
- - [Legal name and autocomplete](#legal-name-and-autocomplete)
- - [Error prevention (reversible, confirm, confirm data)](#error-prevention-reversible-confirm-confirm-data)
- - [Reversible actions and confirmation steps](#reversible-actions-and-confirmation-steps)
- - [Checkout and financial transactions](#checkout-and-financial-transactions)
- - [WCAG 3.3.4 Error Prevention](#wcag-334-error-prevention)
- - [3.3.5 Help (AAA), 3.3.6 Error Prevention (All) (AAA)](#335-help-aaa-336-error-prevention-all-aaa)
- - [Help and documentation](#help-and-documentation)
- - [Context-sensitive help and instructions](#context-sensitive-help-and-instructions)
- - [Instructions before and during input](#instructions-before-and-during-input)
- - [Inline validation timing and annoyance](#inline-validation-timing-and-annoyance)
- - [Error summary at top of form](#error-summary-at-top-of-form)
- - [Success confirmation and live region](#success-confirmation-and-live-region)
- - [Optional vs required field labeling](#optional-vs-required-field-labeling)
- - [Summary: Input Assistance](#summary-input-assistance)
- - [Checklist: Forms and errors](#checklist-forms-and-errors)
- - [Example: Inline error with aria-describedby](#example-inline-error-with-aria-describedby)
- - [Example: Error summary with focus management](#example-error-summary-with-focus-management)
- - [Review questions: Input assistance](#review-questions-input-assistance)
+ - [Error identification (3.3.1) and labels or instructions (3.3.2)](#error-identification-331-and-labels-or-instructions-332)
+ - [Error suggestion (3.3.3) and error prevention (3.3.4)](#error-suggestion-333-and-error-prevention-334)
+ - [aria-describedby, aria-invalid, error summary](#aria-describedby-aria-invalid-error-summary)
+ - [Required fields, autocomplete, confirmation steps](#required-fields-autocomplete-confirmation-steps)
+ - [Summary and review](#summary-and-review-input-assistance)
 - [Compatible](#compatible)
- - [Parsing and valid markup](#parsing-and-valid-markup)
- - [WCAG 4.1.1 Parsing](#wcag-411-parsing)
- - [Start and end tags and nesting](#start-and-end-tags-and-nesting)
- - [Valid HTML and nesting](#valid-html-and-nesting)
- - [Duplicate id and duplicate ARIA IDs](#duplicate-id-and-duplicate-aria-ids)
- - [Valid id and name values (no spaces, unique)](#valid-id-and-name-values-no-spaces-unique)
- - [Multiple labels and aria-labelledby](#multiple-labels-and-aria-labelledby)
- - [W3C validator and Nu Html Checker](#w3c-validator-and-nu-html-checker)
- - [4.1.1 and duplicate id (parsing)](#411-and-duplicate-id-parsing)
- - [Invalid ARIA and fallback behavior](#invalid-aria-and-fallback-behavior)
- - [Testing with multiple assistive technologies](#testing-with-multiple-assistive-technologies)
- - [Duplicate IDs and unclosed elements](#duplicate-ids-and-unclosed-elements)
- - [Unclosed tags and malformed markup](#unclosed-tags-and-malformed-markup)
- - [Invalid ARIA and unsupported roles](#invalid-aria-and-unsupported-roles)
- - [Name, role, value (ARIA and semantics)](#name-role-value-aria-and-semantics)
- - [WCAG 4.1.2 Name, Role, Value](#wcag-412-name-role-value)
- - [4.1.2 and custom control requirements](#412-and-custom-control-requirements)
- - [4.1.2 and all UI components (name, role, value)](#412-and-all-ui-components-name-role-value)
- - [Status and 4.1.3 (programmatically determinable)](#status-and-413-programmatically-determinable)
- - [Name and 4.1.2 (text or aria)](#name-and-412-text-or-aria)
- - [Exposing name, role, value to assistive tech](#exposing-name-role-value-to-assistive-tech)
- - [Role and property support by assistive tech](#role-and-property-support-by-assistive-tech)
- - [Shadow DOM and accessibility tree exposure](#shadow-dom-and-accessibility-tree-exposure)
- - [Accessibility tree and computed properties](#accessibility-tree-and-computed-properties)
- - [Status messages and live regions](#status-messages-and-live-regions)
- - [aria-live, aria-atomic, aria-relevant](#aria-live-aria-atomic-aria-relevant)
- - [When to use assertive vs polite](#when-to-use-assertive-vs-polite)
- - [aria-relevant: add, remove, text, all](#aria-relevant-add-remove-text-all)
- - [polite vs assertive live regions](#polite-vs-assertive-live-regions)
- - [WCAG 4.1.3 Status Messages](#wcag-413-status-messages)
- - [4.1.3 and status (live region)](#413-and-status-live-region)
- - [aria-live and 4.1.3 compliance](#aria-live-and-413-compliance)
- - [Parsing and assistive technology](#parsing-and-assistive-technology)
- - [role="status" and role="alert" for messages](#role-status-and-role-alert-for-messages)
- - [Maximizing compatibility with assistive tech](#maximizing-compatibility-with-assistive-tech)
- - [Progressive enhancement and fallbacks](#progressive-enhancement-and-fallbacks)
- - [No JavaScript required for core content](#no-javascript-required-for-core-content)
- - [HTML5 sectioning and main landmark](#html5-sectioning-and-main-landmark)
- - [iframe and title requirement](#iframe-and-title-requirement)
- - [Custom elements and default semantics](#custom-elements-and-default-semantics)
- - [Deprecated ARIA and HTML attributes](#deprecated-aria-and-html-attributes)
- - [ARIA required and HTML required](#aria-required-and-html-required)
- - [Focusable and tabindex -1](#focusable-and-tabindex-1)
- - [Slots and accessibility (custom elements)](#slots-and-accessibility-custom-elements)
- - [Summary: Compatible](#summary-compatible)
- - [Checklist: Markup and compatibility](#checklist-markup-and-compatibility)
- - [HTML validator and accessibility](#html-validator-and-accessibility)
- - [Review questions: Compatible](#review-questions-compatible)
+ - [Parsing (4.1.1), valid HTML, duplicate IDs](#parsing-411-valid-html-duplicate-ids)
+ - [Name, role, value (4.1.2) for custom controls](#name-role-value-412-for-custom-controls)
+ - [Status messages (4.1.3), live regions, aria-live](#status-messages-413-live-regions-aria-live)
+ - [Summary and review](#summary-and-review-compatible)
 - [HTML Semantics and ARIA](#html-semantics-and-aria)
- - [When to use native HTML](#when-to-use-native-html)
- - [Prefer semantic HTML over ARIA](#prefer-semantic-html-over-aria)
- - [Buttons, links, and form controls](#buttons-links-and-form-controls)
- - [button vs. div with role="button"](#button-vs-div-with-rolebutton)
- - [role=button and keyboard (Enter and Space)](#rolebutton-and-keyboard-enter-and-space)
- - [tablist and RTL (direction)](#tablist-and-rtl-direction)
- - [Dialog and focus restore on close](#dialog-and-focus-restore-on-close)
- - [Links for navigation, buttons for actions](#links-for-navigation-buttons-for-actions)
- - [select, datalist, and accessible alternatives](#select-datalist-and-accessible-alternatives)
- - [ARIA when HTML is not enough](#aria-when-html-is-not-enough)
- - [When and why to use ARIA](#when-and-why-to-use-aria)
- - [ARIA First rule](#aria-first-rule)
+ - [When to use native HTML vs ARIA](#when-to-use-native-html-vs-aria)
  - [ARIA roles, states, and properties](#aria-roles-states-and-properties)
- - [Roles: widget, structure, landmark](#roles-widget-structure-landmark)
- - [States and properties (aria-expanded, aria-pressed, aria-label)](#states-and-properties-aria-expanded-aria-pressed-aria-label)
- - [Slider and range (aria-valuemin, aria-valuemax, aria-valuenow)](#slider-and-range-aria-valuemin-aria-valuemax-aria-valuenow)
- - [aria-valuetext for slider (custom labels)](#aria-valuetext-for-slider-custom-labels)
- - [Spinbutton and aria-valuenow](#spinbutton-and-aria-valuenow)
- - [Switch role and aria-checked](#switch-role-and-aria-checked)
- - [aria-expanded true and false](#aria-expanded-true-and-false)
- - [aria-label vs aria-labelledby vs visible text](#aria-label-vs-aria-labelledby-vs-visible-text)
- - [aria-hidden and removing content from a11y tree](#aria-hidden-and-removing-content-from-a11y-tree)
- - [aria-hidden true and focusable](#aria-hidden-true-and-focusable)
- - [aria-live and dynamic content](#aria-live-and-dynamic-content)
- - [Common patterns (tabs, modals, menus)](#common-patterns-tabs-modals-menus)
- - [Example: Accessible tab panel](#example-accessible-tab-panel)
- - [Step-by-step: Building a tab panel](#step-by-step-building-a-tab-panel)
- - [Arrow key left and right for tabs](#arrow-key-left-and-right-for-tabs)
- - [role="tablist", role="tab", role="tabpanel"](#role-tablist-role-tab-role-tabpanel)
- - [aria-selected and tab index](#aria-selected-and-tab-index)
- - [role=tab and aria-selected](#role-tab-and-aria-selected)
- - [aria-checked values (true, false, mixed)](#aria-checked-values-true-false-mixed)
- - [role=dialog and initial focus](#role-dialog-and-initial-focus)
- - [Combobox aria-expanded and aria-controls](#combobox-aria-expanded-and-aria-controls)
- - [Listbox and aria-multiselectable](#listbox-and-aria-multiselectable)
- - [Disclosure and aria-expanded](#disclosure-and-aria-expanded)
- - [aria-controls linking tabs to panels](#aria-controls-linking-tabs-to-panels)
- - [Example: Accessible modal dialog](#example-accessible-modal-dialog)
- - [Focus trap and escape key](#focus-trap-and-escape-key)
- - [Escape key and close-on-outside-click behavior](#escape-key-and-close-on-outside-click-behavior)
- - [role="dialog", aria-modal="true", aria-labelledby](#role-dialog-aria-modal-true-aria-labelledby)
- - [aria-describedby for dialog description](#aria-describedby-for-dialog-description)
- - [Example: Accessible menu and menubar](#example-accessible-menu-and-menubar)
- - [role="menu", role="menuitem", arrow key handling](#role-menu-role-menuitem-arrow-key-handling)
- - [Menubar and submenu (nested)](#menubar-and-submenu-nested)
- - [Combobox and listbox pattern (ARIA 1.2)](#combobox-and-listbox-pattern-aria-12)
- - [aria-haspopup values (menu, listbox, tree)](#aria-haspopup-values-menu-listbox-tree)
- - [Home, End, and type-ahead in lists](#home-end-and-type-ahead-in-lists)
- - [Summary: HTML Semantics and ARIA](#summary-html-semantics-and-aria)
- - [Exercise: Build an accessible disclosure widget](#exercise-build-an-accessible-disclosure-widget)
- - [aria-current for current page or step](#aria-current-for-current-page-or-step)
- - [Accordion and disclosure (expandable) pattern](#accordion-and-disclosure-expandable-pattern)
- - [Tooltip and aria-describedby vs title](#tooltip-and-aria-describedby-vs-title)
- - [Tree and treegrid roles](#tree-and-treegrid-roles)
- - [Alertdialog vs dialog](#alertdialog-vs-dialog)
- - [Progressbar and meter elements](#progressbar-and-meter-elements)
- - [Group and aria-labelledby for sections](#group-and-aria-labelledby-for-sections)
- - [menuitemcheckbox and menuitemradio](#menuitemcheckbox-and-menuitemradio)
- - [Separator and log roles](#separator-and-log-roles)
- - [complementary vs contentinfo landmark](#complementary-vs-contentinfo-landmark)
- - [aria-keyshortcuts and keyboard shortcuts](#aria-keyshortcuts-and-keyboard-shortcuts)
- - [Grid and gridcell roles](#grid-and-gridcell-roles)
- - [Feed and article roles](#feed-and-article-roles)
- - [Banner vs main landmark (one main)](#banner-vs-main-landmark-one-main)
- - [Common pitfall: ARIA overwriting semantics](#common-pitfall-aria-overwriting-semantics)
- - [Review questions: HTML and ARIA](#review-questions-html-and-aria)
+ - [Tabs, modals, dialogs (focus trap, escape)](#tabs-modals-dialogs-focus-trap-escape)
+ - [Menus, combobox, listbox, disclosure](#menus-combobox-listbox-disclosure)
+ - [Summary and review](#summary-and-review-html-and-aria)
 - [Forms and Validation](#forms-and-validation)
- - [Labels, placeholders, and instructions](#labels-placeholders-and-instructions)
- - [Associated labels and visible labels](#associated-labels-and-visible-labels)
- - [for and id, or wrapping with label](#for-and-id-or-wrapping-with-label)
- - [Reset button and confirmation](#reset-button-and-confirmation)
- - [Visually hidden label (sr-only)](#visually-hidden-label-sr-only)
- - [Label and aria-label (avoid redundancy)](#label-and-aria-label-avoid-redundancy)
- - [Implicit vs explicit label association](#implicit-vs-explicit-label-association)
- - [Placeholders as hints, not replacements](#placeholders-as-hints-not-replacements)
- - [Visible label with or without placeholder](#visible-label-with-or-without-placeholder)
- - [Label and placeholder together](#label-and-placeholder-together)
- - [Search input and role=search](#search-input-and-role-search)
- - [Submit button and type=submit](#submit-button-and-type-submit)
- - [File input and accessible label](#file-input-and-accessible-label)
- - [Date, time, number, and range inputs](#date-time-number-and-range-inputs)
- - [Input type and accessibility (email, tel, url)](#input-type-and-accessibility-email-tel-url)
- - [min, max, step and screen reader announcements](#min-max-step-and-screen-reader-announcements)
- - [Checkbox group and fieldset legend](#checkbox-group-and-fieldset-legend)
- - [Select size and multiple](#select-size-and-multiple)
- - [Textarea and resize behavior](#textarea-and-resize-behavior)
- - [Grouping and error handling](#grouping-and-error-handling)
- - [fieldset, legend, and grouped controls](#fieldset-legend-and-grouped-controls)
- - [Legend must describe the group](#legend-must-describe-the-group)
- - [Radio groups and checkbox groups](#radio-groups-and-checkbox-groups)
- - [name attribute for radio grouping](#name-attribute-for-radio-grouping)
- - [Disabled and read-only states (aria-disabled, aria-readonly)](#disabled-and-read-only-states-aria-disabled-aria-readonly)
- - [Associating errors with fields](#associating-errors-with-fields)
- - [Linking error message to input id](#linking-error-message-to-input-id)
- - [pattern attribute and validation](#pattern-attribute-and-validation)
- - [Invalid state and aria-describedby](#invalid-state-and-aria-describedby)
- - [Error summary and aria-live](#error-summary-and-aria-live)
- - [Accessible validation messages](#accessible-validation-messages)
- - [Inline and summary error reporting](#inline-and-summary-error-reporting)
- - [role="alert" for critical errors](#role-alert-for-critical-errors)
- - [Example: Accessible registration form](#example-accessible-registration-form)
- - [Step-by-step: Accessible form with validation](#step-by-step-accessible-form-with-validation)
- - [HTML5 required attribute](#html5-required-attribute)
- - [required and aria-required (use both when needed)](#required-and-aria-required-use-both-when-needed)
- - [Error and id for aria-describedby](#error-and-id-for-aria-describedby)
- - [Summary error and role=alert](#summary-error-and-role-alert)
- - [Required fields and aria-required](#required-fields-and-aria-required)
- - [Summary: Forms and Validation](#summary-forms-and-validation)
- - [autocomplete values for name, email, address](#autocomplete-values-for-name-email-address)
- - [Checkbox indeterminate state](#checkbox-indeterminate-state)
- - [Error recovery and clearing errors](#error-recovery-and-clearing-errors)
- - [Example: fieldset and legend for radio group](#example-fieldset-and-legend-for-radio-group)
- - [Review questions: Forms](#review-questions-forms)
+ - [Labels, placeholders, fieldset and legend](#labels-placeholders-fieldset-and-legend)
+ - [Grouping, required fields, error association](#grouping-required-fields-error-association)
+ - [Validation messages, aria-describedby, role=alert](#validation-messages-aria-describedby-rolealert)
+ - [Summary and review](#summary-and-review-forms)
 - [Testing and Evaluation](#testing-and-evaluation)
- - [Manual testing with keyboard and screen readers](#manual-testing-with-keyboard-and-screen-readers)
- - [Keyboard testing procedure](#keyboard-testing-procedure)
- - [Step-by-step: Keyboard testing checklist](#step-by-step-keyboard-testing-checklist)
- - [Testing with keyboard only (no mouse)](#testing-with-keyboard-only-no-mouse)
- - [Accessibility tree inspector (DevTools)](#accessibility-tree-inspector-devtools)
- - [Tab through, Enter/Space, Escape](#tab-through-enter-space-escape)
- - [Screen reader testing (NVDA, VoiceOver)](#screen-reader-testing-nvda-voiceover)
- - [Testing with NVDA on Windows](#testing-with-nvda-on-windows)
- - [Virtual cursor and focus mode](#virtual-cursor-and-focus-mode)
- - [Browse mode vs focus mode (NVDA)](#browse-mode-vs-focus-mode-nvda)
- - [Testing with VoiceOver on macOS and iOS](#testing-with-voiceover-on-macos-and-ios)
- - [Rotor and gesture shortcuts](#rotor-and-gesture-shortcuts)
- - [Automated testing (axe, WAVE, Lighthouse)](#automated-testing-axe-wave-lighthouse)
- - [axe-core, axe DevTools, and browser extensions](#axe-core-axe-devtools-and-browser-extensions)
- - [axe DevTools and browser integration](#axe-devtools-and-browser-integration)
- - [WAVE browser extension](#wave-browser-extension)
- - [Deque University link](#deque-university-link)
- - [Accessibility Insights and Pa11y](#accessibility-insights-and-pa11y)
- - [Running axe in console and CI](#running-axe-in-console-and-ci)
- - [axe configure and run options](#axe-configure-and-run-options)
- - [axe.run() and axe.getRules()](#axe-run-and-axe-getrules)
- - [axe getRules and tags (wcag2a, wcag2aa)](#axe-getrules-and-tags-wcag2a-wcag2aa)
- - [axe-core ruleset and tags](#axe-core-ruleset-and-tags)
- - [Deque University and training resources](#deque-university-and-training-resources)
- - [Lighthouse a11y score and audits](#lighthouse-a11y-score-and-audits)
- - [Manual vs automated testing balance](#manual-vs-automated-testing-balance)
- - [WAVE and Lighthouse a11y audits](#wave-and-lighthouse-a11y-audits)
- - [Interpreting automated results](#interpreting-automated-results)
- - [Limitations of automation](#limitations-of-automation)
- - [False positives and false negatives in a11y tools](#false-positives-and-false-negatives-in-a11y-tools)
- - [axe impact: critical, serious, moderate, minor](#axe-impact-critical-serious-moderate-minor)
- - [What automation cannot detect](#what-automation-cannot-detect)
- - [Context and intent (human judgment)](#context-and-intent-human-judgment)
- - [When to test and who should test](#when-to-test-and-who-should-test)
- - [Integrating testing into CI/CD](#integrating-testing-into-cicd)
- - [npm packages axe-core and jest-axe](#npm-packages-axe-core-and-jest-axe)
- - [Unit tests for a11y (jest-axe, Testing Library)](#unit-tests-for-a11y-jest-axe-testing-library)
- - [Linting (eslint-plugin-jsx-a11y)](#linting-eslint-plugin-jsx-a11y)
- - [Cross-browser and cross-AT testing matrix](#cross-browser-and-cross-at-testing-matrix)
- - [Regression testing after fixes](#regression-testing-after-fixes)
- - [Reporting and prioritizing issues](#reporting-and-prioritizing-issues)
- - [Issue tracker labels and WCAG mapping](#issue-tracker-labels-and-wcag-mapping)
- - [Severity, impact, and remediation](#severity-impact-and-remediation)
- - [Critical vs. serious vs. moderate](#critical-vs-serious-vs-moderate)
- - [Impact and user flow in prioritization](#impact-and-user-flow-in-prioritization)
- - [Writing a good accessibility bug report](#writing-a-good-accessibility-bug-report)
- - [Steps to reproduce and WCAG criterion](#steps-to-reproduce-and-wcag-criterion)
- - [Screenshot and bug report](#screenshot-and-bug-report)
- - [Testing with Narrator (Windows)](#testing-with-narrator-windows)
- - [Include browser and assistive tech version](#include-browser-and-assistive-tech-version)
- - [User testing with assistive tech users](#user-testing-with-assistive-tech-users)
- - [Summary: Testing and Evaluation](#summary-testing-and-evaluation)
- - [Case study: Full-page accessibility audit](#case-study-full-page-accessibility-audit)
- - [axe and iframe (nested context)](#axe-and-iframe-nested-context)
- - [Lighthouse a11y and performance](#lighthouse-a11y-and-performance)
- - [Testing with switch access](#testing-with-switch-access)
- - [Bug report template for a11y](#bug-report-template-for-a11y)
- - [axe and shadow DOM](#axe-and-shadow-dom)
- - [Lighthouse a11y and score](#lighthouse-a11y-and-score)
- - [Manual test script template](#manual-test-script-template)
- - [CI and axe-core integration](#ci-and-axe-core-integration)
- - [axe and nested iframe context](#axe-and-nested-iframe-context)
- - [Pa11y CI and config file](#pa11y-ci-and-config-file)
- - [Testing with JAWS and Narrator (Windows)](#testing-with-jaws-and-narrator-windows)
- - [Step 1: Install and configure screen reader](#step-1-install-and-configure-screen-reader)
- - [Step 2: Navigate by headings and landmarks](#step-2-navigate-by-headings-and-landmarks)
- - [Step 3: Test forms and dynamic content](#step-3-test-forms-and-dynamic-content)
- - [Step 4: Document and report findings](#step-4-document-and-report-findings)
- - [Step 5: Retest after fixes](#step-5-retest-after-fixes)
- - [Testing with TalkBack (Android)](#testing-with-talkback-android)
- - [Review questions: Testing](#review-questions-testing)
+ - [Manual testing: keyboard and screen readers](#manual-testing-keyboard-and-screen-readers)
+ - [Automated testing: axe, WAVE, Lighthouse](#automated-testing-axe-wave-lighthouse)
+ - [CI/CD, jest-axe, eslint-plugin-jsx-a11y](#cicd-jest-axe-eslint-plugin-jsx-a11y)
+ - [Reporting issues and prioritization](#reporting-issues-and-prioritization)
+ - [Summary and review](#summary-and-review-testing)
 - [Documentation and Maintenance](#documentation-and-maintenance)
  - [Accessibility statements and VPATs](#accessibility-statements-and-vpats)
- - [Writing an accessibility statement](#writing-an-accessibility-statement)
- - [Model accessibility statement (W3C)](#model-accessibility-statement-w3c)
- - [What to include in a statement](#what-to-include-in-a-statement)
- - [Statement and legal defensibility](#statement-and-legal-defensibility)
- - [Versioning and updating the statement](#versioning-and-updating-the-statement)
- - [Relationship between statement and VPAT](#relationship-between-statement-and-vpat)
- - [Contact, scope, and conformance claim](#contact-scope-and-conformance-claim)
- - [Known limitations and roadmap](#known-limitations-and-roadmap)
- - [Statement and third-party content](#statement-and-third-party-content)
- - [VPAT and product version](#vpat-and-product-version)
- - [Remediation timeline in statement](#remediation-timeline-in-statement)
- - [VPAT and ACR (Accessibility Conformance Report)](#vpat-and-acr-accessibility-conformance-report)
- - [VPAT editions and sections](#vpat-editions-and-sections)
- - [VPAT section mapping to WCAG guidelines](#vpat-section-mapping-to-wcag-guidelines)
- - [VPAT sections (1194.22, WCAG 2.x)](#vpat-sections-119422-wcag-2x)
- - [VPAT request and procurement process](#vpat-request-and-procurement-process)
- - [VPAT 2.4 and 2.5 (EU and INT)](#vpat-24-and-25-eu-and-int)
- - [Conformance level and date in statement](#conformance-level-and-date-in-statement)
- - [Embedding A11Y in design and dev workflows](#embedding-a11y-in-design-and-dev-workflows)
- - [Design reviews and dev checklist](#design-reviews-and-dev-checklist)
- - [Design system a11y requirements](#design-system-a11y-requirements)
- - [Including a11y in definition of done](#including-a11y-in-definition-of-done)
- - [Acceptance criteria for a11y](#acceptance-criteria-for-a11y)
- - [Example: DoD a11y checklist item](#example-dod-a11y-checklist-item)
- - [Training and governance](#training-and-governance)
- - [Roles and ongoing education](#roles-and-ongoing-education)
- - [Accessibility champion and specialist](#accessibility-champion-and-specialist)
- - [Keeping up with standards](#keeping-up-with-standards)
- - [WCAG updates and community resources](#wcag-updates-and-community-resources)
- - [WAI-ARIA, WAI-AGE, and other WAI work](#wai-aria-wai-age-and-other-wai-work)
- - [Statement publication and review cycle](#statement-publication-and-review-cycle)
- - [Component documentation and a11y notes](#component-documentation-and-a11y-notes)
- - [Inclusive language and content guide](#inclusive-language-and-content-guide)
- - [Summary: Documentation and Maintenance](#summary-documentation-and-maintenance)
- - [Template: Accessibility statement outline](#template-accessibility-statement-outline)
- - [Feedback mechanism and response time](#feedback-mechanism-and-response-time)
- - [Review cycle and statement updates](#review-cycle-and-statement-updates)
- - [Statement and testing methods used](#statement-and-testing-methods-used)
- - [VPAT and WCAG 2.2 mapping](#vpat-and-wcag-22-mapping)
- - [Feedback channel and SLA](#feedback-channel-and-sla)
- - [Statement and evaluation report](#statement-and-evaluation-report)
- - [VPAT and Section 508](#vpat-and-section-508)
- - [Statement and date of last review](#statement-and-date-of-last-review)
- - [Review questions: Documentation](#review-questions-documentation)
+ - [Embedding a11y in design and dev workflows](#embedding-a11y-in-design-and-dev-workflows)
+ - [Training, governance, and review cycles](#training-governance-and-review-cycles)
+ - [Summary and review](#summary-and-review-documentation)
 - [Appendix A: Quick Reference (WCAG 2.x)](#appendix-a-quick-reference-wcag-2x)
- - [Perceivable criteria summary](#perceivable-criteria-summary)
- - [Guideline 1.1–1.4 quick list](#guideline-11-14-quick-list)
- - [1.1 Text alternatives, 1.2 Time-based media](#11-text-alternatives-12-time-based-media)
- - [1.3 Adaptable, 1.4 Distinguishable](#13-adaptable-14-distinguishable)
- - [Per-criterion one-line summary](#per-criterion-one-line-summary)
- - [Criterion number to title quick lookup](#criterion-number-to-title-quick-lookup)
- - [Operable criteria summary](#operable-criteria-summary)
- - [Guideline 2.1–2.5 quick list](#guideline-21-25-quick-list)
- - [2.1 Keyboard, 2.2 Enough time, 2.3 Seizures](#21-keyboard-22-enough-time-23-seizures)
- - [2.4 Navigable, 2.5 Input modalities](#24-navigable-25-input-modalities)
- - [Understandable criteria summary](#understandable-criteria-summary)
- - [Guideline 3.1–3.3 quick list](#guideline-31-33-quick-list)
- - [Robust criteria summary](#robust-criteria-summary)
- - [Guideline 4.1 quick list](#guideline-41-quick-list)
- - [Criterion ID to guideline index](#criterion-id-to-guideline-index)
- - [Level A only criteria list](#level-a-only-criteria-list)
- - [Level AA criteria list (common target)](#level-aa-criteria-list-common-target)
- - [Level AAA criteria list (optional enhancements)](#level-aaa-criteria-list-optional-enhancements)
- - [Sufficient vs advisory techniques in practice](#sufficient-vs-advisory-techniques-in-practice)
- - [Technique index by criterion](#technique-index-by-criterion)
- - [Failure index by criterion](#failure-index-by-criterion)
- - [Guideline to success criterion index](#guideline-to-success-criterion-index)
- - [WCAG 2.2 new criteria quick list](#wcag-22-new-criteria-quick-list)
- - [Quick fix: common failures one-pager](#quick-fix-common-failures-one-pager)
- - [1.1.1 to 4.1.3 criterion ID list](#111-to-413-criterion-id-list)
- - [1.1.1 Non-text Content (ID and title)](#111-non-text-content-id-and-title)
- - [2.1.1 Keyboard, 2.1.2 No Keyboard Trap](#211-keyboard-212-no-keyboard-trap-id)
- - [2.4.7 Focus Visible, 2.4.11 Focus Not Obscured](#247-focus-visible-2411-focus-not-obscured-id)
- - [4.1.2 Name Role Value, 4.1.3 Status Messages](#412-name-role-value-413-status-messages-id)
- - [Technique document and understanding links](#technique-document-and-understanding-links)
- - [Best practices summary by principle](#best-practices-summary-by-principle)
- - [Common pass and fail examples](#common-pass-and-fail-examples)
- - [WCAG 2.1 vs 2.2 delta (new criteria)](#wcag-21-vs-22-delta-new-criteria)
- - [Quick reference: common techniques list](#quick-reference-common-techniques-list)
- - [Perceivable one-pager](#perceivable-one-pager)
- - [Operable one-pager](#operable-one-pager)
- - [Understandable one-pager](#understandable-one-pager)
- - [Robust one-pager](#robust-one-pager)
+ - [Perceivable, Operable, Understandable, Robust quick list](#perceivable-operable-understandable-robust-quick-list)
+ - [Criterion ID to title lookup](#criterion-id-to-title-lookup)
+ - [Level A, AA, AAA criteria](#level-a-aa-aaa-criteria)
 - [Appendix B: Glossary](#appendix-b-glossary)
- - [Terms A–D](#terms-ad)
- - [Accessible name, alternative text](#accessible-name-alternative-text)
- - [Accessibility, ARIA, assistive technology](#accessibility-aria-assistive-technology)
- - [Terms E–L](#terms-el)
- - [Terms M–R](#terms-mr)
- - [Terms S–Z](#terms-sz)
- - [WCAG, WAI, screen reader](#wcag-wai-screen-reader)
- - [ARIA attributes quick reference](#aria-attributes-quick-reference-glossary)
- - [Live region and focus management terms](#live-region-and-focus-management-terms)
- - [Landmark role definitions (banner, main, nav)](#landmark-role-definitions-banner-main-nav)
+ - [Key terms (accessible name, landmark, live region, etc.)](#key-terms-accessible-name-landmark-live-region-etc)
  - [Acronyms and abbreviations](#acronyms-and-abbreviations)
- - [HTML element to role mapping](#html-element-to-role-mapping)
- - [Widget roles (button, checkbox, radio, switch)](#widget-roles-button-checkbox-radio-switch)
- - [Document structure roles (article, region)](#document-structure-roles-article-region)
- - [Relationship attributes (controls, describedby)](#relationship-attributes-controls-describedby)
- - [State and property quick reference](#state-and-property-quick-reference)
- - [Computed role and native role](#computed-role-and-native-role)
- - [Accessible name computation algorithm](#accessible-name-computation-algorithm)
- - [Focusable (definition)](#focusable-definition)
- - [Programmatically determined (definition)](#programmatically-determined-definition)
- - [Accessibility API (definition)](#accessibility-api-definition)
- - [Semantic HTML (definition)](#semantic-html-definition)
- - [Live region (definition)](#live-region-definition)
- - [Landmark (definition)](#landmark-definition)
- - [Alternative text (definition)](#alternative-text-definition)
- - [Conformance (definition)](#conformance-definition)
- - [Success criterion (definition)](#success-criterion-definition)
- - [Technique (definition)](#technique-definition)
- - [Failure (definition)](#failure-definition)
- - [Bypass block (definition)](#bypass-block-definition)
- - [Keyboard trap (definition)](#keyboard-trap-definition)
- - [Live region (definition repeated)](#live-region-definition-glossary)
- - [Touch target (definition)](#touch-target-definition)
- - [Caption (definition)](#caption-definition)
- - [Audio description (definition)](#audio-description-definition)
- - [Conformance level (definition)](#conformance-level-definition)
- - [VPAT (definition)](#vpat-definition)
 - [Appendix C: Resources and Tools](#appendix-c-resources-and-tools)
- - [Official standards and guidelines](#official-standards-and-guidelines)
- - [W3C, WAI, and related specs](#w3c-wai-and-related-specs)
- - [Testing tools and browser extensions](#testing-tools-and-browser-extensions)
- - [Screen readers and assistive tech](#screen-readers-and-assistive-tech)
- - [NVDA and JAWS download links](#nvda-and-jaws-download-links)
- - [Continuum and axe browser extensions](#continuum-and-axe-browser-extensions)
- - [VoiceOver and TalkBack documentation links](#voiceover-and-talkback-documentation-links)
- - [WAI documentation and Understanding links](#wai-documentation-and-understanding-links)
- - [Learning and community](#learning-and-community)
- - [Courses, blogs, and conferences](#courses-blogs-and-conferences)
- - [Books and certification paths](#books-and-certification-paths)
- - [CPACC, WAS, and CPWA credentials](#cpacc-was-and-cpwa-credentials)
- - [Browser DevTools accessibility panels](#browser-devtools-accessibility-panels)
- - [Download and install links](#download-and-install-links)
- - [Keyboard shortcuts cheat sheet](#keyboard-shortcuts-cheat-sheet)
- - [Comparison: axe vs WAVE vs Lighthouse](#comparison-axe-vs-wave-vs-lighthouse)
- - [Screen reader keyboard shortcuts table](#screen-reader-keyboard-shortcuts-table)
- - [Color contrast tools list](#color-contrast-tools-list)
- - [Screen reader download links by OS](#screen-reader-download-links-by-os)
- - [WCAG 2.2 specification link](#wcag-22-specification-link)
- - [Linting tools (eslint-plugin-jsx-a11y, etc.)](#linting-tools-eslint-plugin-jsx-a11y-etc)
- - [Playwright and Cypress a11y](#playwright-and-cypress-a11y)
- - [Testing Library and a11y queries](#testing-library-and-a11y-queries)
- - [W3C validators link](#w3c-validators-link)
- - [Nu Html Checker link](#nu-html-checker-link)
- - [axe-core npm and CDN](#axe-core-npm-and-cdn)
- - [WCAG-EM (evaluation methodology)](#wcag-em-evaluation-methodology)
- - [Screen reader version compatibility matrix](#screen-reader-version-compatibility-matrix)
- - [Contrast checker and APCA (optional)](#contrast-checker-and-apca-optional)
+ - [Official standards and WAI documentation](#official-standards-and-wai-documentation)
+ - [Testing tools and screen readers](#testing-tools-and-screen-readers)
+ - [Learning and certification](#learning-and-certification)
 - [Appendix D: Checklist Template](#appendix-d-checklist-template)
- - [Design phase checklist](#design-phase-checklist)
- - [Component-level a11y checklist](#component-level-a11y-checklist)
- - [Content, color, and layout](#content-color-and-layout)
- - [Typography and spacing in design](#typography-and-spacing-in-design)
- - [Development phase checklist](#development-phase-checklist)
- - [Markup, keyboard, and ARIA](#markup-keyboard-and-aria)
- - [Semantic HTML and focus management](#semantic-html-and-focus-management)
- - [Release and maintenance checklist](#release-and-maintenance-checklist)
- - [Testing, statement, and monitoring](#testing-statement-and-monitoring)
- - [Post-launch monitoring and feedback](#post-launch-monitoring-and-feedback)
- - [Per-page checklist (copy per URL)](#per-page-checklist-copy-per-url)
- - [Sign-off and conformance claim template](#sign-off-and-conformance-claim-template)
- - [Pre-launch and post-launch review](#pre-launch-and-post-launch-review)
- - [Remediation log template](#remediation-log-template)
- - [Issue ID and status tracking](#issue-id-and-status-tracking)
- - [Quarterly accessibility review schedule](#quarterly-accessibility-review-schedule)
- - [Audit scope and sampling strategy](#audit-scope-and-sampling-strategy)
- - [Third-party and embedded content checklist](#third-party-and-embedded-content-checklist)
- - [Sign-off template for release](#sign-off-template-for-release)
- - [Exemptions and known issues log](#exemptions-and-known-issues-log)
- - [Next review date and owner](#next-review-date-and-owner)
- - [Pre-launch sign-off criteria](#pre-launch-sign-off-criteria)
- - [Post-launch monitoring schedule](#post-launch-monitoring-schedule)
- - [Remediation backlog prioritization](#remediation-backlog-prioritization)
- - [Stakeholder sign-off template](#stakeholder-sign-off-template)
- - [Critical user path checklist](#critical-user-path-checklist)
- - [Checklist template variables and placeholders](#checklist-template-variables-and-placeholders)
- - [Design review checklist items (detailed)](#design-review-checklist-items-detailed)
- - [Development checklist items (detailed)](#development-checklist-items-detailed)
- - [Content author a11y checklist](#content-author-a11y-checklist)
- - [QA accessibility checklist](#qa-accessibility-checklist)
- - [Release checklist items](#release-checklist-items)
- - [Feature flag and a11y](#feature-flag-and-a11y)
- - [A/B test and accessibility](#ab-test-and-accessibility)
- - [Hotfix and a11y checklist](#hotfix-and-a11y-checklist)
- - [Template: Audit report](#template-audit-report)
- - [Template: Exemption request](#template-exemption-request)
- - [Annual review and statement update](#annual-review-and-statement-update)
- - [Known issue log and remediation date](#known-issue-log-and-remediation-date)
- - [Sign-off and conformance level per release](#sign-off-and-conformance-level-per-release)
- - [Third-party content and VPAT request](#third-party-content-and-vpat-request)
+ - [Design, development, and release checklists](#design-development-and-release-checklists)
+ - [Audit report and exemption templates](#audit-report-and-exemption-templates)
 
 ## Introduction to Web Accessibility
 
 ### What is accessibility?
 
-*Content to be added.*
-
-#### Why accessibility matters
+#### Definition and scope of web accessibility
 
 *Content to be added.*
 
-#### The business and human case for A11Y
+#### Accessibility as a continuum, no binary "accessible" vs "inaccessible"
 
 *Content to be added.*
 
-#### Legal and compliance overview (ADA, Section 508, WCAG, EAA)
+### Who benefits and why it matters
+
+#### Users with disabilities and beyond, demographics
+
+*Content to be added.*
+
+#### The business and human case, ROI, legal risk
+
+*Content to be added.*
+
+### Inclusive design and the curb-cut effect
+
+#### Universal design principles, examples of curb-cut benefits
+
+*Content to be added.*
+
+### Legal and compliance (ADA, Section 508, WCAG, EAA)
+
+#### ADA and digital accessibility, Section 508, EAA scope
+
+*Content to be added.*
+
+#### WCAG as the technical standard, defining scope
+
+*Content to be added.*
+
+### Defining scope, policy, and getting started
+
+#### Accessibility policy and ownership, compliance timeline
+
+*Content to be added.*
+
+### Accessibility audit types and conformance timeline
+
+#### Quick, full, and continuous audits, risk assessment
+
+*Content to be added.*
+
+### Summary and review
 
 *Content to be added.*
 
 ## Understanding Users and Disabilities
 
+### Types of disabilities (visual, auditory, motor, cognitive)
+
+*Content to be added.*
+
+### Screen readers and how they interpret content
+
+*Content to be added.*
+
+### Keyboard-only and switch users
+
+*Content to be added.*
+
+### Assistive technologies (magnification, braille, voice control)
+
+*Content to be added.*
+
+### Situational limitations and user research with disabled users
+
+*Content to be added.*
+
+### Summary and review
+
 *Content to be added.*
 
 ## Standards and Guidelines
+
+### WCAG 2.1 / 2.2 and the POUR principles
+
+*Content to be added.*
+
+### Conformance levels (A, AA, AAA) and scope
+
+*Content to be added.*
+
+### How to read success criteria and use techniques
+
+*Content to be added.*
+
+### Sufficient techniques, failures, and exceptions
+
+*Content to be added.*
+
+### Summary and review
 
 *Content to be added.*
 
 ## Text Alternatives
 
+### WCAG 1.1.1 Non-text Content
+
+*Content to be added.*
+
+### Images: alt text, decorative vs meaningful, empty alt
+
+#### Empty alt vs omitted alt, when to use alt=""
+
+*Content to be added.*
+
+#### Decorative vs meaningful images, alt text decision tree
+
+*Content to be added.*
+
+#### Alt for linked images (describe destination), image button
+
+*Content to be added.*
+
+### Writing effective alt text and common pitfalls
+
+#### Length and context, avoid "image of" and "picture of"
+
+*Content to be added.*
+
+#### Common pitfall: missing or redundant alt
+
+*Content to be added.*
+
+### Complex images, long descriptions, and data tables
+
+#### Charts, diagrams, longdesc and aria-describedby
+
+*Content to be added.*
+
+#### figcaption and figure, providing a data table
+
+*Content to be added.*
+
+### SVG, icons, image maps, and CAPTCHA
+
+#### SVG as img vs inline SVG, role="img" and title
+
+*Content to be added.*
+
+#### Image maps and area alt, CAPTCHA alternatives
+
+*Content to be added.*
+
+### Summary and review
+
 *Content to be added.*
 
 ## Time-Based Media
+
+### Captions and subtitles (1.2.2, WebVTT, quality)
+
+#### Open vs closed captions, caption timing and synchronization
+
+*Content to be added.*
+
+#### WebVTT cue and timestamp format, kind="captions" vs "subtitles"
+
+*Content to be added.*
+
+### Transcripts for audio-only and video-only
+
+#### 1.2.1 and video-only (transcript or description), transcript placement
+
+*Content to be added.*
+
+### Audio description and when it is needed
+
+#### Pauses in dialogue, extended vs standard audio description
+
+*Content to be added.*
+
+### Live captions and sign language (AAA)
+
+#### 1.2.4 Captions live, CART and real-time transcription
+
+*Content to be added.*
+
+### Video player controls and track element
+
+#### track element and default attribute, keyboard access
+
+*Content to be added.*
+
+### Summary and review
 
 *Content to be added.*
 
 ## Adaptable Content
 
+### Semantic structure: headings, one h1, hierarchy
+
+#### Heading hierarchy (h1–h6), skipping levels (avoid)
+
+*Content to be added.*
+
+### Tables: headers, scope, caption, complex tables
+
+#### scope="col" and scope="row", headers attribute for complex tables
+
+*Content to be added.*
+
+#### caption and table summary, responsive tables
+
+*Content to be added.*
+
+### Lists, form label relationships, and reading order
+
+#### ol, ul, dl and programmatic associations, 1.3.1 and form labels
+
+*Content to be added.*
+
+### Logical order vs visual order (CSS, flexbox, grid)
+
+#### DOM order vs visual order, CSS order and flexbox/grid
+
+*Content to be added.*
+
+#### Visually hidden and screen reader only, aria-hidden
+
+*Content to be added.*
+
+### Reflow (1.4.10), 320px, and meaningful sequence
+
+#### 320px width and 400% zoom, no horizontal scrolling
+
+*Content to be added.*
+
+#### 1.3.2 Meaningful sequence, reading order and DOM order match
+
+*Content to be added.*
+
+### Sensory characteristics (1.3.3)
+
+*Content to be added.*
+
+### Summary and review
+
 *Content to be added.*
 
 ## Distinguishable
+
+### Color and contrast (1.4.3, 4.5:1, large text)
+
+#### Contrast ratio 4.5:1 and 3:1, large text 18pt or 14pt bold
+
+*Content to be added.*
+
+#### Calculating contrast, tools (Colour Contrast Analyser, WebAIM)
+
+*Content to be added.*
+
+### Not relying on color alone (1.4.1)
+
+#### Icons, patterns, and text as supplements, form validation and error states
+
+*Content to be added.*
+
+### Non-text contrast (1.4.11), focus visible
+
+#### 1.4.11 and icons/UI components, focus ring contrast (2.4.7, 2.4.11)
+
+*Content to be added.*
+
+### Resize text, images of text, audio control
+
+#### 1.4.4 Resize text, 200% zoom, rem/em vs px; 1.4.2 Audio control
+
+*Content to be added.*
+
+#### 1.4.5 Images of text, when text can be visual
+
+*Content to be added.*
+
+### Summary and review
 
 *Content to be added.*
 
 ## Keyboard Accessible
 
+### Keyboard operability (2.1.1) and no keyboard trap (2.1.2)
+
+#### All functionality via keyboard, Space vs Enter for buttons and links
+
+*Content to be added.*
+
+#### No keyboard trap, focus must not be trapped in a component
+
+*Content to be added.*
+
+### Focus trap in modals, returning focus, tabindex
+
+#### Tab cycle within modal, first and last focusable, inert
+
+*Content to be added.*
+
+#### Returning focus on close, tabindex=0 vs tabindex=-1
+
+*Content to be added.*
+
+### Skip links and bypass blocks (2.4.1)
+
+#### Skip to main content, skip link and href="#main"
+
+*Content to be added.*
+
+#### Skip link visible on focus only, styling
+
+*Content to be added.*
+
+### Landmarks (banner, main, navigation, complementary)
+
+#### Landmark regions and HTML5, region and aria-label
+
+*Content to be added.*
+
+#### contentinfo, search, landmark order and nesting
+
+*Content to be added.*
+
+### Character key shortcuts (2.1.4)
+
+*Content to be added.*
+
+### Summary and review
+
 *Content to be added.*
 
 ## Enough Time
+
+### Timing adjustable (2.2.1): session timeouts, warnings
+
+*Content to be added.*
+
+### Pause, stop, hide (2.2.2): carousels, animation
+
+*Content to be added.*
+
+### Exceptions: essential, real-time, ticket/auction
+
+*Content to be added.*
+
+### Summary and review
 
 *Content to be added.*
 
 ## Seizures and Physical Reactions
 
+### Three flashes (2.3.1), general and red flash
+
+*Content to be added.*
+
+### Animation from interactions (2.3.3)
+
+*Content to be added.*
+
+### prefers-reduced-motion and implementing it
+
+*Content to be added.*
+
+### Summary and review
+
 *Content to be added.*
 
 ## Navigable
+
+### Page title (2.4.2) and focus order (2.4.3)
+
+*Content to be added.*
+
+### Link purpose in context (2.4.4), multiple ways (2.4.5)
+
+*Content to be added.*
+
+### Headings and labels (2.4.6), focus visible (2.4.7)
+
+*Content to be added.*
+
+### Focus not obscured (2.4.11, 2.4.12)
+
+*Content to be added.*
+
+### Summary and review
 
 *Content to be added.*
 
 ## Input Modalities
 
+### Pointer gestures (2.5.1) and single-pointer alternatives
+
+*Content to be added.*
+
+### Pointer cancellation (2.5.2), target size (2.5.8)
+
+*Content to be added.*
+
+### Label in name (2.5.3), motion actuation (2.5.4)
+
+*Content to be added.*
+
+### Input purpose and autocomplete (2.5.6)
+
+*Content to be added.*
+
+### Summary and review
+
 *Content to be added.*
 
 ## Readable
+
+### Language of page (3.1.1) and language of parts (3.1.2)
+
+*Content to be added.*
+
+### Unusual words, abbreviations (3.1.3, 3.1.4)
+
+*Content to be added.*
+
+### Summary and review
 
 *Content to be added.*
 
 ## Predictable
 
+### On focus (3.2.1) and on input (3.2.2)
+
+*Content to be added.*
+
+### Consistent navigation and identification (3.2.3, 3.2.4)
+
+*Content to be added.*
+
+### Change on request and common pitfalls
+
+*Content to be added.*
+
+### Summary and review
+
 *Content to be added.*
 
 ## Input Assistance
+
+### Error identification (3.3.1) and labels or instructions (3.3.2)
+
+*Content to be added.*
+
+### Error suggestion (3.3.3) and error prevention (3.3.4)
+
+*Content to be added.*
+
+### aria-describedby, aria-invalid, error summary
+
+*Content to be added.*
+
+### Required fields, autocomplete, confirmation steps
+
+*Content to be added.*
+
+### Summary and review
 
 *Content to be added.*
 
 ## Compatible
 
+### Parsing (4.1.1), valid HTML, duplicate IDs
+
+#### Start and end tags, nesting, duplicate id and ARIA IDs
+
+*Content to be added.*
+
+#### W3C validator and Nu Html Checker
+
+*Content to be added.*
+
+### Name, role, value (4.1.2) for custom controls
+
+#### Exposing name, role, value to assistive tech, custom control requirements
+
+*Content to be added.*
+
+### Status messages (4.1.3), live regions, aria-live
+
+#### aria-live, aria-atomic, aria-relevant; polite vs assertive
+
+*Content to be added.*
+
+#### role="status" and role="alert" for messages
+
+*Content to be added.*
+
+### Summary and review
+
 *Content to be added.*
 
 ## HTML Semantics and ARIA
+
+### When to use native HTML vs ARIA
+
+*Content to be added.*
+
+### ARIA roles, states, and properties
+
+*Content to be added.*
+
+### Tabs, modals, dialogs (focus trap, escape)
+
+*Content to be added.*
+
+### Menus, combobox, listbox, disclosure
+
+*Content to be added.*
+
+### Summary and review
 
 *Content to be added.*
 
 ## Forms and Validation
 
+### Labels, placeholders, fieldset and legend
+
+#### for and id, wrapping with label, visually hidden label
+
+*Content to be added.*
+
+#### fieldset, legend, radio groups and checkbox groups
+
+*Content to be added.*
+
+### Grouping, required fields, error association
+
+#### Required field indication, aria-required and HTML required
+
+*Content to be added.*
+
+#### Linking error message to input id, aria-describedby
+
+*Content to be added.*
+
+### Validation messages, aria-describedby, role=alert
+
+#### Error summary at top of form, focus on first error
+
+*Content to be added.*
+
+#### role="alert" for critical errors, announcing to screen readers
+
+*Content to be added.*
+
+### Summary and review
+
 *Content to be added.*
 
 ## Testing and Evaluation
+
+### Manual testing: keyboard and screen readers
+
+#### Keyboard testing procedure: tab through, Enter/Space, Escape
+
+*Content to be added.*
+
+#### Screen reader testing (NVDA, VoiceOver), browse mode vs focus mode
+
+*Content to be added.*
+
+### Automated testing: axe, WAVE, Lighthouse
+
+#### axe-core and browser extensions, Lighthouse a11y score
+
+*Content to be added.*
+
+#### Interpreting results, limitations of automation, false positives/negatives
+
+*Content to be added.*
+
+### CI/CD, jest-axe, eslint-plugin-jsx-a11y
+
+#### npm packages, unit tests for a11y, linting rules
+
+*Content to be added.*
+
+### Reporting issues and prioritization
+
+#### Severity and impact, steps to reproduce and WCAG criterion
+
+*Content to be added.*
+
+### Summary and review
 
 *Content to be added.*
 
 ## Documentation and Maintenance
 
+### Accessibility statements and VPATs
+
+*Content to be added.*
+
+### Embedding a11y in design and dev workflows
+
+*Content to be added.*
+
+### Training, governance, and review cycles
+
+*Content to be added.*
+
+### Summary and review
+
 *Content to be added.*
 
 ## Appendix A: Quick Reference (WCAG 2.x)
+
+### Perceivable, Operable, Understandable, Robust quick list
+
+*Content to be added.*
+
+### Criterion ID to title lookup
+
+*Content to be added.*
+
+### Level A, AA, AAA criteria
 
 *Content to be added.*
 
 ## Appendix B: Glossary
 
+### Key terms (accessible name, landmark, live region, etc.)
+
+*Content to be added.*
+
+### Acronyms and abbreviations
+
 *Content to be added.*
 
 ## Appendix C: Resources and Tools
 
+### Official standards and WAI documentation
+
+*Content to be added.*
+
+### Testing tools and screen readers
+
+*Content to be added.*
+
+### Learning and certification
+
 *Content to be added.*
 
 ## Appendix D: Checklist Template
+
+### Design, development, and release checklists
+
+*Content to be added.*
+
+### Audit report and exemption templates
 
 *Content to be added.*
