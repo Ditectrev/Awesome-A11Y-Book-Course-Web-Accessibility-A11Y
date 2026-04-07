@@ -294,57 +294,61 @@ We are so thankful for every contribution, which makes sure we can deliver top-n
 
 #### Accessibility defined by W3C WAI
 
-*Content to be added.*
+The [Web Accessibility Initiative (WAI)](https://www.w3.org/WAI/) at the W3C describes web accessibility as designing websites, web applications, tools, and technologies so that people with disabilities can use them. More broadly, accessibility is about removing barriers so users can perceive, understand, navigate, interact with, and contribute to the web. WAI’s work spans technical standards (such as WCAG), educational resources, and guidance for organizations, authors, and developers. Framing accessibility as a quality goal aligned with W3C’s mission helps teams treat it as part of good web practice, not an optional add-on.
 
 #### Definition and scope of web accessibility
 
-*Content to be added.*
+Web accessibility applies to everything delivered over the web: HTML pages, single-page apps, documents linked from the web, media players, and the controls and content inside them. It includes how information is coded (semantics, names, states), how people operate interfaces (keyboard, voice, switches), how content adapts (resize, reflow, contrast), and how updates are announced to assistive technologies. Scope also includes authoring tools and user agents in the long chain from content creation to end-user experience. This book focuses on what you can control as designers and developers: content and front-end implementation that meet user needs and align with WCAG.
 
 #### Accessibility as a continuum, no binary "accessible" vs "inaccessible"
 
-*Content to be added.*
+Products are rarely “100% accessible” or “100% inaccessible” in practice. Accessibility is a continuum: you can improve labeling on one release, fix keyboard traps the next, and broaden media alternatives over time. WCAG conformance is defined for specific views, states, and success criteria within a defined scope (for example, a set of URLs or a product boundary). A site might conform to WCAG 2.x Level AA for core flows but still have gaps in edge cases or new features. Language matters: prefer phrasing such as “conforms to WCAG 2.2 Level AA for scope X” or “addresses known barriers” over claiming a universal badge. Celebrate progress, document limitations, and plan iterative fixes—this mindset keeps teams moving without false certainty.
 
 ### Who benefits and why it matters
 
 #### Users with disabilities and beyond, demographics
 
-*Content to be added.*
+People with visual, auditory, motor, speech, and cognitive disabilities depend on accessible implementations—but so does everyone else, in different situations. Situational limitations include bright sunlight, a sleeping child (no audio), a broken arm, or low bandwidth. Temporary limitations include injury or recovery from surgery. Permanent disabilities affect a large and diverse population; many conditions are invisible. Designing for flexibility (multiple ways to complete tasks, clear language, adjustable time and motion) helps the widest audience. Demographics vary by region and age, but the trend is clear: as populations age, vision, hearing, dexterity, and memory needs increase. Accessible design is future-friendly design.
 
 #### The business and human case, ROI, legal risk
 
-*Content to be added.*
+The human case is straightforward: unnecessary barriers exclude people from education, work, commerce, and civic life. The business case includes reaching more customers, reducing support costs, improving SEO and maintainability (semantic structure helps machines and humans), and building brand trust. Return on investment is often strongest when accessibility is integrated early—retrofitting late is slower and costlier than baking patterns into design systems and components. Legal and regulatory risk varies by jurisdiction and sector (public vs private, B2B vs consumer), but demand letters, complaints, and procurement requirements are real incentives to take accessibility seriously. Investing in training, linting, design reviews, and user testing reduces rework and reputational harm.
 
 ### Inclusive design and the curb-cut effect
 
 #### Universal design principles, examples of curb-cut benefits
 
-*Content to be added.*
+Inclusive design starts from the reality that people have diverse needs and tries to include as many people as possible without designing separate “special” experiences unless necessary. Universal design principles (equitable use, flexibility, simple and intuitive use, perceptible information, tolerance for error, low physical effort, size and space for approach and use) translate well to digital products. The curb-cut effect names how features built for disability often help everyone: captions help in noisy environments; clear structure helps screen reader users and mobile readers; large touch targets help motor-impaired users and rushed commuters. Leading with inclusive defaults tends to improve UX for all.
 
 ### Legal and compliance (ADA, Section 508, WCAG, EAA)
 
 #### ADA and digital accessibility, Section 508, EAA scope
 
-*Content to be added.*
+Legal frameworks differ by country; treat this section as orientation, not legal advice. In the United States, the Americans with Disabilities Act (ADA) has been applied to digital services in many cases—especially for places of public accommodation—though specifics evolve with case law and agency guidance. Section 508 requires accessibility for federal ICT (information and communication technology); it references WCAG for web content. In the European Union, the European Accessibility Act (EAA) and related directives aim to improve accessibility of key products and services; member states implement requirements on varying timelines. Private contracts and public procurement often explicitly require WCAG conformance. Always map your market, customers, and counsel to the rules that bind your organization.
 
 #### WCAG as the technical standard, defining scope
 
-*Content to be added.*
+WCAG (Web Content Accessibility Guidelines) is the most widely adopted technical standard for web content. It is organized around POUR—Perceivable, Operable, Understandable, Robust—and expressed as success criteria with testable outcomes. Versions 2.1 and 2.2 extend earlier work with criteria for mobile, cognition, and more. Conformance levels (A, AA, AAA) stack: AA includes all of A, and so on; many policies target Level AA. WCAG does not replace user research; it sets a baseline for what to implement and how to verify. Your scope statement should list what is included (e.g., marketing site vs authenticated app), exceptions (third-party embeds), and the WCAG version and level you target.
 
 ### Defining scope, policy, and getting started
 
 #### Accessibility policy and ownership, compliance timeline
 
-*Content to be added.*
+A practical accessibility policy names ownership (often a product owner plus engineering and design leads), standards (e.g., WCAG 2.2 AA for new features), how accessibility is checked (definition of done, reviews, testing), and how issues are prioritized and tracked. Compliance is easier when treated as continuous work: bake checks into design crits, code review, and release rather than a single annual audit. Set a realistic timeline: quick wins (color contrast, labels, keyboard order) in one quarter; structural patterns (landmarks, focus management, forms) over subsequent releases; legacy debt on a published roadmap. Transparency—accessibility statement, known issues, contact for feedback—helps users and demonstrates good faith.
 
 ### Accessibility audit types and conformance timeline
 
 #### Quick, full, and continuous audits, risk assessment
 
-*Content to be added.*
+- Quick audit (hours to a couple of days): sample critical paths, automated scans plus targeted keyboard and screen reader checks. Good for spot checks and release gates.
+- Full audit (often weeks): broad page coverage, systematic WCAG mapping, documented evidence per criterion. Often used for procurement, VPAT/ACR preparation, or major releases.
+- Continuous testing: CI linting and automated rules, component-level checks, periodic manual passes with assistive tech. Catches regressions early.
+
+Risk assessment weighs user impact (blocks vs annoyance), frequency, legal or contractual exposure, and effort to fix. Prioritize keyboard blockers, missing names on controls, and authentication flows first. Document exceptions with owners and dates when you must ship with known gaps.
 
 ### Summary: Introduction to Web Accessibility
 
-*Content to be added.*
+Web accessibility means people with disabilities can perceive, operate, understand, and use the web; W3C WAI and WCAG give you a shared vocabulary and measurable criteria. It is a continuum—plan for iterative improvement and honest scope statements. Inclusive design and the curb-cut effect remind us that accessible features often help everyone. Law and procurement increasingly expect WCAG-aligned practice; policy, ownership, and testing embedded in your workflow beat one-off heroics. The next chapters go deeper into users, standards, and implementation—starting with Understanding Users and Disabilities.
 
 ## Understanding Users and Disabilities
 
