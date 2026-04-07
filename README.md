@@ -354,59 +354,63 @@ Web accessibility means people with disabilities can perceive, operate, understa
 
 ### Types of disabilities (visual, auditory, motor, cognitive)
 
+Disability is not a single story: people differ by diagnosis, severity, assistive technology, environment, and preference. The categories below (visual, auditory, motor, cognitive) are a practical map for design and development—not rigid boxes. Many people experience overlapping needs, and situational limits (noise, one hand occupied, bright sun) can feel similar to permanent barriers. Building flexible interfaces helps everyone.
+
 #### Visual: blindness, low vision, color blindness
 
-*Content to be added.*
+People who are blind or have very low vision often rely on screen readers, refreshable braille, or a combination. They need a coherent reading order, meaningful names for controls, text alternatives for images, and states that are exposed in code—not only visible on screen. Low vision users may use browser zoom, OS magnification, high-contrast themes, or custom style sheets; they need reflow without horizontal scrolling at common zoom levels, resizable text, and strong contrast between text and background. Color blindness (more accurately: color-vision deficiency) affects how users distinguish hues; red–green confusion is common, but blue–yellow issues exist too. Never convey meaning by color alone—pair color with text, icons, patterns, or labels.
 
 #### Protanopia, deuteranopia, tritanopia
 
-*Content to be added.*
+These terms describe types of congenital red–green or blue–yellow color-vision deficiency. Protanopia and deuteranopia affect the red–green axis (first vs second “cone” types); tritanopia affects the blue–yellow axis and is rarer. On the web, the practical takeaway is the same: critical information (errors, required fields, chart series, status indicators) must not depend solely on a hue difference that some users cannot see. Use redundant cues—labels, shapes, position, or patterns—and check contrast for text and graphical objects, not just “which color looks different to me.”
 
 #### Simulating color blindness in dev tools
 
-*Content to be added.*
+Modern browsers help you sanity-check designs. Chrome DevTools: open Rendering (via the command menu or More tools) and enable Emulate vision deficiencies (protanopia, deuteranopia, tritanopia, achromatopsia, blurred vision). Firefox offers similar Accessibility simulation tools in developer settings. Safari and third-party plugins (e.g., design-system extensions) may offer overlays. Simulation is illustrative, not authoritative—it does not replace contrast math (WCAG ratios), real device testing, or feedback from users with color-vision differences. Use it to catch obvious “color only” mistakes early.
 
 #### Auditory: deafness and hard of hearing
 
-*Content to be added.*
+Deaf and hard-of-hearing users need visual equivalents of audio: captions for video, transcripts for audio-only or video-only content, and visible text for alerts that others hear. Autoplaying sound can be disruptive or unusable; provide user control over playback and volume. For live meetings or events, plan for live captions or professional services where policy requires it. Spoken instructions should have a written counterpart when they carry essential information. Remember that sign languages are full languages; for prerecorded media, captions are the baseline on the web—sign language (often an AAA enhancement in WCAG) is a separate accommodation in many contexts.
 
 #### Dyslexia and reading difficulties
 
-*Content to be added.*
+Dyslexia and related reading differences affect fluency, decoding, and working memory—not intelligence. On the web, support comes from clear structure (headings, lists, one idea per paragraph), predictable navigation, plain language, and consistent layouts. Avoid dense, justified blocks of text where possible; left alignment often helps. Let users customize: respect zoom and reflow; avoid embedding critical text in images. Fonts and spacing matter to some users but are personal—focus on semantics, contrast, and reducing cognitive load (clear errors, forgiving forms) rather than debating a single “dyslexia font.”
 
 #### Autism and sensory considerations
 
-*Content to be added.*
+Autistic people are diverse; needs vary. Common web-related themes include predictability (unexpected autoplay, redirects, or noisy animations cause stress), sensory load (flashing, clutter, overlapping sounds), and clear language (literal instructions, explicit outcomes). Offering control—pause/stop for carousels and video, optional detail, consistent navigation—helps many users, not only autistic users. Avoid stereotyping; treat accessibility as respecting preferences and reducing unnecessary barriers, not as labeling a “type” of user.
 
 #### Vestibular disorders and motion sensitivity
 
-*Content to be added.*
+Vestibular conditions can cause dizziness, nausea, or disorientation from motion: parallax scrolling, zooming transitions, autoplaying movement, or large shifts of content. Respect `prefers-reduced-motion` (and avoid essential motion-only instructions). Provide static alternatives where animation is decorative, and let users disable non-essential motion. This aligns closely with WCAG criteria on animation from interactions and seizure risk; you will implement it in depth later in this book.
 
 ### Screen readers and how they interpret content
 
+Screen readers are assistive software that convert on-screen information to speech or braille. They use the browser’s accessibility tree—a derivative of the DOM plus ARIA—not only raw HTML text. That is why semantics (`button` vs `div` with a click handler), names (`alt`, labels, `aria-label`), roles, and states matter: if it is not exposed correctly, it may be silent or wrong. Testing with at least one screen reader (e.g., NVDA on Windows, VoiceOver on macOS/iOS) builds empathy and catches bugs automation misses.
+
 #### Navigation by tables, lists, and headings
 
-*Content to be added.*
+Screen reader users often browse by structure: jump from heading to heading (`h1`–`h6`), move through landmarks (main, nav, etc.), and list links or form fields. A logical heading hierarchy outlines the page; skipping levels or using headings only for styling breaks that map. Lists (`ul`, `ol`, `dl`) announce list type and item counts; fake lists built with line breaks lose that context. Tables used for data need proper `th`, `scope` (or `headers`/`id` for complex tables), and `caption` where helpful; layout tables and misused table roles confuse navigation. Programmatic order should match the visual reading order so “next line” and tab order stay coherent.
 
 #### Punctuation and verbosity settings
 
-*Content to be added.*
+Screen readers speak punctuation based on user preferences and heuristics—ellipsis, quotes, and abbreviations may be announced differently across tools. Verbosity settings control how much is read (e.g., hints, table dimensions, control types). Do not rely on quirky punctuation in visible copy to “trick” a screen reader into a specific cadence; write clear, natural text. For abbreviations and symbols, provide human-readable expansions where the first occurrence matters (`abbr` with `title`, or plain language). ARIA and live regions affect what is spoken when content updates; polite vs assertive announcements change interruption behavior—details appear in later chapters on robust, compatible implementations.
 
 ### Keyboard-only and switch users
 
-*Content to be added.*
+Many people cannot use a mouse or prefer the keyboard: motor disabilities, tremor, pain, or power users. Everything that can be done with a pointer must be reachable and operable with a keyboard alone: Tab/Shift+Tab, Enter/Space, Escape, arrow keys where patterns require them. Focus must be visible, order must be logical, and keyboard traps (modals that steal focus without escape) are failures. Switch access users step through focusable elements with one or two switches; long tab paths and tiny targets multiply effort. Timing: if a task requires speed, offer alternatives or more time. Keyboard support is both a WCAG requirement and a fast manual test you can run on every build.
 
 ### Assistive technologies (magnification, braille, voice control)
 
-*Content to be added.*
+Beyond screen readers, users employ screen magnifiers (often with large cursors and focus tracking)—content must reflow and focus must stay visible when zoomed. Refreshable braille displays connect to screen readers; the same semantic correctness that helps speech helps braille routing and labels. Voice control (e.g., Dragon, platform dictation) depends on visible labels and actionable names: controls need names that match what users say (“Click Submit”). Speech input users benefit from large click targets and forgiving error recovery. Designing for name, role, value and predictable structure supports this whole ecosystem.
 
 ### Situational limitations and user research with disabled users
 
-*Content to be added.*
+Situational barriers include bright light, noisy rooms, holding a child, or temporary injury—they mirror permanent needs and show why inclusive defaults scale. User research with disabled participants is invaluable: it reveals real workflows, assistive tech combinations, and priorities automated tests cannot. Practices: recruit fairly (paid, flexible scheduling), minimize burden (remote OK, multiple formats), ask about access needs in advance, and iterate on prototypes. Combine research with WCAG conformance: standards ensure breadth; lived experience catches friction and delight. A small study with five thoughtful sessions often beats assumptions from a hundred abled-only walkthroughs.
 
 ### Summary: Understanding Users and Disabilities
 
-*Content to be added.*
+Users bring diverse sensory, motor, and cognitive needs; visual, auditory, motor, and cognitive categories help you reason about barriers, but real people mix categories and contexts. Color-vision differences, low vision, and blindness require non-color cues, contrast, reflow, and text alternatives. Deaf and hard-of-hearing users need captions, transcripts, and control over audio. Reading and cognitive differences benefit from structure, plain language, and predictability; vestibular and sensory sensitivity calls for motion restraint and user control. Screen readers depend on semantics and structure (headings, lists, tables, landmarks); keyboard and switch users need full keyboard access, visible focus, and efficient paths. Magnification, braille, and voice control extend the same principles—names, roles, and states must be correct. Pair standards with research and remember situational limits: inclusive design is not a niche—it is better UX. The next chapters translate these needs into WCAG, techniques, and implementation patterns.
 
 ## Standards and Guidelines
 
