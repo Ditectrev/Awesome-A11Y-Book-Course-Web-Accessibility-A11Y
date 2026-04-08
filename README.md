@@ -416,23 +416,42 @@ Users bring diverse sensory, motor, and cognitive needs; visual, auditory, motor
 
 ### WCAG 2.1 / 2.2 and the POUR principles
 
-*Content to be added.*
+The Web Content Accessibility Guidelines (WCAG) are technical standards published by the W3C Web Accessibility Initiative. They describe how to make web content more accessible to people with disabilities and are referenced worldwide in policy, procurement, and litigation. WCAG 2.x is versioned: 2.1 added criteria relevant to mobile and low vision, among others; 2.2 added criteria for pointer targets, authentication, and dragging, and refined some guidance. For any new work, prefer the latest stable version your organization has adopted—often WCAG 2.2—while recognizing that contracts may still name 2.1 until they are updated.
+
+WCAG organizes requirements around four principles, often remembered as POUR:
+
+- Perceivable: information and user interface components must be presentable to users in ways they can perceive (for example, text alternatives for non-text content, adaptable layout, sufficient contrast).
+- Operable: interface components and navigation must be operable (for example, keyboard access, enough time, seizure safety, navigable structure).
+- Understandable: information and operation of the user interface must be understandable (for example, readable text, predictable behavior, input assistance).
+- Robust: content must be robust enough to work with current and future user agents, including assistive technologies (for example, valid parsing where relied upon, name/role/value for controls, status messages).
+
+Each principle contains guidelines, and each guideline contains testable success criteria identified by numbers such as 1.4.3 (first digit = principle). The POUR framing helps teams prioritize: if something cannot be perceived or operated, understanding and robustness cannot compensate on their own.
 
 ### Conformance levels (A, AA, AAA) and scope
 
-*Content to be added.*
+WCAG defines three conformance levels: A, AA, and AAA. They are cumulative: Level AA includes all Level A criteria, and Level AAA includes all of AA (and thus A). Most organizational policies and regulations that reference WCAG target Level AA for web content, because AA balances breadth and feasibility; Level A alone leaves important gaps (for example, several contrast and timing requirements appear at AA). Level AAA is appropriate for specialized contexts or priority subsets of a site—meeting AAA everywhere is often impractical for large, dynamic products, but you can still apply individual AAA criteria where they matter most (for example, sign language for some media).
+
+Conformance is always claimed for a defined scope: a list of web pages, a product boundary, a date-stamped release, or a documented set of views and states. You cannot truthfully claim “our whole company conforms” without saying to which pages, which WCAG version, which level, and under which conditions. Full pages: the entire page within scope must meet the chosen level for that claim. Complete processes: if a task spans multiple steps (for example, checkout), the whole process must meet the level for the claim to hold for that flow. Third-party content, embedded widgets, and PDFs linked from the site may need their own statements or exclusions—say so in your accessibility documentation.
 
 ### How to read success criteria and use techniques
 
-*Content to be added.*
+A success criterion has a short title, an intent section, and typically lists of sufficient techniques, advisory techniques, and common failures. The normative (binding) part is the wording of the criterion itself and any notes explicitly marked as normative; surrounding guidance helps interpretation and testing.
+
+When you read a criterion, identify: who it protects, what interface or content it applies to, and what counts as pass or fail. Many criteria reference “programmatically determined” relationships—meaning available to assistive technologies through the accessibility tree, not only visually obvious. Others specify thresholds (timing, contrast ratios, target size) that you can measure with tools and rulers.
+
+Techniques documents and Understanding pages on the W3C site are not substitutes for the criterion text, but they are invaluable for implementation: they show HTML, ARIA, CSS, and PDF patterns that commonly satisfy the requirement. Always map fixes back to the specific criterion ID in bug tickets and audit reports so teams learn patterns and regressions are traceable.
 
 ### Sufficient techniques, failures, and exceptions
 
-*Content to be added.*
+W3C publishes techniques labeled sufficient: if you implement a technique correctly for your situation, you have one way to meet the associated criterion. There are often multiple sufficient techniques for the same criterion; you may combine techniques or choose the one that fits your stack. Advisory techniques can improve accessibility beyond minimum conformance but are not required for a given criterion.
+
+Documented failures illustrate patterns that do not meet the criterion—useful for code review and training (for example, incorrect ARIA that hides content from assistive tech). Seeing a failure does not automatically mean your page fails; it means that pattern is insufficient until fixed.
+
+Some criteria include exceptions: situations where the requirement does not apply (for example, certain types of essential time limits, or purely decorative content). Read the exception list carefully—assume the rule applies unless your case clearly matches an exception. If you rely on an exception, document why, so future changes do not accidentally remove the qualifying condition.
 
 ### Summary: Standards and Guidelines
 
-*Content to be added.*
+WCAG 2.1 and 2.2 translate the POUR principles into numbered, testable success criteria; adopt a specific version and level in policy so engineering and design share one target. Level AA is the usual bar for whole-product claims; AAA can apply to selected experiences or criteria. Conformance requires an explicit scope—pages, processes, and date—and honesty about partial coverage and third-party content. Learn to read criteria for measurable outcomes, then use W3C techniques and failures as implementation and review aids. The next chapters walk through criteria by topic—text alternatives, media, adaptable and distinguishable content, keyboard access, and the rest—turning this framework into concrete patterns you can ship.
 
 ## Text Alternatives
 
