@@ -300,6 +300,30 @@ The [Web Accessibility Initiative (WAI)](https://www.w3.org/WAI/) at the W3C des
 
 Web accessibility applies to everything delivered over the web: HTML pages, single-page apps, documents linked from the web, media players, and the controls and content inside them. It includes how information is coded (semantics, names, states), how people operate interfaces (keyboard, voice, switches), how content adapts (resize, reflow, contrast), and how updates are announced to assistive technologies. Scope also includes authoring tools and user agents in the long chain from content creation to end-user experience. This book focuses on what you can control as designers and developers: content and front-end implementation that meet user needs and align with WCAG.
 
+At the code level, that starts with a valid document, a human language, landmarks, and a unique page title—before you style a single pixel. A minimal pattern looks like this:
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Checkout — Shipping | Example Shop</title>
+  </head>
+  <body>
+    <a href="#main">Skip to main content</a>
+    <header>
+      <nav aria-label="Primary">…</nav>
+    </header>
+    <main id="main">
+      <h1>Shipping address</h1>
+      <!-- primary content -->
+    </main>
+  </body>
+</html>
+```
+
+The `lang` attribute helps pronunciation and translation tools; the `title` identifies the page in tabs and history; the skip link and `main` landmark support keyboard and screen reader navigation—topics you will see again in WCAG and in later chapters.
+
 #### Accessibility as a continuum, no binary "accessible" vs "inaccessible"
 
 Products are rarely “100% accessible” or “100% inaccessible” in practice. Accessibility is a continuum: you can improve labeling on one release, fix keyboard traps the next, and broaden media alternatives over time. WCAG conformance is defined for specific views, states, and success criteria within a defined scope (for example, a set of URLs or a product boundary). A site might conform to WCAG 2.x Level AA for core flows but still have gaps in edge cases or new features. Language matters: prefer phrasing such as “conforms to WCAG 2.2 Level AA for scope X” or “addresses known barriers” over claiming a universal badge. Celebrate progress, document limitations, and plan iterative fixes—this mindset keeps teams moving without false certainty.
@@ -330,6 +354,18 @@ Legal frameworks differ by country; treat this section as orientation, not legal
 
 WCAG (Web Content Accessibility Guidelines) is the most widely adopted technical standard for web content. It is organized around POUR—Perceivable, Operable, Understandable, Robust—and expressed as success criteria with testable outcomes. Versions 2.1 and 2.2 extend earlier work with criteria for mobile, cognition, and more. Conformance levels (A, AA, AAA) stack: AA includes all of A, and so on; many policies target Level AA. WCAG does not replace user research; it sets a baseline for what to implement and how to verify. Your scope statement should list what is included (e.g., marketing site vs authenticated app), exceptions (third-party embeds), and the WCAG version and level you target.
 
+Many failures come from using the wrong element for the job. A `button` is focusable, activatable with Enter and Space, and exposed with a button role by default; a `div` with a click handler is not, unless you add keyboard handlers, focus management, and ARIA—extra surface area for bugs:
+
+```html
+<!-- Avoid: no keyboard, no implicit role/name pipeline -->
+<div class="btn" onclick="submit()">Continue</div>
+
+<!-- Prefer: native semantics and keyboard behavior -->
+<button type="submit">Continue</button>
+```
+
+If you must retrofit a custom control, you will wire `tabindex`, `role`, key events, and accessible name—patterns covered later—but default HTML elements are the first line of defense.
+
 ### Defining scope, policy, and getting started
 
 #### Accessibility policy and ownership, compliance timeline
@@ -343,6 +379,23 @@ A practical accessibility policy names ownership (often a product owner plus eng
 - Quick audit (hours to a couple of days): sample critical paths, automated scans plus targeted keyboard and screen reader checks. Good for spot checks and release gates.
 - Full audit (often weeks): broad page coverage, systematic WCAG mapping, documented evidence per criterion. Often used for procurement, VPAT/ACR preparation, or major releases.
 - Continuous testing: CI linting and automated rules, component-level checks, periodic manual passes with assistive tech. Catches regressions early.
+
+You can anchor continuous checks in tooling so accessibility runs like lint or unit tests. For example, ESLint with jsx-a11y catches many anti-patterns in React; axe-core powers browser extensions and can run in Jest or Playwright. A minimal `package.json` fragment might look like:
+
+```json
+{
+  "scripts": {
+    "lint:a11y": "eslint 'src/**/*.{js,jsx,ts,tsx}'",
+    "test:a11y": "jest --testPathPattern=a11y"
+  },
+  "devDependencies": {
+    "eslint-plugin-jsx-a11y": "^6.10.0",
+    "jest-axe": "^10.0.0"
+  }
+}
+```
+
+Automation does not replace manual keyboard and screen reader passes; it narrows the gap by failing builds on known classes of regressions.
 
 Risk assessment weighs user impact (blocks vs annoyance), frequency, legal or contractual exposure, and effort to fix. Prioritize keyboard blockers, missing names on controls, and authentication flows first. Document exceptions with owners and dates when you must ship with known gaps.
 
@@ -360,6 +413,29 @@ Disability is not a single story: people differ by diagnosis, severity, assistiv
 
 People who are blind or have very low vision often rely on screen readers, refreshable braille, or a combination. They need a coherent reading order, meaningful names for controls, text alternatives for images, and states that are exposed in code—not only visible on screen. Low vision users may use browser zoom, OS magnification, high-contrast themes, or custom style sheets; they need reflow without horizontal scrolling at common zoom levels, resizable text, and strong contrast between text and background. Color blindness (more accurately: color-vision deficiency) affects how users distinguish hues; red–green confusion is common, but blue–yellow issues exist too. Never convey meaning by color alone—pair color with text, icons, patterns, or labels.
 
+Meaningful and decorative images differ in how you expose them to assistive tech:
+
+```html
+<!-- Informative: describe the message or function -->
+<img src="/charts/q3-revenue.svg" alt="Q3 revenue up 12% year over year" />
+
+<!-- Decorative: empty alt so the screen reader skips it -->
+<img src="/divider-wave.svg" alt="" />
+
+<!-- Icon-only control: the name belongs on the button, not only on the icon -->
+<button type="button" aria-label="Close dialog">
+  <img src="/icons/close.svg" alt="" />
+</button>
+```
+
+For form errors, pair color with text and programmatic state so the failure is not “red border only”:
+
+```html
+<label for="email">Email</label>
+<input id="email" type="email" aria-invalid="true" aria-describedby="email-error" />
+<p id="email-error">Enter an email address in the form name@example.com.</p>
+```
+
 #### Protanopia, deuteranopia, tritanopia
 
 These terms describe types of congenital red–green or blue–yellow color-vision deficiency. Protanopia and deuteranopia affect the red–green axis (first vs second “cone” types); tritanopia affects the blue–yellow axis and is rarer. On the web, the practical takeaway is the same: critical information (errors, required fields, chart series, status indicators) must not depend solely on a hue difference that some users cannot see. Use redundant cues—labels, shapes, position, or patterns—and check contrast for text and graphical objects, not just “which color looks different to me.”
@@ -371,6 +447,17 @@ Modern browsers help you sanity-check designs. Chrome DevTools: open Rendering (
 #### Auditory: deafness and hard of hearing
 
 Deaf and hard-of-hearing users need visual equivalents of audio: captions for video, transcripts for audio-only or video-only content, and visible text for alerts that others hear. Autoplaying sound can be disruptive or unusable; provide user control over playback and volume. For live meetings or events, plan for live captions or professional services where policy requires it. Spoken instructions should have a written counterpart when they carry essential information. Remember that sign languages are full languages; for prerecorded media, captions are the baseline on the web—sign language (often an AAA enhancement in WCAG) is a separate accommodation in many contexts.
+
+At the markup level, associate timed text with the media element so users can turn captions on and assistive tech can relate tracks to the video:
+
+```html
+<video controls>
+  <source src="product-demo.mp4" type="video/mp4" />
+  <track kind="captions" src="product-demo-en.vtt" srclang="en" label="English" default />
+</video>
+```
+
+You will refine `WebVTT` format, defaults, and player keyboard support in the Time-Based Media chapter.
 
 #### Dyslexia and reading difficulties
 
@@ -384,6 +471,22 @@ Autistic people are diverse; needs vary. Common web-related themes include predi
 
 Vestibular conditions can cause dizziness, nausea, or disorientation from motion: parallax scrolling, zooming transitions, autoplaying movement, or large shifts of content. Respect `prefers-reduced-motion` (and avoid essential motion-only instructions). Provide static alternatives where animation is decorative, and let users disable non-essential motion. This aligns closely with WCAG criteria on animation from interactions and seizure risk; you will implement it in depth later in this book.
 
+In CSS, respect the user preference and reduce or remove non-essential animation:
+
+```css
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+```
+
+Tune this to your design system: some teams disable parallax and large transitions only, while keeping subtle opacity fades. Never remove motion that is essential to understanding without providing an equivalent.
+
 ### Screen readers and how they interpret content
 
 Screen readers are assistive software that convert on-screen information to speech or braille. They use the browser’s accessibility tree—a derivative of the DOM plus ARIA—not only raw HTML text. That is why semantics (`button` vs `div` with a click handler), names (`alt`, labels, `aria-label`), roles, and states matter: if it is not exposed correctly, it may be silent or wrong. Testing with at least one screen reader (e.g., NVDA on Windows, VoiceOver on macOS/iOS) builds empathy and catches bugs automation misses.
@@ -392,6 +495,35 @@ Screen readers are assistive software that convert on-screen information to spee
 
 Screen reader users often browse by structure: jump from heading to heading (`h1`–`h6`), move through landmarks (main, nav, etc.), and list links or form fields. A logical heading hierarchy outlines the page; skipping levels or using headings only for styling breaks that map. Lists (`ul`, `ol`, `dl`) announce list type and item counts; fake lists built with line breaks lose that context. Tables used for data need proper `th`, `scope` (or `headers`/`id` for complex tables), and `caption` where helpful; layout tables and misused table roles confuse navigation. Programmatic order should match the visual reading order so “next line” and tab order stay coherent.
 
+A compact illustration of structure that maps well to the accessibility tree:
+
+```html
+<body>
+  <header><nav aria-label="Primary">…</nav></header>
+  <main>
+    <h1>Invoices</h1>
+    <h2>Outstanding</h2>
+    <ul>
+      <li><a href="/inv/1">Invoice #1 — due 12 May</a></li>
+      <li><a href="/inv/2">Invoice #2 — due 18 May</a></li>
+    </ul>
+    <h2>Summary by region</h2>
+    <table>
+      <caption>Revenue by region, Q1</caption>
+      <thead>
+        <tr>
+          <th scope="col">Region</th>
+          <th scope="col">Amount</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><th scope="row">EMEA</th><td>…</td></tr>
+      </tbody>
+    </table>
+  </main>
+</body>
+```
+
 #### Punctuation and verbosity settings
 
 Screen readers speak punctuation based on user preferences and heuristics—ellipsis, quotes, and abbreviations may be announced differently across tools. Verbosity settings control how much is read (e.g., hints, table dimensions, control types). Do not rely on quirky punctuation in visible copy to “trick” a screen reader into a specific cadence; write clear, natural text. For abbreviations and symbols, provide human-readable expansions where the first occurrence matters (`abbr` with `title`, or plain language). ARIA and live regions affect what is spoken when content updates; polite vs assertive announcements change interruption behavior—details appear in later chapters on robust, compatible implementations.
@@ -399,6 +531,21 @@ Screen readers speak punctuation based on user preferences and heuristics—elli
 ### Keyboard-only and switch users
 
 Many people cannot use a mouse or prefer the keyboard: motor disabilities, tremor, pain, or power users. Everything that can be done with a pointer must be reachable and operable with a keyboard alone: Tab/Shift+Tab, Enter/Space, Escape, arrow keys where patterns require them. Focus must be visible, order must be logical, and keyboard traps (modals that steal focus without escape) are failures. Switch access users step through focusable elements with one or two switches; long tab paths and tiny targets multiply effort. Timing: if a task requires speed, offer alternatives or more time. Keyboard support is both a WCAG requirement and a fast manual test you can run on every build.
+
+Visible focus is not optional. Avoid removing outlines globally; style focus for keyboard users while reducing noise for mouse users with `:focus-visible`:
+
+```css
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+:focus-visible {
+  outline: 2px solid CanvasText;
+  outline-offset: 2px;
+}
+```
+
+Pair this with a skip link (see Introduction) and a logical tab order that follows the DOM, not only the visual grid.
 
 ### Assistive technologies (magnification, braille, voice control)
 
@@ -427,11 +574,35 @@ WCAG organizes requirements around four principles, often remembered as POUR:
 
 Each principle contains guidelines, and each guideline contains testable success criteria identified by numbers such as 1.4.3 (first digit = principle). The POUR framing helps teams prioritize: if something cannot be perceived or operated, understanding and robustness cannot compensate on their own.
 
+POUR is not abstract—it maps to concrete checks. For example, criterion 1.1.1 Non-text Content (Perceivable) expects a text alternative for non-text content; 2.1.1 Keyboard (Operable) requires all functionality from the keyboard; 3.3.2 Labels or Instructions (Understandable) expects labels or instructions when user input is required; 4.1.2 Name, Role, Value (Robust) requires UI components to expose name, role, and states programmatically. A custom toggle must synchronize its exposed state with its visuals:
+
+```html
+<button type="button" role="switch" aria-checked="false" id="notifications">
+  <span class="visually-hidden">Notifications</span>
+</button>
+```
+
+When the user activates it, your script updates `aria-checked` to `"true"` and the visible design—otherwise assistive tech reports the wrong state.
+
 ### Conformance levels (A, AA, AAA) and scope
 
 WCAG defines three conformance levels: A, AA, and AAA. They are cumulative: Level AA includes all Level A criteria, and Level AAA includes all of AA (and thus A). Most organizational policies and regulations that reference WCAG target Level AA for web content, because AA balances breadth and feasibility; Level A alone leaves important gaps (for example, several contrast and timing requirements appear at AA). Level AAA is appropriate for specialized contexts or priority subsets of a site—meeting AAA everywhere is often impractical for large, dynamic products, but you can still apply individual AAA criteria where they matter most (for example, sign language for some media).
 
 Conformance is always claimed for a defined scope: a list of web pages, a product boundary, a date-stamped release, or a documented set of views and states. You cannot truthfully claim “our whole company conforms” without saying to which pages, which WCAG version, which level, and under which conditions. Full pages: the entire page within scope must meet the chosen level for that claim. Complete processes: if a task spans multiple steps (for example, checkout), the whole process must meet the level for the claim to hold for that flow. Third-party content, embedded widgets, and PDFs linked from the site may need their own statements or exclusions—say so in your accessibility documentation.
+
+Teams often capture scope in a short machine-readable or human-readable block so engineering, legal, and QA align. Example:
+
+```yaml
+# accessibility-scope.yaml (illustrative)
+wcag_version: "2.2"
+conformance_level: "AA"
+in_scope:
+  - "https://example.com/app/"
+  - "https://example.com/help/"
+out_of_scope:
+  - "Third-party chat widget (vendor roadmap Q4)"
+  - "Legacy PDFs pre-2020 (linked alternatives provided)"
+```
 
 ### How to read success criteria and use techniques
 
@@ -441,11 +612,28 @@ When you read a criterion, identify: who it protects, what interface or content 
 
 Techniques documents and Understanding pages on the W3C site are not substitutes for the criterion text, but they are invaluable for implementation: they show HTML, ARIA, CSS, and PDF patterns that commonly satisfy the requirement. Always map fixes back to the specific criterion ID in bug tickets and audit reports so teams learn patterns and regressions are traceable.
 
+Stable URLs for Understanding documents follow a predictable pattern you can bookmark or link from internal docs, for example:
+
+`https://www.w3.org/WAI/WCAG22/Understanding/non-text-content.html`
+
+Swap the slug (`non-text-content`) for the criterion you are implementing; the page lists intent, benefits, examples, techniques, and failures for that ID.
+
 ### Sufficient techniques, failures, and exceptions
 
 W3C publishes techniques labeled sufficient: if you implement a technique correctly for your situation, you have one way to meet the associated criterion. There are often multiple sufficient techniques for the same criterion; you may combine techniques or choose the one that fits your stack. Advisory techniques can improve accessibility beyond minimum conformance but are not required for a given criterion.
 
 Documented failures illustrate patterns that do not meet the criterion—useful for code review and training (for example, incorrect ARIA that hides content from assistive tech). Seeing a failure does not automatically mean your page fails; it means that pattern is insufficient until fixed.
+
+A common failure mode is hiding interactive content from assistive tech while leaving it on screen, or the reverse. For example, `aria-hidden="true"` on a parent hides all descendants from the accessibility tree; if a focusable control lives inside, you create a mismatch between what is visible and what is in the tree:
+
+```html
+<!-- Problem: focus can reach the button, but it may be omitted from the tree for AT -->
+<div aria-hidden="true">
+  <button type="button">Save</button>
+</div>
+```
+
+Prefer removing `aria-hidden` from ancestors of interactive content, moving focusable elements outside the hidden subtree, or using `inert` (where supported) with matching focus management—details come in the Compatible and Keyboard chapters.
 
 Some criteria include exceptions: situations where the requirement does not apply (for example, certain types of essential time limits, or purely decorative content). Read the exception list carefully—assume the rule applies unless your case clearly matches an exception. If you rely on an exception, document why, so future changes do not accidentally remove the qualifying condition.
 
