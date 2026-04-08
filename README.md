@@ -786,45 +786,132 @@ WCAG **1.1.1** requires text alternatives for non-text content so that informati
 
 #### Transcripts, captions, and audio description as alternatives
 
-*Content to be added.*
+Time-based media (audio and video) cannot be fully replaced by a single static image or one line of `alt` text. WCAG groups requirements into alternatives that match how people perceive and use media:
+
+- Captions synchronize text with the audio track (dialogue and important non-speech information) so people who are deaf or hard of hearing, or who cannot enable sound, get an equivalent of what is heard.
+- Transcripts are a text version of the spoken content (and, for video, often descriptions of meaningful visuals). They support reading at one’s own pace, search, translation, and some assistive technology workflows.
+- Audio description (also called video description) adds spoken narration of important visual information that is not in the main soundtrack—so people who are blind or have low vision can follow action, on-screen text, and scene changes.
+
+These overlap: a full transcript of a video may include speaker labels and descriptions of visuals; captions focus on time-synchronized dialogue and sound cues; audio description is usually a separate timed track or extended pauses in the program. Which WCAG success criteria apply depends on prerecorded versus live media and on conformance level (A, AA, AAA)—the sections below map each requirement.
 
 ### Captions and subtitles (1.2.2, WebVTT, quality)
 
+WCAG 1.2.2 Captions (Prerecorded) (Level A) requires captions for all prerecorded audio content in synchronized media, except when the media is clearly a media alternative for text and is labeled as such.
+
+What “captions” means for accessibility: In WCAG, captions are not only dialogue—they should convey relevant non-speech audio when it matters for understanding (for example a knock at the door, a siren, or `[music playing]` when the mood is plot-relevant). Subtitles for translation (dialogue in another language) may not include those sound cues; for accessibility, prefer caption files that include speaker identification and sound effects where needed.
+
+Quality basics: Accurate wording, readable pace (avoid unreadably fast flashes of text), sufficient contrast and size in the player, and synchronization with the audio so lip-reading users and deaf users are not misled. Automated captions alone are often insufficient for conformance if they are systematically wrong; human review or correction is typical for compliance-sensitive content.
+
 #### Open vs closed captions, caption timing and synchronization
 
-*Content to be added.*
+- Open captions are burned into the video frames. Everyone sees them; they cannot be toggled off. They simplify delivery (one file) but reduce user choice (language, size, placement) and can clash with branding or cropping.
+- Closed captions are separate timed text (often WebVTT or TTML) displayed by the player. Users can often turn them on or off, choose tracks, and sometimes adjust style. Closed captions are the usual pattern on the web because they support multiple languages and personalization.
+
+Synchronization: Cues should align with the spoken words and important sounds—typically within roughly a fraction of a second of the audio, not drifting over time. Timing also means splitting long lines at natural phrase boundaries and keeping on-screen duration long enough to read (a common rule of thumb is about 160–190 words per minute maximum for reading speed in entertainment; adjust for dense educational content).
 
 #### WebVTT cue and timestamp format, kind="captions" vs "subtitles"
 
-*Content to be added.*
+WebVTT (`.vtt`) is the common caption format for `<track>` on the web. A file is UTF-8 text with an optional `WEBVTT` header, cues separated by blank lines, and timestamps in `hours:minutes:seconds.milliseconds` form.
+
+```vtt
+WEBVTT
+
+00:00:01.000 --> 00:00:04.500
+Welcome to the quarterly results webinar.
+
+00:00:04.500 --> 00:00:07.000
+[upbeat music]
+
+00:00:07.000 --> 00:00:11.000
+<v Speaker 1>Revenue grew twelve percent year over year.</v>
+```
+
+In HTML5, `<track>` uses a `kind` attribute:
+
+- `kind="captions"` — Intended for captions (including translation subtitles that serve the same role as captions). Use when the track is for accessibility and/or dialogue in another language with the usual caption expectations (timing, speaker changes as needed).
+- `kind="subtitles"` — Historically translation of dialogue only. If your “subtitle” track omits non-speech audio information that is necessary to understand the video, you may fail caption requirements; for accessibility, many teams use `captions` for all text tracks that must meet WCAG, or ensure subtitles are complete enough to count as captions.
+
+`srclang` should identify the language (`en`, `pl`, etc.). `label` is what users see in the player’s track menu.
+
+```html
+<video controls>
+  <source src="/media/quarterly-review.mp4" type="video/mp4">
+  <track kind="captions" src="/media/quarterly-review.en.vtt" srclang="en" label="English" default>
+</video>
+```
 
 ### Transcripts for audio-only and video-only
 
 #### 1.2.1 and video-only (transcript or description), transcript placement
 
-*Content to be added.*
+WCAG 1.2.1 Audio-only and Video-only (Prerecorded) (Level A) requires an alternative for time-based media for:
+
+- Prerecorded audio-only (for example a podcast episode), and  
+- Prerecorded video-only (for example a silent demo or animation with no audio track).
+
+The alternative is text (or text with equivalents: for video-only, that often means a descriptive transcript that explains what happens visually). The purpose is that users who cannot perceive the audio or video get the same information in another modality.
+
+Video-only: Provide either a transcript that describes the visual content adequately, or another text or media alternative that conveys the same information. A caption track without spoken dialogue may still need textual description of the visuals elsewhere.
+
+Where to place transcripts: Common patterns:
+
+- On the same page as the player, below or beside the media, or in an expandable section (`<details>`/`<summary>`) to save space.
+- On a linked separate page if the transcript is very long—ensure the link text is clear (“Full transcript: Quarterly results webinar”) and keyboard-accessible.
+
+Identify the transcript with a heading or landmark so screen reader users can skip to it. If the media is embedded from a third party, duplicate or link to the transcript on your page when you control the surrounding content.
 
 ### Audio description and when it is needed
 
+WCAG 1.2.5 Audio Description (Prerecorded) (Level AA) requires audio description for prerecorded synchronized video where important visual content is not already conveyed in the main audio.
+
+Use audio description when viewers would miss plot, instructions, or context without seeing the screen—for example on-screen text not read aloud, who is speaking in a crowd scene, or a diagram shown without narration. If every meaningful visual is already described in the dialogue or narration, a separate description track may add little—but verify with a careful review, not assumptions.
+
+Delivery formats include a second audio track (often with a player control), a separate described video file, or text-based descriptions in a transcript when that meets the success criterion’s intent for your media type (check WCAG Understanding documents and your policy; many organizations implement spoken description for video).
+
 #### Pauses in dialogue, extended vs standard audio description
 
-*Content to be added.*
+- Standard audio description fits natural pauses in the soundtrack. Narration is squeezed into gaps between dialogue lines. When pauses are too short, you may need to edit the video to extend silence slightly (where editorially allowed) or use extended description.
+- Extended audio description (WCAG 1.2.7, Level AAA) pauses the video to allow longer description when there is no room otherwise. The player must support freeze-and-describe behavior. This is more disruptive to pacing but necessary for dense visuals or rapid dialogue.
+
+Choose standard when pauses suffice; use extended only when standard cannot fit required description without losing information.
 
 ### Live captions and sign language (AAA)
 
 #### 1.2.4 Captions live, CART and real-time transcription
 
-*Content to be added.*
+WCAG 1.2.4 Captions (Live) (Level AA) requires real-time captions for live synchronized media that contains audio (for example a live stream, webinar, or broadcast).
+
+Implementation notes:
+
+- Human stenography / CART (Communication Access Realtime Translation): A trained provider captions in real time with high accuracy for formal events; often the gold standard for legal, medical, or high-stakes live content.
+- Automatic speech recognition (ASR) quality varies; for conformance, plan for human correction, good audio, low latency, and fallback if the service fails.
+- Display captions in the same session as the video (embedded player or associated caption pane), with stable synchronization and readable typography.
+
+WCAG 1.2.6 Sign Language (Prerecorded) (Level AAA) is separate: an interpretation of all audio (including dialogue) in sign language, synchronized with the media. It is not a substitute for captions—deaf users have diverse needs; some use sign, some rely on captions, many use both.
 
 ### Video player controls and track element
 
 #### track element and default attribute, keyboard access
 
-*Content to be added.*
+The `<video>` element should expose native or custom controls that are keyboard operable (see 2.1.1) and labeled: play/pause, volume, caption/subtitle menu, fullscreen, scrubber, and mute as applicable.
+
+`<track>` attaches timed text to `<audio>` or `<video>`:
+
+- `kind` — `captions`, `subtitles`, `descriptions`, `chapters`, `metadata`
+- `src` — URL of the `.vtt` file
+- `srclang` — BCP 47 language tag
+- `label` — Human-readable name in the UI
+- `default` — Hint to enable this track by default if preferences do not override
+
+Default: Use sparingly—often one caption track is marked `default` for the page language. Respect user agent and user preferences (for example system “captions on”); do not force captions off for users who need them.
+
+Keyboard access: Custom players must move focus visibly, not trap focus inside the player without escape, and expose shortcuts that do not conflict with AT (see 2.1.4). If the player is a single custom component, document visible controls rather than hidden gestures only.
+
+`kind="descriptions"` can hold text versions of audio description for some implementations (screen reader or read-aloud); browser support for spoken description from `descriptions` tracks is not universal, so many products use separate audio or a separate described MP4 plus documentation. Test with real users and target platforms.
 
 ### Summary: Time-Based Media
 
-*Content to be added.*
+Time-based media needs captions, transcripts, and/or audio description so users who cannot hear, see, or play audio get an equivalent experience. 1.2.2 (A) demands captions for prerecorded synchronized media; 1.2.4 (AA) extends that to live audio in synchronized media. 1.2.1 (A) requires a text alternative for audio-only and video-only prerecorded content. 1.2.5 (AA) requires audio description when important visuals are not in the main soundtrack; 1.2.7 (AAA) covers extended description when pauses are insufficient. Use WebVTT with `<track kind="captions" …>` (and complete, synchronized cues—not dialogue-only if sound cues matter). Prefer closed captions for flexibility; ensure open captions remain readable. Place transcripts on-page or clearly linked with descriptive headings. For live events, plan CART or high-quality real-time captioning and reliable sync. Players must be keyboard accessible and expose caption controls; use `default` on tracks thoughtfully. The next chapter turns to adaptable content: structure, tables, lists, and meaningful sequence independent of sensory presentation.
 
 ## Adaptable Content
 
