@@ -1660,40 +1660,87 @@ Keyboard accessibility ensures every feature works without a mouse and without t
 
 WCAG 2.2.1 Timing Adjustable (Level A) applies when content or interactions are limited by time (for example auth/session timeouts, quiz timers, inactivity logout, OTP countdowns).
 
-Before time expires, users should be able to do one of the following:
+From an implementation perspective, expose a timeout state machine:
 
-- Turn off the time limit, or
-- Adjust it (typically to at least 10x), or
-- Extend it with a simple action, with a warning shown before expiration.
+- `active` -> `warning` -> `expired`
+- `warning` must be announced and actionable from keyboard/screen reader
+- `expired` should preserve recoverable work and explain next steps
 
-Practical implementation pattern for session timeouts:
+Before time expires, users should be able to do at least one of:
 
-- Show a clear warning dialog 1-2 minutes before logout.
-- Move focus into the dialog when it opens.
-- Provide a primary action like **Stay signed in** and a secondary action like **Sign out**.
-- Announce remaining time in a non-disruptive way (for example an `aria-live="polite"` status update).
-- If session expires, explain what happened and preserve recoverable user input where possible.
+- Disable the limit entirely
+- Adjust the limit (commonly 10x)
+- Extend the limit with a simple action after warning
 
-Avoid surprise expiration. Users with motor, cognitive, reading, or assistive technology needs may require significantly more time.
+Session timeout pattern:
+
+- Trigger warning 60-120 seconds before expiry.
+- Open a modal with focus trap, initial focus on the primary action, and Escape support if policy allows.
+- Add a `role="status"` or `aria-live="polite"` region for remaining-time updates (avoid announcing every second).
+- On **Stay signed in**, call refresh endpoint + reset timers in both client and server.
+- On expiry, redirect to a clear recovery screen and restore draft state from storage.
+
+```html
+<div id="timeout-status" aria-live="polite" role="status"></div>
+
+<dialog id="timeout-dialog" aria-labelledby="timeout-title">
+  <h2 id="timeout-title">Your session is about to expire</h2>
+  <p id="timeout-msg">You will be signed out in 2 minutes.</p>
+  <button id="extend-session">Stay signed in</button>
+  <button id="logout-now">Sign out</button>
+</dialog>
+```
+
+```js
+const SESSION_MS = 15 * 60 * 1000;
+const WARNING_MS = 2 * 60 * 1000;
+let expiryAt = Date.now() + SESSION_MS;
+
+function tick() {
+  const remaining = expiryAt - Date.now();
+  if (remaining <= 0) return expireSession();
+  if (remaining <= WARNING_MS) showWarning(remaining);
+}
+
+setInterval(tick, 1000);
+```
 
 ### Pause, stop, hide (2.2.2): carousels, animation
 
 WCAG 2.2.2 Pause, Stop, Hide (Level A) applies to moving, blinking, scrolling, or auto-updating content that starts automatically and lasts more than 5 seconds.
 
-Users must have controls to pause, stop, or hide that motion/update unless it is essential to the activity.
+For implementation, treat auto-motion as opt-in behavior with explicit controls.
 
-Common examples:
+Required behaviors:
 
-- Auto-advancing carousel: include visible **Pause/Play** controls and keyboard-operable previous/next buttons.
-- Ticker/live feed areas: offer a way to pause updates.
-- Decorative background animations: allow disabling motion, and respect reduced-motion preferences.
+- A visible, keyboard-operable control to pause/stop/hide
+- Persistent paused state for that component
+- Motion stops when user focus enters interactive carousel content
 
-Implementation notes:
+Carousel technical checklist:
 
-- Do not auto-rotate carousels by default unless there is a strong product reason.
-- If auto-rotation exists, stop rotation when keyboard focus enters the carousel.
-- Keep controls visible, labeled, and reachable by keyboard.
-- Respect `prefers-reduced-motion` and avoid motion-heavy transitions when users request reduced motion.
+- Use semantic buttons (`<button>`) for previous/next/pause.
+- Keep control labels dynamic (`Pause slides` / `Play slides`) and announce state changes.
+- Pause on `focusin`, `mouseenter`, and when `document.visibilityState !== "visible"`.
+- Do not move keyboard focus when slide changes automatically.
+
+```js
+let autoRotate = true;
+carousel.addEventListener("focusin", () => (autoRotate = false));
+pauseBtn.addEventListener("click", () => {
+  autoRotate = !autoRotate;
+  pauseBtn.setAttribute("aria-pressed", String(!autoRotate));
+});
+```
+
+```css
+@media (prefers-reduced-motion: reduce) {
+  .carousel-track {
+    transition: none;
+    animation: none;
+  }
+}
+```
 
 ### Exceptions: essential, real-time, ticket/auction
 
@@ -1708,16 +1755,16 @@ Examples often discussed:
 - Live auctions or ticket queues with rapidly changing availability.
 - Real-time multiplayer or broadcast interactions.
 
-Even when an exception applies, still improve usability:
+Even with exceptions, engineer for graceful failure and predictability:
 
-- Warn early and clearly about timing constraints.
-- Provide progress/time remaining indicators.
-- Reduce unnecessary timeout pressure in surrounding flows (forms, checkout, profile setup).
-- Preserve user data when feasible if timeout happens.
+- Publish timing rules up front (SLA-like messaging: hold duration, refresh cadence, expiration semantics).
+- Show synchronized server time and countdown derived from server timestamps, not only client clock.
+- Make state transitions explicit (`queued`, `reserved`, `released`, `sold-out`).
+- Preserve user-entered data outside the real-time critical path (billing/contact fields, preferences).
 
 ### Summary: Enough Time
 
-Enough Time means users can complete tasks without being rushed by hidden or inflexible timers. For 2.2.1, provide ways to turn off, adjust, or extend time limits and warn before expiration (especially for session timeouts). For 2.2.2, any non-essential motion or auto-updating content must be pausable, stoppable, or hideable, with clear keyboard-accessible controls. When exceptions apply (essential or real-time scenarios), communicate constraints early and still reduce avoidable time pressure everywhere else.
+Technically, "Enough Time" is about designing robust timing systems, not just adding countdown text. Implement explicit timer states, accessible warning/extension flows, and recovery paths for session expiry (2.2.1). For moving or updating UI, ship deterministic pause/stop/hide controls with keyboard support and reduced-motion handling (2.2.2). If exceptions are truly essential or real-time, keep protocol-level clarity (server-synced timing, explicit states) and minimize avoidable time pressure everywhere else.
 
 ## Seizures and Physical Reactions
 
