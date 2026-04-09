@@ -931,6 +931,29 @@ Conventions that help:
 
 If you must repair legacy markup, adjust levels across the page rather than inserting empty headings; never use heading tags purely for bold large text without a section to label.
 
+Example outline (levels follow nesting, not font size):
+
+```html
+<body>
+  <a href="#main" class="skip-link">Skip to main content</a>
+  <header>
+    <nav aria-label="Primary">
+      <!-- … -->
+    </nav>
+  </header>
+  <main id="main">
+    <h1>Account settings</h1>
+    <section aria-labelledby="profile-heading">
+      <h2 id="profile-heading">Profile</h2>
+      <h3>Contact details</h3>
+      <!-- … -->
+      <h3>Security</h3>
+      <!-- … -->
+    </section>
+  </main>
+</body>
+```
+
 ### Tables: headers, scope, caption, complex tables
 
 #### scope="col" and scope="row", headers attribute for complex tables
@@ -959,6 +982,38 @@ Data tables associate cells with their headers so screen readers can announce �
 
 For complex tables (merged cells, multiple header rows, or headers that do not align with a simple row/column model), `scope` alone may be insufficient. Use `id` on header cells and `headers="id1 id2"` on each `<td>` to list every relevant header. Alternatively, in limited cases, `scope="colgroup"` / `scope="rowgroup"` with `<colgroup>` can help—test with a screen reader table mode.
 
+Two-tier column headers with `id` / `headers`:
+
+```html
+<table>
+  <caption id="sales-cap">Sales by region and quarter</caption>
+  <thead>
+    <tr>
+      <th id="region" rowspan="2" scope="col">Region</th>
+      <th id="h1" colspan="2" scope="colgroup">H1</th>
+      <th id="h2" colspan="2" scope="colgroup">H2</th>
+    </tr>
+    <tr>
+      <th id="q1" scope="col" headers="h1">Q1</th>
+      <th id="q2" scope="col" headers="h1">Q2</th>
+      <th id="q3" scope="col" headers="h2">Q1</th>
+      <th id="q4" scope="col" headers="h2">Q2</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th id="r-emea" scope="row">EMEA</th>
+      <td headers="r-emea q1">…</td>
+      <td headers="r-emea q2">…</td>
+      <td headers="r-emea q3">…</td>
+      <td headers="r-emea q4">…</td>
+    </tr>
+  </tbody>
+</table>
+```
+
+Each data cell lists the `id` of its row header plus the `id` of its column header (here `q1`–`q4`). Adjust `id`s and lists to match your grid; the pattern is explicit association when `scope` alone cannot describe merged headers.
+
 Avoid using tables for multi-column page layout: that breaks reading order for AT and confuses table semantics. Use CSS grid or flexbox for layout.
 
 #### caption and table summary, responsive tables
@@ -967,10 +1022,33 @@ The `<caption>` element is the visible, programmatic title of the table. It shou
 
 The historical `summary` attribute on `<table>` is obsolete in HTML5; do not use it. Put short guidance in `<caption>` or in preceding prose; put long instructions in surrounding text or `aria-describedby` pointing to an element with an `id`.
 
+Longer table help outside the caption:
+
+```html
+<p id="sales-table-help">Percentages are year over year. Totals include tax.</p>
+<table aria-describedby="sales-table-help">
+  <caption>Regional sales</caption>
+  <!-- … -->
+</table>
+```
+
 Responsive tables: narrow viewports often need horizontal scroll or a transformed presentation (cards, stacked rows). If you keep a table:
 
 - Wrap in a scrollable region with a visible label and keyboard access (`tabindex="0"` on the wrapper only if you document it and ensure focus styling—prefer native overflow with clear affordance).
 - Do not rely on pinch-zoom alone; ensure content reflows or scrolls without losing header association. Some patterns duplicate header text in each cell at small breakpoints (visually hidden in wide view) to preserve context—keep the accessible name in sync.
+
+Scroll container with an accessible name (keyboard users can focus the region when `tabindex="0"` is used—style `:focus` clearly):
+
+```html
+<div
+  role="region"
+  aria-label="Quarterly revenue, scroll horizontally to view all columns"
+  tabindex="0"
+  style="overflow-x: auto;"
+>
+  <table><!-- … --></table>
+</div>
+```
 
 ### Lists, form label relationships, and reading order
 
@@ -981,6 +1059,26 @@ Lists should use real list elements when the content is a list:
 - `<ul>` for unordered items; `<ol>` when sequence matters (steps, rankings).
 - `<dl>` for name–value groups (glossaries, metadata pairs); pair `<dt>` with one or more `<dd>`.
 
+```html
+<ul>
+  <li>Keyboard navigation</li>
+  <li>Screen reader testing</li>
+</ul>
+
+<ol>
+  <li>Sign in</li>
+  <li>Confirm email</li>
+  <li>Choose a plan</li>
+</ol>
+
+<dl>
+  <dt>WCAG</dt>
+  <dd>Web Content Accessibility Guidelines</dd>
+  <dt>AT</dt>
+  <dd>Assistive technology</dd>
+</dl>
+```
+
 Do not fake lists with bullet characters and `<br>` only—that loses list semantics and list navigation in AT.
 
 Forms and 1.3.1: programmatically associate labels with controls:
@@ -988,6 +1086,39 @@ Forms and 1.3.1: programmatically associate labels with controls:
 - Prefer explicit `<label for="id">` matching the control’s `id`, or wrap the control inside `<label>`.
 - For groups of radios or checkboxes, use `<fieldset>` + `<legend>` (or `role="group"` with an accessible name via `aria-labelledby` / `aria-label` when fieldset is not possible).
 - Required fields, hints, and errors should be tied with `aria-describedby` (or an `aria-live` region for dynamic errors) so the relationship is not color-only.
+
+```html
+<label for="email">Work email</label>
+<input
+  id="email"
+  type="email"
+  name="email"
+  autocomplete="email"
+  required
+  aria-describedby="email-hint"
+/>
+<p id="email-hint">We will only use this for invoices.</p>
+
+<fieldset>
+  <legend>Shipping speed</legend>
+  <input type="radio" id="ship-std" name="ship" value="standard" />
+  <label for="ship-std">Standard (5–7 days)</label>
+  <input type="radio" id="ship-exp" name="ship" value="express" />
+  <label for="ship-exp">Express (2 days)</label>
+</fieldset>
+
+<!-- After a failed submit (hint + error both in describedby): -->
+<label for="email2">Work email</label>
+<p id="email2-hint">We will only use this for invoices.</p>
+<input
+  id="email2"
+  type="email"
+  name="email"
+  aria-invalid="true"
+  aria-describedby="email2-err email2-hint"
+/>
+<p id="email2-err" role="alert">Enter an email address in the form name@example.com.</p>
+```
 
 Reading order should follow a sensible sequence in the DOM (see 1.3.2)—labels before inputs in source order unless your design system consistently uses another documented pattern tested with AT.
 
@@ -1003,13 +1134,64 @@ Guidelines:
 - If you must use `order`, ensure the tab order still makes sense ( tabindex on non-interactive elements is usually wrong); flexbox `order` does not change focus order in all browsers the way authors expect—test tab and screen reader order together.
 - Avoid large visual rearrangements that leave focus jumping around the screen in an unintuitive path.
 
+DOM source order here is “Content” then “Aside”, but `order` swaps them visually—tab order and screen reader order still follow the DOM:
+
+```html
+<div class="layout" style="display: flex;">
+  <article style="order: 2;">Content</article>
+  <aside style="order: 1;">Aside</aside>
+</div>
+```
+
+Prefer duplicating or reordering nodes in the markup at different breakpoints (or accepting the same visual order as DOM order) over relying on `order` for primary reading sequence.
+
 #### Responsive design
 
 Responsive layouts should not strip semantics: headings remain headings; landmarks (`<header>`, `<nav>`, `<main>`, `<footer>`) stay coherent when columns stack. Test reflow at 320px CSS pixel width and at high zoom (see Reflow below). Touch targets and spacing still matter for motor access; readable line length helps cognitive access.
 
+Landmarks give screen reader users a page map; keep one primary `<main>` per document unless you use iframes or very unusual shells.
+
+```html
+<body>
+  <header role="banner">…</header>
+  <nav aria-label="Primary">…</nav>
+  <main>
+    <h1>…</h1>
+  </main>
+  <aside aria-labelledby="related-heading">
+    <h2 id="related-heading">Related</h2>
+  </aside>
+  <footer role="contentinfo">…</footer>
+</body>
+```
+
 #### Visually hidden and screen reader only, aria-hidden
 
 Visually hidden (“screen reader only”) text is often implemented with a clipped CSS pattern so sighted layout is unchanged but AT still reads the text. Use this for redundant context where visuals are obvious but spoken UI needs extra words—or for legally required text that would clutter the design. Do not hide content that sighted users need.
+
+```css
+/* Classic “sr-only” clip pattern (verify with your design system’s utility name) */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+```
+
+Decorative icon with redundant visible text: hide the graphic from AT, name the control once.
+
+```html
+<button type="button">
+  <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><!-- path --></svg>
+  Save draft
+</button>
+```
 
 `aria-hidden="true"` removes the element and its descendants from the accessibility tree. Use for purely decorative duplicates (icons next to visible text) or when open/closed state is conveyed elsewhere. Do not put `aria-hidden="true"` on a focusable element or on a parent of focused content—it hides focused content from AT while focus remains, a serious bug.
 
@@ -1026,6 +1208,17 @@ In practice:
 - Design fluid layouts (`max-width`, `%`, `fr`, `minmax`) rather than fixed widths that force overflow.
 - Avoid forcing wide tables or unbreakable strings without overflow handling; use truncation with accessible full text, or alternate layouts.
 - At 400% zoom in desktop browsers, reflow rules also apply in Understanding guidance: users who magnify should not have to pan in two axes to read a single column of body text.
+
+Fluid column width (no fixed pixel main column at small sizes):
+
+```css
+.page {
+  width: 100%;
+  max-width: 70ch;
+  margin-inline: auto;
+  padding-inline: clamp(1rem, 4vw, 2rem);
+}
+```
 
 Exceptions exist for essential two-dimensional content (maps, diagrams, games) where 2D scrolling is part of the content—document those cases.
 
