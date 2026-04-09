@@ -2851,37 +2851,136 @@ Accessible forms combine clear structure, explicit labeling, and predictable fee
 
 #### Keyboard testing procedure: tab through, Enter/Space, Escape
 
-*Content to be added.*
+Keyboard testing confirms that every interactive control can be reached and operated without a mouse.
+
+Keyboard test flow:
+
+- Start at the browser address bar, then use `Tab` to enter the page and move forward through all controls.
+- Use `Shift+Tab` to verify reverse navigation order is logical.
+- Activate controls with `Enter` and `Space` (buttons, links, checkboxes, toggles, menu triggers).
+- Use arrow keys where expected (radio groups, tabs, listbox options, menus).
+- Use `Escape` to close overlays such as dialogs, popovers, and dropdowns.
+- Confirm focus remains visible at all times and never disappears behind styling resets.
+
+What to record:
+
+- Where focus order is confusing or skips visible controls.
+- Components that require mouse-only interaction.
+- Keyboard traps (focus cannot leave component) and missed trap behavior (modal does not contain focus).
+- Mismatch between visual state and keyboard state (for example, expanded panel without `aria-expanded` update).
 
 #### Screen reader testing (NVDA, VoiceOver), browse mode vs focus mode
 
-*Content to be added.*
+Screen reader testing validates what is announced, not just what is rendered.
+
+Baseline setup:
+
+- Test at least one Windows + NVDA flow and one macOS + VoiceOver flow when possible.
+- Check headings, landmarks, and links list/rotor to confirm page structure.
+- Navigate in **browse/virtual mode** for reading flow and semantic structure.
+- Switch to **focus/forms mode** when operating form fields and widgets.
+
+Screen reader checklist:
+
+- Page title and top heading (`h1`) communicate page purpose.
+- Landmarks (`main`, `nav`, `footer`, `aside`) are discoverable and correctly named.
+- Form labels, required state, hints, and error messages are announced in the right order.
+- Dynamic updates are announced appropriately (`status` for non-urgent, `alert` for urgent).
+- Custom components expose accurate role, name, state, and keyboard behavior.
 
 ### Automated testing: axe, WAVE, Lighthouse
 
 #### axe-core and browser extensions, Lighthouse a11y score
 
-*Content to be added.*
+Automated tools quickly catch recurring issues and are best used as a first-pass filter.
+
+Common tooling:
+
+- **axe DevTools / axe-core**: robust rule set, useful in-browser and test automation.
+- **WAVE**: fast visual overlay for missing labels, contrast warnings, and landmark issues.
+- **Lighthouse**: broad health signal and trend metric for accessibility improvements over time.
+
+How to use effectively:
+
+- Run scans on key templates and critical user journeys, not only the homepage.
+- Capture findings in pull requests with affected component/page references.
+- Treat Lighthouse score as directional; investigate specific audits instead of chasing a number.
+- Re-run after fixes to verify no regressions were introduced.
 
 #### Interpreting results, limitations of automation, false positives/negatives
 
-*Content to be added.*
+Automation detects only a subset of accessibility defects, so interpretation matters.
+
+Important limitations:
+
+- Automated tools cannot reliably judge link purpose in context, writing clarity, or meaningful alt text quality.
+- Keyboard behavior defects (focus trap logic, roving index bugs) are often missed.
+- Screen reader announcement quality and timing issues are mostly manual-test findings.
+
+Result triage guidance:
+
+- Validate each finding manually before assigning priority.
+- Mark false positives explicitly, with rationale, to avoid repeated churn.
+- Track false negatives found in manual testing and convert them into regression tests where possible.
+- Prioritize by user impact and task criticality, not by tool ordering.
 
 ### CI/CD, jest-axe, eslint-plugin-jsx-a11y
 
 #### npm packages, unit tests for a11y, linting rules
 
-*Content to be added.*
+Bake accessibility checks into development and CI so issues are caught before release.
+
+Typical stack:
+
+- `jest-axe` to add component-level accessibility assertions in test suites.
+- `eslint-plugin-jsx-a11y` to catch semantic and interaction anti-patterns in React/JSX code.
+- `axe-core` in E2E or integration tests for page-level checks on rendered UI states.
+
+Example test and lint setup:
+
+```js
+import { render } from '@testing-library/react';
+import { axe, toHaveNoViolations } from 'jest-axe';
+import LoginForm from './LoginForm';
+
+expect.extend(toHaveNoViolations);
+
+test('LoginForm has no detectable accessibility violations', async () => {
+  const { container } = render(<LoginForm />);
+  const results = await axe(container);
+  expect(results).toHaveNoViolations();
+});
+```
+
+```json
+{
+  "extends": ["plugin:jsx-a11y/recommended"]
+}
+```
 
 ### Reporting issues and prioritization
 
 #### Severity and impact, steps to reproduce and WCAG criterion
 
-*Content to be added.*
+Strong accessibility bug reports make fixes faster and prioritization fairer.
+
+Issue report template:
+
+- **User impact:** who is affected (keyboard-only users, screen reader users, low-vision users).
+- **Severity:** blocker/critical/high/medium/low based on task interruption and workaround availability.
+- **Steps to reproduce:** exact path, environment, input method, and expected vs actual result.
+- **Standards mapping:** related WCAG criterion (for example `1.3.1`, `2.1.1`, `4.1.2`) and internal policy if applicable.
+- **Evidence:** screenshots, short recordings, DOM snippet, and tool output if available.
+
+Prioritization heuristics:
+
+- Fix blockers on critical user journeys first (login, checkout, core navigation, form submission).
+- Group repeated component-level defects into one root-cause fix when safe.
+- Include accessibility defects in normal sprint planning, not only ad hoc hardening cycles.
 
 ### Summary: Testing and Evaluation
 
-*Content to be added.*
+Accessible quality requires layered evaluation, not a single tool. Manual keyboard and screen reader testing reveal interaction and announcement issues that scanners cannot detect, while automated tools such as axe, WAVE, and Lighthouse provide fast, repeatable coverage for common defects. Teams get the best results when accessibility checks run continuously in CI using linting and tests (`eslint-plugin-jsx-a11y`, `jest-axe`, integration checks), and when findings are documented with clear impact, reproducible steps, and WCAG mapping. Prioritizing by user impact and task criticality turns accessibility from reactive bug fixing into a reliable engineering practice.
 
 ## Documentation and Maintenance
 
