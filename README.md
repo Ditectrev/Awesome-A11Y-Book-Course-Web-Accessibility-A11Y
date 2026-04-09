@@ -1244,37 +1244,176 @@ Adaptable content is about structure and relationships that survive different pr
 
 #### Contrast ratio 4.5:1 and 3:1, large text 18pt or 14pt bold
 
-*Content to be added.*
+WCAG 1.4.3 Contrast (Minimum) (Level AA) sets minimum contrast between text (and images of text) and its background:
+
+- Normal text (smaller than large scale): at least 4.5:1.
+- Large-scale text: at least 3:1.
+
+Large-scale text is at least 18pt (about 24 CSS px at default sizing) or at least 14pt bold (about 18.67 CSS px bold). Use computed size/weight in the browser, not design-token names.
+
+Incidental text (inactive UI parts, logotypes where the logo is the only treatment, decorative text) and text in inactive components may be exempt in specific cases; when in doubt, meet the ratio anyway. Do not use low-contrast placeholder or hint text as an excuse—hints must still be readable.
+
+Example token setup and usage:
+
+```css
+:root {
+  --fg-default: #1f2937; /* 12.6:1 on white */
+  --fg-muted: #4b5563;   /* 7.6:1 on white */
+  --bg-default: #ffffff;
+  --link-default: #0047b3; /* 8.7:1 on white */
+}
+
+body {
+  color: var(--fg-default);
+  background: var(--bg-default);
+}
+
+.help-text {
+  color: var(--fg-muted);
+}
+```
 
 #### Calculating contrast, tools (Colour Contrast Analyser, WebAIM)
 
-*Content to be added.*
+Contrast ratio compares relative luminance of foreground and background. You do not need to compute by hand:
+
+- [TPGi Colour Contrast Analyser](https://www.tpgi.com/color-contrast-checker/) (desktop): sample rendered pixels or enter color values.
+- [WebAIM Contrast Checker](https://webaim.org/resources/contrastchecker/) (web): quick AA/AAA checks for normal and large text.
+
+Also check dark mode, hover/focus states, disabled appearance (if text remains meaningful), and images/gradients behind text. Sample worst-case areas, not only design-state swatches.
+
+Quick workflow:
+
+1. Inspect the element in DevTools and copy computed `color` and `background-color`.
+2. Test the pair in WebAIM.
+3. Re-test hover/focus/active/disabled states.
+4. Repeat in dark theme and with user-set zoom at 200%.
 
 ### Not relying on color alone (1.4.1)
 
 #### Icons, patterns, and text as supplements, form validation and error states
 
-*Content to be added.*
+WCAG 1.4.1 Use of Color (Level A) requires that color is not the only visual means of conveying information, indicating an action, prompting a response, or distinguishing a visual element.
+
+Common fixes:
+
+- Links: underline or another non-color cue (not only blue vs black).
+- Status: pair color with text, icons with accessible names, or patterns.
+- Charts/maps: use labels, legends, textures, or shapes in addition to hue.
+
+Forms should not mark invalid fields with red border only. Set `aria-invalid="true"`, associate an error `id` with `aria-describedby`, and show visible error text.
+
+```html
+<label for="pwd">Password</label>
+<input
+  id="pwd"
+  type="password"
+  name="password"
+  aria-invalid="true"
+  aria-describedby="pwd-error"
+/>
+<p id="pwd-error">Password must be at least 12 characters.</p>
+```
+
+```css
+a {
+  text-decoration: underline;
+  text-decoration-thickness: 0.08em;
+}
+
+.field[aria-invalid="true"] {
+  border: 2px solid #b91c1c;
+  background-image: repeating-linear-gradient(
+    -45deg,
+    transparent 0 6px,
+    rgb(185 28 28 / 0.12) 6px 12px
+  );
+}
+```
 
 ### Non-text contrast (1.4.11), focus visible
 
 #### 1.4.11 and icons/UI components, focus ring contrast (2.4.7, 2.4.11)
 
-*Content to be added.*
+WCAG 1.4.11 Non-text Contrast (Level AA) requires a contrast ratio of at least 3:1 for:
+
+- User interface components (controls, boundaries) and their states, against adjacent colors.
+- Graphical objects needed to understand content (meaningful icons, diagram elements).
+
+Thin gray borders on white often fail 3:1. Increase border darkness, add a second cue (background fill, icon change), or increase stroke weight. Decorative graphics with no informational role are not in scope.
+
+Focus visible (2.4.7, Level AA): any keyboard-focusable UI needs a visible focus indicator. If you remove default outlines, replace them with a strong custom indicator. [WCAG 2.2 Focus Appearance](https://www.w3.org/WAI/WCAG22/Understanding/focus-appearance-minimum.html) (2.4.13, AA) adds stricter requirements.
+
+Focus not obscured (2.4.11, Level AA in WCAG 2.2): focused elements should not be fully hidden by sticky headers, footers, or overlays.
+
+```css
+:focus-visible {
+  outline: 3px solid #1d4ed8;
+  outline-offset: 3px;
+}
+
+.skip-link:focus-visible,
+button:focus-visible,
+a:focus-visible,
+input:focus-visible {
+  box-shadow: 0 0 0 2px #fff, 0 0 0 5px #1d4ed8;
+}
+
+/* Avoid focus hidden under sticky header */
+[id] {
+  scroll-margin-top: 6rem;
+}
+```
 
 ### Resize text, images of text, audio control
 
 #### 1.4.4 Resize text, 200% zoom, rem/em vs px; 1.4.2 Audio control
 
-*Content to be added.*
+WCAG 1.4.4 Resize Text (Level AA) requires text resizing up to 200% without loss of content/functionality (no clipping or overlap; controls remain usable). Browsers usually satisfy this via page zoom, so layouts should reflow rather than depend on fixed-width containers.
+
+Use `rem` (or `em` with care) for typography/spacing tied to user preferences. `px` is still fine for borders or hairlines.
+
+WCAG 1.4.2 Audio Control (Level A): if audio plays automatically for more than 3 seconds, provide pause/stop or volume controls independent of system volume.
+
+```css
+html {
+  font-size: 100%;
+}
+
+body {
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+h2 {
+  font-size: clamp(1.25rem, 1rem + 1.2vw, 2rem);
+}
+
+.card {
+  padding: 1rem;
+  max-width: 42rem;
+}
+```
+
+```html
+<audio controls preload="metadata">
+  <source src="/media/intro.mp3" type="audio/mpeg" />
+  Your browser does not support the audio element.
+</audio>
+```
 
 #### 1.4.5 Images of text, when text can be visual
 
-*Content to be added.*
+WCAG 1.4.5 Images of Text (Level AA) asks you to use real text instead of pictures of text, except when:
+
+- The image is essential (for example a logotype or historical screenshot).
+- The presentation is genuinely user-customizable (rare for static bitmaps).
+
+Real text scales, selects, copies, translates, and works with user style sheets. If you must use an image of text, repeat the same text in the `alt` (or nearby text) and ensure the image meets contrast requirements like any other text.
 
 ### Summary: Distinguishable
 
-*Content to be added.*
+Distinguishable criteria ensure content remains perceivable under real conditions: low vision, zoom, color-vision differences, and keyboard navigation. Enforce 4.5:1/3:1 text contrast (1.4.3), do not encode meaning by color alone (1.4.1), meet 3:1 for component boundaries and meaningful icons (1.4.11), and keep focus indicators visible and unobscured (2.4.7, 2.4.11 in WCAG 2.2). Validate at 200% zoom (1.4.4), provide media controls for autoplay audio longer than 3 seconds (1.4.2), and prefer real text over text rendered as images (1.4.5). Next chapter: keyboard operation patterns and traps.
 
 ## Keyboard Accessible
 
