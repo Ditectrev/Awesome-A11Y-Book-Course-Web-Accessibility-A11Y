@@ -2129,15 +2129,69 @@ Input modalities criteria ensure interactions remain operable beyond one gesture
 
 ### Language of page (3.1.1) and language of parts (3.1.2)
 
-*Content to be added.*
+WCAG 3.1.1 Language of Page (Level A) and 3.1.2 Language of Parts (Level AA) ensure assistive technologies apply the correct pronunciation, voice rules, braille tables, and language-specific processing. Without accurate language metadata, even clear copy can be read incorrectly.
+
+Implementation baseline:
+
+- Set the default document language on the root `html` element using a valid BCP 47 tag.
+- Mark passages in a different language (`quote`, inline phrase, legal text, product names where needed) with `lang`.
+- Keep locale variants explicit (`en-US`, `en-GB`, `pt-BR`) when region matters.
+- Ensure server-rendered templates and SPA shells both output the correct page language.
+
+Engineering checks:
+
+- Do not infer language from URL alone (`/fr/...`) without setting `lang`.
+- Review CMS/editor workflows so translated content does not lose language attributes.
+- Re-check pronunciation of mixed-language pages in at least one screen reader.
+
+```html
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Travel Guide</title>
+  </head>
+  <body>
+    <p>The French word <span lang="fr">bonjour</span> means "hello".</p>
+  </body>
+</html>
+```
+
+Language tagging is lightweight but high impact: it improves comprehension, pronunciation accuracy, and trust for multilingual audiences.
 
 ### Unusual words, abbreviations (3.1.3, 3.1.4)
 
-*Content to be added.*
+WCAG 3.1.3 Unusual Words (Level AAA) and 3.1.4 Abbreviations (Level AAA) focus on comprehension: users should not be blocked by domain jargon, uncommon phrases, or unexplained short forms.
+
+Plain-language practices:
+
+- Prefer common terms over internal jargon when accuracy is not reduced.
+- Define uncommon words at first use, especially in policy, legal, medical, or technical content.
+- Expand abbreviations on first appearance, then allow the short form consistently.
+- Avoid introducing multiple abbreviations for the same concept across one page.
+
+Authoring patterns:
+
+- Use contextual definitions inline (short explanation after the term).
+- Use `<abbr>` with an expansion in `title` for compact references, while keeping visible context clear.
+- Add glossary links for terms that recur across multiple chapters or product areas.
+
+```html
+<p>
+  Our team follows <abbr title="Web Content Accessibility Guidelines">WCAG</abbr>
+  to improve accessibility quality.
+</p>
+<p>
+  We use a progressive enhancement approach, meaning core functionality works
+  before advanced features load.
+</p>
+```
+
+Readable content is not about oversimplifying ideas; it is about removing avoidable cognitive friction so users can process meaning quickly and accurately.
 
 ### Summary: Readable
 
-*Content to be added.*
+Readable criteria ensure language and terminology never become hidden barriers. Always declare a correct page language and annotate language changes inside content so assistive technologies render pronunciation and interpretation correctly (3.1.1, 3.1.2). Reduce cognitive load by clarifying unusual words, expanding abbreviations, and keeping terminology consistent across flows (3.1.3, 3.1.4). The practical goal is comprehension at first pass: users should understand content without guessing vocabulary, context, or intended meaning.
 
 ## Predictable
 
