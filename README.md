@@ -3117,15 +3117,61 @@ Appendix A condenses WCAG 2.x into a practical day-to-day reference. The POUR mo
 
 ### Key terms (accessible name, landmark, live region, etc.)
 
-*Content to be added.*
+#### Practical vocabulary used in audits, design reviews, and implementation
+
+Use this glossary as a shared language across product, design, engineering, QA, and compliance work.
+
+- **Accessible name:** the spoken label assistive technologies use for an element (from visible text, `aria-label`, `aria-labelledby`, alt text, etc.).
+- **Accessible description:** supplemental context announced with the accessible name, often from `aria-describedby`.
+- **Alternative text (alt text):** text alternative for meaningful images that communicates purpose or information.
+- **ARIA (Accessible Rich Internet Applications):** attributes that expose semantics/state when native HTML alone is insufficient.
+- **Assistive technology (AT):** software/hardware used by disabled users to interact with content (screen readers, switch devices, magnifiers, voice input).
+- **Color contrast ratio:** luminance difference between foreground and background; critical for text and non-text UI visibility.
+- **Focus indicator:** visible cue showing which element currently receives keyboard interaction.
+- **Focus order:** sequence keyboard users move through interactive elements; should follow logical reading/task order.
+- **Form label:** programmatically associated text identifying a form control's purpose.
+- **Keyboard trap:** state where keyboard focus cannot move away from an element/component.
+- **Landmark:** semantic region (`header`, `nav`, `main`, `footer`, ARIA landmarks) used for fast structural navigation.
+- **Live region:** page area where dynamic updates are announced by AT without moving focus (`aria-live`).
+- **Name/Role/Value:** required semantic exposure for interactive controls so AT can identify and operate them.
+- **Reflow:** ability for content to adapt at zoom/smaller viewports without forcing two-dimensional scrolling.
+- **Semantic HTML:** use of native elements (`button`, `label`, `table`, `fieldset`, etc.) that carry built-in meaning and behavior.
+- **Skip link:** in-page link that lets keyboard users bypass repetitive navigation and jump to main content.
+- **Status message:** non-modal update (success, loading, validation state) that should be announced without focus change when needed.
+- **Tab order:** order elements receive focus via `Tab`; should match visual and logical workflow.
+- **Text alternative:** equivalent text for non-text content (images, icons, media, controls).
+- **WCAG conformance level:** success criteria tiers `A`, `AA`, `AAA`; most legal/enterprise targets align to `AA`.
 
 ### Acronyms and abbreviations
 
-*Content to be added.*
+#### Common shorthand in accessibility documentation and issue tracking
+
+- **A11Y:** numeronym for accessibility.
+- **ACR:** Accessibility Conformance Report.
+- **AT:** Assistive Technology.
+- **ARIA:** Accessible Rich Internet Applications.
+- **DOM:** Document Object Model.
+- **EAA:** European Accessibility Act.
+- **EN 301 549:** European ICT accessibility standard used in procurement/compliance contexts.
+- **HCM:** High Contrast Mode.
+- **IAAP:** International Association of Accessibility Professionals.
+- **POUR:** Perceivable, Operable, Understandable, Robust.
+- **QA:** Quality Assurance.
+- **SC:** Success Criterion (WCAG requirement unit).
+- **SR:** Screen Reader.
+- **UAT:** User Acceptance Testing.
+- **UI:** User Interface.
+- **UX:** User Experience.
+- **VPAT:** Voluntary Product Accessibility Template.
+- **W3C:** World Wide Web Consortium.
+- **WAI:** Web Accessibility Initiative.
+- **WCAG:** Web Content Accessibility Guidelines.
+
+Tip: include both acronym and expanded term in tickets/reports at first mention to reduce ambiguity for non-specialists.
 
 ### Summary: Appendix B: Glossary
 
-*Content to be added.*
+Appendix B provides a practical, shared vocabulary for accessibility conversations across the delivery lifecycle. Consistent use of core terms (such as accessible name, live region, landmark, focus order, and semantic HTML) improves requirement quality, review accuracy, and defect triage speed. A common acronym reference reduces miscommunication in tickets, audit reports, and stakeholder updates, helping teams make faster and more reliable accessibility decisions.
 
 ## Appendix C: Resources and Tools
 
