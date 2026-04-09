@@ -1421,49 +1421,238 @@ Distinguishable criteria ensure content remains perceivable under real condition
 
 #### All functionality via keyboard, Space vs Enter for buttons and links
 
-*Content to be added.*
+WCAG 2.1.1 Keyboard (Level A): every feature available by pointer/touch should also work by keyboard only. Users must be able to reach controls with `Tab`, activate actions, and complete flows without a mouse.
+
+Use native controls first:
+
+- Use `<button>` for actions (open modal, submit, toggle state). Keyboard support is built in.
+- Use `<a href="...">` for navigation to a URL.
+- Avoid clickable `<div>`/`<span>`; they require manual role, tabindex, and key handling.
+
+Activation behavior:
+
+- Buttons activate on `Space` and `Enter`.
+- Links activate on `Enter` (not typically `Space`).
+- If you build custom widgets, match these expectations.
+
+```html
+<button type="button" id="saveBtn">Save settings</button>
+<a href="/account" id="accountLink">Go to account</a>
+```
+
+```js
+// Only needed for custom non-native controls (prefer not to do this).
+const fauxButton = document.querySelector('[role="button"]');
+
+fauxButton.addEventListener("keydown", (event) => {
+  if (event.key === " " || event.key === "Enter") {
+    event.preventDefault();
+    fauxButton.click();
+  }
+});
+```
 
 #### No keyboard trap, focus must not be trapped in a component
 
-*Content to be added.*
+WCAG 2.1.2 No Keyboard Trap (Level A): if focus enters a component, users must be able to move focus away using standard keys (usually `Tab` / `Shift+Tab`), unless they are clearly told how to exit.
+
+Common traps:
+
+- Custom media players where `Tab` stops working.
+- Embedded widgets/iframes with incorrect focus management.
+- Off-canvas panels that capture focus but provide no close route.
+
+Requirements:
+
+- Always keep an obvious keyboard exit (`Esc` where appropriate, close button reachable by `Tab`).
+- Never disable tabbing globally.
+- Ensure hidden/inactive UI is not focusable.
 
 ### Focus trap in modals, returning focus, tabindex
 
 #### Tab cycle within modal, first and last focusable, inert
 
-*Content to be added.*
+For modal dialogs, focus should stay inside while the dialog is open (intentional focus trap), but the page outside should become inert/unavailable.
+
+Practical modal pattern:
+
+1. Save the currently focused element before opening.
+2. Move focus to the modal heading or first interactive element.
+3. Keep `Tab` / `Shift+Tab` cycling among modal focusable elements.
+4. Mark background as inactive (`inert` when available, or `aria-hidden` fallback).
+5. Close with `Esc` and close button.
+
+```html
+<button type="button" id="openDialog">Delete account</button>
+
+<div id="appRoot">
+  <!-- main app content -->
+</div>
+
+<dialog id="confirmDialog" aria-labelledby="confirmTitle">
+  <h2 id="confirmTitle" tabindex="-1">Confirm account deletion</h2>
+  <p>This action cannot be undone.</p>
+  <button type="button" id="cancelDelete">Cancel</button>
+  <button type="button" id="confirmDelete">Delete</button>
+</dialog>
+```
+
+```js
+const appRoot = document.getElementById("appRoot");
+const dialog = document.getElementById("confirmDialog");
+const openBtn = document.getElementById("openDialog");
+const title = document.getElementById("confirmTitle");
+
+openBtn.addEventListener("click", () => {
+  appRoot.inert = true;
+  dialog.showModal();
+  title.focus();
+});
+```
 
 #### Returning focus on close, tabindex=0 vs tabindex=-1
 
-*Content to be added.*
+When a modal/menu/popover closes, return focus to the trigger that opened it. Otherwise, keyboard users can lose context and restart navigation.
+
+`tabindex` basics:
+
+- `tabindex="0"`: element enters normal tab order (use sparingly for custom widgets).
+- `tabindex="-1"`: element is not tabbable, but can receive programmatic focus (`element.focus()`), useful for headings/containers.
+- Avoid positive tabindex (`tabindex="1"`, `2`, etc.). It creates fragile, non-intuitive focus order.
+
+```js
+let previousFocus = null;
+
+function openModal() {
+  previousFocus = document.activeElement;
+  dialog.showModal();
+  title.focus(); // title has tabindex="-1"
+}
+
+function closeModal() {
+  dialog.close();
+  if (previousFocus instanceof HTMLElement) previousFocus.focus();
+}
+```
 
 ### Skip links and bypass blocks (2.4.1)
 
 #### Skip to main content, skip link and href="#main"
 
-*Content to be added.*
+WCAG 2.4.1 Bypass Blocks (Level A): users should be able to skip repeated content (nav, headers, sidebars) and jump to main content quickly.
+
+Use a skip link as the first focusable item on the page:
+
+```html
+<a class="skip-link" href="#main">Skip to main content</a>
+
+<header>...</header>
+<nav>...</nav>
+
+<main id="main" tabindex="-1">
+  <h1>Checkout</h1>
+  <!-- page content -->
+</main>
+```
+
+`href="#main"` moves to the main landmark. Adding `tabindex="-1"` on `<main>` helps with reliable focus placement across browser/screen reader combinations.
 
 #### Skip link visible on focus only, styling
 
-*Content to be added.*
+Keep skip links visually hidden by default but clearly visible on keyboard focus. They should meet color contrast and be placed where users immediately notice them.
+
+```css
+.skip-link {
+  position: absolute;
+  left: 0.5rem;
+  top: 0.5rem;
+  transform: translateY(-180%);
+  padding: 0.5rem 0.75rem;
+  background: #111827;
+  color: #ffffff;
+  text-decoration: none;
+  border-radius: 0.375rem;
+  z-index: 1000;
+}
+
+.skip-link:focus-visible {
+  transform: translateY(0);
+  outline: 3px solid #93c5fd;
+  outline-offset: 2px;
+}
+```
 
 ### Landmarks (banner, main, navigation, complementary)
 
 #### Landmark regions and HTML5, region and aria-label
 
-*Content to be added.*
+Landmarks help assistive technology users jump between major page areas.
+
+Prefer semantic HTML landmarks:
+
+- `<header>` (typically banner)
+- `<nav>` (navigation)
+- `<main>` (main content, once per page)
+- `<aside>` (complementary)
+- `<footer>` (contentinfo)
+
+Use `role="region"` only for important sections and provide an accessible name with `aria-label` or `aria-labelledby`.
+
+```html
+<header>
+  <h1>Product Docs</h1>
+</header>
+
+<nav aria-label="Primary navigation">...</nav>
+
+<main id="main">
+  <section aria-labelledby="release-notes-heading">
+    <h2 id="release-notes-heading">Release notes</h2>
+    ...
+  </section>
+</main>
+
+<aside aria-label="Related articles">...</aside>
+```
 
 #### contentinfo, search, landmark order and nesting
 
-*Content to be added.*
+Landmark quality matters as much as landmark presence:
+
+- Use one top-level `<main>`.
+- Keep logical order (banner/nav before main, contentinfo near end).
+- Avoid landmark spam (too many unlabeled regions reduce usefulness).
+- If there are multiple same-type landmarks (for example two navs), label them (`aria-label="Primary"`, `aria-label="Footer"`).
+- Place search in a discoverable landmark (`<search>` where supported, or `role="search"`).
+
+```html
+<nav aria-label="Primary">...</nav>
+<main id="main">...</main>
+<nav aria-label="Footer">...</nav>
+<footer>...</footer>
+```
 
 ### Character key shortcuts (2.1.4)
 
-*Content to be added.*
+WCAG 2.1.4 Character Key Shortcuts (Level A) applies when a single printable character triggers an action (for example pressing `s` to open search).
+
+If you provide character shortcuts, users must be able to do at least one of:
+
+- Turn the shortcut off.
+- Remap it to include a modifier (`Alt+S`, `Ctrl+K`).
+- Activate it only when the relevant component has focus.
+
+This prevents accidental activation, especially for speech-input users who may dictate letters/words.
+
+Good practice:
+
+- Prefer modifier-based shortcuts by default.
+- Never bind destructive actions to single-letter keys globally.
+- Document shortcuts in help/settings.
 
 ### Summary: Keyboard Accessible
 
-*Content to be added.*
+Keyboard accessibility ensures every feature works without a mouse and without traps. Implement full keyboard operability (2.1.1), prevent uncontrolled traps (2.1.2), and manage modal focus intentionally: move focus in, cycle within, and restore focus on close. Add skip links for repeated blocks (2.4.1), build with meaningful landmarks to support quick navigation, and avoid unsafe single-character shortcuts unless users can disable/remap/scope them (2.1.4). Use native HTML controls whenever possible; they provide correct keyboard behavior with the least code and risk.
 
 ## Enough Time
 
