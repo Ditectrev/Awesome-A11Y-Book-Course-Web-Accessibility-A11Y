@@ -917,57 +917,133 @@ Time-based media needs captions, transcripts, and/or audio description so users 
 
 ### Semantic structure: headings, one h1, hierarchy
 
+Pages need a predictable structure that does not depend on layout or sensory cues alone. Semantic HTML exposes headings, landmarks, and relationships to assistive technologies so users can skim, navigate, and understand how sections relate. The following practices support WCAG 1.3.1 Info and Relationships and set up the meaningful sequence discussed later in this chapter.
+
 #### Heading hierarchy (h1–h6), skipping levels (avoid)
 
-*Content to be added.*
+Headings (`<h1>`–`<h6>`) create an outline of the page. Screen reader users often jump by heading; search engines and assistive technologies use them to infer structure. WCAG 1.3.1 Info and Relationships (Level A) expects that when visual heading levels are used, the same structure is exposed in the markup.
+
+Conventions that help:
+
+- One main topic per page: typically a single `<h1>` names the page or main subject. Multiple `<h1>`s are valid in HTML5 when each is inside a discrete sectioning root or landmark (for example an `<article>`), but for most marketing and app shells, one `<h1>` plus descending `<h2>`–`<h6>` is easier for users to predict.
+- Do not skip levels for styling: if the next subsection belongs under the current section, use the next deeper level (`h2` → `h3`), not `h2` → `h4` because a design token only defines two sizes. Use CSS for appearance; keep the numeric level faithful to nesting.
+- Order matters: heading levels should reflect the document outline, not visual order alone. An `h4` that is visually “above” an `h2` in a sidebar can still confuse outline navigation—prefer matching structure to reading order and landmarks (see below).
+
+If you must repair legacy markup, adjust levels across the page rather than inserting empty headings; never use heading tags purely for bold large text without a section to label.
 
 ### Tables: headers, scope, caption, complex tables
 
 #### scope="col" and scope="row", headers attribute for complex tables
 
-*Content to be added.*
+Data tables associate cells with their headers so screen readers can announce “Header: value” when moving through the grid. For simple tables, use `<th>` in the first row and/or first column and add `scope="col"` or `scope="row"` so assistive technologies know which header applies.
+
+```html
+<table>
+  <caption>Quarterly revenue by region</caption>
+  <thead>
+    <tr>
+      <th scope="col">Region</th>
+      <th scope="col">Q1</th>
+      <th scope="col">Q2</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">EMEA</th>
+      <td>…</td>
+      <td>…</td>
+    </tr>
+  </tbody>
+</table>
+```
+
+For complex tables (merged cells, multiple header rows, or headers that do not align with a simple row/column model), `scope` alone may be insufficient. Use `id` on header cells and `headers="id1 id2"` on each `<td>` to list every relevant header. Alternatively, in limited cases, `scope="colgroup"` / `scope="rowgroup"` with `<colgroup>` can help—test with a screen reader table mode.
+
+Avoid using tables for multi-column page layout: that breaks reading order for AT and confuses table semantics. Use CSS grid or flexbox for layout.
 
 #### caption and table summary, responsive tables
 
-*Content to be added.*
+The `<caption>` element is the visible, programmatic title of the table. It should describe what the table is about (not repeat every column name). It is announced with the table in many ATs and satisfies the spirit of identifying the purpose of the table for 1.3.1.
+
+The historical `summary` attribute on `<table>` is obsolete in HTML5; do not use it. Put short guidance in `<caption>` or in preceding prose; put long instructions in surrounding text or `aria-describedby` pointing to an element with an `id`.
+
+Responsive tables: narrow viewports often need horizontal scroll or a transformed presentation (cards, stacked rows). If you keep a table:
+
+- Wrap in a scrollable region with a visible label and keyboard access (`tabindex="0"` on the wrapper only if you document it and ensure focus styling—prefer native overflow with clear affordance).
+- Do not rely on pinch-zoom alone; ensure content reflows or scrolls without losing header association. Some patterns duplicate header text in each cell at small breakpoints (visually hidden in wide view) to preserve context—keep the accessible name in sync.
 
 ### Lists, form label relationships, and reading order
 
 #### ol, ul, dl and programmatic associations, 1.3.1 and form labels
 
-*Content to be added.*
+Lists should use real list elements when the content is a list:
+
+- `<ul>` for unordered items; `<ol>` when sequence matters (steps, rankings).
+- `<dl>` for name–value groups (glossaries, metadata pairs); pair `<dt>` with one or more `<dd>`.
+
+Do not fake lists with bullet characters and `<br>` only—that loses list semantics and list navigation in AT.
+
+Forms and 1.3.1: programmatically associate labels with controls:
+
+- Prefer explicit `<label for="id">` matching the control’s `id`, or wrap the control inside `<label>`.
+- For groups of radios or checkboxes, use `<fieldset>` + `<legend>` (or `role="group"` with an accessible name via `aria-labelledby` / `aria-label` when fieldset is not possible).
+- Required fields, hints, and errors should be tied with `aria-describedby` (or an `aria-live` region for dynamic errors) so the relationship is not color-only.
+
+Reading order should follow a sensible sequence in the DOM (see 1.3.2)—labels before inputs in source order unless your design system consistently uses another documented pattern tested with AT.
 
 ### Logical order vs visual order (CSS, flexbox, grid)
 
 #### DOM order vs visual order, CSS order and flexbox/grid
 
-*Content to be added.*
+Keyboard and screen reader users usually experience the DOM order (depth-first traversal of the tree). CSS can change visual order (`order` in flexbox/grid, `grid-area`, floats, absolute positioning). If visual order and DOM order diverge, someone tabbing or listening linearly gets a different sequence than sighted users—often a 1.3.2 Meaningful Sequence failure.
+
+Guidelines:
+
+- Prefer reordering in the DOM when the reading order should change across breakpoints.
+- If you must use `order`, ensure the tab order still makes sense ( tabindex on non-interactive elements is usually wrong); flexbox `order` does not change focus order in all browsers the way authors expect—test tab and screen reader order together.
+- Avoid large visual rearrangements that leave focus jumping around the screen in an unintuitive path.
 
 #### Responsive design
 
-*Content to be added.*
+Responsive layouts should not strip semantics: headings remain headings; landmarks (`<header>`, `<nav>`, `<main>`, `<footer>`) stay coherent when columns stack. Test reflow at 320px CSS pixel width and at high zoom (see Reflow below). Touch targets and spacing still matter for motor access; readable line length helps cognitive access.
 
 #### Visually hidden and screen reader only, aria-hidden
 
-*Content to be added.*
+Visually hidden (“screen reader only”) text is often implemented with a clipped CSS pattern so sighted layout is unchanged but AT still reads the text. Use this for redundant context where visuals are obvious but spoken UI needs extra words—or for legally required text that would clutter the design. Do not hide content that sighted users need.
+
+`aria-hidden="true"` removes the element and its descendants from the accessibility tree. Use for purely decorative duplicates (icons next to visible text) or when open/closed state is conveyed elsewhere. Do not put `aria-hidden="true"` on a focusable element or on a parent of focused content—it hides focused content from AT while focus remains, a serious bug.
+
+If something is visible and important, do not rely on `aria-hidden`; fix duplication or labeling instead.
 
 ### Reflow (1.4.10), 320px, and meaningful sequence
 
 #### 320px width and 400% zoom, no horizontal scrolling
 
-*Content to be added.*
+WCAG 1.4.10 Reflow (Level AA) requires that at 320 CSS pixels width (roughly a vertical phone held upright), content can be presented without two-dimensional scrolling for vertical reading—no horizontal scrollbar for the main text column when users need to read line by line. Vertical scrolling is expected.
+
+In practice:
+
+- Design fluid layouts (`max-width`, `%`, `fr`, `minmax`) rather than fixed widths that force overflow.
+- Avoid forcing wide tables or unbreakable strings without overflow handling; use truncation with accessible full text, or alternate layouts.
+- At 400% zoom in desktop browsers, reflow rules also apply in Understanding guidance: users who magnify should not have to pan in two axes to read a single column of body text.
+
+Exceptions exist for essential two-dimensional content (maps, diagrams, games) where 2D scrolling is part of the content—document those cases.
 
 #### 1.3.2 Meaningful sequence, reading order and DOM order match
 
-*Content to be added.*
+WCAG 1.3.2 Meaningful Sequence (Level A) requires that the default presentation order preserves meaning. When sequence affects understanding (steps, cause and effect, form flow), the DOM and focus order should match that meaning. Dynamic updates (live regions) should announce in a logical order; modal dialogs should trap focus and read title before body when opened.
+
+Reflow and responsive changes are fine if the sequence remains meaningful at each breakpoint.
 
 ### Sensory characteristics (1.3.3)
 
-*Content to be added.*
+WCAG 1.3.3 Sensory Characteristics (Level A) says instructions must not rely solely on shape, size, visual location, orientation, or sound. Examples of failures: “Click the round button on the right,” “Use the red link below,” “When you hear the beep, press start.”
+
+Fix by adding text names: “Click Continue,” “Choose Delete account in the Settings section,” and pair audio cues with visible status or text. Color can reinforce but not be the only channel—combine with labels, icons with text, or patterns (see the Distinguishable chapter for 1.4.1 Use of Color).
 
 ### Summary: Adaptable Content
 
-*Content to be added.*
+Adaptable content is about structure and relationships that survive different presentations: assistive technologies, zoom, narrow viewports, and linear reading. Use a coherent heading outline and real semantics for tables (`<th>`, `scope` or `headers`/`id`, `<caption>`), lists, and form labels (`<label>`, `fieldset`/`legend`). Keep DOM order, focus order, and meaningful reading order aligned—avoid relying on CSS `order` or layout alone to convey sequence. Offer reflow without horizontal reading panning at 320px width where required by 1.4.10; pair any purely sensory cue with text. The next chapter covers Distinguishable content: contrast, use of color, non-text contrast, and text resizing so information is perceivable beyond structure alone.
 
 ## Distinguishable
 
