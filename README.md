@@ -1902,23 +1902,124 @@ This chapter is about making motion and visual effects safe by default. Avoid fl
 
 ### Page title (2.4.2) and focus order (2.4.3)
 
-*Content to be added.*
+WCAG 2.4.2 Page Titled (Level A) and 2.4.3 Focus Order (Level A) form the baseline of orientation: users must know where they are and move through the interface in a sequence that preserves meaning and operability.
+
+Engineering expectations:
+
+- Every route/view has a unique, descriptive `<title>` that reflects current context.
+- Modal dialogs and in-page state changes update user context clearly (`aria-labelledby`, heading, live region where needed).
+- Keyboard focus follows a logical DOM order that matches visual reading order.
+- Avoid positive `tabindex` values that force unnatural jumps.
+
+Implementation notes:
+
+- In SPAs, update `document.title` on route change, not only on initial load.
+- After route transitions, place focus on the primary heading or a skip-target container.
+- Keep layout and source order aligned. If CSS visually reorders content, verify keyboard flow is still meaningful.
+
+```js
+function onRouteChange(page) {
+  document.title = `${page.title} - Awesome A11Y`;
+  const mainHeading = document.querySelector("main h1");
+  if (mainHeading) {
+    mainHeading.setAttribute("tabindex", "-1");
+    mainHeading.focus();
+  }
+}
+```
 
 ### Link purpose in context (2.4.4), multiple ways (2.4.5)
 
-*Content to be added.*
+WCAG 2.4.4 Link Purpose (In Context) (Level A) ensures each link communicates destination or action from nearby text. WCAG 2.4.5 Multiple Ways (Level AA) ensures users can find pages through more than one navigation path.
+
+Link purpose implementation rules:
+
+- Replace vague labels like `Read more` or `Click here` with intent-based text.
+- If repeated card links exist, make each accessible name unique with visible text or `aria-label`.
+- Keep destination consistency (same label should not lead to unrelated targets).
+
+Multiple-ways patterns:
+
+- Primary nav + search
+- Primary nav + sitemap/footer index
+- Breadcrumbs + local section nav
+- Related links on content pages
+
+```html
+<h2 id="post-1-title">WCAG Quick Start</h2>
+<p>Understand POUR principles and ship practical checks in one sprint.</p>
+<a href="/posts/wcag-quick-start" aria-labelledby="post-1-title">Read: WCAG Quick Start</a>
+```
+
+Treat findability as a system-level requirement: users should not depend on one exact path to discover key content.
 
 ### Headings and labels (2.4.6), focus visible (2.4.7)
 
-*Content to be added.*
+WCAG 2.4.6 Headings and Labels (Level AA) requires clear structure and naming. WCAG 2.4.7 Focus Visible (Level AA) requires that keyboard focus is always visually obvious.
+
+Headings and label quality checks:
+
+- Headings describe section purpose, not generic placeholders.
+- Heading hierarchy is logical (`h1` -> `h2` -> `h3`) without skipping for styling only.
+- Form controls, landmark regions, and interactive groups have explicit labels.
+
+Focus visible implementation:
+
+- Never remove outlines without providing an equal-or-better replacement.
+- Use high-contrast focus indicators with sufficient thickness and offset.
+- Keep hover and focus styles distinct so keyboard users are never ambiguous.
+
+```css
+:focus {
+  outline: 3px solid #1a73e8;
+  outline-offset: 2px;
+}
+
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+:focus-visible {
+  outline: 3px solid #1a73e8;
+  outline-offset: 2px;
+}
+```
+
+For component libraries, centralize focus tokens so every button, link, tab, and custom control inherits a consistent visible state.
 
 ### Focus not obscured (2.4.11, 2.4.12)
 
-*Content to be added.*
+WCAG 2.4.11 Focus Not Obscured (Minimum) (Level AA) and 2.4.12 Focus Not Obscured (Enhanced) (Level AAA) address modern sticky layouts: focused elements must remain perceivable and not hidden under fixed headers, toolbars, or overlays.
+
+Where teams commonly fail:
+
+- Sticky headers cover focused skip-link targets.
+- In-page anchor jumps land beneath fixed navigation.
+- Auto-scrolling containers trap focus outside visible viewport.
+
+Mitigations:
+
+- Use `scroll-margin-top` on headings and focus targets in sticky-header layouts.
+- Ensure skip links become visible and move focus to an actually visible target.
+- On focus events in custom scroll containers, call `element.scrollIntoView({ block: "nearest" })` carefully.
+- Re-test at zoom levels (200% and up), where overlays and wrapping can newly obscure focus.
+
+```css
+:root {
+  --sticky-header-height: 72px;
+}
+
+h1,
+h2,
+h3,
+[data-focus-target] {
+  scroll-margin-top: calc(var(--sticky-header-height) + 12px);
+}
+```
 
 ### Summary: Navigable
 
-*Content to be added.*
+Navigable success criteria are about orientation and wayfinding under real interaction constraints. Ship accurate page titles and logical focus flow so users always know location and sequence (2.4.2, 2.4.3). Ensure links communicate purpose and offer multiple discovery paths beyond a single nav route (2.4.4, 2.4.5). Maintain clear heading/label structure and strong visible focus indicators (2.4.6, 2.4.7), then verify focused elements are not hidden by sticky UI or scrolling behavior, especially under zoom and responsive states (2.4.11, 2.4.12).
 
 ## Input Modalities
 
