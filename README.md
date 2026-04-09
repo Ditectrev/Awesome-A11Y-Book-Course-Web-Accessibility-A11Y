@@ -2272,23 +2272,96 @@ Predictable criteria keep interface behavior stable and user-driven. Focus and i
 
 ### Error identification (3.3.1) and labels or instructions (3.3.2)
 
-*Content to be added.*
+WCAG 3.3.1 Error Identification (Level A) requires that input errors are clearly identified in text, and WCAG 3.3.2 Labels or Instructions (Level A) requires users to receive enough guidance to complete forms correctly.
+
+Core requirements:
+
+- Mark the specific field that failed validation and explain the error in plain language.
+- Ensure each form control has a visible label (`label` element or equivalent accessible name).
+- Provide instructions before input when format or constraints are not obvious.
+- Avoid color-only cues; pair visual indicators with text.
+
+Implementation guidance:
+
+- Associate each label using `for` and `id`.
+- Place helper text close to the field and keep wording action-oriented.
+- Validate on submit and optionally on blur, but avoid interruptive, premature error spam while users are typing.
+
+```html
+<label for="email">Email address</label>
+<input id="email" name="email" type="email" aria-describedby="email-hint">
+<p id="email-hint">Use your work email (example@company.com).</p>
+```
 
 ### Error suggestion (3.3.3) and error prevention (3.3.4)
 
-*Content to be added.*
+WCAG 3.3.3 Error Suggestion (Level AA) asks for corrective suggestions when a fix is known, and WCAG 3.3.4 Error Prevention (Level AA/AAA depending on context) protects users from costly mistakes, especially for legal, financial, or important data actions.
+
+Suggestion patterns:
+
+- Explain what went wrong and how to fix it (`Password must be at least 12 characters`).
+- Prefer concrete examples over generic text (`Use format: MM/DD/YYYY`).
+- Keep suggestion text near the field and include it in the accessibility tree.
+
+Prevention patterns for high-impact submissions:
+
+- Review step before final submit.
+- Confirmation dialog for irreversible actions.
+- Cancellation or reversal option where feasible.
+- Server-side validation as the final safety net.
+
+Error handling should reduce rework, not just report failure. Good suggestions and prevention steps lower abandonment and improve trust.
 
 ### aria-describedby, aria-invalid, error summary
 
-*Content to be added.*
+When validation fails, assistive technologies need both field-level context and page-level orientation. `aria-describedby`, `aria-invalid`, and an error summary work together to communicate this efficiently.
+
+Recommended wiring:
+
+- Set `aria-invalid="true"` on invalid controls.
+- Reference hint and error text with `aria-describedby`.
+- Provide an error summary at the top of the form that links to each invalid field.
+- Move focus to the summary after failed submit, then allow users to jump directly to each field.
+
+```html
+<div role="alert" aria-labelledby="error-title">
+  <h2 id="error-title">Please fix the 2 errors below.</h2>
+  <ul>
+    <li><a href="#email">Enter a valid email address.</a></li>
+    <li><a href="#postal">Postal code is required.</a></li>
+  </ul>
+</div>
+
+<label for="postal">Postal code</label>
+<input id="postal" name="postal" aria-invalid="true" aria-describedby="postal-error">
+<p id="postal-error">Postal code is required.</p>
+```
 
 ### Required fields, autocomplete, confirmation steps
 
-*Content to be added.*
+Clear required-field signaling and proper input metadata reduce errors before they happen.
+
+Required-field practices:
+
+- Mark required fields consistently in labels (for example, `*` plus text such as `Required`).
+- Use the semantic `required` attribute, not only visual markers.
+- Group related required instructions near the start of the form.
+
+Autocomplete and input purpose:
+
+- Use `autocomplete` tokens for common personal data (`name`, `email`, `street-address`).
+- Choose precise input types (`email`, `tel`, `number` when appropriate) to improve keyboard and autofill behavior.
+- Do not disable browser autocomplete by default on routine fields.
+
+Confirmation steps:
+
+- For sensitive workflows (payments, contracts, account deletion), include a final review screen.
+- Present key values in a scannable format and provide an obvious `Edit` path before confirmation.
+- Show a clear success state after submission so users know the process completed.
 
 ### Summary: Input Assistance
 
-*Content to be added.*
+Input Assistance criteria ensure form interactions are understandable, recoverable, and safe. Errors must be identified in text and paired with clear labels and instructions so users can complete tasks accurately (3.3.1, 3.3.2). Where possible, products should provide actionable correction suggestions and introduce prevention mechanisms for high-impact submissions such as review, confirmation, or reversal options (3.3.3, 3.3.4). Robust implementation combines semantic HTML (`label`, `required`, `autocomplete`) with accessibility attributes (`aria-invalid`, `aria-describedby`) and a linked error summary so both visual and assistive-technology users can detect, navigate, and fix issues efficiently.
 
 ## Compatible
 
