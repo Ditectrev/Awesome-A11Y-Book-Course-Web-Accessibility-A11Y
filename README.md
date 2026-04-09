@@ -1658,19 +1658,66 @@ Keyboard accessibility ensures every feature works without a mouse and without t
 
 ### Timing adjustable (2.2.1): session timeouts, warnings
 
-*Content to be added.*
+WCAG 2.2.1 Timing Adjustable (Level A) applies when content or interactions are limited by time (for example auth/session timeouts, quiz timers, inactivity logout, OTP countdowns).
+
+Before time expires, users should be able to do one of the following:
+
+- Turn off the time limit, or
+- Adjust it (typically to at least 10x), or
+- Extend it with a simple action, with a warning shown before expiration.
+
+Practical implementation pattern for session timeouts:
+
+- Show a clear warning dialog 1-2 minutes before logout.
+- Move focus into the dialog when it opens.
+- Provide a primary action like **Stay signed in** and a secondary action like **Sign out**.
+- Announce remaining time in a non-disruptive way (for example an `aria-live="polite"` status update).
+- If session expires, explain what happened and preserve recoverable user input where possible.
+
+Avoid surprise expiration. Users with motor, cognitive, reading, or assistive technology needs may require significantly more time.
 
 ### Pause, stop, hide (2.2.2): carousels, animation
 
-*Content to be added.*
+WCAG 2.2.2 Pause, Stop, Hide (Level A) applies to moving, blinking, scrolling, or auto-updating content that starts automatically and lasts more than 5 seconds.
+
+Users must have controls to pause, stop, or hide that motion/update unless it is essential to the activity.
+
+Common examples:
+
+- Auto-advancing carousel: include visible **Pause/Play** controls and keyboard-operable previous/next buttons.
+- Ticker/live feed areas: offer a way to pause updates.
+- Decorative background animations: allow disabling motion, and respect reduced-motion preferences.
+
+Implementation notes:
+
+- Do not auto-rotate carousels by default unless there is a strong product reason.
+- If auto-rotation exists, stop rotation when keyboard focus enters the carousel.
+- Keep controls visible, labeled, and reachable by keyboard.
+- Respect `prefers-reduced-motion` and avoid motion-heavy transitions when users request reduced motion.
 
 ### Exceptions: essential, real-time, ticket/auction
 
-*Content to be added.*
+WCAG allows limited exceptions where timing or movement is inherent to the activity:
+
+- **Essential**: the time limit is fundamental (for example a real-time exam simulation where timing is the skill being tested).
+- **Real-time events**: genuinely live processes where delays invalidate participation.
+- **No alternative timing model**: some interactions cannot be paused without changing the experience.
+
+Examples often discussed:
+
+- Live auctions or ticket queues with rapidly changing availability.
+- Real-time multiplayer or broadcast interactions.
+
+Even when an exception applies, still improve usability:
+
+- Warn early and clearly about timing constraints.
+- Provide progress/time remaining indicators.
+- Reduce unnecessary timeout pressure in surrounding flows (forms, checkout, profile setup).
+- Preserve user data when feasible if timeout happens.
 
 ### Summary: Enough Time
 
-*Content to be added.*
+Enough Time means users can complete tasks without being rushed by hidden or inflexible timers. For 2.2.1, provide ways to turn off, adjust, or extend time limits and warn before expiration (especially for session timeouts). For 2.2.2, any non-essential motion or auto-updating content must be pausable, stoppable, or hideable, with clear keyboard-accessible controls. When exceptions apply (essential or real-time scenarios), communicate constraints early and still reduce avoidable time pressure everywhere else.
 
 ## Seizures and Physical Reactions
 
