@@ -645,19 +645,19 @@ WCAG 2.1 and 2.2 translate the POUR principles into numbered, testable success c
 
 ### WCAG 1.1.1 Non-text Content
 
-Success Criterion **1.1.1 Non-text Content** (Level A) requires that all non-text content has a text alternative that serves the equivalent purpose, with specific exceptions. “Non-text content” includes images, icons, charts, audio players rendered as controls, CAPTCHA images, and similar. The alternative must be **programmatically determinable**—typically via HTML attributes and relationships that assistive technologies expose in the accessibility tree—so that people who cannot see the content (or who use different modalities) get the same information or function.
+Success Criterion 1.1.1 Non-text Content (Level A) requires that all non-text content has a text alternative that serves the equivalent purpose, with specific exceptions. “Non-text content” includes images, icons, charts, audio players rendered as controls, CAPTCHA images, and similar. The alternative must be programmatically determinable—typically via HTML attributes and relationships that assistive technologies expose in the accessibility tree—so that people who cannot see the content (or who use different modalities) get the same information or function.
 
-The criterion lists exceptions where alternatives differ: **CAPTCHA** needs text alternatives that describe its purpose plus alternative modes; **decorative** content can be implemented so assistive technologies ignore it; **logos** may use the organization name as text; and certain **sensory** or **essential** cases have tailored rules (read the normative text when you rely on an exception). For controls implemented with images (for example, a magnifying-glass search icon), the text alternative should describe the **control’s function**, not the picture. Meeting 1.1.1 is foundational: without it, many blind and low-vision users—and others using text-to-speech—cannot access meaning or operate the interface.
+The criterion lists exceptions where alternatives differ: CAPTCHA needs text alternatives that describe its purpose plus alternative modes; decorative content can be implemented so assistive technologies ignore it; logos may use the organization name as text; and certain sensory or essential cases have tailored rules (read the normative text when you rely on an exception). For controls implemented with images (for example, a magnifying-glass search icon), the text alternative should describe the control’s function, not the picture. Meeting 1.1.1 is foundational: without it, many blind and low-vision users—and others using text-to-speech—cannot access meaning or operate the interface.
 
 ### Images: alt text, decorative vs meaningful, empty alt
 
 #### Empty alt vs omitted alt, when to use alt=""
 
-For the HTML `<img>` element, the **`alt` attribute is required** in valid HTML. Omitting `alt` is an error in the validator sense and leaves assistive technologies without an explicit author intent; screen readers may substitute the filename, read nothing useful, or behave inconsistently.
+For the HTML `<img>` element, the `alt` attribute is required in valid HTML. Omitting `alt` is an error in the validator sense and leaves assistive technologies without an explicit author intent; screen readers may substitute the filename, read nothing useful, or behave inconsistently.
 
-- **`alt=""` (empty string)** marks the image as **decorative** or **redundant** with adjacent text. Assistive technologies generally skip announcing the image, which is what you want when the image adds no new information.
-- **Omitted `alt`** on `<img>` should be avoided. If you truly need no short label and the image is decorative, use `alt=""` rather than leaving the attribute out.
-- **`alt` with non-empty text** provides the short text alternative for meaningful images.
+- `alt=""` (empty string) marks the image as decorative or redundant with adjacent text. Assistive technologies generally skip announcing the image, which is what you want when the image adds no new information.
+- Omitting `alt` on `<img>` should be avoided. If you truly need no short label and the image is decorative, use `alt=""` rather than leaving the attribute out.
+- `alt` with non-empty text provides the short text alternative for meaningful images.
 
 For other elements (for example CSS `background-image`), there is no `alt`; you must decide whether the image is decorative only (often OK as background) or whether equivalent information must appear elsewhere in the page.
 
@@ -676,16 +676,16 @@ For other elements (for example CSS `background-image`), there is no `alt`; you 
 
 Use this order of decisions:
 
-1. **Does the image convey information or mood essential to understanding the content?** If yes, write a concise `alt` that conveys that equivalent. If the same information appears in plain text immediately next to the image, decide whether the image is redundant: if redundant, `alt=""` is often correct so users do not hear duplication.
-2. **Is the image purely decorative** (borders, flourishes, stock photos that add no task-relevant detail)? Use `alt=""` and ensure no essential instruction relies only on the image.
-3. **Is it a chart, diagram, or screenshot of data?** A short `alt` can summarize the takeaway; a **long description** (see below) may be required for the full equivalent.
-4. **Is it an icon next to visible text that already labels the action?** Often `alt=""` for the icon if the visible label is programmatically associated and clear; otherwise the control needs an accessible name (for example `aria-label` on the button wrapping the icon).
+1. Does the image convey information or mood essential to understanding the content? If yes, write a concise `alt` that conveys that equivalent. If the same information appears in plain text immediately next to the image, decide whether the image is redundant: if redundant, `alt=""` is often correct so users do not hear duplication.
+2. Is the image purely decorative (borders, flourishes, stock photos that add no task-relevant detail)? Use `alt=""` and ensure no essential instruction relies only on the image.
+3. Is it a chart, diagram, or screenshot of data? A short `alt` can summarize the takeaway; a long description (see below) may be required for the full equivalent.
+4. Is it an icon next to visible text that already labels the action? Often `alt=""` for the icon if the visible label is programmatically associated and clear; otherwise the control needs an accessible name (for example `aria-label` on the button wrapping the icon).
 
-**Functional images** (part of a link or button) must describe the **function or destination**, not the artwork. **Groups of images** (for example a star rating) need a single coherent description or one image with appropriate alt, not five repetitions of “star.”
+Functional images (part of a link or button) must describe the function or destination, not the artwork. Groups of images (for example a star rating) need a single coherent description or one image with appropriate alt, not five repetitions of “star.”
 
 #### Alt for linked images (describe destination), image button
 
-When an image is the only content inside a link, the image’s text alternative effectively becomes the **link name**. Describe **where the link goes** or **what it does**, not a literal description of the bitmap unless that is genuinely what users need.
+When an image is the only content inside a link, the image’s text alternative effectively becomes the link name. Describe where the link goes or what it does, not a literal description of the bitmap unless that is genuinely what users need.
 
 ```html
 <a href="/catalog/widgets">
@@ -693,7 +693,7 @@ When an image is the only content inside a link, the image’s text alternative 
 </a>
 ```
 
-For `<input type="image">`, the **`alt` attribute** provides the accessible name for the submit control (equivalent to a submit button’s label).
+For `<input type="image">`, the `alt` attribute provides the accessible name for the submit control (equivalent to a submit button’s label).
 
 ```html
 <input type="image" src="/search-submit.png" alt="Search">
@@ -705,29 +705,29 @@ If a text link sits beside the image and repeats the same purpose, avoid duplica
 
 #### Length and context, avoid "image of" and "picture of"
 
-**Be concise.** Most images need roughly **one or two short sentences** in `alt`; complex images need a short `alt` plus a longer description elsewhere. Screen readers already announce that the element is an image in many configurations, so phrases like “image of,” “picture of,” “graphic of,” or “photo of” are usually **noise**—start with the subject and the point (for example, “Sales increased 12% year over year” for a trend graphic, with detail in a long description if needed).
+Be concise. Most images need roughly one or two short sentences in `alt`; complex images need a short `alt` plus a longer description elsewhere. Screen readers already announce that the element is an image in many configurations, so phrases like “image of,” “picture of,” “graphic of,” or “photo of” are usually noise—start with the subject and the point (for example, “Sales increased 12% year over year” for a trend graphic, with detail in a long description if needed).
 
-**Context matters.** The same photo might be `alt="Company headquarters in Berlin"` in an “About” page and `alt=""` if it is only atmosphere next to a heading that already says “Berlin office.” Write for someone who cannot see the page: include **names, roles, and data** that sighted users get from the image, not editorial fluff.
+Context matters. The same photo might be `alt="Company headquarters in Berlin"` in an “About” page and `alt=""` if it is only atmosphere next to a heading that already says “Berlin office.” Write for someone who cannot see the page: include names, roles, and data that sighted users get from the image, not editorial fluff.
 
-**Filenames are not alt text.** Do not rely on `DSC_0001.jpg` being read; set explicit `alt` or empty alt by intent.
+Filenames are not alt text. Do not rely on `DSC_0001.jpg` being read; set explicit `alt` or empty alt by intent.
 
 #### Common pitfall: missing or redundant alt
 
-- **Missing or useless `alt`:** Fails 1.1.1; fix with meaningful text, `alt=""` for decorative cases, or refactoring so text appears in the DOM.
-- **Redundant alt next to visible captions:** If the caption is visible and describes the image, `alt=""` on the image can avoid “hearing” the same text twice—unless the image adds detail not in the caption; then the `alt` should cover what is unique.
-- **Stuffing keywords** for SEO into `alt` hurts real users and is discouraged; write for humans using assistive tech first.
+- Missing or useless `alt`: fails 1.1.1; fix with meaningful text, `alt=""` for decorative cases, or refactoring so text appears in the DOM.
+- Redundant alt next to visible captions: if the caption is visible and describes the image, `alt=""` on the image can avoid “hearing” the same text twice—unless the image adds detail not in the caption; then the `alt` should cover what is unique.
+- Stuffing keywords for SEO into `alt` hurts real users and is discouraged; write for humans using assistive tech first.
 
 ### Complex images, long descriptions, and data tables
 
 #### Charts, diagrams, longdesc and aria-describedby
 
-Complex figures need a **short** text in `alt` (or `aria-label` where appropriate) that states **purpose and summary**, and often a **long description** with full data or relationships. Techniques include:
+Complex figures need a short text in `alt` (or `aria-label` where appropriate) that states purpose and summary, and often a long description with full data or relationships. Techniques include:
 
 - A visible paragraph or expandable section below the figure with the full explanation.
-- **`aria-describedby`** pointing to the `id` of an element containing the long description (ensure that content remains available and is not hidden in a way that removes it from accessibility APIs inappropriately).
-- **`longdesc`** exists in HTML but has **limited support and adoption**; many teams prefer visible text or `aria-describedby` for maintainability and testing.
+- `aria-describedby` pointing to the `id` of an element containing the long description (ensure that content remains available and is not hidden in a way that removes it from accessibility APIs inappropriately).
+- `longdesc` exists in HTML but has limited support and adoption; many teams prefer visible text or `aria-describedby` for maintainability and testing.
 
-For diagrams, describe **structure and relationships** (“three branches: sales, engineering, support”) not only appearance. For charts, include **trends, axes, and key values** in the long description or an associated data table.
+For diagrams, describe structure and relationships (“three branches: sales, engineering, support”) not only appearance. For charts, include trends, axes, and key values in the long description or an associated data table.
 
 ```html
 <img src="/chart-q1.png" alt="Q1 revenue by region: EMEA highest, APAC lowest" aria-describedby="chart-q1-desc">
@@ -736,9 +736,9 @@ For diagrams, describe **structure and relationships** (“three branches: sales
 
 #### figcaption and figure, providing a data table
 
-The `<figure>` and `<figcaption>` elements group an image (or code block, quote, etc.) with a caption. **`<figcaption>` is not a substitute for `alt` by default** for assistive tech in all combinations; the usual pattern is a meaningful `alt` **or** `alt=""` when the caption fully conveys the non-text content’s purpose, depending on whether duplicate announcement is a problem. If the caption duplicates what `alt` would say, empty `alt` on the image plus a rich `figcaption` can work—test with a screen reader.
+The `<figure>` and `<figcaption>` elements group an image (or code block, quote, etc.) with a caption. `<figcaption>` is not a substitute for `alt` by default for assistive tech in all combinations; the usual pattern is a meaningful `alt` or `alt=""` when the caption fully conveys the non-text content’s purpose, depending on whether duplicate announcement is a problem. If the caption duplicates what `alt` would say, empty `alt` on the image plus a rich `figcaption` can work—test with a screen reader.
 
-When the “full equivalent” of a chart is numeric, an **HTML `<table>`** (with proper headers and captions) near the chart is one of the strongest patterns: blind users can navigate cells, and everyone can copy numbers. Pair the chart image with `alt` text that summarizes the insight and link or place the table as the authoritative data.
+When the “full equivalent” of a chart is numeric, an HTML `<table>` (with proper headers and captions) near the chart is one of the strongest patterns: blind users can navigate cells, and everyone can copy numbers. Pair the chart image with `alt` text that summarizes the insight and link or place the table as the authoritative data.
 
 ```html
 <figure>
@@ -755,14 +755,14 @@ When the “full equivalent” of a chart is numeric, an **HTML `<table>`** (wit
 
 #### SVG as img vs inline SVG, role="img" and title
 
-**`<img src="…svg" alt="…">`** is often simplest: use `alt` like any raster image.
+`<img src="…svg" alt="…">` is often simplest: use `alt` like any raster image.
 
-**Inline SVG** can expose more detail:
+Inline SVG can expose more detail:
 
-- If the SVG is **decorative**, use `aria-hidden="true"` on the SVG root **or** empty `alt`-equivalent patterns, and ensure no duplicate labels from `title`/`desc` unless you intend them for assistive tech.
-- If the SVG is **meaningful**, ensure there is a name: for example **`role="img"`** with **`aria-labelledby`** pointing to a `<title>` or **`aria-label`** for a short name. SVG `<title>` and `<desc>` can help screen readers when exposed correctly; test across browsers and AT.
+- If the SVG is decorative, use `aria-hidden="true"` on the SVG root or empty `alt`-equivalent patterns, and ensure no duplicate labels from `title`/`desc` unless you intend them for assistive tech.
+- If the SVG is meaningful, ensure there is a name: for example `role="img"` with `aria-labelledby` pointing to a `<title>` or `aria-label` for a short name. SVG `<title>` and `<desc>` can help screen readers when exposed correctly; test across browsers and AT.
 
-**Icon-only buttons** should not rely on a colored glyph alone: give the control an **`aria-label`** or visible text so the name is clear (“Menu,” “Close,” “Search”).
+Icon-only buttons should not rely on a colored glyph alone: give the control an `aria-label` or visible text so the name is clear (“Menu,” “Close,” “Search”).
 
 ```html
 <button type="button" aria-label="Close dialog">
@@ -772,13 +772,13 @@ When the “full equivalent” of a chart is numeric, an **HTML `<table>`** (wit
 
 #### Image maps and area alt, CAPTCHA alternatives
 
-For **HTML image maps** (`<img usemap>` with `<map>` and `<area>`), each **`<area>`** must have a text alternative via **`alt`** (describing the destination or action for that hotspot). Keyboard access and visible focus for areas are also required for operability—see the Keyboard and Navigable chapters.
+For HTML image maps (`<img usemap>` with `<map>` and `<area>`), each `<area>` must have a text alternative via `alt` (describing the destination or action for that hotspot). Keyboard access and visible focus for areas are also required for operability—see the Keyboard and Navigable chapters.
 
-**CAPTCHA** images that gate access must offer **alternatives** that do not depend on sight: audio CAPTCHA, email verification, or other human-verification channels, and staff-assisted paths where feasible. Text near the challenge should explain **what the test is for** and how to use alternatives. Meeting both 1.1.1 and operable-input requirements often means **more than one modality** by design.
+CAPTCHA images that gate access must offer alternatives that do not depend on sight: audio CAPTCHA, email verification, or other human-verification channels, and staff-assisted paths where feasible. Text near the challenge should explain what the test is for and how to use alternatives. Meeting both 1.1.1 and operable-input requirements often means more than one modality by design.
 
 ### Summary: Text Alternatives
 
-WCAG **1.1.1** requires text alternatives for non-text content so that information and controls are available to people who do not perceive pixels the same way—especially screen reader and braille users. Use **`alt`** deliberately on `<img>`: meaningful text when the image conveys content or function, **`alt=""`** when it is decorative or redundant, and never omit `alt` without a documented equivalent pattern. Linked images and image buttons should name **destination or action**; avoid filler phrases and keyword stuffing. Complex images need a **short** summary plus a **long description** or data table when equivalence demands detail—`aria-describedby`, visible copy, or well-marked tables are preferred over legacy-only patterns. SVGs and icon controls need **explicit names** (`alt`, `aria-label`, or labelled SVG titles) and decorative inline SVG should not clutter the spoken output. Image maps need **`alt` on each `area`**; CAPTCHA must offer **non-visual alternatives**. The next chapter extends alternatives to **time-based media**: captions, transcripts, and audio description.
+WCAG 1.1.1 requires text alternatives for non-text content so that information and controls are available to people who do not perceive pixels the same way—especially screen reader and braille users. Use `alt` deliberately on `<img>`: meaningful text when the image conveys content or function, `alt=""` when it is decorative or redundant, and never omit `alt` without a documented equivalent pattern. Linked images and image buttons should name destination or action; avoid filler phrases and keyword stuffing. Complex images need a short summary plus a long description or data table when equivalence demands detail—`aria-describedby`, visible copy, or well-marked tables are preferred over legacy-only patterns. SVGs and icon controls need explicit names (`alt`, `aria-label`, or labelled SVG titles) and decorative inline SVG should not clutter the spoken output. Image maps need `alt` on each `area`; CAPTCHA must offer non-visual alternatives. The next chapter extends alternatives to time-based media: captions, transcripts, and audio description.
 
 ## Time-Based Media
 
