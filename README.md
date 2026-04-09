@@ -2369,31 +2369,75 @@ Input Assistance criteria ensure form interactions are understandable, recoverab
 
 #### Start and end tags, nesting, duplicate id and ARIA IDs
 
-*Content to be added.*
+Parsing reliability starts with valid, well-formed markup. Assistive technologies and browser accessibility trees depend on correct element boundaries, valid nesting, and unique ID references.
+
+Key practices:
+
+- Close elements correctly and avoid malformed nesting (for example, interactive elements inside other interactive elements).
+- Keep every `id` value unique on the page.
+- Ensure every ARIA ID reference (`aria-labelledby`, `aria-describedby`, `aria-controls`, `for`) points to an existing, unique target.
+- Prefer native HTML patterns first, then layer ARIA only when needed.
+
+Even when modern browsers recover from HTML errors visually, accessibility APIs may expose inconsistent names, roles, or relationships when markup is broken.
 
 #### W3C validator and Nu Html Checker
 
-*Content to be added.*
+Automated validation catches structural issues that are easy to miss in manual reviews. The [W3C Validator](https://validator.w3.org/) and [Nu Html Checker](https://validator.w3.org/nu/) are useful baseline checks in both development and CI.
+
+What to validate regularly:
+
+- Duplicate IDs and invalid attributes.
+- Missing required element relationships and malformed nesting.
+- Obsolete or invalid ARIA usage.
+- Broken references used by labels and descriptions.
+
+Validation is not a full accessibility audit, but it removes low-level compatibility defects before deeper keyboard, screen-reader, and UX testing.
 
 ### Name, role, value (4.1.2) for custom controls
 
 #### Exposing name, role, value to assistive tech, custom control requirements
 
-*Content to be added.*
+WCAG 4.1.2 requires user interface components to expose a programmatic **name**, **role**, and **value/state** so assistive technology can identify and operate them.
+
+For custom controls:
+
+- Provide an accessible name (`aria-label`, `aria-labelledby`, or visible label mapping).
+- Expose the correct role (for example, `button`, `switch`, `tab`) only when native elements cannot be used.
+- Keep state/value updated (`aria-checked`, `aria-expanded`, `aria-selected`, `aria-valuenow`).
+- Support keyboard behavior expected for that role.
+- Fire changes through standard DOM events so assistive tech is notified.
+
+Native elements (`button`, `input`, `select`, `details`) are preferred because they provide correct semantics and interaction behavior by default.
 
 ### Status messages (4.1.3), live regions, aria-live
 
 #### aria-live, aria-atomic, aria-relevant; polite vs assertive
 
-*Content to be added.*
+Status updates that appear without focus changes should be announced through live regions so screen reader users receive equivalent feedback.
+
+Live region controls:
+
+- `aria-live="polite"` queues non-urgent updates (recommended default).
+- `aria-live="assertive"` interrupts for urgent updates only.
+- `aria-atomic="true"` reads the full region when content changes.
+- `aria-relevant` limits which mutation types are announced (`additions`, `text`, `removals`).
+
+Use live regions intentionally: over-announcing creates noise, while missing announcements hides important application state changes.
 
 #### role="status" and role="alert" for messages
 
-*Content to be added.*
+`role="status"` and `role="alert"` provide semantic patterns for non-modal notifications:
+
+- Use `role="status"` for informational, non-critical updates (saved, loaded, filter applied).
+- Use `role="alert"` for critical errors or immediate attention messages.
+- Insert or update message text dynamically; do not move keyboard focus unless workflow requires it.
+- Keep messages concise, specific, and close to the related context.
+
+Choosing the right role balances urgency with usability: informational updates should not interrupt, while critical failures should be announced immediately.
 
 ### Summary: Compatible
 
-*Content to be added.*
+Compatible implementations ensure UI semantics remain machine-readable across browsers and assistive technologies. Reliable parsing and valid HTML prevent broken accessibility-tree relationships caused by malformed structure or duplicate IDs, while routine validator checks catch foundational defects early. Interactive components must expose accurate name, role, and value/state information, especially when custom widgets are used instead of native controls (4.1.2). Dynamic updates should be announced through well-scoped live regions and appropriate message roles (`status` vs `alert`) so users receive timely feedback without unnecessary interruption (4.1.3).
 
 ## HTML Semantics and ARIA
 
