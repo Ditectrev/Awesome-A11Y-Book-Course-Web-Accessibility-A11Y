@@ -846,7 +846,7 @@ In HTML5, `<track>` uses a `kind` attribute:
 
 WCAG 1.2.1 Audio-only and Video-only (Prerecorded) (Level A) requires an alternative for time-based media for:
 
-- Prerecorded audio-only (for example a podcast episode), and  
+- Prerecorded audio-only (for example a podcast episode), and
 - Prerecorded video-only (for example a silent demo or animation with no audio track).
 
 The alternative is text (or text with equivalents: for video-only, that often means a descriptive transcript that explains what happens visually). The purpose is that users who cannot perceive the audio or video get the same information in another modality.
