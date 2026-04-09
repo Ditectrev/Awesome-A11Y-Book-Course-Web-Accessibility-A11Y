@@ -3177,19 +3177,52 @@ Appendix B provides a practical, shared vocabulary for accessibility conversatio
 
 ### Official standards and WAI documentation
 
-*Content to be added.*
+#### Canonical sources for requirements, interpretation, and implementation patterns
+
+Use primary standards sources first when defining requirements, resolving disputes, or documenting conformance claims.
+
+- **W3C WAI home:** [https://www.w3.org/WAI/](https://www.w3.org/WAI/) for standards, tutorials, and planning guidance.
+- **WCAG 2.2 Recommendation:** [https://www.w3.org/TR/WCAG22/](https://www.w3.org/TR/WCAG22/) as the normative reference for success criteria.
+- **Understanding WCAG 2.2:** [https://www.w3.org/WAI/WCAG22/Understanding/](https://www.w3.org/WAI/WCAG22/Understanding/) for intent, benefits, and examples per criterion.
+- **How to Meet WCAG (Quick Reference):** [https://www.w3.org/WAI/WCAG22/quickref/](https://www.w3.org/WAI/WCAG22/quickref/) for filterable implementation guidance.
+- **WAI-ARIA Authoring Practices (APG):** [https://www.w3.org/WAI/ARIA/apg/](https://www.w3.org/WAI/ARIA/apg/) for accessible interaction patterns and keyboard behavior.
+- **HTML Accessibility guidance:** [https://www.w3.org/WAI/tutorials/](https://www.w3.org/WAI/tutorials/) for practical tutorials on page structure, forms, tables, images, and media.
+
+Tip: in policy or audit documents, cite both the criterion ID (for example `1.4.3`) and the canonical W3C URL to avoid interpretation drift.
 
 ### Testing tools and screen readers
 
-*Content to be added.*
+#### Practical toolkit for automated checks and manual verification
+
+No single tool finds all issues; combine automation, keyboard testing, and screen reader validation.
+
+- **Browser DevTools accessibility panes:** inspect roles, names, contrast, heading order, landmarks, and computed accessibility tree.
+- **axe DevTools / axe-core:** fast automated scans for common failures (missing labels, contrast failures, ARIA misuse, landmark gaps).
+- **WAVE:** visual page overlays that help spot structural and labeling issues quickly during review.
+- **Lighthouse accessibility audit:** high-level baseline checks integrated with Chrome workflows and CI reporting.
+- **Keyboard-only test pass:** verify focus visibility, focus order, skip links, modal traps, and full task completion without a mouse.
+- **Screen readers to include in testing matrix:** NVDA (Windows), JAWS (Windows), VoiceOver (macOS/iOS), TalkBack (Android).
+
+Tip: treat automated findings as triage input, not proof of compliance; always pair them with representative manual user-flow tests.
 
 ### Learning and certification
 
-*Content to be added.*
+#### Continuous upskilling for designers, developers, QA, and product teams
+
+Build sustained capability through role-specific learning paths, practice labs, and periodic assessment.
+
+- **W3C WAI tutorials and courses:** foundational, standards-aligned learning for teams new to accessibility.
+- **Deque University:** structured, role-based training (development, design, testing, leadership) with practical exercises.
+- **The A11Y Project:** community-curated checklists, articles, and practical guidance for day-to-day implementation.
+- **WebAIM articles and training:** practical explanations, testing techniques, and reference material for teams and auditors.
+- **IAAP certifications (e.g., CPACC, WAS):** industry-recognized credentials for accessibility knowledge and technical competence.
+- **Internal enablement practice:** maintain a shared pattern library, host defect postmortems, and run recurring accessibility office hours.
+
+Tip: pair formal training with hands-on remediation work so knowledge is retained and translated into production quality.
 
 ### Summary: Appendix C: Resources and Tools
 
-*Content to be added.*
+Appendix C centralizes trusted standards references, practical testing tools, and learning pathways that support continuous accessibility maturity. Official W3C/WAI resources provide the authoritative basis for requirements and interpretation, while a mixed testing stack (automation plus keyboard and screen reader checks) improves defect detection quality. Ongoing training and certification help teams sustain capability across design, engineering, QA, and product decision-making.
 
 ## Appendix D: Checklist Template
 
