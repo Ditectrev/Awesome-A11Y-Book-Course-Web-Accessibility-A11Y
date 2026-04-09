@@ -3050,15 +3050,68 @@ Accessibility quality is sustained through clear documentation and repeatable pr
 
 ### Perceivable, Operable, Understandable, Robust quick list
 
-*Content to be added.*
+#### Fast mental model and implementation checkpoints
+
+Use POUR as a high-speed review pass during design, implementation, and QA.
+
+- **Perceivable:** users can detect content regardless of sense used (text alternatives, captions, adaptable structure, sufficient contrast).
+- **Operable:** users can interact with all controls and flows (keyboard access, enough time, no seizure triggers, clear navigation).
+- **Understandable:** users can read and predict behavior (plain language, consistent navigation, clear instructions and error handling).
+- **Robust:** content works across browsers, assistive technologies, and future agents (valid semantics, correct name/role/value, resilient patterns).
+
+Quick checkpoint prompts:
+
+- If images/audio/video exist, is equivalent information available in text/captions/transcripts?
+- Can every task be completed by keyboard only, including dialogs, menus, and forms?
+- Are labels, instructions, and validation messages clear before and after submission?
+- Do custom widgets expose reliable semantics and state changes to assistive technology?
+
+Common WCAG cluster reminders:
+
+- **Perceivable:** `1.1.x`, `1.2.x`, `1.3.x`, `1.4.x`
+- **Operable:** `2.1.x`, `2.2.x`, `2.3.x`, `2.4.x`, `2.5.x`
+- **Understandable:** `3.1.x`, `3.2.x`, `3.3.x`
+- **Robust:** `4.1.x`
 
 ### Criterion ID to title lookup
 
-*Content to be added.*
+#### Frequently used WCAG 2.x criteria at a glance
+
+This lookup is intentionally compact and focuses on criteria that appear most often in product work.
+
+- `1.1.1` Non-text Content
+- `1.3.1` Info and Relationships
+- `1.3.2` Meaningful Sequence
+- `1.3.5` Identify Input Purpose
+- `1.4.1` Use of Color
+- `1.4.3` Contrast (Minimum)
+- `1.4.4` Resize Text
+- `1.4.10` Reflow
+- `1.4.11` Non-text Contrast
+- `2.1.1` Keyboard
+- `2.1.2` No Keyboard Trap
+- `2.2.1` Timing Adjustable
+- `2.3.1` Three Flashes or Below Threshold
+- `2.4.1` Bypass Blocks
+- `2.4.3` Focus Order
+- `2.4.4` Link Purpose (In Context)
+- `2.4.6` Headings and Labels
+- `2.4.7` Focus Visible
+- `2.5.3` Label in Name
+- `3.1.1` Language of Page
+- `3.2.1` On Focus
+- `3.2.2` On Input
+- `3.3.1` Error Identification
+- `3.3.2` Labels or Instructions
+- `3.3.3` Error Suggestion
+- `4.1.2` Name, Role, Value
+- `4.1.3` Status Messages
+
+Tip: when triaging defects, record both the criterion ID and title so non-specialists can understand impact quickly.
 
 ### Summary: Appendix A: Quick Reference (WCAG 2.x)
 
-*Content to be added.*
+Appendix A condenses WCAG 2.x into a practical day-to-day reference. The POUR model provides a fast quality lens: content must be perceivable, interactions operable, behavior understandable, and implementation robust across assistive technologies. A compact criterion lookup helps teams map defects and requirements to the right standard quickly, improving triage quality, prioritization, and communication between design, engineering, QA, and compliance stakeholders.
 
 ## Appendix B: Glossary
 
