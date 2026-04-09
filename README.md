@@ -2197,19 +2197,76 @@ Readable criteria ensure language and terminology never become hidden barriers. 
 
 ### On focus (3.2.1) and on input (3.2.2)
 
-*Content to be added.*
+WCAG 3.2.1 On Focus (Level A) and 3.2.2 On Input (Level A) prevent unexpected context changes while users are navigating or entering data. Moving focus must not trigger surprise navigation, and changing a form value must not auto-submit or jump users away unless the behavior is clearly expected.
+
+Safe interaction rules:
+
+- Do not navigate to another page just because an element receives focus.
+- Do not launch dialogs, popups, or new windows solely on focus.
+- Avoid auto-submitting forms when users select a value from a dropdown.
+- Trigger major actions with explicit user intent (button click, Enter on submit).
+
+Engineering patterns:
+
+- Keep focus events lightweight: visual highlighting and helper text updates are fine.
+- Reserve context-changing behavior for explicit controls such as `button` elements.
+- If immediate updates are required (for filtering or preview), keep users on the same page and preserve focus.
+
+```html
+<label for="topic">Choose a topic</label>
+<select id="topic" name="topic">
+  <option value="">Select one</option>
+  <option value="a11y">Accessibility</option>
+  <option value="ux">User Experience</option>
+</select>
+
+<button type="submit">Apply</button>
+```
+
+Predictable focus and input behavior reduces disorientation, especially for keyboard and screen reader users who rely on stable interaction flow.
 
 ### Consistent navigation and identification (3.2.3, 3.2.4)
 
-*Content to be added.*
+WCAG 3.2.3 Consistent Navigation (Level AA) and 3.2.4 Consistent Identification (Level AA) require repeatable patterns across a product. When navigation order and component naming stay stable, users can transfer what they learned on one page to the next.
+
+Consistency requirements:
+
+- Keep repeated navigation mechanisms in the same relative order across pages.
+- Use the same label for the same destination (`Support` should not become `Help Center` randomly).
+- Keep icon + text combinations consistent for recurrent actions.
+- Reuse component behavior patterns (same menu opens the same way everywhere).
+
+Content and design checks:
+
+- Align design system naming with production UI labels to avoid drift.
+- Audit templates and CMS blocks so shared navigation does not diverge by section.
+- Ensure landmarks and headings remain predictable in page-to-page transitions.
+
+Consistency is a cognitive accessibility multiplier: fewer surprises means faster orientation and less error-prone navigation.
 
 ### Change on request and common pitfalls
 
-*Content to be added.*
+WCAG 3.2.5 Change on Request (Level AAA) reinforces user control: significant context changes should happen only when users ask for them, or after clear warning and confirmation where appropriate.
+
+Common pitfalls to avoid:
+
+- Auto-redirecting users after a short timer without warning or extension options.
+- Opening external links in a new tab without visible notice.
+- Triggering route changes from `onchange` handlers in forms.
+- Re-rendering large sections on blur/focus in ways that steal focus.
+
+Safer alternatives:
+
+- Provide explicit action controls (`Continue`, `Open details`, `Submit`).
+- Warn before opening a new context (new tab/window, external app).
+- Preserve current focus when dynamic content updates.
+- Use progressive disclosure in place of sudden full-context switches.
+
+Predictability and user control are tightly connected: when changes happen by request, users can maintain orientation and confidence.
 
 ### Summary: Predictable
 
-*Content to be added.*
+Predictable criteria keep interface behavior stable and user-driven. Focus and input events must not trigger unexpected context changes such as automatic navigation, submission, or popups (3.2.1, 3.2.2). Repeated navigation and recurring UI elements should keep consistent order, labels, and identification across pages so users can build reliable mental models (3.2.3, 3.2.4). At higher rigor, major context changes should occur on explicit request with clear cues, preserving control and orientation throughout task flows (3.2.5).
 
 ## Input Assistance
 
