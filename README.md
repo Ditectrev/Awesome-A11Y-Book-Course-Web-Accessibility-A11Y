@@ -2525,23 +2525,182 @@ Compatible implementations ensure UI semantics remain machine-readable across br
 
 ### When to use native HTML vs ARIA
 
-*Content to be added.*
+#### Prefer native elements for built-in semantics and behavior
+
+Native HTML should be your default because it already exposes the correct role, keyboard model, focus handling, and accessibility-tree mapping.
+
+Why native first:
+
+- Native controls (`button`, `a`, `input`, `select`, `textarea`, `details`) include semantics without extra ARIA.
+- Keyboard interactions are implemented consistently (Enter/Space behavior, focus states, form submission).
+- Browser and assistive technology support is more reliable than custom role-based recreations.
+- Maintenance cost is lower because fewer attributes and less JavaScript are required.
+
+```html
+<!-- Preferred: native semantics and keyboard behavior included -->
+<button type="button" aria-expanded="false" aria-controls="faq-1">
+  Show answer
+</button>
+<div id="faq-1" hidden>
+  Shipping takes 2-3 business days.
+</div>
+```
+
+#### Add ARIA only when native HTML cannot express intent
+
+ARIA complements HTML; it does not replace it. Use ARIA when complex widgets or dynamic states are not otherwise representable with semantic elements alone.
+
+Use ARIA when:
+
+- You need to expose relationships (`aria-controls`, `aria-labelledby`, `aria-describedby`).
+- A custom widget must communicate state (`aria-expanded`, `aria-selected`, `aria-checked`).
+- You are implementing a recognized composite pattern (tabs, listbox, combobox, menu button) and can match the full keyboard behavior.
+
+Avoid ARIA misuse:
+
+- Do not add redundant roles (for example, `role="button"` on a `<button>`).
+- Do not use ARIA to "fix" missing visible labels or broken interaction logic.
+- Do not hide visible content from assistive technology unless there is a strong reason.
 
 ### ARIA roles, states, and properties
 
-*Content to be added.*
+#### Role defines what a component is
+
+Roles describe the type of UI component for assistive technologies. If you choose a non-native pattern, expose an accurate role and honor its expected behavior.
+
+Role guidance:
+
+- Use role values from the WAI-ARIA spec only (`button`, `tab`, `dialog`, `alert`, `status`).
+- Keep role and interaction model aligned (for example, a `tab` must support roving focus and selected state).
+- Prefer implicit native roles before explicit role attributes.
+
+#### States/properties define current condition and relationships
+
+States can change during interaction, while properties often describe stable relationships.
+
+Common attributes:
+
+- `aria-expanded` for collapsible content.
+- `aria-selected` for options/tabs.
+- `aria-checked` for switches and checkable widgets.
+- `aria-disabled` when unavailable but still discoverable.
+- `aria-labelledby` and `aria-describedby` for accessible naming/description.
+
+```html
+<button
+  id="filters-toggle"
+  type="button"
+  aria-expanded="false"
+  aria-controls="filters-panel">
+  Filters
+</button>
+<section id="filters-panel" hidden>
+  <!-- filter controls -->
+</section>
+```
+
+```js
+const toggle = document.getElementById('filters-toggle');
+const panel = document.getElementById('filters-panel');
+
+toggle.addEventListener('click', () => {
+  const open = toggle.getAttribute('aria-expanded') === 'true';
+  toggle.setAttribute('aria-expanded', String(!open));
+  panel.hidden = open;
+});
+```
 
 ### Tabs, modals, dialogs (focus trap, escape)
 
-*Content to be added.*
+#### Tabs: roving focus plus selected panel mapping
+
+Accessible tabs require both semantic links and keyboard support.
+
+Tabs checklist:
+
+- Use `role="tablist"` on the container, `role="tab"` on each trigger, and `role="tabpanel"` on each panel.
+- Connect tabs and panels with `aria-controls` and `aria-labelledby`.
+- Track selection with `aria-selected` and `tabindex` (selected tab `0`, others `-1`).
+- Support Arrow keys to move between tabs and Enter/Space to activate when needed.
+
+#### Dialogs and modals: focus containment and close behavior
+
+Opening a dialog changes interaction context. Focus should move into the dialog, remain there while open, and return to the trigger on close.
+
+Dialog essentials:
+
+- Use native `<dialog>` when possible, or `role="dialog"` with `aria-modal="true"` for custom implementations.
+- Move focus to a meaningful control inside the dialog after open.
+- Trap focus within the dialog while it is active.
+- Close on `Escape` (except where prevented by critical workflow requirements).
+- Restore focus to the invoking element after close.
+
+```html
+<button id="open-settings" type="button">Open settings</button>
+<dialog id="settings-dialog" aria-labelledby="settings-title">
+  <h2 id="settings-title">Settings</h2>
+  <button type="button" id="close-settings">Close</button>
+</dialog>
+```
+
+```js
+const openBtn = document.getElementById('open-settings');
+const closeBtn = document.getElementById('close-settings');
+const dialog = document.getElementById('settings-dialog');
+
+openBtn.addEventListener('click', () => dialog.showModal());
+closeBtn.addEventListener('click', () => dialog.close());
+dialog.addEventListener('close', () => openBtn.focus());
+```
 
 ### Menus, combobox, listbox, disclosure
 
-*Content to be added.*
+#### Choose the right pattern for the interaction
+
+Many components are mislabeled as "menus" when they are actually navigation lists or simple disclosures. Pick the ARIA pattern that matches behavior, not visual style.
+
+Pattern mapping:
+
+- Use **disclosure** (button + expandable region) for show/hide content sections.
+- Use **menu button/menu** for application-style command lists with strict arrow-key navigation.
+- Use **listbox** for selecting one or many options from a list.
+- Use **combobox** for editable/selectable inputs that reveal suggestions.
+
+Using a complex role without its required keyboard and focus model creates confusing experiences for assistive-technology and keyboard users.
+
+#### Disclosure as a safer default for many dropdown-like UIs
+
+For most website dropdowns (FAQs, filters, account sections), disclosure is simpler and more robust than menu role patterns.
+
+```html
+<button
+  type="button"
+  aria-expanded="false"
+  aria-controls="account-panel"
+  id="account-toggle">
+  Account options
+</button>
+<div id="account-panel" hidden>
+  <a href="/profile">Profile</a>
+  <a href="/billing">Billing</a>
+  <button type="button">Sign out</button>
+</div>
+```
+
+```js
+const accountToggle = document.getElementById('account-toggle');
+const accountPanel = document.getElementById('account-panel');
+
+accountToggle.addEventListener('click', () => {
+  const expanded = accountToggle.getAttribute('aria-expanded') === 'true';
+  accountToggle.setAttribute('aria-expanded', String(!expanded));
+  accountPanel.hidden = expanded;
+});
+```
 
 ### Summary: HTML Semantics and ARIA
 
-*Content to be added.*
+Effective accessibility starts with semantic HTML and only layers ARIA where native elements cannot express required behavior. Native controls provide dependable name/role/value mappings, keyboard support, and lower implementation risk, while ARIA roles, states, and properties should be applied precisely and kept in sync with UI state. Composite widgets such as tabs, dialogs, comboboxes, and listboxes must follow complete interaction patterns, including focus management and keyboard conventions, not just role attributes. In practice, selecting the simplest accurate pattern (often disclosure over menu) leads to more predictable, maintainable, and assistive-technology-friendly interfaces.
 
 ## Forms and Validation
 
