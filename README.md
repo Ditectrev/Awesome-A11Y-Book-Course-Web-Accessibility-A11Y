@@ -2708,35 +2708,142 @@ Effective accessibility starts with semantic HTML and only layers ARIA where nat
 
 #### for and id, wrapping with label, visually hidden label
 
-*Content to be added.*
+Every form control needs an accessible name. In most cases, this comes from a visible `<label>` associated with the input.
+
+Reliable labeling patterns:
+
+- Use explicit association: `<label for="email">` + `<input id="email">`.
+- Wrapping an input inside `<label>` is also valid for simple layouts.
+- Do not use placeholder text as the only label; placeholders are hints, not persistent names.
+- If the visual UI cannot show a label, keep a programmatic label with a visually hidden class.
+
+```html
+<label for="email">Email address</label>
+<input id="email" name="email" type="email" autocomplete="email" />
+
+<label class="sr-only" for="search">Search documentation</label>
+<input id="search" name="search" type="search" placeholder="Search docs" />
+```
 
 #### fieldset, legend, radio groups and checkbox groups
 
-*Content to be added.*
+When multiple controls answer one question, group them with `<fieldset>` and describe the group with `<legend>`.
+
+Grouping benefits:
+
+- Screen readers announce the question context before each option.
+- Keyboard users understand they are inside one logical set.
+- Error and validation messaging can target the whole group more clearly.
+
+```html
+<fieldset>
+  <legend>Preferred contact method</legend>
+
+  <label>
+    <input type="radio" name="contact" value="email" />
+    Email
+  </label>
+  <label>
+    <input type="radio" name="contact" value="phone" />
+    Phone
+  </label>
+</fieldset>
+```
 
 ### Grouping, required fields, error association
 
 #### Required field indication, aria-required and HTML required
 
-*Content to be added.*
+Mark required fields in both visual and programmatic ways.
+
+Recommended approach:
+
+- Use the native `required` attribute whenever possible (best browser + AT support).
+- Show a clear visual cue, such as text "(required)" or an asterisk with explanation.
+- Use `aria-required="true"` primarily on custom widgets that are not native form controls.
+- Avoid announcing "required" twice through conflicting labels and attributes.
+
+```html
+<label for="first-name">First name <span aria-hidden="true">*</span></label>
+<input id="first-name" name="firstName" type="text" required />
+<p id="required-note">Fields marked with * are required.</p>
+```
 
 #### Linking error message to input id, aria-describedby
 
-*Content to be added.*
+Validation feedback should be connected directly to the relevant control so it is announced when the field receives focus.
+
+Error association checklist:
+
+- Give each error message a stable `id`.
+- Reference that `id` from the input with `aria-describedby`.
+- Toggle `aria-invalid="true"` when the field has a validation error.
+- Keep the error text specific and action-oriented.
+
+```html
+<label for="password">Password</label>
+<input
+  id="password"
+  name="password"
+  type="password"
+  aria-describedby="password-help password-error"
+  aria-invalid="true" />
+<p id="password-help">Use at least 12 characters.</p>
+<p id="password-error">Password must include at least one number.</p>
+```
 
 ### Validation messages, aria-describedby, role=alert
 
 #### Error summary at top of form, focus on first error
 
-*Content to be added.*
+For long forms, provide an error summary near the top after submission fails. This helps users quickly understand what must be fixed.
+
+Summary behavior:
+
+- Render a heading such as "Please fix the following errors."
+- Include links to each invalid field.
+- Move focus to the summary or first invalid control after submit.
+- Keep inline field-level messages as the primary source of correction detail.
+
+```html
+<div id="form-errors" role="region" aria-labelledby="form-errors-title" tabindex="-1" hidden>
+  <h2 id="form-errors-title">Please fix the following errors:</h2>
+  <ul>
+    <li><a href="#email">Enter a valid email address.</a></li>
+    <li><a href="#password">Password must include at least one number.</a></li>
+  </ul>
+</div>
+```
+
+```js
+const errorBox = document.getElementById('form-errors');
+errorBox.hidden = false;
+errorBox.focus();
+```
 
 #### role="alert" for critical errors, announcing to screen readers
 
-*Content to be added.*
+Use `role="alert"` for urgent validation failures that need immediate announcement (for example, payment failure or session-expiring submission problems).
+
+Guidelines for alerts:
+
+- Reserve alerts for critical messages; overuse causes noisy interruptions.
+- Keep the message short, specific, and actionable.
+- Prefer `aria-live="polite"` or `role="status"` for non-blocking informational feedback.
+- Do not shift keyboard focus unless the workflow requires immediate action.
+
+```html
+<div id="payment-error" role="alert"></div>
+```
+
+```js
+document.getElementById('payment-error').textContent =
+  'Payment failed. Your card was declined. Check details and try again.';
+```
 
 ### Summary: Forms and Validation
 
-*Content to be added.*
+Accessible forms combine clear structure, explicit labeling, and predictable feedback. Every input needs a dependable accessible name (visible label first, visually hidden label when necessary), and related options should be grouped with `fieldset` and `legend` so question context is preserved. Required fields should use native `required` plus clear visual indication, while errors must be programmatically associated through `aria-describedby` and `aria-invalid`. Effective validation uses both inline messages and a top-level error summary with managed focus, and reserves interruptive announcements (`role="alert"`) for truly critical failures.
 
 ## Testing and Evaluation
 
