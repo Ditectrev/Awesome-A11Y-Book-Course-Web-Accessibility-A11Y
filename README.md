@@ -2380,6 +2380,19 @@ Key practices:
 
 Even when modern browsers recover from HTML errors visually, accessibility APIs may expose inconsistent names, roles, or relationships when markup is broken.
 
+```html
+<!-- Bad: duplicate ids and broken ARIA reference -->
+<label for="email">Email</label>
+<input id="email" type="email">
+<input id="email" type="email" aria-describedby="email-help">
+<p id="email-help-typo">We will never share your email.</p>
+
+<!-- Good: unique ids and valid references -->
+<label for="email-primary">Email</label>
+<input id="email-primary" type="email" aria-describedby="email-help">
+<p id="email-help">We will never share your email.</p>
+```
+
 #### W3C validator and Nu Html Checker
 
 Automated validation catches structural issues that are easy to miss in manual reviews. The [W3C Validator](https://validator.w3.org/) and [Nu Html Checker](https://validator.w3.org/nu/) are useful baseline checks in both development and CI.
@@ -2392,6 +2405,11 @@ What to validate regularly:
 - Broken references used by labels and descriptions.
 
 Validation is not a full accessibility audit, but it removes low-level compatibility defects before deeper keyboard, screen-reader, and UX testing.
+
+```bash
+# CI-friendly HTML validation
+npx vnu-jar --errors-only --skip-non-html ./dist
+```
 
 ### Name, role, value (4.1.2) for custom controls
 
@@ -2409,6 +2427,42 @@ For custom controls:
 
 Native elements (`button`, `input`, `select`, `details`) are preferred because they provide correct semantics and interaction behavior by default.
 
+```html
+<!-- Preferred native control -->
+<button type="button" aria-expanded="false" aria-controls="filters-panel">
+  Toggle filters
+</button>
+
+<!-- Custom control only when necessary -->
+<div
+  id="theme-switch"
+  role="switch"
+  tabindex="0"
+  aria-checked="false"
+  aria-label="Dark mode">
+  Dark mode
+</div>
+```
+
+```js
+// Keep custom control state in sync for AT + keyboard users
+const switchEl = document.getElementById('theme-switch');
+
+function toggleSwitch() {
+  const next = switchEl.getAttribute('aria-checked') !== 'true';
+  switchEl.setAttribute('aria-checked', String(next));
+  switchEl.dispatchEvent(new Event('change', { bubbles: true }));
+}
+
+switchEl.addEventListener('click', toggleSwitch);
+switchEl.addEventListener('keydown', (e) => {
+  if (e.key === ' ' || e.key === 'Enter') {
+    e.preventDefault();
+    toggleSwitch();
+  }
+});
+```
+
 ### Status messages (4.1.3), live regions, aria-live
 
 #### aria-live, aria-atomic, aria-relevant; polite vs assertive
@@ -2424,6 +2478,19 @@ Live region controls:
 
 Use live regions intentionally: over-announcing creates noise, while missing announcements hides important application state changes.
 
+```html
+<!-- Non-critical updates -->
+<p id="search-status" aria-live="polite" aria-atomic="true"></p>
+
+<!-- Critical updates -->
+<p id="payment-error" aria-live="assertive" aria-atomic="true"></p>
+```
+
+```js
+document.getElementById('search-status').textContent = '15 results loaded';
+document.getElementById('payment-error').textContent = 'Payment failed. Card was declined.';
+```
+
 #### role="status" and role="alert" for messages
 
 `role="status"` and `role="alert"` provide semantic patterns for non-modal notifications:
@@ -2434,6 +2501,21 @@ Use live regions intentionally: over-announcing creates noise, while missing ann
 - Keep messages concise, specific, and close to the related context.
 
 Choosing the right role balances urgency with usability: informational updates should not interrupt, while critical failures should be announced immediately.
+
+```html
+<div role="status" aria-atomic="true" id="save-status"></div>
+<div role="alert" id="form-error"></div>
+```
+
+```js
+function showSaveSuccess() {
+  document.getElementById('save-status').textContent = 'Settings saved.';
+}
+
+function showBlockingError() {
+  document.getElementById('form-error').textContent = 'Submission failed. Please fix highlighted fields.';
+}
+```
 
 ### Summary: Compatible
 
