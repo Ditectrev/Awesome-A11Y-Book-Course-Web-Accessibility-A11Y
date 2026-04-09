@@ -2986,19 +2986,65 @@ Accessible quality requires layered evaluation, not a single tool. Manual keyboa
 
 ### Accessibility statements and VPATs
 
-*Content to be added.*
+#### Transparency, legal alignment, and procurement readiness
+
+Accessibility documentation communicates commitments, current conformance status, and known limitations in a clear, accountable format.
+
+Core artifacts:
+
+- **Accessibility statement:** public-facing page describing standards target (for example WCAG level), supported technologies, contact channel, and response timelines.
+- **VPAT/ACR (Accessibility Conformance Report):** structured conformance report used mainly for procurement and vendor evaluation.
+- **Known issues log:** concise list of active barriers, impacted features, and mitigation or workaround status.
+
+Good documentation practices:
+
+- Keep language plain and specific; avoid vague claims like "fully accessible" unless independently verified.
+- Include testing scope and methodology (automated + manual + assistive technology checks).
+- Version and date each document so stakeholders can assess freshness.
+- Update documents with each meaningful release or audit cycle.
 
 ### Embedding a11y in design and dev workflows
 
-*Content to be added.*
+#### Definition of done, tickets, and design handoff integration
+
+Accessibility is most effective when it is built into normal delivery workflows instead of treated as a final checklist step.
+
+Workflow integration points:
+
+- Add accessibility acceptance criteria to user stories (keyboard behavior, name/role/value, error handling, focus visibility).
+- Include component accessibility requirements in design handoff (semantics, states, contrast, interaction patterns).
+- Require accessibility checks in pull request templates and code review prompts.
+- Add "a11y done" gates in CI and release readiness checklists.
+
+Operational habits:
+
+- Convert recurring defects into reusable design system guidance and lint/test rules.
+- Track accessibility debt in the same backlog as functional defects.
+- Pair designers, engineers, and QA on high-risk flows early (auth, checkout, multi-step forms).
+- Validate critical journeys before release using keyboard and at least one screen reader.
 
 ### Training, governance, and review cycles
 
-*Content to be added.*
+#### Shared ownership model and recurring quality loops
+
+Sustainable accessibility programs rely on role-specific training, clear ownership, and predictable review cadences.
+
+Governance model:
+
+- Define accountable owners for policy, implementation quality, and issue triage.
+- Assign accessibility champions in product squads to support day-to-day decisions.
+- Establish escalation paths for blocker issues that affect critical user tasks.
+
+Training and review cadence:
+
+- Onboard new team members with practical accessibility basics tied to your stack and design system.
+- Run periodic deep dives (forms, dynamic updates, media, mobile interactions) using real product examples.
+- Schedule recurring audits for key flows and component libraries.
+- Review metrics such as open defects by severity, time to fix, and regression rate to guide improvements.
 
 ### Summary: Documentation and Maintenance
 
-*Content to be added.*
+Accessibility quality is sustained through clear documentation and repeatable process, not one-time fixes. Public accessibility statements and procurement-ready VPAT/ACR documents improve transparency and accountability when they are specific, dated, and regularly updated. Embedding accessibility into design handoff, story criteria, code review, CI gates, and release checks prevents late-stage defects and reduces rework. Long-term progress depends on governance, team training, and recurring audit/review cycles that measure outcomes and drive continuous improvement.
 
 ## Appendix A: Quick Reference (WCAG 2.x)
 
