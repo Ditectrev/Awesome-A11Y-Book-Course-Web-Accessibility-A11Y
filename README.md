@@ -2025,23 +2025,105 @@ Navigable success criteria are about orientation and wayfinding under real inter
 
 ### Pointer gestures (2.5.1) and single-pointer alternatives
 
-*Content to be added.*
+WCAG 2.5.1 Pointer Gestures (Level A) protects users who cannot perform complex multi-touch or path-based gestures. Any action that requires pinch, rotate, drag-path, or multi-finger input must also be available with a simple single-pointer interaction.
+
+Practical implementation patterns:
+
+- Provide `+` and `-` zoom controls in addition to pinch gestures.
+- Expose reorder actions with explicit buttons (`Move up`, `Move down`) alongside drag-and-drop.
+- Keep drawing/signature features optional for completion, with text alternatives when possible.
+- Ensure gesture shortcuts never become the only route to a critical task.
+
+```html
+<div class="map-controls" aria-label="Map zoom controls">
+  <button type="button" id="zoom-in">Zoom in</button>
+  <button type="button" id="zoom-out">Zoom out</button>
+</div>
+```
+
+If you add gesture-enhanced UX, treat it as progressive enhancement and ship a fully functional single-pointer baseline first.
 
 ### Pointer cancellation (2.5.2), target size (2.5.8)
 
-*Content to be added.*
+WCAG 2.5.2 Pointer Cancellation (Level A) reduces accidental activation by avoiding irreversible actions on down-events. WCAG 2.5.8 Target Size (Minimum) (Level AA) improves touch and motor accessibility by ensuring controls are large enough to hit reliably.
+
+Pointer cancellation essentials:
+
+- Trigger primary actions on `up` (or `click`), not on `down`.
+- Allow users to abort by moving away before release.
+- Offer an undo path for destructive actions.
+- Confirm dangerous actions rather than committing instantly.
+
+Target size engineering checks:
+
+- Keep interactive targets at least `24x24` CSS pixels, or provide equivalent spacing.
+- Increase size for high-risk or high-frequency actions where possible (`44x44` is a strong mobile baseline).
+- Ensure icon-only controls still meet size requirements even when visual icons are small.
+
+```css
+.icon-button {
+  min-width: 24px;
+  min-height: 24px;
+  padding: 8px; /* larger hit area than the icon itself */
+}
+```
 
 ### Label in name (2.5.3), motion actuation (2.5.4)
 
-*Content to be added.*
+WCAG 2.5.3 Label in Name (Level A) ensures speech-input users can activate controls using the words they see on screen. WCAG 2.5.4 Motion Actuation (Level A) requires alternatives when actions are triggered by device motion (shake, tilt, gesture sensors).
+
+Label in name rules:
+
+- Visible label text should be included in the accessible name, in the same key wording.
+- Avoid mismatches like visible `Save` but programmatic name `Submit form now`.
+- Keep voice command phrases simple and literal.
+
+Motion actuation guidance:
+
+- Provide on-screen controls for every motion-triggered action.
+- Let users disable motion-triggered behavior globally.
+- Respect platform settings and avoid surprise activation from incidental movement.
+
+```html
+<button type="button" aria-label="Save draft">Save draft</button>
+```
+
+For custom accessible-name logic, test with both screen readers and speech recognition to verify that visible label and announced name stay aligned.
 
 ### Input purpose and autocomplete (2.5.6)
 
-*Content to be added.*
+For robust forms, combine input purpose semantics (`autocomplete`, related to WCAG 1.3.5) with flexible input methods across device types (WCAG 2.5.6 Concurrent Input Mechanisms, Level AAA).
+
+Input purpose and autocomplete:
+
+- Use semantic input types (`email`, `tel`, `url`) and precise `autocomplete` tokens.
+- Keep field labels explicit and consistent with expected user data.
+- Avoid custom controls that break browser autofill behavior.
+- Validate server-side regardless of autofill or browser assistance.
+
+Concurrent input mechanisms:
+
+- Do not lock users into one modality (mouse-only, touch-only, or keyboard-only).
+- Keep equivalent functionality across touch, keyboard, stylus, and assistive tech interactions.
+- Test hybrid setups (laptop with touch screen, external keyboard on tablet) for parity.
+
+```html
+<label for="billing-email">Billing email</label>
+<input
+  id="billing-email"
+  name="billingEmail"
+  type="email"
+  autocomplete="email"
+  inputmode="email"
+  required
+/>
+```
+
+Correct autocomplete tokens improve speed, reduce typing burden, and lower form abandonment, especially on mobile and assistive technology workflows.
 
 ### Summary: Input Modalities
 
-*Content to be added.*
+Input modalities criteria ensure interactions remain operable beyond one gesture or one device context. Provide single-pointer alternatives for complex gestures and prevent accidental activations with up-event triggering and adequate target sizing (2.5.1, 2.5.2, 2.5.8). Keep visible labels aligned with accessible names and never require motion sensors as the only control path (2.5.3, 2.5.4). In forms, use correct input purpose/autocomplete semantics and preserve equivalent behavior across mouse, touch, keyboard, and assistive technologies, including concurrent input scenarios (1.3.5, 2.5.6).
 
 ## Readable
 
