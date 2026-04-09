@@ -3228,12 +3228,56 @@ Appendix C centralizes trusted standards references, practical testing tools, an
 
 ### Design, development, and release checklists
 
-*Content to be added.*
+#### Reusable checklists for integrating accessibility into delivery workflows
+
+Use these templates as baseline quality gates; adapt wording to your product domain, risk profile, and regulatory context.
+
+- **Design checklist**
+  - [ ] User flows include keyboard-only completion for core tasks.
+  - [ ] Color choices meet contrast targets for text and key UI components.
+  - [ ] Information is not conveyed by color alone.
+  - [ ] Focus order and interaction behavior are defined for custom components.
+  - [ ] Error handling patterns include clear guidance and recovery options.
+  - [ ] Design artifacts specify labels, instructions, and status messaging expectations.
+- **Development checklist**
+  - [ ] Semantic HTML is used before ARIA enhancements.
+  - [ ] All interactive elements have accessible name, role, and state/value exposure.
+  - [ ] Forms include programmatically associated labels and helpful error messaging.
+  - [ ] Keyboard navigation works without traps; visible focus indicator is preserved.
+  - [ ] Dynamic updates requiring announcement use appropriate live region behavior.
+  - [ ] Heading hierarchy and landmarks support fast assistive technology navigation.
+- **QA and release checklist**
+  - [ ] Automated scans are executed and findings triaged.
+  - [ ] Keyboard-only user journeys pass for critical workflows.
+  - [ ] Screen reader checks pass on representative browser/device combinations.
+  - [ ] Zoom/reflow testing confirms usability at required magnification thresholds.
+  - [ ] Accessibility defects are severity-ranked with mapped WCAG criterion references.
+  - [ ] Accessibility sign-off is recorded before release approval.
+
+Tip: store checklist results with release artifacts so evidence is available for audits, customer due diligence, and internal retrospectives.
 
 ### Audit report and exemption templates
 
-*Content to be added.*
+#### Standardized reporting format for findings, risk, and remediation tracking
+
+Use a consistent report template to improve traceability, prioritization quality, and executive communication.
+
+- **Audit report template**
+  - **Scope:** product/version, platforms, browsers, assistive technologies, and tested user journeys.
+  - **Methodology:** standards target (for example WCAG 2.2 AA), tools used, and manual test approach.
+  - **Findings table:** issue ID, page/component, description, impact, severity, mapped criterion, evidence, and remediation recommendation.
+  - **Prioritized action plan:** owner, target fix date, dependency notes, and verification status.
+  - **Residual risk statement:** known gaps accepted for release and business rationale.
+- **Exemption template (when temporary exception is required)**
+  - **Issue reference:** linked finding IDs and impacted criteria.
+  - **Business justification:** why release cannot be blocked and what alternatives were considered.
+  - **User impact assessment:** who is affected, task impact, and estimated severity.
+  - **Mitigation plan:** workaround/support path and communication plan for affected users.
+  - **Expiration and review date:** defined end date with mandatory re-approval checkpoint.
+  - **Approvals:** accountable owner, accessibility lead, and risk/compliance sign-off.
+
+Tip: exemptions should be time-bound and tied to a funded remediation plan; avoid open-ended waivers that normalize accessibility debt.
 
 ### Summary: Appendix D: Checklist Template
 
-*Content to be added.*
+Appendix D provides operational templates teams can apply immediately across design, development, QA, release management, and governance workflows. Structured checklists reduce missed requirements by embedding accessibility into routine delivery gates, while standardized audit and exemption formats improve consistency, risk transparency, and remediation accountability. Together, these templates support a repeatable process for building, validating, and sustaining accessible digital experiences at scale.
