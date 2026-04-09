@@ -1770,19 +1770,133 @@ Technically, "Enough Time" is about designing robust timing systems, not just ad
 
 ### Three flashes (2.3.1), general and red flash
 
-*Content to be added.*
+WCAG 2.3.1 Three Flashes or Below Threshold (Level A) exists to reduce seizure risk. The practical engineering rule is simple: do not ship content that flashes more than 3 times in any 1-second period, especially when the flashing area is large and high-contrast.
+
+In product terms, this affects:
+
+- Promo banners with strobe-like transitions
+- Animated ad slots and embedded third-party creatives
+- Video overlays, game effects, and alert patterns
+
+Risk increases when flashes are:
+
+- Bright against dark backgrounds (high luminance contrast)
+- Saturated red transitions (red flash concern)
+- Large in viewport coverage
+
+Implementation guardrails:
+
+- Prefer fades, slides, or opacity transitions over blink/strobe effects.
+- Keep transition frequency low and deterministic.
+- Disable or replace risky animation presets in design systems.
+- Audit third-party media before publishing.
+
+If a visual alert is necessary, pair it with non-flashing alternatives:
+
+- Text status updates (`Saved`, `Error`, `Connection lost`)
+- Icon state changes without rapid on/off blinking
+- Optional sound/haptic cues where appropriate
 
 ### Animation from interactions (2.3.3)
 
-*Content to be added.*
+WCAG 2.3.3 Animation from Interactions (Level AAA) asks you to provide a way to disable non-essential motion triggered by user actions. Even when AAA is not a legal minimum in your project, this pattern significantly improves comfort for people with vestibular and motion sensitivities.
+
+Common interaction-triggered motion:
+
+- Parallax on scroll
+- Zoom/tilt hover effects
+- Spring-based panel movement
+- "Shake" validation feedback
+
+Engineering approach:
+
+- Treat decorative motion as progressive enhancement.
+- Add a global "reduce motion" switch in app preferences (optional but useful).
+- Ensure all interaction animations can be reduced to instant or subtle state changes.
+
+```css
+.card {
+  transition: transform 220ms ease, box-shadow 220ms ease;
+}
+
+.card:hover {
+  transform: translateY(-4px) scale(1.01);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card {
+    transition: box-shadow 120ms linear;
+  }
+
+  .card:hover {
+    transform: none;
+  }
+}
+```
+
+For JS-heavy animation systems, keep a single motion flag and branch behavior early:
+
+```js
+const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+function openPanel(panel) {
+  if (reduceMotion) {
+    panel.classList.add("is-open");
+    return;
+  }
+  panel.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 180, easing: "ease-out" });
+  panel.classList.add("is-open");
+}
+```
 
 ### prefers-reduced-motion and implementing it
 
-*Content to be added.*
+`prefers-reduced-motion` is the primary platform signal for motion sensitivity. Respect it by default and avoid forcing users to hunt for a custom setting.
+
+Implementation checklist:
+
+- Use `@media (prefers-reduced-motion: reduce)` in CSS to remove non-essential animation.
+- Gate JS animations using `matchMedia`.
+- Stop auto-rotation/carousels when reduced motion is enabled.
+- Avoid smooth scrolling animations when possible in reduced-motion mode.
+- Re-test keyboard and focus behavior after removing transitions (no hidden focus jumps).
+
+```css
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+```
+
+```js
+const media = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+function syncMotionPreference(e) {
+  document.documentElement.toggleAttribute("data-reduce-motion", e.matches);
+}
+
+syncMotionPreference(media);
+media.addEventListener("change", syncMotionPreference);
+```
+
+Use the `data-reduce-motion` attribute to branch component behavior (carousel autoplay, micro-interactions, physics-based transitions) in one consistent way across your UI.
 
 ### Summary: Seizures and Physical Reactions
 
-*Content to be added.*
+This chapter is about making motion and visual effects safe by default. Avoid flashing patterns that can trigger seizures (2.3.1), especially high-contrast and red flash behavior. For interaction-driven motion, provide reduced or no-motion alternatives so effects remain optional rather than mandatory (2.3.3). Implement `prefers-reduced-motion` at both CSS and JavaScript layers, and treat motion as progressive enhancement that must degrade cleanly without breaking usability.
 
 ## Navigable
 
