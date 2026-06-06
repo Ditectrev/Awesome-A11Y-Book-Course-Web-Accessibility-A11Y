@@ -479,13 +479,42 @@ Meaningful and decorative images differ in how you expose them to assistive tech
 
 [^3]:[CodeSandbox: Visual: blindness, low vision, color blindness](https://2p49l2.csb.app/), last access: June 6, 2026.
 
-For form errors, pair color with text and programmatic state so the failure is not “red border only”:
+For form errors, pair color with text and programmatic state so the failure is not “red border only”. Three pieces work together:
+
+1. **Visible error text** — states what went wrong and how to fix it (not only a red outline).
+2. **`aria-invalid="true"`** — tells assistive technology the value failed validation.
+3. **`aria-describedby`** — links the input to the error text so screen readers read both with the field.
+
+Style invalid fields with redundant visual cues (border plus pattern), not hue alone:
 
 ```html
 <label for="email">Email</label>
-<input id="email" type="email" aria-invalid="true" aria-describedby="email-error" />
-<p id="email-error">Enter an email address in the form name@example.com.</p>
+<input
+  id="email"
+  type="email"
+  aria-invalid="true"
+  aria-describedby="email-error"
+  style="
+    border: 2px solid #b91c1c;
+    background-image: repeating-linear-gradient(
+      -45deg,
+      transparent 0 6px,
+      rgb(185 28 28 / 0.12) 6px 12px
+    );
+  "
+/>
+<p id="email-error" style="color: #b91c1c; margin: 0.25rem 0 0">
+  Enter an email address in the form name@example.com.
+</p>
 ```
+
+When the error appears only after submit, add `role="alert"` on the error element so assistive technology announces it as it is inserted.
+
+[![Edit 004-Visual: blindness, low vision, color blindness](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/004-visual-blindness-low-vision-color-blindness-r6l62s)
+
+[^4]CodeSandbox: Visual — form errors (text, `aria-invalid`, redundant cues).
+
+[^4]:[CodeSandbox: Visual — form errors](https://r6l62s.csb.app/), last access: June 6, 2026.
 
 #### Protanopia, deuteranopia, tritanopia
 
