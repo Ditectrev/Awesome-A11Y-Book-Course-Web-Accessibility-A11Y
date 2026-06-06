@@ -462,16 +462,22 @@ Meaningful and decorative images differ in how you expose them to assistive tech
 
 ```html
 <!-- Informative: describe the message or function -->
-<img src="/charts/q3-revenue.svg" alt="Q3 revenue up 12% year over year" />
+<img src="images/codesandbox.svg" alt="Edit meaningful and decorative images example in CodeSandbox" />
 
 <!-- Decorative: empty alt so the screen reader skips it -->
-<img src="/divider-wave.svg" alt="" />
+<img src="images/codesandbox.svg" alt="" />
 
 <!-- Icon-only control: the name belongs on the button, not only on the icon -->
 <button type="button" aria-label="Close dialog">
-  <img src="/icons/close.svg" alt="" />
+  <img src="images/codesandbox.svg" alt="" />
 </button>
 ```
+
+[![Edit 003-Visual: blindness, low vision, color blindness](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/003-visual-blindness-low-vision-color-blindness-2p49l2)
+
+[^3]CodeSandbox: Visual: blindness, low vision, color blindness.
+
+[^3]:[CodeSandbox: Visual: blindness, low vision, color blindness](https://2p49l2.csb.app/), last access: June 6, 2026.
 
 For form errors, pair color with text and programmatic state so the failure is not “red border only”:
 
