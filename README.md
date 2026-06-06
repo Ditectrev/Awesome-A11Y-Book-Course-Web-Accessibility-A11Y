@@ -334,7 +334,7 @@ At the code level, that starts with a valid document, a human language, landmark
 </html>
 ```
 
-[![Edit 001-Definition and scope of web accessibility](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/001-basic-html-structure-7gq85k)
+[![Edit 001-Definition and scope of web accessibility](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/blue-sound-llqcqj)
 
 [^1]CodeSandbox: Definition and scope of web accessibility.
 
@@ -375,12 +375,39 @@ WCAG (Web Content Accessibility Guidelines) is the most widely adopted technical
 Many failures come from using the wrong element for the job. A `button` is focusable, activatable with Enter and Space, and exposed with a button role by default; a `div` with a click handler is not, unless you add keyboard handlers, focus management, and ARIA—extra surface area for bugs:
 
 ```html
-<!-- Avoid: no keyboard, no implicit role/name pipeline -->
-<div class="btn" onclick="submit()">Continue</div>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>WCAG as the technical standard, defining scope</title>
+    <style>
+      .btn {
+        display: inline-block;
+        padding: 0.5rem 1rem;
+        font: inherit;
+        background: #2563eb;
+        color: #fff;
+        border: 1px solid #1d4ed8;
+        border-radius: 0.375rem;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Avoid: looks like a button, but no keyboard, no implicit role/name pipeline -->
+    <div class="btn" onclick="submit()">Continue</div>
 
-<!-- Prefer: native semantics and keyboard behavior -->
-<button type="submit">Continue</button>
+    <!-- Prefer: native semantics and keyboard behavior -->
+    <button type="submit">Continue</button>
+  </body>
+</html>
 ```
+
+[![Edit 002-WCAG as the technical standard, defining scope](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/002-wcag-as-the-technical-standard-defining-scope-vctm8p)
+
+[^2]CodeSandbox: WCAG as the technical standard, defining scope.
+
+[^2]:[CodeSandbox: WCAG as the technical standard, defining scope](https://vctm8p.csb.app/), last access: June 6, 2026.
 
 If you must retrofit a custom control, you will wire `tabindex`, `role`, key events, and accessible name—patterns covered later—but default HTML elements are the first line of defense.
 
