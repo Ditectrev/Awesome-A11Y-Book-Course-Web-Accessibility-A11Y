@@ -308,12 +308,24 @@ At the code level, that starts with a valid document, a human language, landmark
   <head>
     <meta charset="utf-8" />
     <title>Checkout — Shipping | Example Shop</title>
+    <style>
+      /* Demo only: push main below the fold so the skip link scroll is visible */
+      section[aria-label="Site banner"] {
+        min-height: 600px;
+        background: #f3f4f6;
+      }
+    </style>
   </head>
   <body>
     <a href="#main">Skip to main content</a>
     <header>
-      <nav aria-label="Primary">…</nav>
+      <nav aria-label="Primary">
+        <a href="/">Home</a>
+      </nav>
     </header>
+    <section aria-label="Site banner">
+      <!-- repeated content on every page -->
+    </section>
     <main id="main">
       <h1>Shipping address</h1>
       <!-- primary content -->
@@ -322,7 +334,13 @@ At the code level, that starts with a valid document, a human language, landmark
 </html>
 ```
 
-The `lang` attribute helps pronunciation and translation tools; the `title` identifies the page in tabs and history; the skip link and `main` landmark support keyboard and screen reader navigation—topics you will see again in WCAG and in later chapters.
+[![Edit 001-Definition and scope of web accessibility](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/001-basic-html-structure-7gq85k)
+
+[^1]CodeSandbox: Definition and scope of web accessibility.
+
+[^1]:[CodeSandbox: Definition and scope of web accessibility](https://7gq85k.csb.app/), last access: June 6, 2026.
+
+The `lang` attribute helps pronunciation and translation tools; the `title` identifies the page in tabs and history; the skip link and `main` landmark support keyboard and screen reader navigation—topics you will see again in WCAG and in later chapters. The section before `<main>` stands in for repeated site chrome; at 600px tall, clicking **Skip to main content** scrolls the page down to `#main`.
 
 #### Accessibility as a continuum, no binary "accessible" vs "inaccessible"
 
