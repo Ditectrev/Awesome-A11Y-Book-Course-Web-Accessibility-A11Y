@@ -512,9 +512,9 @@ When the error appears only after submit, add `role="alert"` on the error elemen
 
 [![Edit 004-Visual: blindness, low vision, color blindness](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/004-visual-blindness-low-vision-color-blindness-r6l62s)
 
-[^4]CodeSandbox: Visual — form errors (text, `aria-invalid`, redundant cues).
+[^4]CodeSandbox: Visual: blindness, low vision, color blindness.
 
-[^4]:[CodeSandbox: Visual — form errors](https://r6l62s.csb.app/), last access: June 6, 2026.
+[^4]:[CodeSandbox: Visual: blindness, low vision, color blindness](https://r6l62s.csb.app/), last access: June 6, 2026.
 
 #### Protanopia, deuteranopia, tritanopia
 
@@ -532,10 +532,16 @@ At the markup level, associate timed text with the media element so users can tu
 
 ```html
 <video controls>
-  <source src="product-demo.mp4" type="video/mp4" />
-  <track kind="captions" src="product-demo-en.vtt" srclang="en" label="English" default />
+  <source src="sample-video.mp4" type="video/mp4" />
+  <track kind="captions" src="sample-video-en.vtt" srclang="en" label="English" default />
 </video>
 ```
+
+[![Edit 005-Auditory: deafness and hard of hearing](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/004-visual-blindness-low-vision-color-blindness-r6l62s)
+
+[^5]CodeSandbox: Auditory: deafness and hard of hearing.
+
+[^5]:[CodeSandbox: Auditory: deafness and hard of hearing](https://r6l62s.csb.app/), last access: June 8, 2026.
 
 You will refine `WebVTT` format, defaults, and player keyboard support in the Time-Based Media chapter.
 
