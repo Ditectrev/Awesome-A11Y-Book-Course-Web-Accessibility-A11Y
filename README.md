@@ -557,21 +557,64 @@ Autistic people are diverse; needs vary. Common web-related themes include predi
 
 Vestibular conditions can cause dizziness, nausea, or disorientation from motion: parallax scrolling, zooming transitions, autoplaying movement, or large shifts of content. Respect `prefers-reduced-motion` (and avoid essential motion-only instructions). Provide static alternatives where animation is decorative, and let users disable non-essential motion. This aligns closely with WCAG criteria on animation from interactions and seizure risk; you will implement it in depth later in this book.
 
-In CSS, respect the user preference and reduce or remove non-essential animation:
+In CSS, respect the user preference and reduce or remove non-essential animation. The promo banner below uses a decorative float; when the user enables **Reduce motion** in system settings, the animation stops and the content stays static:
 
-```css
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-  }
-}
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Vestibular disorders and motion sensitivity</title>
+    <style>
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+
+        50% {
+          transform: translateY(-8px);
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .promo {
+          animation: none !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <section
+        class="promo"
+        aria-labelledby="promo-heading"
+        style="
+          padding: 1rem 1.25rem;
+          border-radius: 0.5rem;
+          background: #e0f2fe;
+          animation: float 3s ease-in-out infinite;
+        "
+      >
+        <h1 id="promo-heading" style="margin: 0 0 0.25rem; font-size: 1.25rem">
+          Summer sale
+        </h1>
+        <p style="margin: 0">20% off through Friday.</p>
+      </section>
+    </main>
+  </body>
+</html>
 ```
 
-Tune this to your design system: some teams disable parallax and large transitions only, while keeping subtle opacity fades. Never remove motion that is essential to understanding without providing an equivalent.
+[![Edit 006-Vestibular disorders and motion sensitivity](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/006-vestibular-disorders-and-motion-sensitivity-55gk5n)
+
+[^6]CodeSandbox: Vestibular disorders and motion sensitivity.
+
+[^6]:[CodeSandbox: Vestibular disorders and motion sensitivity](https://55gk5n.csb.app/), last access: June 8, 2026.
+
+Test in the browser: enable **Reduce motion** (macOS: System Settings → Accessibility → Display; Windows: Settings → Accessibility → Visual effects) and reload—the banner should no longer bob up and down.
+
+Tune this to your design system: some teams disable parallax and large transitions only, while keeping subtle opacity fades. A broader reset on `*` for `animation-duration` and `transition-duration` is another pattern—see [prefers-reduced-motion and implementing it](#prefers-reduced-motion-and-implementing-it). Never remove motion that is essential to understanding without providing an equivalent.
 
 ### Screen readers and how they interpret content
 
