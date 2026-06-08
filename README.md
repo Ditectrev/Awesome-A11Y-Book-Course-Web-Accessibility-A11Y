@@ -628,7 +628,9 @@ A compact illustration of structure that maps well to the accessibility tree:
 
 ```html
 <body>
-  <header><nav aria-label="Primary">…</nav></header>
+  <header>
+    <nav aria-label="Primary">…</nav>
+  </header>
   <main>
     <h1>Invoices</h1>
     <h2>Outstanding</h2>
@@ -652,6 +654,12 @@ A compact illustration of structure that maps well to the accessibility tree:
   </main>
 </body>
 ```
+
+[![Edit 007-Navigation by tables, lists, and headings](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/007-navigation-by-tables-lists-and-headings-vh93w6)
+
+[^7]CodeSandbox: Navigation by tables, lists, and headings.
+
+[^7]:[CodeSandbox: Navigation by tables, lists, and headings](https://vh93w6.csb.app/), last access: June 8, 2026.
 
 #### Punctuation and verbosity settings
 
