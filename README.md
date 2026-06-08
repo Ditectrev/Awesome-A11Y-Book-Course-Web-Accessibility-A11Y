@@ -669,20 +669,92 @@ Screen readers speak punctuation based on user preferences and heuristics—elli
 
 Many people cannot use a mouse or prefer the keyboard: motor disabilities, tremor, pain, or power users. Everything that can be done with a pointer must be reachable and operable with a keyboard alone: Tab/Shift+Tab, Enter/Space, Escape, arrow keys where patterns require them. Focus must be visible, order must be logical, and keyboard traps (modals that steal focus without escape) are failures. Switch access users step through focusable elements with one or two switches; long tab paths and tiny targets multiply effort. Timing: if a task requires speed, offer alternatives or more time. Keyboard support is both a WCAG requirement and a fast manual test you can run on every build.
 
-Visible focus is not optional. Avoid removing outlines globally; style focus for keyboard users while reducing noise for mouse users with `:focus-visible`:
+Visible focus is not optional. Avoid removing outlines globally; style focus for keyboard users while reducing noise for mouse users with `:focus-visible`. The page below pairs that pattern with a skip link (see Introduction), primary navigation, and a short form—tab order follows the DOM, not a visual grid reorder:
 
-```css
-:focus:not(:focus-visible) {
-  outline: none;
-}
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Keyboard-only and visible focus</title>
+    <style>
+      :focus:not(:focus-visible) {
+        outline: none;
+      }
 
-:focus-visible {
-  outline: 2px solid CanvasText;
-  outline-offset: 2px;
-}
+      :focus-visible {
+        outline: 2px solid CanvasText;
+        outline-offset: 2px;
+      }
+
+      .skip-link {
+        position: absolute;
+        left: 0.5rem;
+        top: 0.5rem;
+        transform: translateY(-180%);
+        padding: 0.5rem 0.75rem;
+        background: #111827;
+        color: #ffffff;
+        text-decoration: none;
+        border-radius: 0.375rem;
+        z-index: 1000;
+      }
+
+      .skip-link:focus-visible {
+        transform: translateY(0);
+      }
+
+      /* Demo only: push main below the fold so the skip link scroll is visible */
+      header {
+        min-height: 480px;
+        padding: 1rem;
+        background: #f3f4f6;
+      }
+
+      main {
+        padding: 1rem;
+        max-width: 36rem;
+      }
+
+      label {
+        display: block;
+        margin-top: 1rem;
+      }
+
+      input,
+      button {
+        font: inherit;
+        margin-top: 0.25rem;
+      }
+    </style>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to main content</a>
+    <header>
+      <nav aria-label="Primary">
+        <a href="/">Home</a>
+        <a href="/help">Help</a>
+      </nav>
+    </header>
+    <main id="main" tabindex="-1">
+      <h1>Contact support</h1>
+      <form>
+        <label for="email">Email</label>
+        <input id="email" name="email" type="email" autocomplete="email" />
+        <button type="submit">Send</button>
+      </form>
+    </main>
+  </body>
+</html>
 ```
 
-Pair this with a skip link (see Introduction) and a logical tab order that follows the DOM, not only the visual grid.
+[![Edit 008-Keyboard-only and switch users](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/008-keyboard-only-and-switch-users-8flmx9)
+
+[^8]CodeSandbox: Keyboard-only and switch users.
+
+[^8]:[CodeSandbox: Keyboard-only and switch users](https://8flmx9.csb.app/), last access: June 8, 2026.
+
+Test in the browser: reload, press Tab from the top of the page—the skip link slides into view with a focus ring, then focus moves through the nav links, email field, and button. Click a link or button with the mouse; the ring should not persist after the click. Activate **Skip to main content** with Enter to jump past the tall header to `#main`.
 
 ### Assistive technologies (magnification, braille, voice control)
 
