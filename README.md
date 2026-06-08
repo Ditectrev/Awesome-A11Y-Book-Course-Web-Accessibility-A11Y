@@ -537,11 +537,11 @@ At the markup level, associate timed text with the media element so users can tu
 </video>
 ```
 
-[![Edit 005-Auditory: deafness and hard of hearing](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/004-visual-blindness-low-vision-color-blindness-r6l62s)
+[![Edit 005-Auditory: deafness and hard of hearing](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/005-auditory-deafness-and-hard-of-hearing-4h92vv)
 
 [^5]CodeSandbox: Auditory: deafness and hard of hearing.
 
-[^5]:[CodeSandbox: Auditory: deafness and hard of hearing](https://r6l62s.csb.app/), last access: June 8, 2026.
+[^5]:[CodeSandbox: Auditory: deafness and hard of hearing](https://4h92vv.csb.app/), last access: June 8, 2026.
 
 You will refine `WebVTT` format, defaults, and player keyboard support in the Time-Based Media chapter.
 
