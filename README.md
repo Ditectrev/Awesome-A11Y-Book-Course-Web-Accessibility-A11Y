@@ -1048,9 +1048,21 @@ Complex figures need a short text in `alt` (or `aria-label` where appropriate) t
 For diagrams, describe structure and relationships (“three branches: sales, engineering, support”) not only appearance. For charts, include trends, axes, and key values in the long description or an associated data table.
 
 ```html
-<img src="/chart-q1.png" alt="Q1 revenue by region: EMEA highest, APAC lowest" aria-describedby="chart-q1-desc">
-<p id="chart-q1-desc">Detailed data: North America 4.2M, EMEA 5.1M, APAC 2.8M, LATAM 3.0M. …</p>
+<img
+  src="images/chart-q1.png"
+  alt="Q1 revenue by region: EMEA highest, APAC lowest"
+  aria-describedby="chart-q1-desc"
+>
+<p id="chart-q1-desc">
+  Detailed data: Americas 12.5M, EMEA 19.9M, APAC 8.5M. …
+</p>
 ```
+
+[![Edit 013-Charts, diagrams, longdesc and aria-describedby](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/012-alt-for-linked-images-describe-destination-image-button-qxs6pg)
+
+[^13]CodeSandbox: Charts, diagrams, longdesc and aria-describedby.
+
+[^13]:[CodeSandbox: Charts, diagrams, longdesc and aria-describedby](https://qxs6pg.csb.app/), last access: June 9, 2026.
 
 #### figcaption and figure, providing a data table
 
@@ -1060,11 +1072,11 @@ When the “full equivalent” of a chart is numeric, an HTML `<table>` (with pr
 
 ```html
 <figure>
-  <img src="/revenue-q1.png" alt="Bar chart summarized in the following table">
+  <img src="images/chart-q1.png" alt="Infographics summarized in the following table">
   <figcaption>Q1 revenue by region. Full data in the table below.</figcaption>
 </figure>
 <table>
-  <caption>Q1 revenue by region (millions USD)</caption>
+  <caption>Q1 revenue by region (millions EUR)</caption>
   …
 </table>
 ```
