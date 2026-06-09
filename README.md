@@ -786,10 +786,87 @@ Each principle contains guidelines, and each guideline contains testable success
 POUR is not abstract—it maps to concrete checks. For example, criterion 1.1.1 Non-text Content (Perceivable) expects a text alternative for non-text content; 2.1.1 Keyboard (Operable) requires all functionality from the keyboard; 3.3.2 Labels or Instructions (Understandable) expects labels or instructions when user input is required; 4.1.2 Name, Role, Value (Robust) requires UI components to expose name, role, and states programmatically. A custom toggle must synchronize its exposed state with its visuals:
 
 ```html
-<button type="button" role="switch" aria-checked="false" id="notifications">
-  <span class="visually-hidden">Notifications</span>
-</button>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>WCAG 2.1 / 2.2 and the POUR principles</title>
+    <style>
+      body {
+        font-family: system-ui, sans-serif;
+        padding: 2rem;
+      }
+
+      .visually-hidden {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+      }
+
+      [role="switch"] {
+        position: relative;
+        width: 2.75rem;
+        height: 1.5rem;
+        border: 2px solid #374151;
+        border-radius: 9999px;
+        background: #d1d5db;
+        padding: 0;
+        cursor: pointer;
+      }
+
+      [role="switch"]::after {
+        content: "";
+        position: absolute;
+        top: 2px;
+        left: 2px;
+        width: 1rem;
+        height: 1rem;
+        border-radius: 50%;
+        background: #ffffff;
+        transition: transform 0.15s ease;
+      }
+
+      [role="switch"][aria-checked="true"] {
+        background: #2563eb;
+        border-color: #2563eb;
+      }
+
+      [role="switch"][aria-checked="true"]::after {
+        transform: translateX(1.25rem);
+      }
+
+      [role="switch"]:focus-visible {
+        outline: 2px solid #2563eb;
+        outline-offset: 2px;
+      }
+    </style>
+  </head>
+  <body>
+    <button type="button" role="switch" aria-checked="false" id="notifications">
+      <span class="visually-hidden">Notifications</span>
+    </button>
+    <script>
+      const toggle = document.getElementById('notifications');
+      toggle.addEventListener('click', () => {
+        const on = toggle.getAttribute('aria-checked') === 'true';
+        toggle.setAttribute('aria-checked', String(!on));
+      });
+    </script>
+  </body>
+</html>
 ```
+
+[![Edit 009-WCAG 2.1 / 2.2 and the POUR principles](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/008-keyboard-only-and-switch-users-8flmx9)
+
+[^9]CodeSandbox: WCAG 2.1 / 2.2 and the POUR principles.
+
+[^9]:[CodeSandbox: WCAG 2.1 / 2.2 and the POUR principles](https://8flmx9.csb.app/), last access: June 9, 2026.
 
 When the user activates it, your script updates `aria-checked` to `"true"` and the visible design—otherwise assistive tech reports the wrong state.
 
