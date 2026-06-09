@@ -1058,11 +1058,11 @@ For diagrams, describe structure and relationships (“three branches: sales, en
 </p>
 ```
 
-[![Edit 013-Charts, diagrams, longdesc and aria-describedby](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/012-alt-for-linked-images-describe-destination-image-button-qxs6pg)
+[![Edit 013-Charts, diagrams, longdesc and aria-describedby](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/013-charts-diagrams-longdesc-and-aria-describedby-qyh9tg)
 
 [^13]CodeSandbox: Charts, diagrams, longdesc and aria-describedby.
 
-[^13]:[CodeSandbox: Charts, diagrams, longdesc and aria-describedby](https://qxs6pg.csb.app/), last access: June 9, 2026.
+[^13]:[CodeSandbox: Charts, diagrams, longdesc and aria-describedby](https://qyh9tg.csb.app/), last access: June 9, 2026.
 
 #### figcaption and figure, providing a data table
 
