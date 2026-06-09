@@ -862,11 +862,11 @@ POUR is not abstract—it maps to concrete checks. For example, criterion 1.1.1 
 </html>
 ```
 
-[![Edit 009-WCAG 2.1 / 2.2 and the POUR principles](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/008-keyboard-only-and-switch-users-8flmx9)
+[![Edit 009-WCAG 2.1 / 2.2 and the POUR principles](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/009-wcag-2-1-2-2-and-the-pour-principles-txggyd)
 
 [^9]CodeSandbox: WCAG 2.1 / 2.2 and the POUR principles.
 
-[^9]:[CodeSandbox: WCAG 2.1 / 2.2 and the POUR principles](https://8flmx9.csb.app/), last access: June 9, 2026.
+[^9]:[CodeSandbox: WCAG 2.1 / 2.2 and the POUR principles](https://txggyd.csb.app/), last access: June 9, 2026.
 
 When the user activates it, your script updates `aria-checked` to `"true"` and the visible design—otherwise assistive tech reports the wrong state.
 
