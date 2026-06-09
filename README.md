@@ -898,11 +898,19 @@ When you read a criterion, identify: who it protects, what interface or content 
 
 Techniques documents and Understanding pages on the W3C site are not substitutes for the criterion text, but they are invaluable for implementation: they show HTML, ARIA, CSS, and PDF patterns that commonly satisfy the requirement. Always map fixes back to the specific criterion ID in bug tickets and audit reports so teams learn patterns and regressions are traceable.
 
-Stable URLs for Understanding documents follow a predictable pattern you can bookmark or link from internal docs, for example:
+Stable URLs for Understanding documents follow a predictable pattern you can bookmark or link from internal docs:
 
-`https://www.w3.org/WAI/WCAG22/Understanding/non-text-content.html`
+`https://www.w3.org/WAI/WCAG22/Understanding/{slug}.html`
 
-Swap the slug (`non-text-content`) for the criterion you are implementing; the page lists intent, benefits, examples, techniques, and failures for that ID.
+The `{slug}` is a lowercase, hyphenated version of the criterion title. Examples:
+
+| Criterion | Understanding page |
+|-----------|-------------------|
+| **1.1.1** Non-text Content | [non-text-content.html](https://www.w3.org/WAI/WCAG22/Understanding/non-text-content.html) |
+| **1.4.3** Contrast (Minimum) | [contrast-minimum.html](https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html) |
+| **2.4.7** Focus Visible | [focus-visible.html](https://www.w3.org/WAI/WCAG22/Understanding/focus-visible.html) |
+
+Each page lists intent, benefits, examples, techniques, and failures for that criterion ID. For the full list, see the [Understanding WCAG 2.2 index](https://www.w3.org/WAI/WCAG22/Understanding/).
 
 ### Sufficient techniques, failures, and exceptions
 
