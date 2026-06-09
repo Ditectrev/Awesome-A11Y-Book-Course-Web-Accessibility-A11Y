@@ -927,6 +927,12 @@ A common failure mode is hiding interactive content from assistive tech while le
 </div>
 ```
 
+[![Edit 010-Sufficient techniques, failures, and exceptions](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/010-sufficient-techniques-failures-and-exceptions-n6plxz)
+
+[^10]CodeSandbox: Sufficient techniques, failures, and exceptions.
+
+[^10]:[CodeSandbox: Sufficient techniques, failures, and exceptions](https://n6plxz.csb.app/), last access: June 9, 2026.
+
 Prefer removing `aria-hidden` from ancestors of interactive content, moving focusable elements outside the hidden subtree, or using `inert` (where supported) with matching focus management—details come in the Compatible and Keyboard chapters.
 
 Some criteria include exceptions: situations where the requirement does not apply (for example, certain types of essential time limits, or purely decorative content). Read the exception list carefully—assume the rule applies unless your case clearly matches an exception. If you rely on an exception, document why, so future changes do not accidentally remove the qualifying condition.
