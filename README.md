@@ -1273,25 +1273,23 @@ If you must repair legacy markup, adjust levels across the page rather than inse
 Example outline (levels follow nesting, not font size):
 
 ```html
-<body>
-  <a href="#main" class="skip-link">Skip to main content</a>
-  <header>
-    <nav aria-label="Primary">
-      <!-- … -->
-    </nav>
-  </header>
-  <main id="main">
-    <h1>Account settings</h1>
-    <section aria-labelledby="profile-heading">
-      <h2 id="profile-heading">Profile</h2>
-      <h3>Contact details</h3>
-      <!-- … -->
-      <h3>Security</h3>
-      <!-- … -->
-    </section>
-  </main>
-</body>
+<main>
+  <h1>Account settings</h1>
+  <section>
+    <h2>Profile</h2>
+    <h3>Contact details</h3>
+    <!-- … -->
+    <h3>Security</h3>
+    <!-- … -->
+  </section>
+</main>
 ```
+
+[![Edit 016-Heading hierarchy (h1–h6), skipping levels (avoid)](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/016-heading-hierarchy-h1-h6-skipping-levels-avoid-sqcmdl)
+
+[^16]CodeSandbox: Heading hierarchy (h1–h6), skipping levels (avoid).
+
+[^16]:[CodeSandbox: Heading hierarchy (h1–h6), skipping levels (avoid)](https://sqcmdl.csb.app/), last access: June 9, 2026.
 
 ### Tables: headers, scope, caption, complex tables
 
