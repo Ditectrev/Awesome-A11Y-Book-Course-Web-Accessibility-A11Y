@@ -963,14 +963,20 @@ For other elements (for example CSS `background-image`), there is no `alt`; you 
 
 ```html
 <!-- Meaningful: short description -->
-<img src="/team/j-patel.jpg" alt="J. Patel, head of engineering, smiling in front of a bookshelf">
+<img src="images/codesandbox.svg" alt="J. Patel, head of engineering, smiling in front of a bookshelf">
 
 <!-- Decorative: empty alt -->
-<img src="/divider-wave.svg" alt="">
+<img src="images/codesandbox.svg" alt="">
 
 <!-- Wrong: missing alt (avoid) -->
-<img src="/logo.png">
+<img src="images/codesandbox.svg">
 ```
+
+[![Edit 011-Empty alt vs omitted alt, when to use alt=""](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/crimson-wind-5pfn8h)
+
+[^11]CodeSandbox: Empty alt vs omitted alt, when to use alt="".
+
+[^11]:[CodeSandbox: Empty alt vs omitted alt, when to use alt=""](https://5pfn8h.csb.app/), last access: June 9, 2026.
 
 #### Decorative vs meaningful images, alt text decision tree
 
