@@ -1081,6 +1081,12 @@ When the “full equivalent” of a chart is numeric, an HTML `<table>` (with pr
 </table>
 ```
 
+[![Edit 014-figcaption and figure, providing a data table](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/014-figcaption-and-figure-providing-a-data-table-65fyrm)
+
+[^14]CodeSandbox: figcaption and figure, providing a data table.
+
+[^14]:[CodeSandbox: figcaption and figure, providing a data table](https://65fyrm.csb.app/), last access: June 9, 2026.
+
 ### SVG, icons, image maps, and CAPTCHA
 
 #### SVG as img vs inline SVG, role="img" and title
