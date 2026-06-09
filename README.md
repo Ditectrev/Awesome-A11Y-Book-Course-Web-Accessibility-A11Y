@@ -1102,9 +1102,17 @@ Icon-only buttons should not rely on a colored glyph alone: give the control an 
 
 ```html
 <button type="button" aria-label="Close dialog">
-  <svg aria-hidden="true" focusable="false">…</svg>
+  <svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+    <path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+  </svg>
 </button>
 ```
+
+[![Edit 015-SVG as img vs inline SVG, role="img" and title](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/015-svg-as-img-vs-inline-svg-role-img-and-title-w8kfrp)
+
+[^15]CodeSandbox: SVG as img vs inline SVG, role="img" and title.
+
+[^15]:[CodeSandbox: SVG as img vs inline SVG, role="img" and title](https://w8kfrp.csb.app/), last access: June 9, 2026.
 
 #### Image maps and area alt, CAPTCHA alternatives
 
