@@ -1011,6 +1011,12 @@ For `<input type="image">`, the `alt` attribute provides the accessible name for
 <input type="image" src="images/codesandbox.svg" alt="Edit CodeSandbox">
 ```
 
+[![Edit 012-Alt for linked images (describe destination), image button](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/012-alt-for-linked-images-describe-destination-image-button-qxs6pg)
+
+[^12]CodeSandbox: Alt for linked images (describe destination), image button.
+
+[^12]:[CodeSandbox: Alt for linked images (describe destination), image button](https://qxs6pg.csb.app/), last access: June 9, 2026.
+
 If a text link sits beside the image and repeats the same purpose, avoid duplicate announcements: either use one element with a clear name or mark redundant imagery decorative with `alt=""` and keep the text link as the primary name.
 
 ### Writing effective alt text and common pitfalls
