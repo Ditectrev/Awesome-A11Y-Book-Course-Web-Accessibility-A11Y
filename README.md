@@ -543,7 +543,7 @@ At the markup level, associate timed text with the media element so users can tu
 
 [^5]:[CodeSandbox: Auditory: deafness and hard of hearing](https://4h92vv.csb.app/), last access: June 8, 2026.
 
-You will refine `WebVTT` format, defaults, and player keyboard support in the Time-Based Media chapter.
+You will refine `WebVTT` format, defaults, and player keyboard support in the [Time-Based Media](#time-based-media) chapter.
 
 #### Dyslexia and reading difficulties
 
@@ -1177,12 +1177,7 @@ In HTML5, `<track>` uses a `kind` attribute:
 
 `srclang` should identify the language (`en`, `pl`, etc.). `label` is what users see in the player’s track menu.
 
-```html
-<video controls>
-  <source src="/media/quarterly-review.mp4" type="video/mp4">
-  <track kind="captions" src="/media/quarterly-review.en.vtt" srclang="en" label="English" default>
-</video>
-```
+Use the same `<video>` + `<track kind="captions">` markup shown in [Auditory: deafness and hard of hearing](#auditory-deafness-and-hard-of-hearing), pointing `src` at your media file and the WebVTT file above (for example `/media/quarterly-review.mp4` and `/media/quarterly-review.en.vtt`).
 
 ### Transcripts for audio-only and video-only
 
