@@ -1317,6 +1317,12 @@ Data tables associate cells with their headers so screen readers can announce �
 </table>
 ```
 
+[![Edit 017-scope="col" and scope="row", headers attribute for complex tables](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/017-scope-col-and-scope-row-headers-attribute-for-complex-tables-gnd7f7)
+
+[^17]CodeSandbox: scope="col" and scope="row", headers attribute for complex tables.
+
+[^17]:[CodeSandbox: scope="col" and scope="row", headers attribute for complex tables](https://gnd7f7.csb.app/), last access: June 10, 2026.
+
 For complex tables (merged cells, multiple header rows, or headers that do not align with a simple row/column model), `scope` alone may be insufficient. Use `id` on header cells and `headers="id1 id2"` on each `<td>` to list every relevant header. Alternatively, in limited cases, `scope="colgroup"` / `scope="rowgroup"` with `<colgroup>` can help—test with a screen reader table mode.
 
 Two-tier column headers with `id` / `headers`:
@@ -1348,6 +1354,12 @@ Two-tier column headers with `id` / `headers`:
   </tbody>
 </table>
 ```
+
+[![Edit 017-scope="col" and scope="row", headers attribute for complex tables](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/017-scope-col-and-scope-row-headers-attribute-for-complex-tables-gnd7f7)
+
+[^17]CodeSandbox: scope="col" and scope="row", headers attribute for complex tables.
+
+[^17]:[CodeSandbox: scope="col" and scope="row", headers attribute for complex tables](https://gnd7f7.csb.app/), last access: June 10, 2026.
 
 Each data cell lists the `id` of its row header plus the `id` of its column header (here `q1`–`q4`). Adjust `id`s and lists to match your grid; the pattern is explicit association when `scope` alone cannot describe merged headers.
 
