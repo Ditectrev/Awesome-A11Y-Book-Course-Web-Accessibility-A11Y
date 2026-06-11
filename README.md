@@ -1405,6 +1405,12 @@ Scroll container with an accessible name (keyboard users can focus the region wh
 </div>
 ```
 
+[![Edit 019-caption and table summary, responsive tables](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/019-caption-and-table-summary-responsive-tables-rtt62v)
+
+[^19]CodeSandbox: caption and table summary, responsive tables.
+
+[^19]:[CodeSandbox: caption and table summary, responsive tables](https://rtt62v.csb.app/), last access: June 11, 2026.
+
 ### Lists, form label relationships, and reading order
 
 #### ol, ul, dl and programmatic associations, 1.3.1 and form labels
