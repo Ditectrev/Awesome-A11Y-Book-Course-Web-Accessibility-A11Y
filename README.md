@@ -1638,6 +1638,12 @@ Landmarks give screen reader users a page map; keep one primary `<main>` per doc
 </body>
 ```
 
+[![Edit 023-Responsive design](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/023-responsive-design-npmyw5)
+
+[^23]CodeSandbox: Responsive design.
+
+[^23]:[CodeSandbox: Responsive design](https://npmyw5.csb.app/), last access: June 11, 2026.
+
 #### Visually hidden and screen reader only, aria-hidden
 
 Visually hidden (“screen reader only”) text is often implemented with a clipped CSS pattern so sighted layout is unchanged but AT still reads the text. Use this for redundant context where visuals are obvious but spoken UI needs extra words—or for legally required text that would clutter the design. Do not hide content that sighted users need.
