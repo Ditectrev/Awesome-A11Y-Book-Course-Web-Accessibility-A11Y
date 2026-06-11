@@ -1381,6 +1381,12 @@ Longer table help outside the caption:
 </table>
 ```
 
+[![Edit 018-caption and table summary, responsive tables](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/017-scope-col-and-scope-row-headers-attribute-for-complex-tables-gnd7f7)
+
+[^18]CodeSandbox: caption and table summary, responsive tables.
+
+[^18]:[CodeSandbox: caption and table summary, responsive tables](https://gnd7f7.csb.app/), last access: June 11, 2026.
+
 Responsive tables: narrow viewports often need horizontal scroll or a transformed presentation (cards, stacked rows). If you keep a table:
 
 - Wrap in a scrollable region with a visible label and keyboard access (`tabindex="0"` on the wrapper only if you document it and ensure focus styling—prefer native overflow with clear affordance).
