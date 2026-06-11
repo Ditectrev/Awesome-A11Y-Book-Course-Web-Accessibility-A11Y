@@ -1610,6 +1610,12 @@ DOM source order here is “Content” then “Aside”, but `order` swaps them 
 </div>
 ```
 
+[![Edit 022-DOM order vs visual order, CSS order and flexbox/grid](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/022-dom-order-vs-visual-order-css-order-and-flexbox-grid-qqcyd6)
+
+[^22]CodeSandbox: DOM order vs visual order, CSS order and flexbox/grid.
+
+[^22]:[CodeSandbox: DOM order vs visual order, CSS order and flexbox/grid](https://qqcyd6.csb.app/), last access: June 11, 2026.
+
 Prefer duplicating or reordering nodes in the markup at different breakpoints (or accepting the same visual order as DOM order) over relying on `order` for primary reading sequence.
 
 #### Responsive design
