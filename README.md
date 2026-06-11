@@ -1534,6 +1534,12 @@ Lists should use real list elements when the content is a list:
 </dl>
 ```
 
+[![Edit 020-ol, ul, dl and programmatic associations, 1.3.1 and form labels](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/020-ol-ul-dl-and-programmatic-associations-1-3-1-and-form-labels-dts7sj)
+
+[^20]CodeSandbox: ol, ul, dl and programmatic associations, 1.3.1 and form labels.
+
+[^20]:[CodeSandbox: ol, ul, dl and programmatic associations, 1.3.1 and form labels](https://dts7sj.csb.app/), last access: June 11, 2026.
+
 Do not fake lists with bullet characters and `<br>` only—that loses list semantics and list navigation in AT.
 
 Forms and 1.3.1: programmatically associate labels with controls:
@@ -1574,6 +1580,12 @@ Forms and 1.3.1: programmatically associate labels with controls:
 />
 <p id="email2-err" role="alert">Enter an email address in the form name@example.com.</p>
 ```
+
+[![Edit 021-ol, ul, dl and programmatic associations, 1.3.1 and form labels](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/021-ol-ul-dl-and-programmatic-associations-1-3-1-and-form-labels-xp6959)
+
+[^21]CodeSandbox: ol, ul, dl and programmatic associations, 1.3.1 and form labels.
+
+[^21]:[CodeSandbox: ol, ul, dl and programmatic associations, 1.3.1 and form labels](https://xp6959.csb.app/), last access: June 11, 2026.
 
 Reading order should follow a sensible sequence in the DOM (see 1.3.2)—labels before inputs in source order unless your design system consistently uses another documented pattern tested with AT.
 
