@@ -1395,14 +1395,108 @@ Responsive tables: narrow viewports often need horizontal scroll or a transforme
 Scroll container with an accessible name (keyboard users can focus the region when `tabindex="0"` is used—style `:focus` clearly):
 
 ```html
-<div
-  role="region"
-  aria-label="Quarterly revenue, scroll horizontally to view all columns"
-  tabindex="0"
-  style="overflow-x: auto;"
->
-  <table><!-- … --></table>
-</div>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>caption and table summary, responsive tables</title>
+    <style>
+      body {
+        font-family: system-ui, sans-serif;
+        margin: 1rem;
+        max-width: 360px; /* simulates a narrow phone — remove to use full window */
+      }
+
+      .table-scroll {
+        overflow-x: auto;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+      }
+
+      .table-scroll:focus {
+        outline: 3px solid #005fcc;
+        outline-offset: 2px;
+      }
+
+      table {
+        border-collapse: collapse;
+        min-width: 720px; /* forces horizontal scroll in narrow viewports */
+      }
+
+      th,
+      td {
+        border: 1px solid #ccc;
+        padding: 0.5rem 0.75rem;
+        text-align: right;
+        white-space: nowrap;
+      }
+
+      th:first-child,
+      td:first-child {
+        text-align: left;
+      }
+
+      caption {
+        caption-side: top;
+        text-align: left;
+        font-weight: bold;
+        padding: 0.5rem 0;
+      }
+    </style>
+  </head>
+  <body>
+    <p>On a narrow screen, this table does not fit. Scroll inside the box →</p>
+
+    <div
+      class="table-scroll"
+      role="region"
+      aria-label="Quarterly revenue, scroll horizontally to view all columns"
+      tabindex="0"
+    >
+      <table>
+        <caption>
+          Quarterly revenue by region (USD millions)
+        </caption>
+        <thead>
+          <tr>
+            <th scope="col">Region</th>
+            <th scope="col">Q1</th>
+            <th scope="col">Q2</th>
+            <th scope="col">Q3</th>
+            <th scope="col">Q4</th>
+            <th scope="col">Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">EMEA</th>
+            <td>12.4</td>
+            <td>13.1</td>
+            <td>14.0</td>
+            <td>15.2</td>
+            <td>54.7</td>
+          </tr>
+          <tr>
+            <th scope="row">Americas</th>
+            <td>18.2</td>
+            <td>19.0</td>
+            <td>20.1</td>
+            <td>21.3</td>
+            <td>78.6</td>
+          </tr>
+          <tr>
+            <th scope="row">APAC</th>
+            <td>9.8</td>
+            <td>10.5</td>
+            <td>11.2</td>
+            <td>12.0</td>
+            <td>43.5</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </body>
+</html>
 ```
 
 [![Edit 019-caption and table summary, responsive tables](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/019-caption-and-table-summary-responsive-tables-rtt62v)
