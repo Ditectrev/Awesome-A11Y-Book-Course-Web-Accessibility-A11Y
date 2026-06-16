@@ -1683,11 +1683,11 @@ Visually hidden (“screen reader only”) text is often implemented with a clip
 </html>
 ```
 
-[![Edit 024-Responsive design](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/024-visually-hidden-and-screen-reader-only-aria-hidden-7mk24h)
+[![Edit 024-Visually hidden and screen reader only, aria-hidden](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/024-visually-hidden-and-screen-reader-only-aria-hidden-7mk24h)
 
-[^24]CodeSandbox: Responsive design.
+[^24]CodeSandbox: Visually hidden and screen reader only, aria-hidden.
 
-[^24]:[CodeSandbox: Responsive design](https://7mk24h.csb.app/), last access: June 16, 2026.
+[^24]:[CodeSandbox: Visually hidden and screen reader only, aria-hidden](https://7mk24h.csb.app/), last access: June 16, 2026.
 
 `aria-hidden="true"` removes the element and its descendants from the accessibility tree. Use for purely decorative duplicates (icons next to visible text) or when open/closed state is conveyed elsewhere. Do not put `aria-hidden="true"` on a focusable element or on a parent of focused content—it hides focused content from AT while focus remains, a serious bug.
 
