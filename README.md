@@ -1648,29 +1648,46 @@ Landmarks give screen reader users a page map; keep one primary `<main>` per doc
 
 Visually hidden (“screen reader only”) text is often implemented with a clipped CSS pattern so sighted layout is unchanged but AT still reads the text. Use this for redundant context where visuals are obvious but spoken UI needs extra words—or for legally required text that would clutter the design. Do not hide content that sighted users need.
 
-```css
-/* Classic “sr-only” clip pattern (verify with your design system’s utility name) */
-.sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border: 0;
-}
-```
-
-Decorative icon with redundant visible text: hide the graphic from AT, name the control once.
-
 ```html
-<button type="button">
-  <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><!-- path --></svg>
-  Save draft
-</button>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Visually hidden and screen reader only, aria-hidden</title>
+    <style>
+      /* Classic “sr-only” clip pattern (verify with your design system’s utility name) */
+      .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- sr-only: add spoken context for AT; sighted users see the placeholder only -->
+    <label class="sr-only" for="search">Search documentation</label>
+    <input id="search" name="search" type="search" placeholder="Search docs" />
+
+    <!-- aria-hidden="true": hide decorative duplicate; visible text names the control once -->
+    <button type="button">
+      <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M17 3H7a2 2 0 0 0-2 2v14l7-3 7 3V5a2 2 0 0 0-2-2z"/></svg>
+      Save draft
+    </button>
+  </body>
+</html>
 ```
+
+[![Edit 024-Responsive design](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/024-visually-hidden-and-screen-reader-only-aria-hidden-7mk24h)
+
+[^24]CodeSandbox: Responsive design.
+
+[^24]:[CodeSandbox: Responsive design](https://7mk24h.csb.app/), last access: June 16, 2026.
 
 `aria-hidden="true"` removes the element and its descendants from the accessibility tree. Use for purely decorative duplicates (icons next to visible text) or when open/closed state is conveyed elsewhere. Do not put `aria-hidden="true"` on a focusable element or on a parent of focused content—it hides focused content from AT while focus remains, a serious bug.
 
