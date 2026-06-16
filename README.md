@@ -1707,14 +1707,55 @@ In practice:
 
 Fluid column width (no fixed pixel main column at small sizes):
 
-```css
-.page {
-  width: 100%;
-  max-width: 70ch;
-  margin-inline: auto;
-  padding-inline: clamp(1rem, 4vw, 2rem);
-}
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>320px width and 400% zoom, no horizontal scrolling</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: system-ui, sans-serif;
+        line-height: 1.6;
+      }
+
+      .page {
+        width: 100%;
+        max-width: 70ch;
+        margin-inline: auto;
+        padding-inline: clamp(1rem, 4vw, 2rem);
+      }
+    </style>
+  </head>
+  <body>
+    <main class="page">
+      <h1>Account settings</h1>
+      <p>
+        At narrow widths (for example 320 CSS pixels), this column grows and
+        shrinks with the viewport instead of forcing horizontal scrolling.
+        Line length stays readable because <code>max-width: 70ch</code> caps the
+        text measure on large screens.
+      </p>
+      <p>
+        Resize the window or zoom to 400%: vertical scrolling is expected;
+        users should not need to pan sideways to read this paragraph.
+      </p>
+    </main>
+  </body>
+</html>
 ```
+
+[![Edit 025-320px width and 400% zoom, no horizontal scrolling](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/025-320px-width-and-400-zoom-no-horizontal-scrolling-jxcy6g)
+
+[^25]CodeSandbox: 320px width and 400% zoom, no horizontal scrolling.
+
+[^25]:[CodeSandbox: 320px width and 400% zoom, no horizontal scrolling](https://jxcy6g.csb.app/), last access: June 16, 2026.
 
 Exceptions exist for essential two-dimensional content (maps, diagrams, games) where 2D scrolling is part of the content—document those cases.
 
