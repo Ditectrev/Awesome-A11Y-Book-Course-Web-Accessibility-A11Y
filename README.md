@@ -1899,32 +1899,62 @@ Common fixes:
 Forms should not mark invalid fields with red border only. Set `aria-invalid="true"`, associate an error `id` with `aria-describedby`, and show visible error text.
 
 ```html
-<label for="pwd">Password</label>
-<input
-  id="pwd"
-  type="password"
-  name="password"
-  aria-invalid="true"
-  aria-describedby="pwd-error"
-/>
-<p id="pwd-error">Password must be at least 12 characters.</p>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Icons, patterns, and text as supplements, form validation and error states</title>
+    <style>
+      body {
+        margin: 0;
+        font-family: system-ui, sans-serif;
+        line-height: 1.6;
+        padding: 2rem;
+      }
+
+      a {
+        text-decoration: underline;
+        text-decoration-thickness: 0.08em;
+      }
+
+      .field[aria-invalid="true"] {
+        border: 2px solid #b91c1c;
+        background-image: repeating-linear-gradient(
+          -45deg,
+          transparent 0 6px,
+          rgb(185 28 28 / 0.12) 6px 12px
+        );
+      }
+    </style>
+  </head>
+  <body>
+  <p>
+    Links need a non-color cue — here, an underline —
+    <a href="#details">not only blue vs black</a>.
+  </p>
+
+  <form>
+    <label for="pwd">Password</label>
+    <input
+      id="pwd"
+      class="field"
+      type="password"
+      name="password"
+      aria-invalid="true"
+      aria-describedby="pwd-error"
+    />
+    <p id="pwd-error">Password must be at least 12 characters.</p>
+  </form>
+  </body>
+</html>
 ```
 
-```css
-a {
-  text-decoration: underline;
-  text-decoration-thickness: 0.08em;
-}
+[![Edit 027-Icons, patterns, and text as supplements, form validation and error states](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/027-icons-patterns-and-text-as-supplements-form-validation-and-error-states-wtxcsx)
 
-.field[aria-invalid="true"] {
-  border: 2px solid #b91c1c;
-  background-image: repeating-linear-gradient(
-    -45deg,
-    transparent 0 6px,
-    rgb(185 28 28 / 0.12) 6px 12px
-  );
-}
-```
+[^27]CodeSandbox: Icons, patterns, and text as supplements, form validation and error states.
+
+[^27]:[CodeSandbox: Icons, patterns, and text as supplements, form validation and error states](https://wtxcsx.csb.app/), last access: June 17, 2026.
 
 ### Non-text contrast (1.4.11), focus visible
 
