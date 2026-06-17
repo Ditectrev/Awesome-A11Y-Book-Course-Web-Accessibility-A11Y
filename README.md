@@ -1790,25 +1790,83 @@ Large-scale text is at least 18pt (about 24 CSS px at default sizing) or at leas
 
 Incidental text (inactive UI parts, logotypes where the logo is the only treatment, decorative text) and text in inactive components may be exempt in specific cases; when in doubt, meet the ratio anyway. Do not use low-contrast placeholder or hint text as an excuse—hints must still be readable.
 
-Example token setup and usage:
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Contrast ratio 4.5:1 and 3:1, large text 18pt or 14pt bold</title>
+    <style>
+      :root {
+        --fg-default: #1f2937; /* 12.6:1 on white */
+        --fg-muted: #4b5563; /* 7.6:1 on white */
+        --bg-default: #ffffff;
+        --link-default: #0047b3; /* 8.7:1 on white */
+      }
 
-```css
-:root {
-  --fg-default: #1f2937; /* 12.6:1 on white */
-  --fg-muted: #4b5563;   /* 7.6:1 on white */
-  --bg-default: #ffffff;
-  --link-default: #0047b3; /* 8.7:1 on white */
-}
+      body {
+        margin: 0;
+        font-family: system-ui, sans-serif;
+        line-height: 1.6;
+        color: var(--fg-default);
+        background: var(--bg-default);
+      }
 
-body {
-  color: var(--fg-default);
-  background: var(--bg-default);
-}
+      main {
+        max-width: 70ch;
+        margin-inline: auto;
+        padding: 2rem;
+      }
 
-.help-text {
-  color: var(--fg-muted);
-}
+      .help-text {
+        color: var(--fg-muted);
+      }
+
+      a {
+        color: var(--link-default);
+      }
+
+      .text-large {
+        font-size: 1.5rem; /* 24px — large text (18pt+) */
+      }
+
+      .text-large-bold {
+        font-size: 1.167rem; /* ~18.67px */
+        font-weight: 700; /* 14pt bold threshold */
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Account settings</h1>
+      <p>
+        Normal body text must meet at least <strong>4.5:1</strong> contrast
+        against its background.
+      </p>
+      <p class="help-text">
+        Help text can be slightly muted, but it still needs to be readable —
+        this pair is 7.6:1, well above the minimum.
+      </p>
+      <p class="text-large">
+        Large text (18pt / 24px+) only needs <strong>3:1</strong>.
+      </p>
+      <p class="text-large-bold">
+        Or 14pt bold (~18.67px bold) — also 3:1 minimum.
+      </p>
+      <p>
+        <a href="#details">View billing details</a>
+      </p>
+    </main>
+  </body>
+</html>
 ```
+
+[![Edit 026-Contrast ratio 4.5:1 and 3:1, large text 18pt or 14pt bold](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/026-contrast-ratio-4-5-1-and-3-1-large-text-18pt-or-14pt-bold-fh4ngl)
+
+[^26]CodeSandbox: Contrast ratio 4.5:1 and 3:1, large text 18pt or 14pt bold.
+
+[^26]:[CodeSandbox: Contrast ratio 4.5:1 and 3:1, large text 18pt or 14pt bold](https://fh4ngl.csb.app/), last access: June 17, 2026.
 
 #### Calculating contrast, tools (Colour Contrast Analyser, WebAIM)
 
