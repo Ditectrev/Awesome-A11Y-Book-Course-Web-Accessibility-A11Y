@@ -1971,24 +1971,238 @@ Focus visible (2.4.7, Level AA): any keyboard-focusable UI needs a visible focus
 
 Focus not obscured (2.4.11, Level AA in WCAG 2.2): focused elements should not be fully hidden by sticky headers, footers, or overlays.
 
-```css
-:focus-visible {
-  outline: 3px solid #1d4ed8;
-  outline-offset: 3px;
-}
+The page below puts all three ideas together: a sticky header (where focus can be obscured), side-by-side inputs that fail vs pass non-text contrast, and keyboard-only focus rings that meet 3:1 against adjacent colors. Tab from the top to see the skip link, then move through nav links, fields, and buttons—mouse clicks should not leave a persistent ring thanks to `:focus-visible`.
 
-.skip-link:focus-visible,
-button:focus-visible,
-a:focus-visible,
-input:focus-visible {
-  box-shadow: 0 0 0 2px #fff, 0 0 0 5px #1d4ed8;
-}
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>1.4.11 and icons/UI components, focus ring contrast (2.4.7, 2.4.11)</title>
+    <style>
+      :root {
+        --sticky-header-height: 4rem;
+      }
 
-/* Avoid focus hidden under sticky header */
-[id] {
-  scroll-margin-top: 6rem;
-}
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: system-ui, sans-serif;
+        line-height: 1.6;
+        color: #111827;
+        background: #f9fafb;
+      }
+
+      /* Sticky header — a common source of obscured focus (2.4.11) */
+      .site-header {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        min-height: var(--sticky-header-height);
+        padding: 0.75rem 1rem;
+        background: #ffffff;
+        border-bottom: 2px solid #374151;
+        box-shadow: 0 1px 3px rgb(0 0 0 / 0.08);
+      }
+
+      .site-header nav {
+        display: flex;
+        gap: 1rem;
+      }
+
+      .site-header a {
+        color: #1d4ed8;
+        text-decoration: underline;
+        text-decoration-thickness: 0.08em;
+      }
+
+      .skip-link {
+        position: absolute;
+        left: 0.5rem;
+        top: 0.5rem;
+        transform: translateY(-180%);
+        padding: 0.5rem 0.75rem;
+        background: #111827;
+        color: #ffffff;
+        text-decoration: none;
+        border-radius: 0.375rem;
+        z-index: 1000;
+      }
+
+      .skip-link:focus-visible {
+        transform: translateY(0);
+      }
+
+      /* Keyboard-only focus — do not remove outlines without a replacement (2.4.7) */
+      :focus:not(:focus-visible) {
+        outline: none;
+      }
+
+      :focus-visible {
+        outline: 3px solid #1d4ed8;
+        outline-offset: 3px;
+      }
+
+      .skip-link:focus-visible,
+      button:focus-visible,
+      a:focus-visible,
+      input:focus-visible {
+        box-shadow: 0 0 0 2px #fff, 0 0 0 5px #1d4ed8;
+      }
+
+      /* Keep in-page targets and skip-link destinations visible below the header */
+      [id] {
+        scroll-margin-top: calc(var(--sticky-header-height) + 0.5rem);
+      }
+
+      main {
+        padding: 1.5rem 1rem 3rem;
+        max-width: 42rem;
+        margin: 0 auto;
+      }
+
+      section + section {
+        margin-top: 2rem;
+        padding-top: 2rem;
+        border-top: 1px solid #e5e7eb;
+      }
+
+      label {
+        display: block;
+        margin-top: 1rem;
+      }
+
+      input:not([type="checkbox"]),
+      button {
+        display: block;
+        margin-top: 0.35rem;
+        font: inherit;
+        padding: 0.5rem 0.75rem;
+        border-radius: 0.375rem;
+        background: #ffffff;
+      }
+
+      label:has(input[type="checkbox"]) {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      /* Fails 1.4.11 — thin #d1d5db border on white is below 3:1 */
+      .control-fail {
+        border: 1px solid #d1d5db;
+      }
+
+      /* Passes 1.4.11 — darker 2px boundary meets 3:1 against white */
+      .control-pass {
+        border: 2px solid #374151;
+      }
+
+      .btn-pass {
+        margin-top: 1.25rem;
+        border: 2px solid #374151;
+        background: #ffffff;
+        color: #111827;
+        cursor: pointer;
+      }
+
+      .note {
+        margin-top: 0.75rem;
+        padding: 0.75rem 1rem;
+        background: #eff6ff;
+        border-left: 4px solid #1d4ed8;
+        font-size: 0.95rem;
+      }
+    </style>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to main content</a>
+
+    <header class="site-header">
+      <strong>Acme Billing</strong>
+      <nav aria-label="Primary">
+        <a href="#main">Settings</a>
+        <a href="#notifications">Notifications</a>
+      </nav>
+    </header>
+
+    <main id="main" tabindex="-1">
+      <h1>Account settings</h1>
+      <p>
+        Use Tab and Shift+Tab to move through controls. Focus should stay visible
+        and land below the sticky header when you follow in-page links.
+      </p>
+
+      <section aria-labelledby="contrast-heading">
+        <h2 id="contrast-heading">UI component contrast (1.4.11)</h2>
+        <p>
+          Non-text contrast applies to control boundaries and states, not just
+          text. Compare the two inputs below with a contrast checker.
+        </p>
+
+        <label for="email-fail">
+          Email — fails non-text contrast (~1.4:1 border on white)
+          <input
+            id="email-fail"
+            class="control-fail"
+            type="email"
+            name="email-fail"
+            autocomplete="email"
+          />
+        </label>
+
+        <label for="email-pass">
+          Email — passes non-text contrast (2px #374151 border on white)
+          <input
+            id="email-pass"
+            class="control-pass"
+            type="email"
+            name="email-pass"
+            autocomplete="email"
+          />
+        </label>
+
+        <button type="button" class="btn-pass">Save changes</button>
+
+        <p class="note">
+          If color alone is not enough, add a second cue: thicker stroke, fill,
+          icon change, or visible label text.
+        </p>
+      </section>
+
+      <section id="notifications">
+        <h2>Notifications</h2>
+        <p>
+          Activate
+          <a href="#notifications">this in-page link</a>
+          with Enter after tabbing to it — the heading should scroll into view
+          above the sticky header, not hidden beneath it.
+        </p>
+        <label for="notify">
+          <input id="notify" type="checkbox" name="notify" />
+          Send email summaries
+        </label>
+      </section>
+    </main>
+  </body>
+</html>
 ```
+
+[![Edit 028-1.4.11 and icons/UI components, focus ring contrast (2.4.7, 2.4.11)](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/028-1-4-11-and-icons-ui-components-focus-ring-contrast-2-4-7-2-4-11-7mmtmj)
+
+[^28]CodeSandbox: 1.4.11 and icons/UI components, focus ring contrast (2.4.7, 2.4.11).
+
+[^28]:[CodeSandbox: 1.4.11 and icons/UI components, focus ring contrast (2.4.7, 2.4.11)](https://7mmtmj.csb.app/), last access: June 18, 2026.
+
+Test in the browser: reload, press Tab from the top—the skip link appears with a high-contrast ring, then focus moves through nav links, inputs, and the button. Click a control with the mouse; the ring should disappear. Follow **Skip to main content** or the in-page link; the target heading should sit fully below the sticky header, not underneath it.
 
 ### Resize text, images of text, audio control
 
