@@ -2214,32 +2214,217 @@ Use `rem` (or `em` with care) for typography/spacing tied to user preferences. `
 
 WCAG 1.4.2 Audio Control (Level A): if audio plays automatically for more than 3 seconds, provide pause/stop or volume controls independent of system volume.
 
-```css
-html {
-  font-size: 100%;
-}
-
-body {
-  font-size: 1rem;
-  line-height: 1.5;
-}
-
-h2 {
-  font-size: clamp(1.25rem, 1rem + 1.2vw, 2rem);
-}
-
-.card {
-  padding: 1rem;
-  max-width: 42rem;
-}
-```
+The page below puts both criteria together: rem-based typography and a fluid card that reflows at 200% zoom, compared with a fixed-pixel panel that clips text when magnified, plus audio players that expose pause, stop, and volume on the page itself.
 
 ```html
-<audio controls preload="metadata">
-  <source src="/media/intro.mp3" type="audio/mpeg" />
-  Your browser does not support the audio element.
-</audio>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>1.4.4 Resize text, 200% zoom, rem/em vs px; 1.4.2 Audio control</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      /* Respect user font-size preference; size everything else in rem (1.4.4) */
+      html {
+        font-size: 100%;
+      }
+
+      body {
+        margin: 0;
+        font-family: system-ui, sans-serif;
+        font-size: 1rem;
+        line-height: 1.5;
+        color: #111827;
+        background: #f9fafb;
+      }
+
+      main {
+        max-width: 42rem;
+        margin: 0 auto;
+        padding: clamp(1rem, 4vw, 2rem) 1rem 3rem;
+      }
+
+      h1 {
+        font-size: clamp(1.5rem, 1.1rem + 1.5vw, 2.25rem);
+        line-height: 1.2;
+      }
+
+      h2 {
+        font-size: clamp(1.25rem, 1rem + 1.2vw, 2rem);
+        line-height: 1.25;
+        margin-top: 2rem;
+      }
+
+      section + section {
+        margin-top: 2rem;
+        padding-top: 2rem;
+        border-top: 1px solid #e5e7eb;
+      }
+
+      .comparison {
+        display: grid;
+        gap: 1rem;
+        grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr));
+      }
+
+      .card {
+        padding: 1rem;
+        border-radius: 0.5rem;
+        background: #ffffff;
+      }
+
+      /* Passes 1.4.4 — rem sizing and no fixed height; text reflows when zoomed */
+      .card-pass {
+        border: 2px solid #047857;
+      }
+
+      .card-pass p {
+        margin: 0;
+        font-size: 1rem;
+      }
+
+      /* Fails 1.4.4 — fixed px font and height clip content at 200% zoom */
+      .card-fail {
+        border: 2px solid #b91c1c;
+        font-size: 14px;
+        height: 5rem;
+        overflow: hidden;
+      }
+
+      .card-fail p {
+        margin: 0;
+      }
+
+      .label {
+        display: inline-block;
+        margin-bottom: 0.5rem;
+        padding: 0.15rem 0.5rem;
+        border-radius: 0.25rem;
+        font-size: 0.875rem;
+        font-weight: 600;
+      }
+
+      .label-pass {
+        background: #d1fae5;
+        color: #065f46;
+      }
+
+      .label-fail {
+        background: #fee2e2;
+        color: #991b1b;
+      }
+
+      audio {
+        display: block;
+        width: 100%;
+        max-width: 24rem;
+        margin-top: 0.75rem;
+      }
+
+      .note {
+        margin-top: 0.75rem;
+        padding: 0.75rem 1rem;
+        background: #eff6ff;
+        border-left: 4px solid #1d4ed8;
+        font-size: 0.95rem;
+      }
+
+      code {
+        font-size: 0.9em;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Resize text and audio control</h1>
+      <p>
+        Zoom this page to 200% (for example <kbd>Cmd</kbd>+<kbd>+</kbd> or
+        <kbd>Ctrl</kbd>+<kbd>+</kbd>). The rem-based card should grow and
+        reflow; the fixed-pixel card clips overflow.
+      </p>
+
+      <section aria-labelledby="resize-heading">
+        <h2 id="resize-heading">Resize text (1.4.4)</h2>
+        <p>
+          Use <code>rem</code> for typography and spacing tied to user
+          preferences. Reserve <code>px</code> for hairlines and borders.
+        </p>
+
+        <div class="comparison">
+          <article class="card card-pass">
+            <span class="label label-pass">Passes at 200% zoom</span>
+            <p>
+              This panel uses <code>1rem</code> body text, fluid padding, and no
+              fixed height. When you magnify the page, copy reflows instead of
+              disappearing behind <code>overflow: hidden</code>.
+            </p>
+          </article>
+
+          <article class="card card-fail">
+            <span class="label label-fail">Clips at 200% zoom</span>
+            <p>
+              This panel locks text at 14px and height at 5rem with hidden
+              overflow. At 200% zoom the last lines are cut off and controls
+              beside it can overlap—exactly what 1.4.4 asks you to avoid.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section aria-labelledby="audio-heading">
+        <h2 id="audio-heading">Audio control (1.4.2)</h2>
+        <p>
+          User-initiated playback does not require extra UI beyond what the
+          browser provides, as long as the user chose to start it.
+        </p>
+
+        <p>
+          <strong>On-demand audio with controls</strong> — user presses play;
+          pause, stop, and volume are available:
+        </p>
+        <audio controls preload="metadata">
+          <source
+            src="https://interactive-examples.mdn.mozilla.net/media/cc0-audio/t-rex-roar.mp3"
+            type="audio/mpeg"
+          />
+          Your browser does not support the audio element.
+        </audio>
+
+        <p class="note">
+          <strong>Autoplay longer than 3 seconds</strong> must expose pause,
+          stop, or a volume control on the page—not only the OS mixer. Add the
+          <code>controls</code> attribute (or an equivalent custom control) to
+          any <code>&lt;audio autoplay&gt;</code> that can run more than three
+          seconds. Prefer not to autoplay at all unless the user expects sound.
+        </p>
+
+        <p>
+          <strong>Compliant autoplay pattern</strong> — if sound must start
+          automatically, keep native controls visible so users can stop it
+          immediately:
+        </p>
+        <audio controls preload="metadata">
+          <source
+            src="https://interactive-examples.mdn.mozilla.net/media/cc0-audio/t-rex-roar.mp3"
+            type="audio/mpeg"
+          />
+          Your browser does not support the audio element.
+        </audio>
+      </section>
+    </main>
+  </body>
+</html>
 ```
+
+[![Edit 029-1.4.4 Resize text, 200% zoom, rem/em vs px; 1.4.2 Audio control](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/029-1-4-4-resize-text-200-zoom-rem-em-vs-px-1-4-2-audio-control-l87f96)
+
+[^29]CodeSandbox: 1.4.4 Resize text, 200% zoom, rem/em vs px; 1.4.2 Audio control.
+
+[^29]:[CodeSandbox: 1.4.4 Resize text, 200% zoom, rem/em vs px; 1.4.2 Audio control](https://l87f96.csb.app/), last access: June 18, 2026.
 
 #### 1.4.5 Images of text, when text can be visual
 
