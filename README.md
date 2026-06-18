@@ -2461,20 +2461,40 @@ Activation behavior:
 
 ```html
 <button type="button" id="saveBtn">Save settings</button>
-<a href="/account" id="accountLink">Go to account</a>
-```
+<a href="#account" id="accountLink">Go to account</a>
+<span role="button" tabindex="0" id="fauxSave">Save (custom control)</span>
 
-```js
-// Only needed for custom non-native controls (prefer not to do this).
-const fauxButton = document.querySelector('[role="button"]');
+<script>
+  document.getElementById("saveBtn").addEventListener("click", () => {
+    alert("Native button activated (Space or Enter).");
+  });
 
-fauxButton.addEventListener("keydown", (event) => {
-  if (event.key === " " || event.key === "Enter") {
+  document.getElementById("accountLink").addEventListener("click", (event) => {
     event.preventDefault();
-    fauxButton.click();
-  }
-});
+    alert("Link activated (Enter).");
+  });
+
+  // Only needed for custom non-native controls (prefer not to do this).
+  const fauxButton = document.getElementById("fauxSave");
+
+  fauxButton.addEventListener("click", () => {
+    alert("Custom control activated (Space or Enter).");
+  });
+
+  fauxButton.addEventListener("keydown", (event) => {
+    if (event.key === " " || event.key === "Enter") {
+      event.preventDefault();
+      fauxButton.click();
+    }
+  });
+</script>
 ```
+
+[![Edit 030-All functionality via keyboard, Space vs Enter for buttons and links](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/030-all-functionality-via-keyboard-space-vs-enter-for-buttons-and-links-4zxpnc)
+
+[^30]CodeSandbox: All functionality via keyboard, Space vs Enter for buttons and links.
+
+[^30]:[CodeSandbox: All functionality via keyboard, Space vs Enter for buttons and links](https://4zxpnc.csb.app/), last access: June 18, 2026.
 
 #### No keyboard trap, focus must not be trapped in a component
 
