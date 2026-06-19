@@ -2539,20 +2539,26 @@ Practical modal pattern:
   <button type="button" id="cancelDelete">Cancel</button>
   <button type="button" id="confirmDelete">Delete</button>
 </dialog>
+
+<script>
+  const appRoot = document.getElementById("appRoot");
+  const dialog = document.getElementById("confirmDialog");
+  const openBtn = document.getElementById("openDialog");
+  const title = document.getElementById("confirmTitle");
+
+  openBtn.addEventListener("click", () => {
+    appRoot.inert = true;
+    dialog.showModal();
+    title.focus();
+  });
+</script>
 ```
 
-```js
-const appRoot = document.getElementById("appRoot");
-const dialog = document.getElementById("confirmDialog");
-const openBtn = document.getElementById("openDialog");
-const title = document.getElementById("confirmTitle");
+[![Edit 031-Tab cycle within modal, first and last focusable, inert](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/031-tab-cycle-within-modal-first-and-last-focusable-inert-jgcpws)
 
-openBtn.addEventListener("click", () => {
-  appRoot.inert = true;
-  dialog.showModal();
-  title.focus();
-});
-```
+[^31]CodeSandbox: Tab cycle within modal, first and last focusable, inert.
+
+[^31]:[CodeSandbox: Tab cycle within modal, first and last focusable, inert](https://jgcpws.csb.app/), last access: June 19, 2026.
 
 #### Returning focus on close, tabindex=0 vs tabindex=-1
 
