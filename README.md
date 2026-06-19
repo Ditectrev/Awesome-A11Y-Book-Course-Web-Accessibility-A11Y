@@ -2570,20 +2570,62 @@ When a modal/menu/popover closes, return focus to the trigger that opened it. Ot
 - `tabindex="-1"`: element is not tabbable, but can receive programmatic focus (`element.focus()`), useful for headings/containers.
 - Avoid positive tabindex (`tabindex="1"`, `2`, etc.). It creates fragile, non-intuitive focus order.
 
-```js
-let previousFocus = null;
+```html
+<button type="button" id="openDialog">Delete account</button>
 
-function openModal() {
-  previousFocus = document.activeElement;
-  dialog.showModal();
-  title.focus(); // title has tabindex="-1"
-}
+<div id="appRoot">
+  <!-- main app content -->
+</div>
 
-function closeModal() {
-  dialog.close();
-  if (previousFocus instanceof HTMLElement) previousFocus.focus();
-}
+<dialog id="confirmDialog" aria-labelledby="confirmTitle">
+  <h2 id="confirmTitle" tabindex="-1">Confirm account deletion</h2>
+  <p>This action cannot be undone.</p>
+  <button type="button" id="cancelDelete">Cancel</button>
+  <button type="button" id="confirmDelete">Delete</button>
+</dialog>
+
+<script>
+  const appRoot = document.getElementById("appRoot");
+  const dialog = document.getElementById("confirmDialog");
+  const openBtn = document.getElementById("openDialog");
+  const cancelBtn = document.getElementById("cancelDelete");
+  const confirmBtn = document.getElementById("confirmDelete");
+  const title = document.getElementById("confirmTitle");
+
+  let previousFocus = null;
+
+  function openModal() {
+    previousFocus = document.activeElement;
+    appRoot.inert = true;
+    dialog.showModal();
+    title.focus(); // tabindex="-1": not in tab order, but .focus() works
+  }
+
+  function closeModal() {
+    dialog.close();
+    if (previousFocus instanceof HTMLElement) previousFocus.focus();
+  }
+
+  openBtn.addEventListener("click", openModal);
+  cancelBtn.addEventListener("click", closeModal);
+  confirmBtn.addEventListener("click", () => {
+    // perform deletion…
+    closeModal();
+  });
+
+  // Escape and other native close paths do not call closeModal(); restore focus here too.
+  dialog.addEventListener("close", () => {
+    appRoot.inert = false;
+    if (previousFocus instanceof HTMLElement) previousFocus.focus();
+  });
+</script>
 ```
+
+[![Edit 032-Returning focus on close, tabindex=0 vs tabindex=-1](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/032-returning-focus-on-close-tabindex-0-vs-tabindex-1-jq8s7l)
+
+[^32]CodeSandbox: Returning focus on close, tabindex=0 vs tabindex=-1.
+
+[^32]:[CodeSandbox: Returning focus on close, tabindex=0 vs tabindex=-1](https://jq8s7l.csb.app/), last access: June 19, 2026.
 
 ### Skip links and bypass blocks (2.4.1)
 
