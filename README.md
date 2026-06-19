@@ -2636,18 +2636,60 @@ WCAG 2.4.1 Bypass Blocks (Level A): users should be able to skip repeated conten
 Use a skip link as the first focusable item on the page:
 
 ```html
-<a class="skip-link" href="#main">Skip to main content</a>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Checkout | Example Shop</title>
+    <style>
+      /* Demo only: push main below the fold so the skip link scroll is visible */
+      header,
+      nav {
+        min-height: 300px;
+        padding: 1rem;
+        background: #f3f4f6;
+      }
 
-<header>...</header>
-<nav>...</nav>
+      main {
+        padding: 1rem;
+      }
+    </style>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to main content</a>
 
-<main id="main" tabindex="-1">
-  <h1>Checkout</h1>
-  <!-- page content -->
-</main>
+    <header>
+      <p>Example Shop</p>
+    </header>
+
+    <nav aria-label="Primary">
+      <a href="/">Home</a>
+      <a href="/products">Products</a>
+      <a href="/cart">Cart</a>
+      <a href="/account">Account</a>
+      <a href="/help">Help</a>
+    </nav>
+
+    <main id="main" tabindex="-1">
+      <h1>Checkout</h1>
+      <p>Review your order and enter shipping details.</p>
+      <form>
+        <label for="ship-name">Full name</label>
+        <input id="ship-name" name="name" type="text" autocomplete="name" />
+        <button type="submit">Continue to payment</button>
+      </form>
+    </main>
+  </body>
+</html>
 ```
 
-`href="#main"` moves to the main landmark. Adding `tabindex="-1"` on `<main>` helps with reliable focus placement across browser/screen reader combinations.
+[![Edit 033-Skip to main content, skip link and href="#main"](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/033-skip-to-main-content-skip-link-and-href-main-8hhzgq)
+
+[^33]CodeSandbox: Skip to main content, skip link and href="#main".
+
+[^33]:[CodeSandbox: Skip to main content, skip link and href="#main"](https://8hhzgq.csb.app/), last access: June 19, 2026.
+
+`href="#main"` moves to the main landmark. Adding `tabindex="-1"` on `<main>` helps with reliable focus placement across browser/screen reader combinations. The tall header and nav stand in for repeated site chrome; activating **Skip to main content** scrolls the page down to `#main`.
 
 #### Skip link visible on focus only, styling
 
