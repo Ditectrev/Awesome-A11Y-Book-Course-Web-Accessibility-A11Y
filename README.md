@@ -2714,7 +2714,7 @@ Keep skip links visually hidden by default but clearly visible on keyboard focus
         padding: 1rem;
       }
     </style>
-  
+
     <style>
       .skip-link {
         position: absolute;
@@ -2802,6 +2802,12 @@ Use `role="region"` only for important sections and provide an accessible name w
 
 <aside aria-label="Related articles">...</aside>
 ```
+
+[![Edit 035-Landmark regions and HTML5, region and aria-label](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/035-landmark-regions-and-html5-region-and-aria-label-s3dmvy)
+
+[^35]CodeSandbox: Landmark regions and HTML5, region and aria-label.
+
+[^35]:[CodeSandbox: Landmark regions and HTML5, region and aria-label](https://s3dmvy.csb.app/), last access: June 24, 2026.
 
 #### contentinfo, search, landmark order and nesting
 

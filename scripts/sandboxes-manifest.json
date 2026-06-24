@@ -10,6 +10,17 @@
       "editorUrl": "https://codesandbox.io/p/sandbox/034-skip-link-visible-on-focus-only-styling-2g3jnv",
       "previewUrl": "https://2g3jnv.csb.app/",
       "updatedAt": "2026-06-24T05:15:22.190Z"
+    },
+    "35": {
+      "heading": "Landmark regions and HTML5, region and aria-label",
+      "lang": "html",
+      "sandboxId": "s3dmvy",
+      "slug": "035-landmark-regions-and-html5-region-and-aria-label-s3dmvy",
+      "alias": "035-landmark-regions-and-html5-region-and-aria-label-s3dmvy",
+      "collectionPath": "/Awesome A11Y Book/examples",
+      "editorUrl": "https://codesandbox.io/p/sandbox/035-landmark-regions-and-html5-region-and-aria-label-s3dmvy",
+      "previewUrl": "https://s3dmvy.csb.app/",
+      "updatedAt": "2026-06-24T05:18:43.225Z"
     }
   }
 }
