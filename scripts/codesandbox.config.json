@@ -1,0 +1,7 @@
+{
+  "collectionPath": "/Awesome A11Y Book/examples",
+  "runtime": "browser",
+  "template": "static",
+  "privacy": 0,
+  "entry": "index.html"
+}

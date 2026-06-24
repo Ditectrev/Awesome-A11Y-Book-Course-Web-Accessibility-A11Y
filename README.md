@@ -2695,26 +2695,80 @@ Use a skip link as the first focusable item on the page:
 
 Keep skip links visually hidden by default but clearly visible on keyboard focus. They should meet color contrast and be placed where users immediately notice them.
 
-```css
-.skip-link {
-  position: absolute;
-  left: 0.5rem;
-  top: 0.5rem;
-  transform: translateY(-180%);
-  padding: 0.5rem 0.75rem;
-  background: #111827;
-  color: #ffffff;
-  text-decoration: none;
-  border-radius: 0.375rem;
-  z-index: 1000;
-}
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Skip link visible on focus only, styling</title>
+    <style>
+      /* Demo only: push main below the fold so the skip link scroll is visible */
+      header,
+      nav {
+        min-height: 300px;
+        padding: 1rem;
+        background: #f3f4f6;
+      }
 
-.skip-link:focus-visible {
-  transform: translateY(0);
-  outline: 3px solid #93c5fd;
-  outline-offset: 2px;
-}
+      main {
+        padding: 1rem;
+      }
+    </style>
+  
+    <style>
+      .skip-link {
+        position: absolute;
+        left: 0.5rem;
+        top: 0.5rem;
+        transform: translateY(-180%);
+        padding: 0.5rem 0.75rem;
+        background: #111827;
+        color: #ffffff;
+        text-decoration: none;
+        border-radius: 0.375rem;
+        z-index: 1000;
+      }
+
+      .skip-link:focus-visible {
+        transform: translateY(0);
+        outline: 3px solid #93c5fd;
+        outline-offset: 2px;
+      }
+    </style>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to main content</a>
+
+    <header>
+      <p>Example Shop</p>
+    </header>
+
+    <nav aria-label="Primary">
+      <a href="/">Home</a>
+      <a href="/products">Products</a>
+      <a href="/cart">Cart</a>
+      <a href="/account">Account</a>
+      <a href="/help">Help</a>
+    </nav>
+
+    <main id="main" tabindex="-1">
+      <h1>Checkout</h1>
+      <p>Review your order and enter shipping details.</p>
+      <form>
+        <label for="ship-name">Full name</label>
+        <input id="ship-name" name="name" type="text" autocomplete="name" />
+        <button type="submit">Continue to payment</button>
+      </form>
+    </main>
+  </body>
+</html>
 ```
+
+[![Edit 034-Skip link visible on focus only, styling](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/034-skip-link-visible-on-focus-only-styling-2g3jnv)
+
+[^34]CodeSandbox: Skip link visible on focus only, styling.
+
+[^34]:[CodeSandbox: Skip link visible on focus only, styling](https://2g3jnv.csb.app/), last access: June 24, 2026.
 
 ### Landmarks (banner, main, navigation, complementary)
 

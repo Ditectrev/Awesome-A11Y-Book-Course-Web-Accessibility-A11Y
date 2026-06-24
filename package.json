@@ -1,0 +1,29 @@
+{
+  "name": "awesome-a11y-book-course-web-accessibility-a11y",
+  "version": "1.0.0",
+  "description": "There are many ways to support us; in exchange, you'll get this material in a proper format:",
+  "main": "index.js",
+  "scripts": {
+    "codesandbox:verify": "node scripts/codesandbox.cjs verify",
+    "codesandbox:scan": "node scripts/codesandbox.cjs scan",
+    "codesandbox:create": "node scripts/codesandbox.cjs create --next",
+    "codesandbox:insert": "node scripts/codesandbox.cjs insert --next"
+  },
+  "devDependencies": {
+    "@codesandbox/sdk": "^2.4.2",
+    "codesandbox": "^2.2.3",
+    "humps": "^2.0.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ditectrev/Awesome-A11Y-Book-Course-Web-Accessibility-A11Y.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Ditectrev/Awesome-A11Y-Book-Course-Web-Accessibility-A11Y/issues"
+  },
+  "homepage": "https://github.com/Ditectrev/Awesome-A11Y-Book-Course-Web-Accessibility-A11Y#readme"
+}

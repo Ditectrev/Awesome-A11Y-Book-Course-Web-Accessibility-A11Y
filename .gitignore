@@ -83,6 +83,11 @@ local.properties
 .loadpath
 .recommenders
 
+# Node
+node_modules/
+.env
+.env.local
+
 # IDE specific files
 .idea/
 .vscode/
