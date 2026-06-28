@@ -85,13 +85,18 @@ function maxExistingNumber(content) {
 function parseExamples(content) {
   const lines = content.split("\n");
   const examples = [];
-  let currentH4 = null;
+  let currentHeading = null;
 
   for (let i = 0; i < lines.length; i++) {
     const line = lines[i];
 
     if (line.startsWith("#### ")) {
-      currentH4 = line.slice(5).trim();
+      currentHeading = line.slice(5).trim();
+      continue;
+    }
+
+    if (line.startsWith("### ")) {
+      currentHeading = line.slice(4).trim();
       continue;
     }
 
@@ -128,7 +133,7 @@ function parseExamples(content) {
     }
 
     examples.push({
-      heading: currentH4 || "(no heading)",
+      heading: currentHeading || "(no heading)",
       lang,
       code,
       codeStart,
@@ -602,8 +607,16 @@ async function main() {
   const manifest = loadManifest();
   let readme = content;
   const isRefresh = command === "refresh";
+  const targetNumbers = selected.map((e) => e.number);
 
-  for (const example of selected) {
+  for (const targetNumber of targetNumbers) {
+    examples = assignNumbers(parseExamples(readme), readme);
+    let example = examples.find((e) => e.number === targetNumber);
+    if (!example) {
+      console.log(`Skip #${targetNumber} (not found after README updates)`);
+      continue;
+    }
+
     if (example.hasSandbox && !isRefresh) {
       console.log(`Skip #${example.number} (already linked): ${example.heading}`);
       continue;

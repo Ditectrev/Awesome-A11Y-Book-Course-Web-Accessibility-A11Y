@@ -197,7 +197,7 @@ We are so thankful for every contribution, which makes sure we can deliver top-n
 - [Seizures and Physical Reactions](#seizures-and-physical-reactions)
   - [Three flashes (2.3.1), general and red flash](#three-flashes-231-general-and-red-flash)
   - [Animation from interactions (2.3.3)](#animation-from-interactions-233)
-  - [prefers-reduced-motion and implementing it](#prefers-reduced-motion-and-implementing-it)
+  - [prefers-reduced-motion](#prefers-reduced-motion)
   - [Summary: Seizures and Physical Reactions](#summary-seizures-and-physical-reactions)
 - [Navigable](#navigable)
   - [Page title (2.4.2) and focus order (2.4.3)](#page-title-242-and-focus-order-243)
@@ -614,7 +614,7 @@ In CSS, respect the user preference and reduce or remove non-essential animation
 
 Test in the browser: enable **Reduce motion** (macOS: System Settings → Accessibility → Display; Windows: Settings → Accessibility → Visual effects) and reload—the banner should no longer bob up and down.
 
-Tune this to your design system: some teams disable parallax and large transitions only, while keeping subtle opacity fades. A broader reset on `*` for `animation-duration` and `transition-duration` is another pattern—see [prefers-reduced-motion and implementing it](#prefers-reduced-motion-and-implementing-it). Never remove motion that is essential to understanding without providing an equivalent.
+Tune this to your design system: some teams disable parallax and large transitions only, while keeping subtle opacity fades. A broader reset on `*` for `animation-duration` and `transition-duration` is another pattern—see [prefers-reduced-motion](#prefers-reduced-motion). Never remove motion that is essential to understanding without providing an equivalent.
 
 ### Screen readers and how they interpret content
 
@@ -2826,6 +2826,12 @@ Landmark quality matters as much as landmark presence:
 <footer>...</footer>
 ```
 
+[![Edit 036-contentinfo, search, landmark order and nesting](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/036-contentinfo-search-landmark-order-and-nesting-g5gghd)
+
+[^36]CodeSandbox: contentinfo, search, landmark order and nesting.
+
+[^36]:[CodeSandbox: contentinfo, search, landmark order and nesting](https://g5gghd.csb.app/), last access: June 28, 2026.
+
 ### Character key shortcuts (2.1.4)
 
 WCAG 2.1.4 Character Key Shortcuts (Level A) applies when a single printable character triggers an action (for example pressing `s` to open search).
@@ -2869,35 +2875,80 @@ Before time expires, users should be able to do at least one of:
 Session timeout pattern:
 
 - Trigger warning 60-120 seconds before expiry.
-- Open a modal with focus trap, initial focus on the primary action, and Escape support if policy allows.
+- Surface a visible, keyboard-operable warning with **Stay signed in** and **Sign out** actions.
 - Add a `role="status"` or `aria-live="polite"` region for remaining-time updates (avoid announcing every second).
 - On **Stay signed in**, call refresh endpoint + reset timers in both client and server.
 - On expiry, redirect to a clear recovery screen and restore draft state from storage.
 
 ```html
-<div id="timeout-status" aria-live="polite" role="status"></div>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Timing adjustable (2.2.1): session timeouts, warnings</title>
+  </head>
+  <body>
+    <main>
+      <h1>Account settings</h1>
+      <p>Signed in as <strong>demo@example.com</strong></p>
+      <p id="timeout-countdown"></p>
 
-<dialog id="timeout-dialog" aria-labelledby="timeout-title">
-  <h2 id="timeout-title">Your session is about to expire</h2>
-  <p id="timeout-msg">You will be signed out in 2 minutes.</p>
-  <button id="extend-session">Stay signed in</button>
-  <button id="logout-now">Sign out</button>
-</dialog>
+      <div id="timeout-warning" hidden role="status" aria-live="polite">
+        <p id="timeout-msg"></p>
+        <button type="button" id="extend-session">Stay signed in</button>
+        <button type="button" id="logout-now">Sign out</button>
+      </div>
+    </main>
+
+    <script>
+      const warning = document.getElementById("timeout-warning");
+      const countdown = document.getElementById("timeout-countdown");
+      const msg = document.getElementById("timeout-msg");
+
+      const SESSION_MS = 15 * 1000; // production: 15 * 60 * 1000
+      const WARNING_MS = 8 * 1000; // production: 2 * 60 * 1000
+      let expiryAt = Date.now() + SESSION_MS;
+
+      function tick() {
+        const remaining = expiryAt - Date.now();
+        if (remaining <= 0) {
+          warning.hidden = true;
+          countdown.textContent = "Session expired.";
+          return;
+        }
+        if (remaining <= WARNING_MS) {
+          countdown.textContent = "";
+          warning.hidden = false;
+          msg.textContent = `You will be signed out in ${Math.ceil(remaining / 1000)} seconds.`;
+          return;
+        }
+        warning.hidden = true;
+        countdown.textContent = `Session expires in ${Math.ceil(remaining / 1000)} seconds.`;
+      }
+
+      document.getElementById("extend-session").addEventListener("click", () => {
+        expiryAt = Date.now() + SESSION_MS;
+        hideWarning();
+        countdown.textContent = "Session extended.";
+      });
+
+      document.getElementById("logout-now").addEventListener("click", () => {
+        warning.hidden = true;
+        countdown.textContent = "Session expired.";
+      });
+
+      setInterval(tick, 1000);
+      tick();
+    </script>
+  </body>
+</html>
 ```
 
-```js
-const SESSION_MS = 15 * 60 * 1000;
-const WARNING_MS = 2 * 60 * 1000;
-let expiryAt = Date.now() + SESSION_MS;
+[![Edit 037-Timing adjustable (2.2.1): session timeouts, warnings](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/037-timing-adjustable-2-2-1-session-timeouts-warnings-c9jxsg)
 
-function tick() {
-  const remaining = expiryAt - Date.now();
-  if (remaining <= 0) return expireSession();
-  if (remaining <= WARNING_MS) showWarning(remaining);
-}
+[^37]CodeSandbox: Timing adjustable (2.2.1): session timeouts, warnings.
 
-setInterval(tick, 1000);
-```
+[^37]:[CodeSandbox: Timing adjustable (2.2.1): session timeouts, warnings](https://c9jxsg.csb.app/), last access: June 28, 2026.
 
 ### Pause, stop, hide (2.2.2): carousels, animation
 
@@ -2918,23 +2969,203 @@ Carousel technical checklist:
 - Pause on `focusin`, `mouseenter`, and when `document.visibilityState !== "visible"`.
 - Do not move keyboard focus when slide changes automatically.
 
-```js
-let autoRotate = true;
-carousel.addEventListener("focusin", () => (autoRotate = false));
-pauseBtn.addEventListener("click", () => {
-  autoRotate = !autoRotate;
-  pauseBtn.setAttribute("aria-pressed", String(!autoRotate));
-});
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Pause, stop, hide (2.2.2): carousels, animation</title>
+    <style>
+      .carousel {
+        max-width: 32rem;
+        margin: 1.5rem auto;
+      }
+
+      .carousel-viewport {
+        overflow: hidden;
+        border: 1px solid #cbd5e1;
+        border-radius: 0.5rem;
+      }
+
+      .carousel-track {
+        display: flex;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        transition: transform 400ms ease;
+      }
+
+      .carousel-slide {
+        flex: 0 0 100%;
+        min-height: 10rem;
+        display: grid;
+        place-items: center;
+        padding: 1.5rem;
+        font-size: 1.25rem;
+        font-weight: 600;
+      }
+
+      .carousel-slide:nth-child(1) {
+        background: #dbeafe;
+      }
+
+      .carousel-slide:nth-child(2) {
+        background: #dcfce7;
+      }
+
+      .carousel-slide:nth-child(3) {
+        background: #fef3c7;
+      }
+
+      .carousel-controls {
+        display: flex;
+        gap: 0.5rem;
+        margin-top: 0.75rem;
+      }
+
+      .visually-hidden {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .carousel-track {
+          transition: none;
+          animation: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Featured articles</h1>
+
+      <section
+        class="carousel"
+        id="carousel"
+        aria-roledescription="carousel"
+        aria-label="Featured articles"
+      >
+        <div class="carousel-viewport">
+          <ul class="carousel-track" id="carousel-track">
+            <li class="carousel-slide" aria-hidden="false">Slide 1: Keyboard-first navigation</li>
+            <li class="carousel-slide" aria-hidden="true">Slide 2: Color contrast basics</li>
+            <li class="carousel-slide" aria-hidden="true">Slide 3: Form error patterns</li>
+          </ul>
+        </div>
+
+        <div class="carousel-controls">
+          <button type="button" id="prev">Previous slide</button>
+          <button type="button" id="pause" aria-pressed="false">Pause slides</button>
+          <button type="button" id="next">Next slide</button>
+        </div>
+
+        <p id="carousel-status" class="visually-hidden" aria-live="polite"></p>
+      </section>
+    </main>
+
+    <script>
+      const carousel = document.getElementById("carousel");
+      const track = document.getElementById("carousel-track");
+      const slides = [...track.children];
+      const prevBtn = document.getElementById("prev");
+      const nextBtn = document.getElementById("next");
+      const pauseBtn = document.getElementById("pause");
+      const status = document.getElementById("carousel-status");
+      const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+      let index = 0;
+      let autoRotate = !reduceMotion.matches;
+      let timerId = null;
+      const ROTATE_MS = 6000;
+
+      function announce(message) {
+        status.textContent = message;
+      }
+
+      function updatePauseButton() {
+        const paused = !autoRotate;
+        pauseBtn.textContent = paused ? "Play slides" : "Pause slides";
+        pauseBtn.setAttribute("aria-pressed", String(paused));
+      }
+
+      function showSlide(nextIndex, { userInitiated = false } = {}) {
+        index = (nextIndex + slides.length) % slides.length;
+        track.style.transform = `translateX(-${index * 100}%)`;
+        slides.forEach((slide, i) => {
+          slide.setAttribute("aria-hidden", String(i !== index));
+        });
+        if (userInitiated) {
+          announce(`Slide ${index + 1} of ${slides.length}`);
+        }
+      }
+
+      function stopAutoRotate() {
+        autoRotate = false;
+        updatePauseButton();
+        if (timerId) {
+          clearInterval(timerId);
+          timerId = null;
+        }
+      }
+
+      function startAutoRotate() {
+        if (reduceMotion.matches) return;
+        autoRotate = true;
+        updatePauseButton();
+        timerId = setInterval(() => showSlide(index + 1), ROTATE_MS);
+      }
+
+      prevBtn.addEventListener("click", () => {
+        stopAutoRotate();
+        showSlide(index - 1, { userInitiated: true });
+      });
+
+      nextBtn.addEventListener("click", () => {
+        stopAutoRotate();
+        showSlide(index + 1, { userInitiated: true });
+      });
+
+      pauseBtn.addEventListener("click", () => {
+        if (autoRotate) {
+          stopAutoRotate();
+          announce("Slideshow paused");
+          return;
+        }
+        startAutoRotate();
+        announce("Slideshow playing");
+      });
+
+      carousel.addEventListener("focusin", stopAutoRotate);
+      carousel.addEventListener("mouseenter", stopAutoRotate);
+      document.addEventListener("visibilitychange", () => {
+        if (document.visibilityState !== "visible") stopAutoRotate();
+      });
+
+      reduceMotion.addEventListener("change", (event) => {
+        if (event.matches) stopAutoRotate();
+      });
+
+      showSlide(0);
+      updatePauseButton();
+      if (autoRotate) startAutoRotate();
+    </script>
+  </body>
+</html>
 ```
 
-```css
-@media (prefers-reduced-motion: reduce) {
-  .carousel-track {
-    transition: none;
-    animation: none;
-  }
-}
-```
+[![Edit 038-Pause, stop, hide (2.2.2): carousels, animation](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/038-pause-stop-hide-2-2-2-carousels-animation-tg2hgz)
+
+[^38]CodeSandbox: Pause, stop, hide (2.2.2): carousels, animation.
+
+[^38]:[CodeSandbox: Pause, stop, hide (2.2.2): carousels, animation](https://tg2hgz.csb.app/), last access: June 28, 2026.
 
 ### Exceptions: essential, real-time, ticket/auction
 
@@ -3008,42 +3239,138 @@ Engineering approach:
 - Add a global "reduce motion" switch in app preferences (optional but useful).
 - Ensure all interaction animations can be reduced to instant or subtle state changes.
 
-```css
-.card {
-  transition: transform 220ms ease, box-shadow 220ms ease;
-}
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Animation from interactions (2.3.3)</title>
+    <style>
+      body {
+        font-family: system-ui, sans-serif;
+        max-width: 40rem;
+        margin: 2rem auto;
+        padding: 0 1rem;
+      }
 
-.card:hover {
-  transform: translateY(-4px) scale(1.01);
-}
+      .card {
+        padding: 1.25rem;
+        margin: 1rem 0;
+        border: 1px solid #cbd5e1;
+        border-radius: 0.5rem;
+        background: #f8fafc;
+        transition: transform 220ms ease, box-shadow 220ms ease;
+      }
 
-@media (prefers-reduced-motion: reduce) {
-  .card {
-    transition: box-shadow 120ms linear;
-  }
+      .card:hover {
+        transform: translateY(-4px) scale(1.01);
+        box-shadow: 0 8px 24px rgba(15, 23, 42, 0.12);
+      }
 
-  .card:hover {
-    transform: none;
-  }
-}
+      .carousel-viewport {
+        overflow: hidden;
+        border: 1px solid #cbd5e1;
+        border-radius: 0.5rem;
+      }
+
+      .carousel-track {
+        display: flex;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        transition: transform 400ms ease;
+      }
+
+      .carousel-slide {
+        flex: 0 0 100%;
+        min-height: 8rem;
+        display: grid;
+        place-items: center;
+        padding: 1rem;
+        font-weight: 600;
+      }
+
+      .carousel-slide:nth-child(1) {
+        background: #dbeafe;
+      }
+
+      .carousel-slide:nth-child(2) {
+        background: #dcfce7;
+      }
+
+      .carousel-slide:nth-child(3) {
+        background: #fef3c7;
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .carousel-track {
+          transition: none;
+          animation: none;
+        }
+
+        .card {
+          transition: box-shadow 120ms linear;
+        }
+
+        .card:hover {
+          transform: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Interaction-driven motion</h1>
+      <p>
+        Hover the card or use the carousel buttons. With
+        <code>prefers-reduced-motion: reduce</code>, lift and slide effects are
+        removed.
+      </p>
+
+      <article class="card">
+        <h2>Accessible card</h2>
+        <p>Decorative lift on hover; shadow change remains in reduced-motion mode.</p>
+      </article>
+
+      <section aria-label="Manual carousel preview">
+        <div class="carousel-viewport">
+          <ul class="carousel-track" id="carousel-track">
+            <li class="carousel-slide">Slide 1</li>
+            <li class="carousel-slide">Slide 2</li>
+            <li class="carousel-slide">Slide 3</li>
+          </ul>
+        </div>
+        <p>
+          <button type="button" id="prev">Previous</button>
+          <button type="button" id="next">Next</button>
+        </p>
+      </section>
+    </main>
+
+    <script>
+      let index = 0;
+      const track = document.getElementById("carousel-track");
+      const slides = track.children.length;
+
+      function showSlide(next) {
+        index = (next + slides) % slides;
+        track.style.transform = `translateX(-${index * 100}%)`;
+      }
+
+      document.getElementById("prev").addEventListener("click", () => showSlide(index - 1));
+      document.getElementById("next").addEventListener("click", () => showSlide(index + 1));
+    </script>
+  </body>
+</html>
 ```
 
-For JS-heavy animation systems, keep a single motion flag and branch behavior early:
+[![Edit 039-Animation from interactions (2.3.3)](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/039-contentinfo-search-landmark-order-and-nesting-f9t45s)
 
-```js
-const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+[^39]CodeSandbox: Animation from interactions (2.3.3).
 
-function openPanel(panel) {
-  if (reduceMotion) {
-    panel.classList.add("is-open");
-    return;
-  }
-  panel.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 180, easing: "ease-out" });
-  panel.classList.add("is-open");
-}
-```
+[^39]:[CodeSandbox: Animation from interactions (2.3.3)](https://f9t45s.csb.app/), last access: June 28, 2026.
 
-### prefers-reduced-motion and implementing it
+### prefers-reduced-motion
 
 `prefers-reduced-motion` is the primary platform signal for motion sensitivity. Respect it by default and avoid forcing users to hunt for a custom setting.
 
@@ -3055,38 +3382,161 @@ Implementation checklist:
 - Avoid smooth scrolling animations when possible in reduced-motion mode.
 - Re-test keyboard and focus behavior after removing transitions (no hidden focus jumps).
 
-```css
-html {
-  scroll-behavior: smooth;
-}
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>prefers-reduced-motion</title>
+    <style>
+      html {
+        scroll-behavior: smooth;
+      }
 
-@media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
+      body {
+        font-family: system-ui, sans-serif;
+        max-width: 40rem;
+        margin: 2rem auto;
+        padding: 0 1rem;
+      }
 
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-  }
-}
+      #motion-status {
+        padding: 0.75rem 1rem;
+        border-radius: 0.5rem;
+        background: #eff6ff;
+        border: 1px solid #93c5fd;
+      }
+
+      .card {
+        padding: 1.25rem;
+        margin: 1rem 0;
+        border: 1px solid #cbd5e1;
+        border-radius: 0.5rem;
+        background: #f8fafc;
+        transition: transform 220ms ease, box-shadow 220ms ease;
+      }
+
+      .card:hover {
+        transform: translateY(-4px) scale(1.01);
+        box-shadow: 0 8px 24px rgba(15, 23, 42, 0.12);
+      }
+
+      #update {
+        margin-top: 0.75rem;
+        padding: 0.75rem 1rem;
+        border-radius: 0.5rem;
+        background: #ecfdf5;
+        border: 1px solid #6ee7b7;
+      }
+
+      .spacer {
+        height: 50vh;
+      }
+
+      .target {
+        padding: 1rem;
+        border: 2px dashed #64748b;
+        border-radius: 0.5rem;
+        background: #f1f5f9;
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        html {
+          scroll-behavior: auto;
+        }
+
+        .card {
+          transition: box-shadow 120ms linear;
+        }
+
+        .card:hover {
+          transform: none;
+        }
+
+        *,
+        *::before,
+        *::after {
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.01ms !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Reduced motion preferences</h1>
+
+      <p id="motion-status" role="status" aria-live="polite"></p>
+
+      <p>
+        <a href="#details">Jump to details</a> to test smooth scrolling. Hover the
+        card to see CSS interaction motion.
+      </p>
+
+      <article class="card">
+        <h2>Hover lift</h2>
+        <p>Transform is removed when reduced motion is enabled.</p>
+      </article>
+
+      <p>
+        <button type="button" id="reveal">Show update</button>
+      </p>
+      <div id="update" hidden role="status">
+        Settings saved. This message appears instantly when reduced motion is on,
+        or fades in when full motion is allowed.
+      </div>
+
+      <div class="spacer" aria-hidden="true"></div>
+
+      <section class="target" id="details">
+        <h2>Details section</h2>
+        <p>Anchor jumps should be instant when reduced motion is enabled.</p>
+      </section>
+    </main>
+
+    <script>
+      const media = window.matchMedia("(prefers-reduced-motion: reduce)");
+      const status = document.getElementById("motion-status");
+      const update = document.getElementById("update");
+      const revealBtn = document.getElementById("reveal");
+
+      function syncMotionPreference(event) {
+        document.documentElement.toggleAttribute("data-reduce-motion", event.matches);
+        status.textContent = event.matches
+          ? "System preference: reduced motion is on. JS animations are skipped."
+          : "System preference: full motion allowed. JS animations may run.";
+      }
+
+      function showUpdate() {
+        update.hidden = false;
+        if (document.documentElement.hasAttribute("data-reduce-motion")) {
+          return;
+        }
+        update.animate(
+          [
+            { opacity: 0, transform: "translateY(8px)" },
+            { opacity: 1, transform: "translateY(0)" },
+          ],
+          { duration: 220, easing: "ease-out", fill: "both" }
+        );
+      }
+
+      syncMotionPreference(media);
+      media.addEventListener("change", syncMotionPreference);
+      revealBtn.addEventListener("click", showUpdate);
+    </script>
+  </body>
+</html>
 ```
 
-```js
-const media = window.matchMedia("(prefers-reduced-motion: reduce)");
+[![Edit 040-prefers-reduced-motion](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/040-contentinfo-search-landmark-order-and-nesting-msmjhr)
 
-function syncMotionPreference(e) {
-  document.documentElement.toggleAttribute("data-reduce-motion", e.matches);
-}
+[^40]CodeSandbox: prefers-reduced-motion.
 
-syncMotionPreference(media);
-media.addEventListener("change", syncMotionPreference);
-```
+[^40]:[CodeSandbox: prefers-reduced-motion](https://msmjhr.csb.app/), last access: June 28, 2026.
 
-Use the `data-reduce-motion` attribute to branch component behavior (carousel autoplay, micro-interactions, physics-based transitions) in one consistent way across your UI.
+On load, the script reports the current system preference and sets `data-reduce-motion` on `<html>`. Click **Show update** to see JS-driven motion that is skipped when reduced motion is enabled.
 
 ### Summary: Seizures and Physical Reactions
 
@@ -3111,16 +3561,81 @@ Implementation notes:
 - After route transitions, place focus on the primary heading or a skip-target container.
 - Keep layout and source order aligned. If CSS visually reorders content, verify keyboard flow is still meaningful.
 
-```js
-function onRouteChange(page) {
-  document.title = `${page.title} - Awesome A11Y`;
-  const mainHeading = document.querySelector("main h1");
-  if (mainHeading) {
-    mainHeading.setAttribute("tabindex", "-1");
-    mainHeading.focus();
-  }
-}
+The demo below simulates two views with buttons. Each switch updates the page title and moves keyboard focus to the main heading so screen reader users hear the new context:
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Page title (2.4.2) and focus order (2.4.3)</title>
+    <style>
+      body {
+        font-family: system-ui, sans-serif;
+        max-width: 40rem;
+        margin: 2rem auto;
+        padding: 0 1rem;
+      }
+
+      nav {
+        display: flex;
+        gap: 0.5rem;
+        margin-bottom: 1.5rem;
+      }
+
+      h1:focus {
+        outline: 2px solid #2563eb;
+        outline-offset: 4px;
+      }
+    </style>
+  </head>
+  <body>
+    <nav aria-label="Demo views">
+      <button type="button" data-view="dashboard">Dashboard</button>
+      <button type="button" data-view="settings">Settings</button>
+    </nav>
+
+    <main id="main">
+      <h1 id="page-heading" tabindex="-1">Dashboard</h1>
+      <p id="page-body">Account overview and recent activity.</p>
+    </main>
+
+    <script>
+      const views = {
+        dashboard: {
+          title: "Dashboard",
+          heading: "Dashboard",
+          body: "Account overview and recent activity.",
+        },
+        settings: {
+          title: "Settings",
+          heading: "Settings",
+          body: "Manage profile, password, and notifications.",
+        },
+      };
+
+      function onRouteChange(page) {
+        document.title = `${page.title} - Awesome A11Y`;
+        document.getElementById("page-heading").textContent = page.heading;
+        document.getElementById("page-body").textContent = page.body;
+        document.getElementById("page-heading").focus();
+      }
+
+      document.querySelectorAll("[data-view]").forEach((button) => {
+        button.addEventListener("click", () => {
+          onRouteChange(views[button.dataset.view]);
+        });
+      });
+    </script>
+  </body>
+</html>
 ```
+
+[![Edit 041-Page title (2.4.2) and focus order (2.4.3)](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/041-page-title-2-4-2-and-focus-order-2-4-3-df2583)
+
+[^41]CodeSandbox: Page title (2.4.2) and focus order (2.4.3).
+
+[^41]:[CodeSandbox: Page title (2.4.2) and focus order (2.4.3)](https://df2583.csb.app/), last access: June 28, 2026.
 
 ### Link purpose in context (2.4.4), multiple ways (2.4.5)
 
@@ -3142,8 +3657,14 @@ Multiple-ways patterns:
 ```html
 <h2 id="post-1-title">WCAG Quick Start</h2>
 <p>Understand POUR principles and ship practical checks in one sprint.</p>
-<a href="/posts/wcag-quick-start" aria-labelledby="post-1-title">Read: WCAG Quick Start</a>
+<a href="https://www.w3.org/WAI/standards-guidelines/wcag/" aria-labelledby="post-1-title">Read: WCAG Quick Start</a>
 ```
+
+[![Edit 042-Link purpose in context (2.4.4), multiple ways (2.4.5)](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/041-contentinfo-search-landmark-order-and-nesting-c82pcv)
+
+[^42]CodeSandbox: Link purpose in context (2.4.4), multiple ways (2.4.5).
+
+[^42]:[CodeSandbox: Link purpose in context (2.4.4), multiple ways (2.4.5)](https://c82pcv.csb.app/), last access: June 28, 2026.
 
 Treat findability as a system-level requirement: users should not depend on one exact path to discover key content.
 
@@ -3163,21 +3684,44 @@ Focus visible implementation:
 - Use high-contrast focus indicators with sufficient thickness and offset.
 - Keep hover and focus styles distinct so keyboard users are never ambiguous.
 
-```css
-:focus {
-  outline: 3px solid #1a73e8;
-  outline-offset: 2px;
-}
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Headings and labels (2.4.6), focus visible (2.4.7)</title>
 
-:focus:not(:focus-visible) {
-  outline: none;
-}
+    <style>
+      :focus {
+        outline: 3px solid #1a73e8;
+        outline-offset: 2px;
+      }
 
-:focus-visible {
-  outline: 3px solid #1a73e8;
-  outline-offset: 2px;
-}
+      :focus:not(:focus-visible) {
+        outline: none;
+      }
+
+      :focus-visible {
+        outline: 3px solid #1a73e8;
+        outline-offset: 2px;
+      }
+    </style>
+  </head>
+  <body>
+    <h2 id="post-1-title">WCAG Quick Start</h2>
+    <p>Understand POUR principles and ship practical checks in one sprint.</p>
+    <a href="https://www.w3.org/WAI/standards-guidelines/wcag/" aria-labelledby="post-1-title"
+      >Read: WCAG Quick Start</a
+    >
+  </body>
+</html>
 ```
+
+[![Edit 043-Headings and labels (2.4.6), focus visible (2.4.7)](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/042-contentinfo-search-landmark-order-and-nesting-d8cxhh)
+
+[^43]CodeSandbox: Headings and labels (2.4.6), focus visible (2.4.7).
+
+[^43]:[CodeSandbox: Headings and labels (2.4.6), focus visible (2.4.7)](https://d8cxhh.csb.app/), last access: June 28, 2026.
 
 For component libraries, centralize focus tokens so every button, link, tab, and custom control inherits a consistent visible state.
 
@@ -3198,18 +3742,55 @@ Mitigations:
 - On focus events in custom scroll containers, call `element.scrollIntoView({ block: "nearest" })` carefully.
 - Re-test at zoom levels (200% and up), where overlays and wrapping can newly obscure focus.
 
-```css
-:root {
-  --sticky-header-height: 72px;
-}
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>contentinfo, search, landmark order and nesting</title>
 
-h1,
-h2,
-h3,
-[data-focus-target] {
-  scroll-margin-top: calc(var(--sticky-header-height) + 12px);
-}
+    <style>
+      :focus {
+        outline: 3px solid #1a73e8;
+        outline-offset: 2px;
+      }
+
+      :focus:not(:focus-visible) {
+        outline: none;
+      }
+
+      :focus-visible {
+        outline: 3px solid #1a73e8;
+        outline-offset: 2px;
+      }
+    </style>
+
+    <style>
+      :root {
+        --sticky-header-height: 72px;
+      }
+
+      h1,
+      h2,
+      h3,
+      [data-focus-target] {
+        scroll-margin-top: calc(var(--sticky-header-height) + 12px);
+      }
+    </style>
+  </head>
+  <body>
+<h2 id="post-1-title">WCAG Quick Start</h2>
+<p>Understand POUR principles and ship practical checks in one sprint.</p>
+<a href="https://www.w3.org/WAI/standards-guidelines/wcag/" aria-labelledby="post-1-title">Read: WCAG Quick Start</a>
+  </body>
+</html>
 ```
+
+[![Edit 043-contentinfo, search, landmark order and nesting](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/043-contentinfo-search-landmark-order-and-nesting-pjj6vz)
+
+[^43]CodeSandbox: contentinfo, search, landmark order and nesting.
+
+[^43]:[CodeSandbox: contentinfo, search, landmark order and nesting](https://pjj6vz.csb.app/), last access: June 28, 2026.
 
 ### Summary: Navigable
 
@@ -3235,6 +3816,13 @@ Practical implementation patterns:
 </div>
 ```
 
+[![Edit 044-contentinfo, search, landmark order and nesting](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/044-contentinfo-search-landmark-order-and-nesting-7tc9tq)
+
+[^44]CodeSandbox: contentinfo, search, landmark order and nesting.
+
+[^44]:[CodeSandbox: contentinfo, search, landmark order and nesting](https://7tc9tq.csb.app/), last access: June 24, 2026.
+
+
 If you add gesture-enhanced UX, treat it as progressive enhancement and ship a fully functional single-pointer baseline first.
 
 ### Pointer cancellation (2.5.2), target size (2.5.8)
@@ -3254,13 +3842,36 @@ Target size engineering checks:
 - Increase size for high-risk or high-frequency actions where possible (`44x44` is a strong mobile baseline).
 - Ensure icon-only controls still meet size requirements even when visual icons are small.
 
-```css
-.icon-button {
-  min-width: 24px;
-  min-height: 24px;
-  padding: 8px; /* larger hit area than the icon itself */
-}
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>contentinfo, search, landmark order and nesting</title>
+
+    <style>
+      .icon-button {
+        min-width: 24px;
+        min-height: 24px;
+        padding: 8px; /* larger hit area than the icon itself */
+      }
+    </style>
+  </head>
+  <body>
+<div class="map-controls" aria-label="Map zoom controls">
+  <button type="button" id="zoom-in">Zoom in</button>
+  <button type="button" id="zoom-out">Zoom out</button>
+</div>
+  </body>
+</html>
 ```
+
+[![Edit 045-contentinfo, search, landmark order and nesting](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/045-contentinfo-search-landmark-order-and-nesting-gs4tlv)
+
+[^45]CodeSandbox: contentinfo, search, landmark order and nesting.
+
+[^45]:[CodeSandbox: contentinfo, search, landmark order and nesting](https://gs4tlv.csb.app/), last access: June 24, 2026.
+
 
 ### Label in name (2.5.3), motion actuation (2.5.4)
 
@@ -3281,6 +3892,13 @@ Motion actuation guidance:
 ```html
 <button type="button" aria-label="Save draft">Save draft</button>
 ```
+
+[![Edit 046-contentinfo, search, landmark order and nesting](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/046-contentinfo-search-landmark-order-and-nesting-m5rp2k)
+
+[^46]CodeSandbox: contentinfo, search, landmark order and nesting.
+
+[^46]:[CodeSandbox: contentinfo, search, landmark order and nesting](https://m5rp2k.csb.app/), last access: June 24, 2026.
+
 
 For custom accessible-name logic, test with both screen readers and speech recognition to verify that visible label and announced name stay aligned.
 
@@ -3312,6 +3930,13 @@ Concurrent input mechanisms:
   required
 />
 ```
+
+[![Edit 047-contentinfo, search, landmark order and nesting](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/047-contentinfo-search-landmark-order-and-nesting-gpszt9)
+
+[^47]CodeSandbox: contentinfo, search, landmark order and nesting.
+
+[^47]:[CodeSandbox: contentinfo, search, landmark order and nesting](https://gpszt9.csb.app/), last access: June 24, 2026.
+
 
 Correct autocomplete tokens improve speed, reduce typing burden, and lower form abandonment, especially on mobile and assistive technology workflows.
 
@@ -3351,6 +3976,13 @@ Engineering checks:
 </html>
 ```
 
+[![Edit 048-contentinfo, search, landmark order and nesting](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/048-contentinfo-search-landmark-order-and-nesting-3ylhzq)
+
+[^48]CodeSandbox: contentinfo, search, landmark order and nesting.
+
+[^48]:[CodeSandbox: contentinfo, search, landmark order and nesting](https://3ylhzq.csb.app/), last access: June 24, 2026.
+
+
 Language tagging is lightweight but high impact: it improves comprehension, pronunciation accuracy, and trust for multilingual audiences.
 
 ### Unusual words, abbreviations (3.1.3, 3.1.4)
@@ -3380,6 +4012,13 @@ Authoring patterns:
   before advanced features load.
 </p>
 ```
+
+[![Edit 049-contentinfo, search, landmark order and nesting](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/049-contentinfo-search-landmark-order-and-nesting-wghqn5)
+
+[^49]CodeSandbox: contentinfo, search, landmark order and nesting.
+
+[^49]:[CodeSandbox: contentinfo, search, landmark order and nesting](https://wghqn5.csb.app/), last access: June 24, 2026.
+
 
 Readable content is not about oversimplifying ideas; it is about removing avoidable cognitive friction so users can process meaning quickly and accurately.
 
@@ -3416,6 +4055,13 @@ Engineering patterns:
 
 <button type="submit">Apply</button>
 ```
+
+[![Edit 050-contentinfo, search, landmark order and nesting](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/050-contentinfo-search-landmark-order-and-nesting-7zz7q3)
+
+[^50]CodeSandbox: contentinfo, search, landmark order and nesting.
+
+[^50]:[CodeSandbox: contentinfo, search, landmark order and nesting](https://7zz7q3.csb.app/), last access: June 24, 2026.
+
 
 Predictable focus and input behavior reduces disorientation, especially for keyboard and screen reader users who rely on stable interaction flow.
 
@@ -3487,6 +4133,13 @@ Implementation guidance:
 <p id="email-hint">Use your work email (example@company.com).</p>
 ```
 
+[![Edit 051-contentinfo, search, landmark order and nesting](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/051-contentinfo-search-landmark-order-and-nesting-3jyk7w)
+
+[^51]CodeSandbox: contentinfo, search, landmark order and nesting.
+
+[^51]:[CodeSandbox: contentinfo, search, landmark order and nesting](https://3jyk7w.csb.app/), last access: June 24, 2026.
+
+
 ### Error suggestion (3.3.3) and error prevention (3.3.4)
 
 WCAG 3.3.3 Error Suggestion (Level AA) asks for corrective suggestions when a fix is known, and WCAG 3.3.4 Error Prevention (Level AA/AAA depending on context) protects users from costly mistakes, especially for legal, financial, or important data actions.
@@ -3530,6 +4183,13 @@ Recommended wiring:
 <input id="postal" name="postal" aria-invalid="true" aria-describedby="postal-error">
 <p id="postal-error">Postal code is required.</p>
 ```
+
+[![Edit 052-contentinfo, search, landmark order and nesting](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/052-contentinfo-search-landmark-order-and-nesting-kzgxcj)
+
+[^52]CodeSandbox: contentinfo, search, landmark order and nesting.
+
+[^52]:[CodeSandbox: contentinfo, search, landmark order and nesting](https://kzgxcj.csb.app/), last access: June 24, 2026.
+
 
 ### Required fields, autocomplete, confirmation steps
 
@@ -3587,6 +4247,13 @@ Even when modern browsers recover from HTML errors visually, accessibility APIs 
 <p id="email-help">We will never share your email.</p>
 ```
 
+[![Edit 053-Start and end tags, nesting, duplicate id and ARIA IDs](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/053-start-and-end-tags-nesting-duplicate-id-and-aria-ids-y63z2r)
+
+[^53]CodeSandbox: Start and end tags, nesting, duplicate id and ARIA IDs.
+
+[^53]:[CodeSandbox: Start and end tags, nesting, duplicate id and ARIA IDs](https://y63z2r.csb.app/), last access: June 24, 2026.
+
+
 #### W3C validator and Nu Html Checker
 
 Automated validation catches structural issues that are easy to miss in manual reviews. The [W3C Validator](https://validator.w3.org/) and [Nu Html Checker](https://validator.w3.org/nu/) are useful baseline checks in both development and CI.
@@ -3638,6 +4305,13 @@ Native elements (`button`, `input`, `select`, `details`) are preferred because t
 </div>
 ```
 
+[![Edit 054-Exposing name, role, value to assistive tech, custom control requirements](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/054-exposing-name-role-value-to-assistive-tech-custom-control-requirements-cykvdg)
+
+[^54]CodeSandbox: Exposing name, role, value to assistive tech, custom control requirements.
+
+[^54]:[CodeSandbox: Exposing name, role, value to assistive tech, custom control requirements](https://cykvdg.csb.app/), last access: June 24, 2026.
+
+
 ```js
 // Keep custom control state in sync for AT + keyboard users
 const switchEl = document.getElementById('theme-switch');
@@ -3680,6 +4354,13 @@ Use live regions intentionally: over-announcing creates noise, while missing ann
 <p id="payment-error" aria-live="assertive" aria-atomic="true"></p>
 ```
 
+[![Edit 055-aria-live, aria-atomic, aria-relevant; polite vs assertive](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/055-aria-live-aria-atomic-aria-relevant-polite-vs-assertive-kl8pd2)
+
+[^55]CodeSandbox: aria-live, aria-atomic, aria-relevant; polite vs assertive.
+
+[^55]:[CodeSandbox: aria-live, aria-atomic, aria-relevant; polite vs assertive](https://kl8pd2.csb.app/), last access: June 24, 2026.
+
+
 ```js
 document.getElementById('search-status').textContent = '15 results loaded';
 document.getElementById('payment-error').textContent = 'Payment failed. Card was declined.';
@@ -3700,6 +4381,13 @@ Choosing the right role balances urgency with usability: informational updates s
 <div role="status" aria-atomic="true" id="save-status"></div>
 <div role="alert" id="form-error"></div>
 ```
+
+[![Edit 056-role="status" and role="alert" for messages](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/056-role-status-and-role-alert-for-messages-v6zn8p)
+
+[^56]CodeSandbox: role="status" and role="alert" for messages.
+
+[^56]:[CodeSandbox: role="status" and role="alert" for messages](https://v6zn8p.csb.app/), last access: June 24, 2026.
+
 
 ```js
 function showSaveSuccess() {
@@ -3739,6 +4427,13 @@ Why native first:
   Shipping takes 2-3 business days.
 </div>
 ```
+
+[![Edit 057-Prefer native elements for built-in semantics and behavior](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/057-prefer-native-elements-for-built-in-semantics-and-behavior-87szst)
+
+[^57]CodeSandbox: Prefer native elements for built-in semantics and behavior.
+
+[^57]:[CodeSandbox: Prefer native elements for built-in semantics and behavior](https://87szst.csb.app/), last access: June 24, 2026.
+
 
 #### Add ARIA only when native HTML cannot express intent
 
@@ -3793,6 +4488,13 @@ Common attributes:
 </section>
 ```
 
+[![Edit 058-States/properties define current condition and relationships](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/058-states-properties-define-current-condition-and-relationships-m722hw)
+
+[^58]CodeSandbox: States/properties define current condition and relationships.
+
+[^58]:[CodeSandbox: States/properties define current condition and relationships](https://m722hw.csb.app/), last access: June 24, 2026.
+
+
 ```js
 const toggle = document.getElementById('filters-toggle');
 const panel = document.getElementById('filters-panel');
@@ -3836,6 +4538,13 @@ Dialog essentials:
   <button type="button" id="close-settings">Close</button>
 </dialog>
 ```
+
+[![Edit 059-Dialogs and modals: focus containment and close behavior](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/059-dialogs-and-modals-focus-containment-and-close-behavior-vzht63)
+
+[^59]CodeSandbox: Dialogs and modals: focus containment and close behavior.
+
+[^59]:[CodeSandbox: Dialogs and modals: focus containment and close behavior](https://vzht63.csb.app/), last access: June 24, 2026.
+
 
 ```js
 const openBtn = document.getElementById('open-settings');
@@ -3881,6 +4590,13 @@ For most website dropdowns (FAQs, filters, account sections), disclosure is simp
 </div>
 ```
 
+[![Edit 060-Disclosure as a safer default for many dropdown-like UIs](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/060-disclosure-as-a-safer-default-for-many-dropdown-like-uis-5k2wgs)
+
+[^60]CodeSandbox: Disclosure as a safer default for many dropdown-like UIs.
+
+[^60]:[CodeSandbox: Disclosure as a safer default for many dropdown-like UIs](https://5k2wgs.csb.app/), last access: June 24, 2026.
+
+
 ```js
 const accountToggle = document.getElementById('account-toggle');
 const accountPanel = document.getElementById('account-panel');
@@ -3919,6 +4635,13 @@ Reliable labeling patterns:
 <input id="search" name="search" type="search" placeholder="Search docs" />
 ```
 
+[![Edit 061-for and id, wrapping with label, visually hidden label](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/061-for-and-id-wrapping-with-label-visually-hidden-label-w9v3nw)
+
+[^61]CodeSandbox: for and id, wrapping with label, visually hidden label.
+
+[^61]:[CodeSandbox: for and id, wrapping with label, visually hidden label](https://w9v3nw.csb.app/), last access: June 24, 2026.
+
+
 #### fieldset, legend, radio groups and checkbox groups
 
 When multiple controls answer one question, group them with `<fieldset>` and describe the group with `<legend>`.
@@ -3944,6 +4667,13 @@ Grouping benefits:
 </fieldset>
 ```
 
+[![Edit 062-fieldset, legend, radio groups and checkbox groups](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/062-fieldset-legend-radio-groups-and-checkbox-groups-ww87pz)
+
+[^62]CodeSandbox: fieldset, legend, radio groups and checkbox groups.
+
+[^62]:[CodeSandbox: fieldset, legend, radio groups and checkbox groups](https://ww87pz.csb.app/), last access: June 24, 2026.
+
+
 ### Grouping, required fields, error association
 
 #### Required field indication, aria-required and HTML required
@@ -3962,6 +4692,13 @@ Recommended approach:
 <input id="first-name" name="firstName" type="text" required />
 <p id="required-note">Fields marked with * are required.</p>
 ```
+
+[![Edit 063-Required field indication, aria-required and HTML required](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/063-required-field-indication-aria-required-and-html-required-8v5phc)
+
+[^63]CodeSandbox: Required field indication, aria-required and HTML required.
+
+[^63]:[CodeSandbox: Required field indication, aria-required and HTML required](https://8v5phc.csb.app/), last access: June 24, 2026.
+
 
 #### Linking error message to input id, aria-describedby
 
@@ -3986,6 +4723,13 @@ Error association checklist:
 <p id="password-error">Password must include at least one number.</p>
 ```
 
+[![Edit 064-Linking error message to input id, aria-describedby](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/064-linking-error-message-to-input-id-aria-describedby-cwt5yy)
+
+[^64]CodeSandbox: Linking error message to input id, aria-describedby.
+
+[^64]:[CodeSandbox: Linking error message to input id, aria-describedby](https://cwt5yy.csb.app/), last access: June 24, 2026.
+
+
 ### Validation messages, aria-describedby, role=alert
 
 #### Error summary at top of form, focus on first error
@@ -4009,6 +4753,13 @@ Summary behavior:
 </div>
 ```
 
+[![Edit 065-Error summary at top of form, focus on first error](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/065-error-summary-at-top-of-form-focus-on-first-error-tlvmct)
+
+[^65]CodeSandbox: Error summary at top of form, focus on first error.
+
+[^65]:[CodeSandbox: Error summary at top of form, focus on first error](https://tlvmct.csb.app/), last access: June 24, 2026.
+
+
 ```js
 const errorBox = document.getElementById('form-errors');
 errorBox.hidden = false;
@@ -4029,6 +4780,13 @@ Guidelines for alerts:
 ```html
 <div id="payment-error" role="alert"></div>
 ```
+
+[![Edit 066-role="alert" for critical errors, announcing to screen readers](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/066-role-alert-for-critical-errors-announcing-to-screen-readers-lr5tk6)
+
+[^66]CodeSandbox: role="alert" for critical errors, announcing to screen readers.
+
+[^66]:[CodeSandbox: role="alert" for critical errors, announcing to screen readers](https://lr5tk6.csb.app/), last access: June 24, 2026.
+
 
 ```js
 document.getElementById('payment-error').textContent =
