@@ -5011,7 +5011,7 @@ Authoring patterns:
 
 [^50]CodeSandbox: Unusual words, abbreviations (3.1.3, 3.1.4).
 
-[^50]:[CodeSandbox: Unusual words, abbreviations (3.1.3, 3.1.4)](https://wghqn5.csb.app/), last access: June 24, 2026.
+[^50]:[CodeSandbox: Unusual words, abbreviations (3.1.3, 3.1.4)](https://wghqn5.csb.app/), last access: July 3, 2026.
 
 Readable content is not about oversimplifying ideas; it is about removing avoidable cognitive friction so users can process meaning quickly and accurately.
 
@@ -5049,11 +5049,11 @@ Engineering patterns:
 <button type="submit">Apply</button>
 ```
 
-[![Edit 050-contentinfo, search, landmark order and nesting](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/050-contentinfo-search-landmark-order-and-nesting-7zz7q3)
+[![Edit 051-On focus (3.2.1) and on input (3.2.2)](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/051-on-focus-3-2-1-and-on-input-3-2-2-7zz7q3)
 
-[^51]CodeSandbox: contentinfo, search, landmark order and nesting.
+[^51]CodeSandbox: On focus (3.2.1) and on input (3.2.2).
 
-[^51]:[CodeSandbox: contentinfo, search, landmark order and nesting](https://7zz7q3.csb.app/), last access: June 24, 2026.
+[^51]:[CodeSandbox: On focus (3.2.1) and on input (3.2.2)](https://7zz7q3.csb.app/), last access: July 3, 2026.
 
 
 Predictable focus and input behavior reduces disorientation, especially for keyboard and screen reader users who rely on stable interaction flow.
