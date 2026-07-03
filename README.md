@@ -4276,7 +4276,238 @@ Motion actuation guidance:
 - Respect platform settings and avoid surprise activation from incidental movement.
 
 ```html
-<button type="button" aria-label="Save draft">Save draft</button>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Label in name (2.5.3), motion actuation (2.5.4)</title>
+
+    <style>
+      body {
+        font: 1rem/1.5 system-ui, sans-serif;
+        max-width: 640px;
+        margin: 1.5rem;
+      }
+
+      section {
+        margin: 2rem 0;
+        padding: 1rem 0;
+        border-top: 1px solid #cbd5e1;
+      }
+
+      .button-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin: 1rem 0;
+      }
+
+      button,
+      .note-field {
+        font: inherit;
+      }
+
+      button {
+        min-height: 44px;
+        padding: 0 16px;
+        border: 1px solid #1e293b;
+        border-radius: 6px;
+        background: #fff;
+        cursor: pointer;
+      }
+
+      button:focus-visible,
+      .note-field:focus-visible {
+        outline: 3px solid #1a73e8;
+        outline-offset: 2px;
+      }
+
+      .bad-example {
+        border: 1px solid #f87171;
+        border-radius: 8px;
+        padding: 12px;
+        background: #fef2f2;
+      }
+
+      .good-example {
+        border: 1px solid #86efac;
+        border-radius: 8px;
+        padding: 12px;
+        background: #f0fdf4;
+      }
+
+      .note-field {
+        width: 100%;
+        min-height: 120px;
+        padding: 12px;
+        border: 1px solid #94a3b8;
+        border-radius: 8px;
+        box-sizing: border-box;
+      }
+
+      .motion-controls {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        align-items: center;
+        margin: 1rem 0;
+      }
+
+      .status {
+        min-height: 1.5rem;
+        margin-top: 0.75rem;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Note editor</h1>
+
+    <section aria-labelledby="label-name-heading">
+      <h2 id="label-name-heading">Label in name (2.5.3)</h2>
+      <p>
+        Speech-input users say the words they see. The accessible name must
+        include that same visible wording.
+      </p>
+
+      <div class="good-example">
+        <h3>Passes — visible text is the accessible name</h3>
+        <div class="button-row">
+          <button type="button" id="save-good">Save draft</button>
+        </div>
+        <p>
+          Saying <strong>“Save draft”</strong> activates this control. No
+          extra <code>aria-label</code> is needed when visible text is enough.
+        </p>
+      </div>
+
+      <div class="bad-example">
+        <h3>Fails — visible and announced names disagree</h3>
+        <div class="button-row">
+          <button type="button" aria-label="Submit form now" id="save-bad">
+            Save draft
+          </button>
+        </div>
+        <p>
+          The screen shows <strong>Save draft</strong>, but assistive tech
+          announces <strong>Submit form now</strong>. A voice command for
+          “Save draft” will not match.
+        </p>
+      </div>
+    </section>
+
+    <section aria-labelledby="motion-heading">
+      <h2 id="motion-heading">Motion actuation (2.5.4)</h2>
+      <p>
+        Shake-to-undo is optional enhancement. Users can always undo with the
+        on-screen button and can turn motion off.
+      </p>
+
+      <label class="motion-controls" for="motion-enabled">
+        <input type="checkbox" id="motion-enabled" checked />
+        Enable shake to undo
+      </label>
+
+      <label for="note">Draft note</label>
+      <textarea class="note-field" id="note">
+Meeting notes: add keyboard checks to release checklist.
+      </textarea>
+
+      <div class="button-row">
+        <button type="button" id="save-note">Save draft</button>
+        <button type="button" id="undo-note">Undo</button>
+      </div>
+
+      <p class="status" aria-live="polite" id="motion-status">
+        Motion undo is enabled. You can also click Undo.
+      </p>
+    </section>
+
+    <script>
+      (function () {
+        const saveGood = document.getElementById("save-good");
+        const saveBad = document.getElementById("save-bad");
+        const saveNote = document.getElementById("save-note");
+        const undoNote = document.getElementById("undo-note");
+        const note = document.getElementById("note");
+        const motionEnabled = document.getElementById("motion-enabled");
+        const motionStatus = document.getElementById("motion-status");
+
+        let previousText = note.value;
+        let lastShake = 0;
+
+        function announceSave(source) {
+          motionStatus.textContent = "Saved draft (" + source + ").";
+        }
+
+        saveGood.addEventListener("click", function () {
+          announceSave("button");
+        });
+
+        saveBad.addEventListener("click", function () {
+          announceSave("mislabeled button");
+        });
+
+        saveNote.addEventListener("click", function () {
+          previousText = note.value;
+          announceSave("editor");
+        });
+
+        function undo() {
+          note.value = previousText;
+          motionStatus.textContent = "Undone to previous version.";
+        }
+
+        undoNote.addEventListener("click", undo);
+
+        motionEnabled.addEventListener("change", function () {
+          motionStatus.textContent = motionEnabled.checked
+            ? "Motion undo is enabled. You can also click Undo."
+            : "Motion undo is disabled. Use the Undo button instead.";
+        });
+
+        // 2.5.4: motion is enhancement only; respect user opt-out
+        function onMotion(event) {
+          if (!motionEnabled.checked) {
+            return;
+          }
+
+          const acceleration = event.accelerationIncludingGravity;
+          if (!acceleration) {
+            return;
+          }
+
+          const magnitude = Math.sqrt(
+            acceleration.x * acceleration.x +
+              acceleration.y * acceleration.y +
+              acceleration.z * acceleration.z
+          );
+
+          if (magnitude < 18) {
+            return;
+          }
+
+          const now = Date.now();
+          if (now - lastShake < 1200) {
+            return;
+          }
+          lastShake = now;
+          undo();
+          motionStatus.textContent =
+            "Shake detected — undone. Motion can be disabled above.";
+        }
+
+        if (window.DeviceMotionEvent) {
+          window.addEventListener("devicemotion", onMotion);
+        } else {
+          motionStatus.textContent =
+            "This device has no motion sensor. Use the Undo button.";
+          motionEnabled.checked = false;
+          motionEnabled.disabled = true;
+        }
+      })();
+    </script>
+  </body>
+</html>
 ```
 
 [![Edit 047-Label in name (2.5.3), motion actuation (2.5.4)](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/047-label-in-name-2-5-3-motion-actuation-2-5-4-m5rp2k)
@@ -4284,7 +4515,6 @@ Motion actuation guidance:
 [^47]CodeSandbox: Label in name (2.5.3), motion actuation (2.5.4).
 
 [^47]:[CodeSandbox: Label in name (2.5.3), motion actuation (2.5.4)](https://m5rp2k.csb.app/), last access: July 3, 2026.
-
 
 For custom accessible-name logic, test with both screen readers and speech recognition to verify that visible label and announced name stay aligned.
 
