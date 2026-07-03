@@ -5055,7 +5055,6 @@ Engineering patterns:
 
 [^51]:[CodeSandbox: On focus (3.2.1) and on input (3.2.2)](https://7zz7q3.csb.app/), last access: July 3, 2026.
 
-
 Predictable focus and input behavior reduces disorientation, especially for keyboard and screen reader users who rely on stable interaction flow.
 
 ### Consistent navigation and identification (3.2.3, 3.2.4)
@@ -5126,12 +5125,11 @@ Implementation guidance:
 <p id="email-hint">Use your work email (example@company.com).</p>
 ```
 
-[![Edit 051-contentinfo, search, landmark order and nesting](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/051-contentinfo-search-landmark-order-and-nesting-3jyk7w)
+[![Edit 052-Error identification (3.3.1) and labels or instructions (3.3.2)](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/052-error-identification-3-3-1-and-labels-or-instructions-3-3-2-3jyk7w)
 
-[^52]CodeSandbox: contentinfo, search, landmark order and nesting.
+[^52]CodeSandbox: Error identification (3.3.1) and labels or instructions (3.3.2).
 
-[^52]:[CodeSandbox: contentinfo, search, landmark order and nesting](https://3jyk7w.csb.app/), last access: June 24, 2026.
-
+[^52]:[CodeSandbox: Error identification (3.3.1) and labels or instructions (3.3.2)](https://3jyk7w.csb.app/), last access: July 3, 2026.
 
 ### Error suggestion (3.3.3) and error prevention (3.3.4)
 
@@ -5182,7 +5180,6 @@ Recommended wiring:
 [^53]CodeSandbox: contentinfo, search, landmark order and nesting.
 
 [^53]:[CodeSandbox: contentinfo, search, landmark order and nesting](https://kzgxcj.csb.app/), last access: June 24, 2026.
-
 
 ### Required fields, autocomplete, confirmation steps
 
