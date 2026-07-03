@@ -4962,7 +4962,7 @@ Engineering checks:
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>Travel Guide</title>
+    <title>Language of page (3.1.1) and language of parts (3.1.2)</title>
   </head>
   <body>
     <p>The French word <span lang="fr">bonjour</span> means "hello".</p>
@@ -4970,12 +4970,11 @@ Engineering checks:
 </html>
 ```
 
-[![Edit 048-contentinfo, search, landmark order and nesting](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/048-contentinfo-search-landmark-order-and-nesting-3ylhzq)
+[![Edit 049-Language of page (3.1.1) and language of parts (3.1.2)](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/049-language-of-page-3-1-1-and-language-of-parts-3-1-2-3ylhzq)
 
-[^49]CodeSandbox: contentinfo, search, landmark order and nesting.
+[^49]CodeSandbox: Language of page (3.1.1) and language of parts (3.1.2).
 
-[^49]:[CodeSandbox: contentinfo, search, landmark order and nesting](https://3ylhzq.csb.app/), last access: June 24, 2026.
-
+[^49]:[CodeSandbox: Language of page (3.1.1) and language of parts (3.1.2)](https://3ylhzq.csb.app/), last access: July 3, 2026.
 
 Language tagging is lightweight but high impact: it improves comprehension, pronunciation accuracy, and trust for multilingual audiences.
 
