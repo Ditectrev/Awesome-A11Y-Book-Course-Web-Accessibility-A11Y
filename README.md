@@ -4997,21 +4997,21 @@ Authoring patterns:
 
 ```html
 <p>
-  Our team follows <abbr title="Web Content Accessibility Guidelines">WCAG</abbr>
+  Our team follows
+  <abbr title="Web Content Accessibility Guidelines">WCAG</abbr>
   to improve accessibility quality.
 </p>
 <p>
-  We use a progressive enhancement approach, meaning core functionality works
-  before advanced features load.
+  We use a progressive enhancement approach, meaning core functionality
+  works before advanced features load.
 </p>
 ```
 
-[![Edit 049-contentinfo, search, landmark order and nesting](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/049-contentinfo-search-landmark-order-and-nesting-wghqn5)
+[![Edit 050-Unusual words, abbreviations (3.1.3, 3.1.4)](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/050-unusual-words-abbreviations-3-1-3-3-1-4-wghqn5)
 
-[^50]CodeSandbox: contentinfo, search, landmark order and nesting.
+[^50]CodeSandbox: Unusual words, abbreviations (3.1.3, 3.1.4).
 
-[^50]:[CodeSandbox: contentinfo, search, landmark order and nesting](https://wghqn5.csb.app/), last access: June 24, 2026.
-
+[^50]:[CodeSandbox: Unusual words, abbreviations (3.1.3, 3.1.4)](https://wghqn5.csb.app/), last access: June 24, 2026.
 
 Readable content is not about oversimplifying ideas; it is about removing avoidable cognitive friction so users can process meaning quickly and accurately.
 
