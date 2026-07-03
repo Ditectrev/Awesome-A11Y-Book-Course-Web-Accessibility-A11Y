@@ -3717,7 +3717,7 @@ Focus visible implementation:
 </html>
 ```
 
-[![Edit 043-Headings and labels (2.4.6), focus visible (2.4.7)](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/042-contentinfo-search-landmark-order-and-nesting-d8cxhh)
+[![Edit 043-Headings and labels (2.4.6), focus visible (2.4.7)](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/043-headings-and-labels-2-4-6-focus-visible-2-4-7-d8cxhh)
 
 [^43]CodeSandbox: Headings and labels (2.4.6), focus visible (2.4.7).
 
@@ -3747,7 +3747,7 @@ Mitigations:
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>contentinfo, search, landmark order and nesting</title>
+    <title>Focus not obscured (2.4.11, 2.4.12)</title>
 
     <style>
       :focus {
@@ -3779,18 +3779,22 @@ Mitigations:
     </style>
   </head>
   <body>
-<h2 id="post-1-title">WCAG Quick Start</h2>
-<p>Understand POUR principles and ship practical checks in one sprint.</p>
-<a href="https://www.w3.org/WAI/standards-guidelines/wcag/" aria-labelledby="post-1-title">Read: WCAG Quick Start</a>
+    <h2 id="post-1-title">WCAG Quick Start</h2>
+    <p>Understand POUR principles and ship practical checks in one sprint.</p>
+    <a
+      href="https://www.w3.org/WAI/standards-guidelines/wcag/"
+      aria-labelledby="post-1-title"
+      >Read: WCAG Quick Start</a
+    >
   </body>
 </html>
 ```
 
-[![Edit 043-contentinfo, search, landmark order and nesting](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/043-contentinfo-search-landmark-order-and-nesting-pjj6vz)
+[![Edit 044-Focus not obscured (2.4.11, 2.4.12)](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/044-focus-not-obscured-2-4-11-2-4-12-pjj6vz)
 
-[^43]CodeSandbox: contentinfo, search, landmark order and nesting.
+[^44]CodeSandbox: Focus not obscured (2.4.11, 2.4.12).
 
-[^43]:[CodeSandbox: contentinfo, search, landmark order and nesting](https://pjj6vz.csb.app/), last access: June 28, 2026.
+[^44]:[CodeSandbox: Focus not obscured (2.4.11, 2.4.12)](https://pjj6vz.csb.app/), last access: July 3, 2026.
 
 ### Summary: Navigable
 
@@ -3810,18 +3814,190 @@ Practical implementation patterns:
 - Ensure gesture shortcuts never become the only route to a critical task.
 
 ```html
-<div class="map-controls" aria-label="Map zoom controls">
-  <button type="button" id="zoom-in">Zoom in</button>
-  <button type="button" id="zoom-out">Zoom out</button>
-</div>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Pointer gestures (2.5.1) — map zoom controls</title>
+
+    <style>
+      .map-shell {
+        position: relative;
+        max-width: 640px;
+        margin: 1rem 0;
+      }
+
+      .map-viewport {
+        overflow: hidden;
+        border: 1px solid #cbd5e1;
+        border-radius: 8px;
+        background: #e2e8f0;
+        touch-action: none; /* allow custom pinch handling without browser zoom */
+      }
+
+      .map-canvas {
+        width: 100%;
+        height: 320px;
+        transform-origin: center center;
+        background:
+          linear-gradient(#94a3b8 1px, transparent 1px),
+          linear-gradient(90deg, #94a3b8 1px, transparent 1px),
+          #dbeafe;
+        background-size: 40px 40px;
+        display: grid;
+        place-items: center;
+        font: 600 1rem/1.4 system-ui, sans-serif;
+        color: #0f172a;
+      }
+
+      .map-controls {
+        position: absolute;
+        top: 12px;
+        right: 12px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .map-controls button {
+        min-width: 44px;
+        min-height: 44px;
+        padding: 0 12px;
+        border: 1px solid #1e293b;
+        border-radius: 6px;
+        background: #fff;
+        font: inherit;
+        cursor: pointer;
+      }
+
+      .map-controls button:focus-visible {
+        outline: 3px solid #1a73e8;
+        outline-offset: 2px;
+      }
+
+      .map-status {
+        margin-top: 0.5rem;
+        font: 0.95rem/1.4 system-ui, sans-serif;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Store locator map</h1>
+    <p>
+      Zoom with the buttons below. Pinch-to-zoom is optional progressive
+      enhancement for touch users who can use it.
+    </p>
+
+    <div class="map-shell">
+      <div
+        class="map-viewport"
+        id="map-viewport"
+        role="region"
+        aria-label="Interactive map of downtown locations"
+        tabindex="0"
+      >
+        <div class="map-canvas" id="map-canvas" aria-hidden="true">
+          Downtown — 3 locations
+        </div>
+      </div>
+
+      <div class="map-controls" aria-label="Map zoom controls">
+        <button type="button" id="zoom-in">Zoom in</button>
+        <button type="button" id="zoom-out">Zoom out</button>
+      </div>
+    </div>
+
+    <p class="map-status" aria-live="polite" id="zoom-status">
+      Zoom level: 100%
+    </p>
+
+    <script>
+      (function () {
+        const MIN_ZOOM = 0.5;
+        const MAX_ZOOM = 3;
+        const STEP = 0.25;
+
+        const viewport = document.getElementById("map-viewport");
+        const canvas = document.getElementById("map-canvas");
+        const zoomIn = document.getElementById("zoom-in");
+        const zoomOut = document.getElementById("zoom-out");
+        const status = document.getElementById("zoom-status");
+
+        let zoom = 1;
+        let pinchStartDistance = null;
+        let pinchStartZoom = zoom;
+
+        function clamp(value) {
+          return Math.min(MAX_ZOOM, Math.max(MIN_ZOOM, value));
+        }
+
+        function render() {
+          canvas.style.transform = "scale(" + zoom + ")";
+          status.textContent = "Zoom level: " + Math.round(zoom * 100) + "%";
+          zoomOut.disabled = zoom <= MIN_ZOOM;
+          zoomIn.disabled = zoom >= MAX_ZOOM;
+        }
+
+        function setZoom(nextZoom) {
+          zoom = clamp(nextZoom);
+          render();
+        }
+
+        zoomIn.addEventListener("click", function () {
+          setZoom(zoom + STEP);
+        });
+
+        zoomOut.addEventListener("click", function () {
+          setZoom(zoom - STEP);
+        });
+
+        viewport.addEventListener("wheel", function (event) {
+          event.preventDefault();
+          const delta = event.deltaY < 0 ? STEP : -STEP;
+          setZoom(zoom + delta);
+        });
+
+        function touchDistance(touches) {
+          const dx = touches[0].clientX - touches[1].clientX;
+          const dy = touches[0].clientY - touches[1].clientY;
+          return Math.hypot(dx, dy);
+        }
+
+        viewport.addEventListener("touchstart", function (event) {
+          if (event.touches.length === 2) {
+            pinchStartDistance = touchDistance(event.touches);
+            pinchStartZoom = zoom;
+          }
+        });
+
+        viewport.addEventListener("touchmove", function (event) {
+          if (event.touches.length !== 2 || pinchStartDistance === null) {
+            return;
+          }
+          event.preventDefault();
+          const distance = touchDistance(event.touches);
+          const scale = distance / pinchStartDistance;
+          setZoom(pinchStartZoom * scale);
+        });
+
+        viewport.addEventListener("touchend", function (event) {
+          if (event.touches.length < 2) {
+            pinchStartDistance = null;
+          }
+        });
+
+        render();
+      })();
+    </script>
+  </body>
+</html>
 ```
 
-[![Edit 044-contentinfo, search, landmark order and nesting](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/044-contentinfo-search-landmark-order-and-nesting-7tc9tq)
+[![Edit 045-Pointer gestures (2.5.1) and single-pointer alternatives](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/045-pointer-gestures-2-5-1-and-single-pointer-alternatives-7tc9tq)
 
-[^44]CodeSandbox: contentinfo, search, landmark order and nesting.
+[^45]CodeSandbox: Pointer gestures (2.5.1) and single-pointer alternatives.
 
-[^44]:[CodeSandbox: contentinfo, search, landmark order and nesting](https://7tc9tq.csb.app/), last access: June 24, 2026.
-
+[^45]:[CodeSandbox: Pointer gestures (2.5.1) and single-pointer alternatives](https://7tc9tq.csb.app/), last access: July 3, 2026.
 
 If you add gesture-enhanced UX, treat it as progressive enhancement and ship a fully functional single-pointer baseline first.
 
