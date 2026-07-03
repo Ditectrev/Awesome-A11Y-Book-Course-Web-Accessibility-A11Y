@@ -209,7 +209,7 @@ We are so thankful for every contribution, which makes sure we can deliver top-n
   - [Pointer gestures (2.5.1) and single-pointer alternatives](#pointer-gestures-251-and-single-pointer-alternatives)
   - [Pointer cancellation (2.5.2), target size (2.5.8)](#pointer-cancellation-252-target-size-258)
   - [Label in name (2.5.3), motion actuation (2.5.4)](#label-in-name-253-motion-actuation-254)
-  - [Input purpose and autocomplete (2.5.6)](#input-purpose-and-autocomplete-2556)
+  - [Input purpose (1.3.5), concurrent input (2.5.6)](#input-purpose-135-concurrent-input-256)
   - [Summary: Input Modalities](#summary-input-modalities)
 - [Readable](#readable)
   - [Language of page (3.1.1) and language of parts (3.1.2)](#language-of-page-311-and-language-of-parts-312)
@@ -4518,7 +4518,7 @@ Meeting notes: add keyboard checks to release checklist.
 
 For custom accessible-name logic, test with both screen readers and speech recognition to verify that visible label and announced name stay aligned.
 
-### Input purpose and autocomplete (2.5.6)
+### Input purpose (1.3.5), concurrent input (2.5.6)
 
 For robust forms, combine input purpose semantics (`autocomplete`, related to WCAG 1.3.5) with flexible input methods across device types (WCAG 2.5.6 Concurrent Input Mechanisms, Level AAA).
 
@@ -4536,23 +4536,401 @@ Concurrent input mechanisms:
 - Test hybrid setups (laptop with touch screen, external keyboard on tablet) for parity.
 
 ```html
-<label for="billing-email">Billing email</label>
-<input
-  id="billing-email"
-  name="billingEmail"
-  type="email"
-  autocomplete="email"
-  inputmode="email"
-  required
-/>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Input purpose (1.3.5), concurrent input (2.5.6)</title>
+
+    <style>
+      body {
+        font: 1rem/1.5 system-ui, sans-serif;
+        max-width: 900px;
+        margin: 1.5rem;
+      }
+
+      section {
+        margin: 2rem 0;
+        padding-top: 1rem;
+        border-top: 1px solid #cbd5e1;
+      }
+
+      .compare {
+        display: grid;
+        gap: 16px;
+      }
+
+      @media (min-width: 760px) {
+        .compare {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+
+      form {
+        display: grid;
+        gap: 12px;
+      }
+
+      .field {
+        display: grid;
+        gap: 6px;
+      }
+
+      label {
+        font-weight: 600;
+      }
+
+      input,
+      button {
+        font: inherit;
+      }
+
+      input {
+        min-height: 44px;
+        padding: 8px 12px;
+        border: 1px solid #334155;
+        border-radius: 6px;
+        width: 100%;
+        box-sizing: border-box;
+      }
+
+      button {
+        min-height: 44px;
+        padding: 0 16px;
+        border: 1px solid #1e293b;
+        border-radius: 6px;
+        background: #fff;
+        cursor: pointer;
+        justify-self: start;
+      }
+
+      input:focus-visible,
+      button:focus-visible {
+        outline: 3px solid #1a73e8;
+        outline-offset: 2px;
+      }
+
+      .good-example,
+      .bad-example {
+        border-radius: 8px;
+        padding: 12px;
+      }
+
+      .good-example {
+        border: 1px solid #86efac;
+        background: #f0fdf4;
+      }
+
+      .bad-example {
+        border: 1px solid #f87171;
+        background: #fef2f2;
+      }
+
+      .field-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+      }
+
+      .field-meta code {
+        font-size: 0.8rem;
+        padding: 2px 6px;
+        border-radius: 4px;
+        background: #e2e8f0;
+      }
+
+      .bad-example .field-meta code {
+        background: #fecaca;
+      }
+
+      .purpose-panel {
+        margin: 1rem 0;
+        padding: 12px;
+        border-radius: 8px;
+        border: 1px solid #94a3b8;
+        background: #f8fafc;
+        min-height: 4.5rem;
+      }
+
+      .purpose-panel.good {
+        border-color: #22c55e;
+        background: #ecfdf5;
+      }
+
+      .purpose-panel.bad {
+        border-color: #ef4444;
+        background: #fef2f2;
+      }
+
+      .fill-result {
+        margin-top: 8px;
+        font-size: 0.95rem;
+      }
+
+      .result {
+        min-height: 1.5rem;
+        margin-top: 1rem;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Checkout form demo</h1>
+
+    <section aria-labelledby="purpose-heading">
+      <h2 id="purpose-heading">Input purpose and autocomplete (1.3.5)</h2>
+      <p>
+        Both forms look the same to users. The difference is what the browser
+        can infer from each field. Focus a field or click
+        <strong>Fill billing details</strong> to compare.
+      </p>
+
+      <div
+        class="purpose-panel"
+        aria-live="polite"
+        id="purpose-panel"
+      >
+        Focus a field to see what purpose the browser can identify.
+      </div>
+
+      <div class="compare">
+        <div class="good-example">
+          <h3>Passes — purpose exposed</h3>
+          <form id="good-form">
+            <div class="field">
+              <label for="billing-email">Billing email</label>
+              <input
+                id="billing-email"
+                name="email"
+                type="email"
+                autocomplete="billing email"
+                inputmode="email"
+                required
+              />
+              <div class="field-meta">
+                <code>type="email"</code>
+                <code>autocomplete="billing email"</code>
+                <code>inputmode="email"</code>
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="billing-tel">Billing phone</label>
+              <input
+                id="billing-tel"
+                name="tel"
+                type="tel"
+                autocomplete="billing tel"
+                inputmode="tel"
+                required
+              />
+              <div class="field-meta">
+                <code>type="tel"</code>
+                <code>autocomplete="billing tel"</code>
+                <code>inputmode="tel"</code>
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="billing-postal">Billing postal code</label>
+              <input
+                id="billing-postal"
+                name="postal"
+                type="text"
+                autocomplete="billing postal-code"
+                inputmode="numeric"
+                required
+              />
+              <div class="field-meta">
+                <code>autocomplete="billing postal-code"</code>
+                <code>inputmode="numeric"</code>
+              </div>
+            </div>
+
+            <button type="button" id="fill-good">Fill billing details</button>
+            <p class="fill-result" id="fill-good-result"></p>
+            <button type="submit">Continue to payment</button>
+          </form>
+        </div>
+
+        <div class="bad-example">
+          <h3>Fails — purpose hidden</h3>
+          <form id="bad-form">
+            <div class="field">
+              <label for="field-1">Billing email</label>
+              <input
+                id="field-1"
+                name="field1"
+                type="text"
+                autocomplete="off"
+                required
+              />
+              <div class="field-meta">
+                <code>type="text"</code>
+                <code>autocomplete="off"</code>
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="field-2">Billing phone</label>
+              <input
+                id="field-2"
+                name="field2"
+                type="text"
+                autocomplete="off"
+                required
+              />
+              <div class="field-meta">
+                <code>type="text"</code>
+                <code>autocomplete="off"</code>
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="field-3">Billing postal code</label>
+              <input
+                id="field-3"
+                name="field3"
+                type="text"
+                autocomplete="off"
+                required
+              />
+              <div class="field-meta">
+                <code>type="text"</code>
+                <code>autocomplete="off"</code>
+              </div>
+            </div>
+
+            <button type="button" id="fill-bad">Fill billing details</button>
+            <p class="fill-result" id="fill-bad-result"></p>
+            <button type="submit">Continue to payment</button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <section aria-labelledby="concurrent-heading">
+      <h2 id="concurrent-heading">Concurrent input mechanisms (2.5.6)</h2>
+      <p>
+        Both forms use native inputs and buttons, so the same checkout flow works
+        with keyboard, mouse, touch, and assistive tech without locking users
+        into one modality.
+      </p>
+      <p class="result" aria-live="polite" id="submit-result"></p>
+    </section>
+
+    <script>
+      (function () {
+        const purposePanel = document.getElementById("purpose-panel");
+        const result = document.getElementById("submit-result");
+        const savedBilling = {
+          email: "alex@example.com",
+          tel: "+1 555 0100",
+          postal: "94107",
+        };
+
+        function describeField(input) {
+          const autocomplete = input.autocomplete || "(empty)";
+          const type = input.type || "text";
+          const inputMode = input.inputMode || "(default keyboard)";
+          const purposeKnown =
+            autocomplete !== "off" && autocomplete !== "(empty)";
+
+          purposePanel.className =
+            "purpose-panel " + (purposeKnown ? "good" : "bad");
+
+          if (purposeKnown) {
+            purposePanel.innerHTML =
+              "<strong>Purpose identified</strong><br>" +
+              "Field: " +
+              input.labels[0].textContent +
+              "<br>" +
+              "type: <code>" +
+              type +
+              "</code>, autocomplete: <code>" +
+              autocomplete +
+              "</code>, inputmode: <code>" +
+              inputMode +
+              "</code><br>" +
+              "Browser and assistive tech can map this to billing data and offer the right keyboard/autofill.";
+          } else {
+            purposePanel.innerHTML =
+              "<strong>Purpose hidden</strong><br>" +
+              "Field: " +
+              input.labels[0].textContent +
+              "<br>" +
+              "type: <code>" +
+              type +
+              "</code>, autocomplete: <code>" +
+              autocomplete +
+              "</code><br>" +
+              "Looks like a generic text box. Autofill is blocked and mobile keyboards stay on the default layout.";
+          }
+        }
+
+        document.querySelectorAll("input").forEach(function (input) {
+          input.addEventListener("focus", function () {
+            describeField(input);
+          });
+        });
+
+        function fillForm(formId, mapping, resultId, passes) {
+          const form = document.getElementById(formId);
+          mapping.forEach(function (entry) {
+            form.querySelector(entry.selector).value = entry.value;
+          });
+          document.getElementById(resultId).textContent = passes
+            ? "Filled. Browser can associate each value with billing email, phone, and postal code."
+            : "Filled with the same values, but fields are still generic text with autocomplete off — browser cannot reliably reuse them next time.";
+        }
+
+        document.getElementById("fill-good").addEventListener("click", function () {
+          fillForm(
+            "good-form",
+            [
+              { selector: "#billing-email", value: savedBilling.email },
+              { selector: "#billing-tel", value: savedBilling.tel },
+              { selector: "#billing-postal", value: savedBilling.postal },
+            ],
+            "fill-good-result",
+            true
+          );
+        });
+
+        document.getElementById("fill-bad").addEventListener("click", function () {
+          fillForm(
+            "bad-form",
+            [
+              { selector: "#field-1", value: savedBilling.email },
+              { selector: "#field-2", value: savedBilling.tel },
+              { selector: "#field-3", value: savedBilling.postal },
+            ],
+            "fill-bad-result",
+            false
+          );
+        });
+
+        function handleSubmit(formName, event) {
+          event.preventDefault();
+          result.textContent = formName + " submitted.";
+        }
+
+        document
+          .getElementById("good-form")
+          .addEventListener("submit", handleSubmit.bind(null, "Good form"));
+        document
+          .getElementById("bad-form")
+          .addEventListener("submit", handleSubmit.bind(null, "Bad form"));
+      })();
+    </script>
+  </body>
+</html>
 ```
 
-[![Edit 047-contentinfo, search, landmark order and nesting](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/047-contentinfo-search-landmark-order-and-nesting-gpszt9)
+[![Edit 048-Input purpose (1.3.5), concurrent input (2.5.6)](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/048-input-purpose-1-3-5-concurrent-input-2-5-6-gpszt9)
 
-[^48]CodeSandbox: contentinfo, search, landmark order and nesting.
+[^48]CodeSandbox: Input purpose (1.3.5), concurrent input (2.5.6).
 
-[^48]:[CodeSandbox: contentinfo, search, landmark order and nesting](https://gpszt9.csb.app/), last access: June 24, 2026.
-
+[^48]:[CodeSandbox: Input purpose (1.3.5), concurrent input (2.5.6)](https://gpszt9.csb.app/), last access: July 3, 2026.
 
 Correct autocomplete tokens improve speed, reduce typing burden, and lower form abandonment, especially on mobile and assistive technology workflows.
 
