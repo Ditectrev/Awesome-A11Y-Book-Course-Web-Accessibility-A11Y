@@ -4023,31 +4023,241 @@ Target size engineering checks:
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>contentinfo, search, landmark order and nesting</title>
+    <title>Pointer cancellation (2.5.2), target size (2.5.8)</title>
 
     <style>
+      body {
+        font: 1rem/1.5 system-ui, sans-serif;
+        max-width: 640px;
+        margin: 1.5rem;
+      }
+
+      .toolbar {
+        display: flex;
+        gap: 12px;
+        align-items: center;
+        margin: 1rem 0;
+      }
+
+      /* 2.5.8: visual icon can be small; hit area must meet minimum size */
       .icon-button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
         min-width: 24px;
         min-height: 24px;
-        padding: 8px; /* larger hit area than the icon itself */
+        padding: 8px; /* 24 + 8 + 8 = 40px total hit area */
+        border: 1px solid #1e293b;
+        border-radius: 6px;
+        background: #fff;
+        font: inherit;
+        cursor: pointer;
+      }
+
+      .icon-button svg {
+        width: 16px;
+        height: 16px;
+        pointer-events: none;
+      }
+
+      .icon-button:focus-visible,
+      .danger-button:focus-visible {
+        outline: 3px solid #1a73e8;
+        outline-offset: 2px;
+      }
+
+      .danger-button {
+        min-width: 44px;
+        min-height: 44px;
+        padding: 0 16px;
+        border: 1px solid #b91c1c;
+        border-radius: 6px;
+        background: #fef2f2;
+        color: #7f1d1d;
+        font: inherit;
+        cursor: pointer;
+      }
+
+      .item-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+
+      .item-list li {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 12px;
+        border: 1px solid #cbd5e1;
+        border-radius: 8px;
+        margin-bottom: 8px;
+      }
+
+      .status {
+        margin-top: 1rem;
+        min-height: 1.5rem;
+      }
+
+      .undo-button {
+        margin-left: 8px;
       }
     </style>
   </head>
   <body>
-<div class="map-controls" aria-label="Map zoom controls">
-  <button type="button" id="zoom-in">Zoom in</button>
-  <button type="button" id="zoom-out">Zoom out</button>
-</div>
+    <h1>Task list</h1>
+    <p>
+      Compare the two delete patterns below. Pointer cancellation (2.5.2) means
+      the action should complete on release, and users must be able to abort by
+      sliding off the control before letting go.
+    </p>
+
+    <section aria-labelledby="unsafe-heading">
+      <h2 id="unsafe-heading">Fails 2.5.2 — deletes on press</h2>
+      <p>
+        Press and hold, then drag off before release. The item is already gone
+        because the handler runs on <code>pointerdown</code>.
+      </p>
+      <ul class="item-list" id="unsafe-list">
+        <li data-id="1">
+          <span>Draft blog post</span>
+          <button
+            type="button"
+            class="danger-button"
+            data-action="unsafe-delete"
+            aria-label="Unsafe delete: Draft blog post"
+          >
+            Delete on press
+          </button>
+        </li>
+      </ul>
+    </section>
+
+    <section aria-labelledby="safe-heading">
+      <h2 id="safe-heading">Passes 2.5.2 — deletes on release</h2>
+      <p>
+        Press, drag off the button, then release. Nothing is deleted. Only a
+        release while still over the button triggers the action.
+      </p>
+      <ul class="item-list" id="safe-list">
+        <li data-id="2">
+          <span>Ship accessibility checklist</span>
+          <button
+            type="button"
+            class="danger-button"
+            data-action="safe-delete"
+            aria-label="Safe delete: Ship accessibility checklist"
+          >
+            Delete on release
+          </button>
+        </li>
+        <li data-id="3">
+          <span>Review focus styles</span>
+          <button
+            type="button"
+            class="danger-button"
+            data-action="safe-delete"
+            aria-label="Safe delete: Review focus styles"
+          >
+            Delete on release
+          </button>
+        </li>
+      </ul>
+    </section>
+
+    <div class="toolbar" aria-label="List actions">
+      <button type="button" class="icon-button" id="add-item" aria-label="Add task">
+        <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+          <path d="M8 3v10M3 8h10" stroke="currentColor" stroke-width="2" />
+        </svg>
+      </button>
+    </div>
+
+    <p class="status" aria-live="polite" id="status"></p>
+
+    <script>
+      (function () {
+        const unsafeList = document.getElementById("unsafe-list");
+        const safeList = document.getElementById("safe-list");
+        const status = document.getElementById("status");
+        const addItem = document.getElementById("add-item");
+        let lastDeleted = null;
+
+        function setStatus(message, withUndo) {
+          status.textContent = message;
+          const existingUndo = status.querySelector(".undo-button");
+          if (existingUndo) {
+            existingUndo.remove();
+          }
+          if (!withUndo) {
+            return;
+          }
+          const undo = document.createElement("button");
+          undo.type = "button";
+          undo.className = "undo-button";
+          undo.textContent = "Undo";
+          undo.addEventListener("click", function () {
+            if (!lastDeleted) {
+              return;
+            }
+            lastDeleted.list.appendChild(lastDeleted.item);
+            setStatus("Restored: " + lastDeleted.label);
+            lastDeleted = null;
+          });
+          status.appendChild(undo);
+        }
+
+        function deleteItem(list, item) {
+          const label = item.querySelector("span").textContent;
+          lastDeleted = { list: list, item: item, label: label };
+          item.remove();
+          setStatus("Deleted: " + label, true);
+        }
+
+        // Anti-pattern: irreversible action on down-event (fails 2.5.2)
+        unsafeList.addEventListener("pointerdown", function (event) {
+          const button = event.target.closest("[data-action='unsafe-delete']");
+          if (!button) {
+            return;
+          }
+          const item = button.closest("li");
+          const label = item.querySelector("span").textContent;
+          deleteItem(unsafeList, item);
+          setStatus(
+            "Deleted on press: " + label + " (could not cancel by dragging off)"
+          );
+        });
+
+        // Correct pattern: action on up-event; drag off before release to cancel
+        safeList.addEventListener("click", function (event) {
+          const button = event.target.closest("[data-action='safe-delete']");
+          if (!button) {
+            return;
+          }
+          deleteItem(safeList, button.closest("li"));
+        });
+
+        addItem.addEventListener("click", function () {
+          const item = document.createElement("li");
+          item.dataset.id = String(Date.now());
+          item.innerHTML =
+            '<span>New task</span>' +
+            '<button type="button" class="danger-button" data-action="safe-delete" aria-label="Safe delete: New task">Delete on release</button>';
+          safeList.appendChild(item);
+          setStatus("Added task to safe list.");
+        });
+      })();
+    </script>
   </body>
 </html>
 ```
 
-[![Edit 045-contentinfo, search, landmark order and nesting](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/045-contentinfo-search-landmark-order-and-nesting-gs4tlv)
+[![Edit 046-Pointer cancellation (2.5.2), target size (2.5.8)](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/046-pointer-cancellation-2-5-2-target-size-2-5-8-gs4tlv)
 
-[^45]CodeSandbox: contentinfo, search, landmark order and nesting.
+[^46]CodeSandbox: Pointer cancellation (2.5.2), target size (2.5.8).
 
-[^45]:[CodeSandbox: contentinfo, search, landmark order and nesting](https://gs4tlv.csb.app/), last access: June 24, 2026.
-
+[^46]:[CodeSandbox: Pointer cancellation (2.5.2), target size (2.5.8)](https://gs4tlv.csb.app/), last access: July 3, 2026.
 
 ### Label in name (2.5.3), motion actuation (2.5.4)
 
@@ -4069,11 +4279,11 @@ Motion actuation guidance:
 <button type="button" aria-label="Save draft">Save draft</button>
 ```
 
-[![Edit 046-contentinfo, search, landmark order and nesting](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/046-contentinfo-search-landmark-order-and-nesting-m5rp2k)
+[![Edit 047-Label in name (2.5.3), motion actuation (2.5.4)](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/047-label-in-name-2-5-3-motion-actuation-2-5-4-m5rp2k)
 
-[^46]CodeSandbox: contentinfo, search, landmark order and nesting.
+[^47]CodeSandbox: Label in name (2.5.3), motion actuation (2.5.4).
 
-[^46]:[CodeSandbox: contentinfo, search, landmark order and nesting](https://m5rp2k.csb.app/), last access: June 24, 2026.
+[^47]:[CodeSandbox: Label in name (2.5.3), motion actuation (2.5.4)](https://m5rp2k.csb.app/), last access: July 3, 2026.
 
 
 For custom accessible-name logic, test with both screen readers and speech recognition to verify that visible label and announced name stay aligned.
@@ -4109,9 +4319,9 @@ Concurrent input mechanisms:
 
 [![Edit 047-contentinfo, search, landmark order and nesting](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/047-contentinfo-search-landmark-order-and-nesting-gpszt9)
 
-[^47]CodeSandbox: contentinfo, search, landmark order and nesting.
+[^48]CodeSandbox: contentinfo, search, landmark order and nesting.
 
-[^47]:[CodeSandbox: contentinfo, search, landmark order and nesting](https://gpszt9.csb.app/), last access: June 24, 2026.
+[^48]:[CodeSandbox: contentinfo, search, landmark order and nesting](https://gpszt9.csb.app/), last access: June 24, 2026.
 
 
 Correct autocomplete tokens improve speed, reduce typing burden, and lower form abandonment, especially on mobile and assistive technology workflows.
@@ -4154,9 +4364,9 @@ Engineering checks:
 
 [![Edit 048-contentinfo, search, landmark order and nesting](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/048-contentinfo-search-landmark-order-and-nesting-3ylhzq)
 
-[^48]CodeSandbox: contentinfo, search, landmark order and nesting.
+[^49]CodeSandbox: contentinfo, search, landmark order and nesting.
 
-[^48]:[CodeSandbox: contentinfo, search, landmark order and nesting](https://3ylhzq.csb.app/), last access: June 24, 2026.
+[^49]:[CodeSandbox: contentinfo, search, landmark order and nesting](https://3ylhzq.csb.app/), last access: June 24, 2026.
 
 
 Language tagging is lightweight but high impact: it improves comprehension, pronunciation accuracy, and trust for multilingual audiences.
@@ -4191,9 +4401,9 @@ Authoring patterns:
 
 [![Edit 049-contentinfo, search, landmark order and nesting](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/049-contentinfo-search-landmark-order-and-nesting-wghqn5)
 
-[^49]CodeSandbox: contentinfo, search, landmark order and nesting.
+[^50]CodeSandbox: contentinfo, search, landmark order and nesting.
 
-[^49]:[CodeSandbox: contentinfo, search, landmark order and nesting](https://wghqn5.csb.app/), last access: June 24, 2026.
+[^50]:[CodeSandbox: contentinfo, search, landmark order and nesting](https://wghqn5.csb.app/), last access: June 24, 2026.
 
 
 Readable content is not about oversimplifying ideas; it is about removing avoidable cognitive friction so users can process meaning quickly and accurately.
@@ -4234,9 +4444,9 @@ Engineering patterns:
 
 [![Edit 050-contentinfo, search, landmark order and nesting](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/050-contentinfo-search-landmark-order-and-nesting-7zz7q3)
 
-[^50]CodeSandbox: contentinfo, search, landmark order and nesting.
+[^51]CodeSandbox: contentinfo, search, landmark order and nesting.
 
-[^50]:[CodeSandbox: contentinfo, search, landmark order and nesting](https://7zz7q3.csb.app/), last access: June 24, 2026.
+[^51]:[CodeSandbox: contentinfo, search, landmark order and nesting](https://7zz7q3.csb.app/), last access: June 24, 2026.
 
 
 Predictable focus and input behavior reduces disorientation, especially for keyboard and screen reader users who rely on stable interaction flow.
@@ -4311,9 +4521,9 @@ Implementation guidance:
 
 [![Edit 051-contentinfo, search, landmark order and nesting](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/051-contentinfo-search-landmark-order-and-nesting-3jyk7w)
 
-[^51]CodeSandbox: contentinfo, search, landmark order and nesting.
+[^52]CodeSandbox: contentinfo, search, landmark order and nesting.
 
-[^51]:[CodeSandbox: contentinfo, search, landmark order and nesting](https://3jyk7w.csb.app/), last access: June 24, 2026.
+[^52]:[CodeSandbox: contentinfo, search, landmark order and nesting](https://3jyk7w.csb.app/), last access: June 24, 2026.
 
 
 ### Error suggestion (3.3.3) and error prevention (3.3.4)
@@ -4362,9 +4572,9 @@ Recommended wiring:
 
 [![Edit 052-contentinfo, search, landmark order and nesting](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/052-contentinfo-search-landmark-order-and-nesting-kzgxcj)
 
-[^52]CodeSandbox: contentinfo, search, landmark order and nesting.
+[^53]CodeSandbox: contentinfo, search, landmark order and nesting.
 
-[^52]:[CodeSandbox: contentinfo, search, landmark order and nesting](https://kzgxcj.csb.app/), last access: June 24, 2026.
+[^53]:[CodeSandbox: contentinfo, search, landmark order and nesting](https://kzgxcj.csb.app/), last access: June 24, 2026.
 
 
 ### Required fields, autocomplete, confirmation steps
@@ -4425,9 +4635,9 @@ Even when modern browsers recover from HTML errors visually, accessibility APIs 
 
 [![Edit 053-Start and end tags, nesting, duplicate id and ARIA IDs](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/053-start-and-end-tags-nesting-duplicate-id-and-aria-ids-y63z2r)
 
-[^53]CodeSandbox: Start and end tags, nesting, duplicate id and ARIA IDs.
+[^54]CodeSandbox: Start and end tags, nesting, duplicate id and ARIA IDs.
 
-[^53]:[CodeSandbox: Start and end tags, nesting, duplicate id and ARIA IDs](https://y63z2r.csb.app/), last access: June 24, 2026.
+[^54]:[CodeSandbox: Start and end tags, nesting, duplicate id and ARIA IDs](https://y63z2r.csb.app/), last access: June 24, 2026.
 
 
 #### W3C validator and Nu Html Checker
@@ -4483,9 +4693,9 @@ Native elements (`button`, `input`, `select`, `details`) are preferred because t
 
 [![Edit 054-Exposing name, role, value to assistive tech, custom control requirements](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/054-exposing-name-role-value-to-assistive-tech-custom-control-requirements-cykvdg)
 
-[^54]CodeSandbox: Exposing name, role, value to assistive tech, custom control requirements.
+[^55]CodeSandbox: Exposing name, role, value to assistive tech, custom control requirements.
 
-[^54]:[CodeSandbox: Exposing name, role, value to assistive tech, custom control requirements](https://cykvdg.csb.app/), last access: June 24, 2026.
+[^55]:[CodeSandbox: Exposing name, role, value to assistive tech, custom control requirements](https://cykvdg.csb.app/), last access: June 24, 2026.
 
 
 ```js
@@ -4532,9 +4742,9 @@ Use live regions intentionally: over-announcing creates noise, while missing ann
 
 [![Edit 055-aria-live, aria-atomic, aria-relevant; polite vs assertive](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/055-aria-live-aria-atomic-aria-relevant-polite-vs-assertive-kl8pd2)
 
-[^55]CodeSandbox: aria-live, aria-atomic, aria-relevant; polite vs assertive.
+[^56]CodeSandbox: aria-live, aria-atomic, aria-relevant; polite vs assertive.
 
-[^55]:[CodeSandbox: aria-live, aria-atomic, aria-relevant; polite vs assertive](https://kl8pd2.csb.app/), last access: June 24, 2026.
+[^56]:[CodeSandbox: aria-live, aria-atomic, aria-relevant; polite vs assertive](https://kl8pd2.csb.app/), last access: June 24, 2026.
 
 
 ```js
@@ -4560,9 +4770,9 @@ Choosing the right role balances urgency with usability: informational updates s
 
 [![Edit 056-role="status" and role="alert" for messages](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/056-role-status-and-role-alert-for-messages-v6zn8p)
 
-[^56]CodeSandbox: role="status" and role="alert" for messages.
+[^57]CodeSandbox: role="status" and role="alert" for messages.
 
-[^56]:[CodeSandbox: role="status" and role="alert" for messages](https://v6zn8p.csb.app/), last access: June 24, 2026.
+[^57]:[CodeSandbox: role="status" and role="alert" for messages](https://v6zn8p.csb.app/), last access: June 24, 2026.
 
 
 ```js
@@ -4606,9 +4816,9 @@ Why native first:
 
 [![Edit 057-Prefer native elements for built-in semantics and behavior](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/057-prefer-native-elements-for-built-in-semantics-and-behavior-87szst)
 
-[^57]CodeSandbox: Prefer native elements for built-in semantics and behavior.
+[^58]CodeSandbox: Prefer native elements for built-in semantics and behavior.
 
-[^57]:[CodeSandbox: Prefer native elements for built-in semantics and behavior](https://87szst.csb.app/), last access: June 24, 2026.
+[^58]:[CodeSandbox: Prefer native elements for built-in semantics and behavior](https://87szst.csb.app/), last access: June 24, 2026.
 
 
 #### Add ARIA only when native HTML cannot express intent
@@ -4666,9 +4876,9 @@ Common attributes:
 
 [![Edit 058-States/properties define current condition and relationships](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/058-states-properties-define-current-condition-and-relationships-m722hw)
 
-[^58]CodeSandbox: States/properties define current condition and relationships.
+[^59]CodeSandbox: States/properties define current condition and relationships.
 
-[^58]:[CodeSandbox: States/properties define current condition and relationships](https://m722hw.csb.app/), last access: June 24, 2026.
+[^59]:[CodeSandbox: States/properties define current condition and relationships](https://m722hw.csb.app/), last access: June 24, 2026.
 
 
 ```js
@@ -4717,9 +4927,9 @@ Dialog essentials:
 
 [![Edit 059-Dialogs and modals: focus containment and close behavior](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/059-dialogs-and-modals-focus-containment-and-close-behavior-vzht63)
 
-[^59]CodeSandbox: Dialogs and modals: focus containment and close behavior.
+[^60]CodeSandbox: Dialogs and modals: focus containment and close behavior.
 
-[^59]:[CodeSandbox: Dialogs and modals: focus containment and close behavior](https://vzht63.csb.app/), last access: June 24, 2026.
+[^60]:[CodeSandbox: Dialogs and modals: focus containment and close behavior](https://vzht63.csb.app/), last access: June 24, 2026.
 
 
 ```js
@@ -4768,9 +4978,9 @@ For most website dropdowns (FAQs, filters, account sections), disclosure is simp
 
 [![Edit 060-Disclosure as a safer default for many dropdown-like UIs](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/060-disclosure-as-a-safer-default-for-many-dropdown-like-uis-5k2wgs)
 
-[^60]CodeSandbox: Disclosure as a safer default for many dropdown-like UIs.
+[^61]CodeSandbox: Disclosure as a safer default for many dropdown-like UIs.
 
-[^60]:[CodeSandbox: Disclosure as a safer default for many dropdown-like UIs](https://5k2wgs.csb.app/), last access: June 24, 2026.
+[^61]:[CodeSandbox: Disclosure as a safer default for many dropdown-like UIs](https://5k2wgs.csb.app/), last access: June 24, 2026.
 
 
 ```js
@@ -4813,9 +5023,9 @@ Reliable labeling patterns:
 
 [![Edit 061-for and id, wrapping with label, visually hidden label](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/061-for-and-id-wrapping-with-label-visually-hidden-label-w9v3nw)
 
-[^61]CodeSandbox: for and id, wrapping with label, visually hidden label.
+[^62]CodeSandbox: for and id, wrapping with label, visually hidden label.
 
-[^61]:[CodeSandbox: for and id, wrapping with label, visually hidden label](https://w9v3nw.csb.app/), last access: June 24, 2026.
+[^62]:[CodeSandbox: for and id, wrapping with label, visually hidden label](https://w9v3nw.csb.app/), last access: June 24, 2026.
 
 
 #### fieldset, legend, radio groups and checkbox groups
@@ -4845,9 +5055,9 @@ Grouping benefits:
 
 [![Edit 062-fieldset, legend, radio groups and checkbox groups](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/062-fieldset-legend-radio-groups-and-checkbox-groups-ww87pz)
 
-[^62]CodeSandbox: fieldset, legend, radio groups and checkbox groups.
+[^63]CodeSandbox: fieldset, legend, radio groups and checkbox groups.
 
-[^62]:[CodeSandbox: fieldset, legend, radio groups and checkbox groups](https://ww87pz.csb.app/), last access: June 24, 2026.
+[^63]:[CodeSandbox: fieldset, legend, radio groups and checkbox groups](https://ww87pz.csb.app/), last access: June 24, 2026.
 
 
 ### Grouping, required fields, error association
@@ -4871,9 +5081,9 @@ Recommended approach:
 
 [![Edit 063-Required field indication, aria-required and HTML required](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/063-required-field-indication-aria-required-and-html-required-8v5phc)
 
-[^63]CodeSandbox: Required field indication, aria-required and HTML required.
+[^64]CodeSandbox: Required field indication, aria-required and HTML required.
 
-[^63]:[CodeSandbox: Required field indication, aria-required and HTML required](https://8v5phc.csb.app/), last access: June 24, 2026.
+[^64]:[CodeSandbox: Required field indication, aria-required and HTML required](https://8v5phc.csb.app/), last access: June 24, 2026.
 
 
 #### Linking error message to input id, aria-describedby
@@ -4901,9 +5111,9 @@ Error association checklist:
 
 [![Edit 064-Linking error message to input id, aria-describedby](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/064-linking-error-message-to-input-id-aria-describedby-cwt5yy)
 
-[^64]CodeSandbox: Linking error message to input id, aria-describedby.
+[^65]CodeSandbox: Linking error message to input id, aria-describedby.
 
-[^64]:[CodeSandbox: Linking error message to input id, aria-describedby](https://cwt5yy.csb.app/), last access: June 24, 2026.
+[^65]:[CodeSandbox: Linking error message to input id, aria-describedby](https://cwt5yy.csb.app/), last access: June 24, 2026.
 
 
 ### Validation messages, aria-describedby, role=alert
@@ -4931,9 +5141,9 @@ Summary behavior:
 
 [![Edit 065-Error summary at top of form, focus on first error](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/065-error-summary-at-top-of-form-focus-on-first-error-tlvmct)
 
-[^65]CodeSandbox: Error summary at top of form, focus on first error.
+[^66]CodeSandbox: Error summary at top of form, focus on first error.
 
-[^65]:[CodeSandbox: Error summary at top of form, focus on first error](https://tlvmct.csb.app/), last access: June 24, 2026.
+[^66]:[CodeSandbox: Error summary at top of form, focus on first error](https://tlvmct.csb.app/), last access: June 24, 2026.
 
 
 ```js
@@ -4959,9 +5169,9 @@ Guidelines for alerts:
 
 [![Edit 066-role="alert" for critical errors, announcing to screen readers](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/066-role-alert-for-critical-errors-announcing-to-screen-readers-lr5tk6)
 
-[^66]CodeSandbox: role="alert" for critical errors, announcing to screen readers.
+[^67]CodeSandbox: role="alert" for critical errors, announcing to screen readers.
 
-[^66]:[CodeSandbox: role="alert" for critical errors, announcing to screen readers](https://lr5tk6.csb.app/), last access: June 24, 2026.
+[^67]:[CodeSandbox: role="alert" for critical errors, announcing to screen readers](https://lr5tk6.csb.app/), last access: June 24, 2026.
 
 
 ```js
