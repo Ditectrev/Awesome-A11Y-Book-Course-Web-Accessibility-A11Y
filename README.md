@@ -5585,33 +5585,6 @@ Compatible implementations ensure UI semantics remain machine-readable across br
 
 ### When to use native HTML vs ARIA
 
-#### Prefer native elements for built-in semantics and behavior
-
-Native HTML should be your default because it already exposes the correct role, keyboard model, focus handling, and accessibility-tree mapping.
-
-Why native first:
-
-- Native controls (`button`, `a`, `input`, `select`, `textarea`, `details`) include semantics without extra ARIA.
-- Keyboard interactions are implemented consistently (Enter/Space behavior, focus states, form submission).
-- Browser and assistive technology support is more reliable than custom role-based recreations.
-- Maintenance cost is lower because fewer attributes and less JavaScript are required.
-
-```html
-<!-- Preferred: native semantics and keyboard behavior included -->
-<button type="button" aria-expanded="false" aria-controls="faq-1">
-  Show answer
-</button>
-<div id="faq-1" hidden>
-  Shipping takes 2-3 business days.
-</div>
-```
-
-[![Edit 057-Prefer native elements for built-in semantics and behavior](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/057-prefer-native-elements-for-built-in-semantics-and-behavior-87szst)
-
-[^58]CodeSandbox: Prefer native elements for built-in semantics and behavior.
-
-[^58]:[CodeSandbox: Prefer native elements for built-in semantics and behavior](https://87szst.csb.app/), last access: June 24, 2026.
-
 #### Add ARIA only when native HTML cannot express intent
 
 ARIA complements HTML; it does not replace it. Use ARIA when complex widgets or dynamic states are not otherwise representable with semantic elements alone.
@@ -5667,9 +5640,9 @@ Common attributes:
 
 [![Edit 058-States/properties define current condition and relationships](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/058-states-properties-define-current-condition-and-relationships-m722hw)
 
-[^59]CodeSandbox: States/properties define current condition and relationships.
+[^58]CodeSandbox: States/properties define current condition and relationships.
 
-[^59]:[CodeSandbox: States/properties define current condition and relationships](https://m722hw.csb.app/), last access: June 24, 2026.
+[^58]:[CodeSandbox: States/properties define current condition and relationships](https://m722hw.csb.app/), last access: June 24, 2026.
 
 
 ```js
@@ -5718,10 +5691,9 @@ Dialog essentials:
 
 [![Edit 059-Dialogs and modals: focus containment and close behavior](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/059-dialogs-and-modals-focus-containment-and-close-behavior-vzht63)
 
-[^60]CodeSandbox: Dialogs and modals: focus containment and close behavior.
+[^58]CodeSandbox: Dialogs and modals: focus containment and close behavior.
 
-[^60]:[CodeSandbox: Dialogs and modals: focus containment and close behavior](https://vzht63.csb.app/), last access: June 24, 2026.
-
+[^58]:[CodeSandbox: Dialogs and modals: focus containment and close behavior](https://vzht63.csb.app/), last access: June 24, 2026.
 
 ```js
 const openBtn = document.getElementById('open-settings');
@@ -5769,9 +5741,9 @@ For most website dropdowns (FAQs, filters, account sections), disclosure is simp
 
 [![Edit 060-Disclosure as a safer default for many dropdown-like UIs](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/060-disclosure-as-a-safer-default-for-many-dropdown-like-uis-5k2wgs)
 
-[^61]CodeSandbox: Disclosure as a safer default for many dropdown-like UIs.
+[^58]CodeSandbox: Disclosure as a safer default for many dropdown-like UIs.
 
-[^61]:[CodeSandbox: Disclosure as a safer default for many dropdown-like UIs](https://5k2wgs.csb.app/), last access: June 24, 2026.
+[^58]:[CodeSandbox: Disclosure as a safer default for many dropdown-like UIs](https://5k2wgs.csb.app/), last access: June 24, 2026.
 
 
 ```js
@@ -5814,9 +5786,9 @@ Reliable labeling patterns:
 
 [![Edit 061-for and id, wrapping with label, visually hidden label](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/061-for-and-id-wrapping-with-label-visually-hidden-label-w9v3nw)
 
-[^62]CodeSandbox: for and id, wrapping with label, visually hidden label.
+[^58]CodeSandbox: for and id, wrapping with label, visually hidden label.
 
-[^62]:[CodeSandbox: for and id, wrapping with label, visually hidden label](https://w9v3nw.csb.app/), last access: June 24, 2026.
+[^58]:[CodeSandbox: for and id, wrapping with label, visually hidden label](https://w9v3nw.csb.app/), last access: June 24, 2026.
 
 
 #### fieldset, legend, radio groups and checkbox groups
@@ -5846,9 +5818,9 @@ Grouping benefits:
 
 [![Edit 062-fieldset, legend, radio groups and checkbox groups](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/062-fieldset-legend-radio-groups-and-checkbox-groups-ww87pz)
 
-[^63]CodeSandbox: fieldset, legend, radio groups and checkbox groups.
+[^58]CodeSandbox: fieldset, legend, radio groups and checkbox groups.
 
-[^63]:[CodeSandbox: fieldset, legend, radio groups and checkbox groups](https://ww87pz.csb.app/), last access: June 24, 2026.
+[^58]:[CodeSandbox: fieldset, legend, radio groups and checkbox groups](https://ww87pz.csb.app/), last access: June 24, 2026.
 
 
 ### Grouping, required fields, error association
@@ -5872,9 +5844,9 @@ Recommended approach:
 
 [![Edit 063-Required field indication, aria-required and HTML required](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/063-required-field-indication-aria-required-and-html-required-8v5phc)
 
-[^64]CodeSandbox: Required field indication, aria-required and HTML required.
+[^58]CodeSandbox: Required field indication, aria-required and HTML required.
 
-[^64]:[CodeSandbox: Required field indication, aria-required and HTML required](https://8v5phc.csb.app/), last access: June 24, 2026.
+[^58]:[CodeSandbox: Required field indication, aria-required and HTML required](https://8v5phc.csb.app/), last access: June 24, 2026.
 
 
 #### Linking error message to input id, aria-describedby
@@ -5902,9 +5874,9 @@ Error association checklist:
 
 [![Edit 064-Linking error message to input id, aria-describedby](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/064-linking-error-message-to-input-id-aria-describedby-cwt5yy)
 
-[^65]CodeSandbox: Linking error message to input id, aria-describedby.
+[^58]CodeSandbox: Linking error message to input id, aria-describedby.
 
-[^65]:[CodeSandbox: Linking error message to input id, aria-describedby](https://cwt5yy.csb.app/), last access: June 24, 2026.
+[^58]:[CodeSandbox: Linking error message to input id, aria-describedby](https://cwt5yy.csb.app/), last access: June 24, 2026.
 
 
 ### Validation messages, aria-describedby, role=alert
@@ -5932,9 +5904,9 @@ Summary behavior:
 
 [![Edit 065-Error summary at top of form, focus on first error](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/065-error-summary-at-top-of-form-focus-on-first-error-tlvmct)
 
-[^66]CodeSandbox: Error summary at top of form, focus on first error.
+[^58]CodeSandbox: Error summary at top of form, focus on first error.
 
-[^66]:[CodeSandbox: Error summary at top of form, focus on first error](https://tlvmct.csb.app/), last access: June 24, 2026.
+[^58]:[CodeSandbox: Error summary at top of form, focus on first error](https://tlvmct.csb.app/), last access: June 24, 2026.
 
 
 ```js
@@ -5960,9 +5932,9 @@ Guidelines for alerts:
 
 [![Edit 066-role="alert" for critical errors, announcing to screen readers](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/066-role-alert-for-critical-errors-announcing-to-screen-readers-lr5tk6)
 
-[^67]CodeSandbox: role="alert" for critical errors, announcing to screen readers.
+[^58]CodeSandbox: role="alert" for critical errors, announcing to screen readers.
 
-[^67]:[CodeSandbox: role="alert" for critical errors, announcing to screen readers](https://lr5tk6.csb.app/), last access: June 24, 2026.
+[^58]:[CodeSandbox: role="alert" for critical errors, announcing to screen readers](https://lr5tk6.csb.app/), last access: June 24, 2026.
 
 
 ```js
