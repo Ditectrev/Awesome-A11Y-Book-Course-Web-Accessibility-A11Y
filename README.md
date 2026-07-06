@@ -5541,26 +5541,106 @@ Use live regions intentionally: over-announcing creates noise, while missing ann
 Choosing the right role balances urgency with usability: informational updates should not interrupt, while critical failures should be announced immediately.
 
 ```html
-<div role="status" aria-atomic="true" id="save-status"></div>
-<div role="alert" id="form-error"></div>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>role="status" and role="alert" for messages</title>
+
+    <style>
+      body {
+        font: 1rem/1.5 system-ui, sans-serif;
+        max-width: 640px;
+        margin: 1.5rem;
+      }
+
+      .demo {
+        margin: 1.5rem 0;
+        padding: 12px;
+        border: 1px solid #cbd5e1;
+        border-radius: 8px;
+      }
+
+      button {
+        min-height: 44px;
+        margin-right: 8px;
+        padding: 0 16px;
+        font: inherit;
+        border: 1px solid #1e293b;
+        border-radius: 6px;
+        background: #fff;
+        cursor: pointer;
+      }
+
+      button:focus-visible {
+        outline: 3px solid #1a73e8;
+        outline-offset: 2px;
+      }
+
+      .message {
+        min-height: 1.5rem;
+        margin-top: 12px;
+        padding: 8px 12px;
+        border-radius: 6px;
+        background: #f8fafc;
+      }
+
+      .message.alert {
+        background: #fef2f2;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Status vs alert</h1>
+    <p>
+      Both regions announce updates without moving focus. Use a screen reader to
+      compare informational status messages with urgent alerts.
+    </p>
+
+    <div class="demo">
+      <h2>Informational — <code>role="status"</code></h2>
+      <button type="button" id="save-settings">Save settings</button>
+      <div
+        role="status"
+        aria-atomic="true"
+        id="save-status"
+        class="message"
+      ></div>
+    </div>
+
+    <div class="demo">
+      <h2>Critical — <code>role="alert"</code></h2>
+      <button type="button" id="submit-form">Submit form</button>
+      <div role="alert" id="form-error" class="message alert"></div>
+    </div>
+
+    <script>
+      function showSaveSuccess() {
+        document.getElementById("save-status").textContent =
+          "Settings saved.";
+      }
+
+      function showBlockingError() {
+        document.getElementById("form-error").textContent =
+          "Submission failed. Please fix highlighted fields.";
+      }
+
+      document
+        .getElementById("save-settings")
+        .addEventListener("click", showSaveSuccess);
+      document
+        .getElementById("submit-form")
+        .addEventListener("click", showBlockingError);
+    </script>
+  </body>
+</html>
 ```
 
-[![Edit 056-role="status" and role="alert" for messages](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/056-role-status-and-role-alert-for-messages-v6zn8p)
+[![Edit 057-role="status" and role="alert" for messages](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/057-role-status-and-role-alert-for-messages-v6zn8p)
 
 [^57]CodeSandbox: role="status" and role="alert" for messages.
 
 [^57]:[CodeSandbox: role="status" and role="alert" for messages](https://v6zn8p.csb.app/), last access: June 24, 2026.
-
-
-```js
-function showSaveSuccess() {
-  document.getElementById('save-status').textContent = 'Settings saved.';
-}
-
-function showBlockingError() {
-  document.getElementById('form-error').textContent = 'Submission failed. Please fix highlighted fields.';
-}
-```
 
 ### Summary: Compatible
 
