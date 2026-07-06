@@ -241,9 +241,8 @@ We are so thankful for every contribution, which makes sure we can deliver top-n
   - [ARIA roles, states, and properties](#aria-roles-states-and-properties)
     - [Role defines what a component is](#role-defines-what-a-component-is)
     - [States/properties define current condition and relationships](#statesproperties-define-current-condition-and-relationships)
-  - [Tabs, modals, dialogs (focus trap, escape)](#tabs-modals-dialogs-focus-trap-escape)
+  - [Tabs (roving focus, selected panel)](#tabs-roving-focus-selected-panel)
     - [Tabs: roving focus plus selected panel mapping](#tabs-roving-focus-plus-selected-panel-mapping)
-    - [Dialogs and modals: focus containment and close behavior](#dialogs-and-modals-focus-containment-and-close-behavior)
   - [Menus, combobox, listbox, disclosure](#menus-combobox-listbox-disclosure)
     - [Choose the right pattern for the interaction](#choose-the-right-pattern-for-the-interaction)
     - [Disclosure as a safer default for many dropdown-like UIs](#disclosure-as-a-safer-default-for-many-dropdown-like-uis)
@@ -5729,7 +5728,7 @@ Common attributes:
 
 [^57]:[CodeSandbox: States/properties define current condition and relationships](https://m722hw.csb.app/), last access: July 6, 2026.
 
-### Tabs, modals, dialogs (focus trap, escape)
+### Tabs (roving focus, selected panel)
 
 #### Tabs: roving focus plus selected panel mapping
 
@@ -5741,42 +5740,6 @@ Tabs checklist:
 - Connect tabs and panels with `aria-controls` and `aria-labelledby`.
 - Track selection with `aria-selected` and `tabindex` (selected tab `0`, others `-1`).
 - Support Arrow keys to move between tabs and Enter/Space to activate when needed.
-
-#### Dialogs and modals: focus containment and close behavior
-
-Opening a dialog changes interaction context. Focus should move into the dialog, remain there while open, and return to the trigger on close.
-
-Dialog essentials:
-
-- Use native `<dialog>` when possible, or `role="dialog"` with `aria-modal="true"` for custom implementations.
-- Move focus to a meaningful control inside the dialog after open.
-- Trap focus within the dialog while it is active.
-- Close on `Escape` (except where prevented by critical workflow requirements).
-- Restore focus to the invoking element after close.
-
-```html
-<button id="open-settings" type="button">Open settings</button>
-<dialog id="settings-dialog" aria-labelledby="settings-title">
-  <h2 id="settings-title">Settings</h2>
-  <button type="button" id="close-settings">Close</button>
-</dialog>
-```
-
-[![Edit 059-Dialogs and modals: focus containment and close behavior](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/059-dialogs-and-modals-focus-containment-and-close-behavior-vzht63)
-
-[^58]CodeSandbox: Dialogs and modals: focus containment and close behavior.
-
-[^58]:[CodeSandbox: Dialogs and modals: focus containment and close behavior](https://vzht63.csb.app/), last access: June 24, 2026.
-
-```js
-const openBtn = document.getElementById('open-settings');
-const closeBtn = document.getElementById('close-settings');
-const dialog = document.getElementById('settings-dialog');
-
-openBtn.addEventListener('click', () => dialog.showModal());
-closeBtn.addEventListener('click', () => dialog.close());
-dialog.addEventListener('close', () => openBtn.focus());
-```
 
 ### Menus, combobox, listbox, disclosure
 
@@ -5862,7 +5825,6 @@ Reliable labeling patterns:
 [^58]CodeSandbox: for and id, wrapping with label, visually hidden label.
 
 [^58]:[CodeSandbox: for and id, wrapping with label, visually hidden label](https://w9v3nw.csb.app/), last access: June 24, 2026.
-
 
 #### fieldset, legend, radio groups and checkbox groups
 
