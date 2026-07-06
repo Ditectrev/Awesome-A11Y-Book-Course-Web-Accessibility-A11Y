@@ -233,8 +233,7 @@ We are so thankful for every contribution, which makes sure we can deliver top-n
   - [Name, role, value (4.1.2) for custom controls](#name-role-value-412-for-custom-controls)
   - [Exposing name, role, value to assistive tech, custom control requirements](#exposing-name-role-value-to-assistive-tech-custom-control-requirements)
   - [Status messages (4.1.3), live regions, aria-live](#status-messages-413-live-regions-aria-live)
-  - [aria-live, aria-atomic, aria-relevant; polite vs assertive](#aria-live-aria-atomic-aria-relevant-polite-vs-assertive)
-  - [role="status" and role="alert" for messages](#role-status-and-role-alert-for-messages)
+  - [aria-live, role="status", and role="alert"](#aria-live-rolestatus-and-rolealert)
   - [Summary: Compatible](#summary-compatible)
 - [HTML Semantics and ARIA](#html-semantics-and-aria)
   - [When to use native HTML vs ARIA](#when-to-use-native-html-vs-aria)
@@ -5416,7 +5415,7 @@ Native elements (`button`, `input`, `select`, `details`) are preferred because t
 
 ### Status messages (4.1.3), live regions, aria-live
 
-#### aria-live, aria-atomic, aria-relevant; polite vs assertive
+#### aria-live, role="status", and role="alert"
 
 Status updates that appear without focus changes should be announced through live regions so screen reader users receive equivalent feedback.
 
@@ -5424,146 +5423,52 @@ Live region controls:
 
 - `aria-live="polite"` queues non-urgent updates (recommended default).
 - `aria-live="assertive"` interrupts for urgent updates only.
+- `role="status"` is the semantic shortcut for polite, non-critical updates (saved, loaded, filter applied).
+- `role="alert"` is the semantic shortcut for assertive, critical errors.
 - `aria-atomic="true"` reads the full region when content changes.
 - `aria-relevant` limits which mutation types are announced (`additions`, `text`, `removals`).
 
-Use live regions intentionally: over-announcing creates noise, while missing announcements hides important application state changes.
+Use live regions intentionally: over-announcing creates noise, while missing announcements hides important application state changes. Prefer `role="status"` and `role="alert"` over raw `aria-live` when they match your message type. Insert or update message text dynamically; do not move keyboard focus unless workflow requires it.
 
 ```html
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>aria-live — polite vs assertive</title>
+    <title>aria-live, role="status", and role="alert"</title>
 
     <style>
       body {
         font: 1rem/1.5 system-ui, sans-serif;
-        max-width: 640px;
+        max-width: 900px;
         margin: 1.5rem;
       }
 
+      .compare {
+        display: grid;
+        gap: 16px;
+        margin: 1rem 0;
+      }
+
+      @media (min-width: 700px) {
+        .compare {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+
       .demo {
-        margin: 1.5rem 0;
         padding: 12px;
         border: 1px solid #cbd5e1;
         border-radius: 8px;
       }
 
-      button {
-        min-height: 44px;
-        margin-right: 8px;
-        padding: 0 16px;
-        font: inherit;
-        border: 1px solid #1e293b;
-        border-radius: 6px;
-        background: #fff;
-        cursor: pointer;
-      }
-
-      button:focus-visible {
-        outline: 3px solid #1a73e8;
-        outline-offset: 2px;
-      }
-
-      .live-output {
-        min-height: 1.5rem;
-        margin-top: 12px;
-        padding: 8px 12px;
-        border-radius: 6px;
-        background: #f8fafc;
-      }
-
-      .live-output.assertive {
-        background: #fef2f2;
-      }
-    </style>
-  </head>
-  <body>
-    <h1>Live region demo</h1>
-    <p>
-      Updates below are announced without moving focus. Use a screen reader to
-      hear the difference between polite and assertive regions.
-    </p>
-
-    <div class="demo">
-      <h2>Non-critical update — <code>aria-live="polite"</code></h2>
-      <button type="button" id="load-results">Load search results</button>
-      <p
-        id="search-status"
-        class="live-output"
-        aria-live="polite"
-        aria-atomic="true"
-      ></p>
-    </div>
-
-    <div class="demo">
-      <h2>Critical update — <code>aria-live="assertive"</code></h2>
-      <button type="button" id="fail-payment">Simulate payment failure</button>
-      <p
-        id="payment-error"
-        class="live-output assertive"
-        aria-live="assertive"
-        aria-atomic="true"
-      ></p>
-    </div>
-
-    <script>
-      document.getElementById("load-results").addEventListener("click", function () {
-        document.getElementById("search-status").textContent =
-          "15 results loaded";
-      });
-
-      document.getElementById("fail-payment").addEventListener("click", function () {
-        document.getElementById("payment-error").textContent =
-          "Payment failed. Card was declined.";
-      });
-    </script>
-  </body>
-</html>
-```
-
-[![Edit 056-aria-live, aria-atomic, aria-relevant; polite vs assertive](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/055-aria-live-aria-atomic-aria-relevant-polite-vs-assertive-kl8pd2)
-
-[^56]CodeSandbox: aria-live, aria-atomic, aria-relevant; polite vs assertive.
-
-[^56]:[CodeSandbox: aria-live, aria-atomic, aria-relevant; polite vs assertive](https://kl8pd2.csb.app/), last access: July 6, 2026.
-
-#### role="status" and role="alert" for messages
-
-`role="status"` and `role="alert"` provide semantic patterns for non-modal notifications:
-
-- Use `role="status"` for informational, non-critical updates (saved, loaded, filter applied).
-- Use `role="alert"` for critical errors or immediate attention messages.
-- Insert or update message text dynamically; do not move keyboard focus unless workflow requires it.
-- Keep messages concise, specific, and close to the related context.
-
-Choosing the right role balances urgency with usability: informational updates should not interrupt, while critical failures should be announced immediately.
-
-```html
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <title>role="status" and role="alert" for messages</title>
-
-    <style>
-      body {
-        font: 1rem/1.5 system-ui, sans-serif;
-        max-width: 640px;
-        margin: 1.5rem;
-      }
-
-      .demo {
-        margin: 1.5rem 0;
-        padding: 12px;
-        border: 1px solid #cbd5e1;
-        border-radius: 8px;
+      .demo h3 {
+        margin: 0 0 8px;
+        font-size: 0.95rem;
       }
 
       button {
         min-height: 44px;
-        margin-right: 8px;
         padding: 0 16px;
         font: inherit;
         border: 1px solid #1e293b;
@@ -5585,62 +5490,92 @@ Choosing the right role balances urgency with usability: informational updates s
         background: #f8fafc;
       }
 
-      .message.alert {
+      .message.critical {
         background: #fef2f2;
       }
     </style>
   </head>
   <body>
-    <h1>Status vs alert</h1>
+    <h1>Live region demo</h1>
     <p>
-      Both regions announce updates without moving focus. Use a screen reader to
-      compare informational status messages with urgent alerts.
+      Both pairs announce updates without moving focus. Use a screen reader to
+      compare polite/status with assertive/alert.
     </p>
 
-    <div class="demo">
-      <h2>Informational — <code>role="status"</code></h2>
-      <button type="button" id="save-settings">Save settings</button>
-      <div
-        role="status"
-        aria-atomic="true"
-        id="save-status"
-        class="message"
-      ></div>
+    <h2>Non-critical updates</h2>
+    <div class="compare">
+      <div class="demo">
+        <h3><code>aria-live="polite"</code></h3>
+        <button type="button" id="load-results">Load search results</button>
+        <p
+          id="search-status"
+          class="message"
+          aria-live="polite"
+          aria-atomic="true"
+        ></p>
+      </div>
+
+      <div class="demo">
+        <h3><code>role="status"</code></h3>
+        <button type="button" id="save-settings">Save settings</button>
+        <div
+          id="save-status"
+          class="message"
+          role="status"
+          aria-atomic="true"
+        ></div>
+      </div>
     </div>
 
-    <div class="demo">
-      <h2>Critical — <code>role="alert"</code></h2>
-      <button type="button" id="submit-form">Submit form</button>
-      <div role="alert" id="form-error" class="message alert"></div>
+    <h2>Critical updates</h2>
+    <div class="compare">
+      <div class="demo">
+        <h3><code>aria-live="assertive"</code></h3>
+        <button type="button" id="fail-payment">Simulate payment failure</button>
+        <p
+          id="payment-error"
+          class="message critical"
+          aria-live="assertive"
+          aria-atomic="true"
+        ></p>
+      </div>
+
+      <div class="demo">
+        <h3><code>role="alert"</code></h3>
+        <button type="button" id="submit-form">Submit form</button>
+        <div id="form-error" class="message critical" role="alert"></div>
+      </div>
     </div>
 
     <script>
-      function showSaveSuccess() {
-        document.getElementById("save-status").textContent =
-          "Settings saved.";
-      }
+      document.getElementById("load-results").addEventListener("click", function () {
+        document.getElementById("search-status").textContent =
+          "15 results loaded";
+      });
 
-      function showBlockingError() {
+      document.getElementById("save-settings").addEventListener("click", function () {
+        document.getElementById("save-status").textContent = "Settings saved.";
+      });
+
+      document.getElementById("fail-payment").addEventListener("click", function () {
+        document.getElementById("payment-error").textContent =
+          "Payment failed. Card was declined.";
+      });
+
+      document.getElementById("submit-form").addEventListener("click", function () {
         document.getElementById("form-error").textContent =
           "Submission failed. Please fix highlighted fields.";
-      }
-
-      document
-        .getElementById("save-settings")
-        .addEventListener("click", showSaveSuccess);
-      document
-        .getElementById("submit-form")
-        .addEventListener("click", showBlockingError);
+      });
     </script>
   </body>
 </html>
 ```
 
-[![Edit 057-role="status" and role="alert" for messages](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/057-role-status-and-role-alert-for-messages-v6zn8p)
+[![Edit 056-aria-live, role="status", and role="alert"](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/056-aria-live-role-status-and-role-alert-kl8pd2)
 
-[^57]CodeSandbox: role="status" and role="alert" for messages.
+[^56]CodeSandbox: aria-live, role="status", and role="alert".
 
-[^57]:[CodeSandbox: role="status" and role="alert" for messages](https://v6zn8p.csb.app/), last access: June 24, 2026.
+[^56]:[CodeSandbox: aria-live, role="status", and role="alert"](https://kl8pd2.csb.app/), last access: July 6, 2026.
 
 ### Summary: Compatible
 
@@ -5676,7 +5611,6 @@ Why native first:
 [^58]CodeSandbox: Prefer native elements for built-in semantics and behavior.
 
 [^58]:[CodeSandbox: Prefer native elements for built-in semantics and behavior](https://87szst.csb.app/), last access: June 24, 2026.
-
 
 #### Add ARIA only when native HTML cannot express intent
 
