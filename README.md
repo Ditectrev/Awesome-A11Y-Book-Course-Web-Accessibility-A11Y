@@ -5271,11 +5271,6 @@ What to validate regularly:
 
 Validation is not a full accessibility audit, but it removes low-level compatibility defects before deeper keyboard, screen-reader, and UX testing.
 
-```bash
-# CI-friendly HTML validation
-npx vnu-jar --errors-only --skip-non-html ./dist
-```
-
 ### Name, role, value (4.1.2) for custom controls
 
 #### Exposing name, role, value to assistive tech, custom control requirements
@@ -5293,47 +5288,131 @@ For custom controls:
 Native elements (`button`, `input`, `select`, `details`) are preferred because they provide correct semantics and interaction behavior by default.
 
 ```html
-<!-- Preferred native control -->
-<button type="button" aria-expanded="false" aria-controls="filters-panel">
-  Toggle filters
-</button>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Exposing name, role, value to assistive tech, custom control requirements</title>
 
-<!-- Custom control only when necessary -->
-<div
-  id="theme-switch"
-  role="switch"
-  tabindex="0"
-  aria-checked="false"
-  aria-label="Dark mode">
-  Dark mode
-</div>
+    <style>
+      body {
+        font: 1rem/1.5 system-ui, sans-serif;
+        max-width: 640px;
+        margin: 1.5rem;
+      }
+
+      .example {
+        margin: 1.5rem 0;
+        padding: 12px;
+        border: 1px solid #cbd5e1;
+        border-radius: 8px;
+      }
+
+      .example h2 {
+        margin: 0 0 12px;
+        font-size: 1rem;
+      }
+
+      .row {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      [role="switch"] {
+        width: 2.75rem;
+        height: 1.5rem;
+        border: 2px solid #374151;
+        border-radius: 9999px;
+        background: #d1d5db;
+        padding: 0;
+        cursor: pointer;
+        appearance: none;
+        position: relative;
+      }
+
+      [role="switch"]::after {
+        content: "";
+        position: absolute;
+        top: 2px;
+        left: 2px;
+        width: 1rem;
+        height: 1rem;
+        border-radius: 50%;
+        background: #fff;
+        transition: transform 0.15s ease;
+      }
+
+      [role="switch"]:checked,
+      [role="switch"][aria-checked="true"] {
+        background: #2563eb;
+        border-color: #2563eb;
+      }
+
+      [role="switch"]:checked::after,
+      [role="switch"][aria-checked="true"]::after {
+        transform: translateX(1.25rem);
+      }
+
+      [role="switch"]:focus-visible {
+        outline: 3px solid #1a73e8;
+        outline-offset: 2px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Dark mode switch</h1>
+    <p>Both controls do the same thing. Only the custom one needs JavaScript.</p>
+
+    <div class="example">
+      <h2>Preferred: native switch</h2>
+      <div class="row">
+        <label for="dark-mode-native">Dark mode</label>
+        <input type="checkbox" id="dark-mode-native" role="switch" />
+      </div>
+    </div>
+
+    <div class="example">
+      <h2>Custom: same switch rebuilt with ARIA</h2>
+      <div class="row">
+        <span id="dark-mode-custom-label">Dark mode</span>
+        <div
+          id="dark-mode-custom"
+          role="switch"
+          tabindex="0"
+          aria-checked="false"
+          aria-labelledby="dark-mode-custom-label"
+        ></div>
+      </div>
+    </div>
+
+    <script>
+      // Custom switch only: native checkbox switch needs none of this
+      const switchEl = document.getElementById("dark-mode-custom");
+
+      function toggleSwitch() {
+        const next = switchEl.getAttribute("aria-checked") !== "true";
+        switchEl.setAttribute("aria-checked", String(next));
+        switchEl.dispatchEvent(new Event("change", { bubbles: true }));
+      }
+
+      switchEl.addEventListener("click", toggleSwitch);
+      switchEl.addEventListener("keydown", function (event) {
+        if (event.key === " " || event.key === "Enter") {
+          event.preventDefault();
+          toggleSwitch();
+        }
+      });
+    </script>
+  </body>
+</html>
 ```
 
-[![Edit 054-Exposing name, role, value to assistive tech, custom control requirements](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/054-exposing-name-role-value-to-assistive-tech-custom-control-requirements-cykvdg)
+[![Edit 055-Exposing name, role, value to assistive tech, custom control requirements](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/055-exposing-name-role-value-to-assistive-tech-custom-control-requirements-cykvdg)
 
 [^55]CodeSandbox: Exposing name, role, value to assistive tech, custom control requirements.
 
-[^55]:[CodeSandbox: Exposing name, role, value to assistive tech, custom control requirements](https://cykvdg.csb.app/), last access: June 24, 2026.
-
-
-```js
-// Keep custom control state in sync for AT + keyboard users
-const switchEl = document.getElementById('theme-switch');
-
-function toggleSwitch() {
-  const next = switchEl.getAttribute('aria-checked') !== 'true';
-  switchEl.setAttribute('aria-checked', String(next));
-  switchEl.dispatchEvent(new Event('change', { bubbles: true }));
-}
-
-switchEl.addEventListener('click', toggleSwitch);
-switchEl.addEventListener('keydown', (e) => {
-  if (e.key === ' ' || e.key === 'Enter') {
-    e.preventDefault();
-    toggleSwitch();
-  }
-});
-```
+[^55]:[CodeSandbox: Exposing name, role, value to assistive tech, custom control requirements](https://cykvdg.csb.app/), last access: July 6, 2026.
 
 ### Status messages (4.1.3), live regions, aria-live
 
