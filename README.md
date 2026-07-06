@@ -5170,16 +5170,31 @@ Recommended wiring:
   </ul>
 </div>
 
+<label for="email">Email address</label>
+<input
+  id="email"
+  name="email"
+  type="email"
+  aria-invalid="true"
+  aria-describedby="email-error"
+/>
+<p id="email-error">Enter a valid email address.</p>
+
 <label for="postal">Postal code</label>
-<input id="postal" name="postal" aria-invalid="true" aria-describedby="postal-error">
+<input
+  id="postal"
+  name="postal"
+  aria-invalid="true"
+  aria-describedby="postal-error"
+/>
 <p id="postal-error">Postal code is required.</p>
 ```
 
-[![Edit 052-contentinfo, search, landmark order and nesting](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/052-contentinfo-search-landmark-order-and-nesting-kzgxcj)
+[![Edit 053-aria-describedby, aria-invalid, error summary](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/053-aria-describedby-aria-invalid-error-summary-kzgxcj)
 
-[^53]CodeSandbox: contentinfo, search, landmark order and nesting.
+[^53]CodeSandbox: aria-describedby, aria-invalid, error summary.
 
-[^53]:[CodeSandbox: contentinfo, search, landmark order and nesting](https://kzgxcj.csb.app/), last access: June 24, 2026.
+[^53]:[CodeSandbox: aria-describedby, aria-invalid, error summary](https://kzgxcj.csb.app/), last access: July 6, 2026.
 
 ### Required fields, autocomplete, confirmation steps
 
