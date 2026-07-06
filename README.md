@@ -5430,24 +5430,104 @@ Live region controls:
 Use live regions intentionally: over-announcing creates noise, while missing announcements hides important application state changes.
 
 ```html
-<!-- Non-critical updates -->
-<p id="search-status" aria-live="polite" aria-atomic="true"></p>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>aria-live — polite vs assertive</title>
 
-<!-- Critical updates -->
-<p id="payment-error" aria-live="assertive" aria-atomic="true"></p>
+    <style>
+      body {
+        font: 1rem/1.5 system-ui, sans-serif;
+        max-width: 640px;
+        margin: 1.5rem;
+      }
+
+      .demo {
+        margin: 1.5rem 0;
+        padding: 12px;
+        border: 1px solid #cbd5e1;
+        border-radius: 8px;
+      }
+
+      button {
+        min-height: 44px;
+        margin-right: 8px;
+        padding: 0 16px;
+        font: inherit;
+        border: 1px solid #1e293b;
+        border-radius: 6px;
+        background: #fff;
+        cursor: pointer;
+      }
+
+      button:focus-visible {
+        outline: 3px solid #1a73e8;
+        outline-offset: 2px;
+      }
+
+      .live-output {
+        min-height: 1.5rem;
+        margin-top: 12px;
+        padding: 8px 12px;
+        border-radius: 6px;
+        background: #f8fafc;
+      }
+
+      .live-output.assertive {
+        background: #fef2f2;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Live region demo</h1>
+    <p>
+      Updates below are announced without moving focus. Use a screen reader to
+      hear the difference between polite and assertive regions.
+    </p>
+
+    <div class="demo">
+      <h2>Non-critical update — <code>aria-live="polite"</code></h2>
+      <button type="button" id="load-results">Load search results</button>
+      <p
+        id="search-status"
+        class="live-output"
+        aria-live="polite"
+        aria-atomic="true"
+      ></p>
+    </div>
+
+    <div class="demo">
+      <h2>Critical update — <code>aria-live="assertive"</code></h2>
+      <button type="button" id="fail-payment">Simulate payment failure</button>
+      <p
+        id="payment-error"
+        class="live-output assertive"
+        aria-live="assertive"
+        aria-atomic="true"
+      ></p>
+    </div>
+
+    <script>
+      document.getElementById("load-results").addEventListener("click", function () {
+        document.getElementById("search-status").textContent =
+          "15 results loaded";
+      });
+
+      document.getElementById("fail-payment").addEventListener("click", function () {
+        document.getElementById("payment-error").textContent =
+          "Payment failed. Card was declined.";
+      });
+    </script>
+  </body>
+</html>
 ```
 
-[![Edit 055-aria-live, aria-atomic, aria-relevant; polite vs assertive](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/055-aria-live-aria-atomic-aria-relevant-polite-vs-assertive-kl8pd2)
+[![Edit 056-aria-live, aria-atomic, aria-relevant; polite vs assertive](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/055-aria-live-aria-atomic-aria-relevant-polite-vs-assertive-kl8pd2)
 
 [^56]CodeSandbox: aria-live, aria-atomic, aria-relevant; polite vs assertive.
 
-[^56]:[CodeSandbox: aria-live, aria-atomic, aria-relevant; polite vs assertive](https://kl8pd2.csb.app/), last access: June 24, 2026.
-
-
-```js
-document.getElementById('search-status').textContent = '15 results loaded';
-document.getElementById('payment-error').textContent = 'Payment failed. Card was declined.';
-```
+[^56]:[CodeSandbox: aria-live, aria-atomic, aria-relevant; polite vs assertive](https://kl8pd2.csb.app/), last access: July 6, 2026.
 
 #### role="status" and role="alert" for messages
 
