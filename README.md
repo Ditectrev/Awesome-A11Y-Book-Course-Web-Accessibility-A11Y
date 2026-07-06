@@ -5761,37 +5761,95 @@ Using a complex role without its required keyboard and focus model creates confu
 For most website dropdowns (FAQs, filters, account sections), disclosure is simpler and more robust than menu role patterns.
 
 ```html
-<button
-  type="button"
-  aria-expanded="false"
-  aria-controls="account-panel"
-  id="account-toggle">
-  Account options
-</button>
-<div id="account-panel" hidden>
-  <a href="/profile">Profile</a>
-  <a href="/billing">Billing</a>
-  <button type="button">Sign out</button>
-</div>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Disclosure as a safer default for many dropdown-like UIs</title>
+
+    <style>
+      body {
+        font: 1rem/1.5 system-ui, sans-serif;
+        max-width: 640px;
+        margin: 1.5rem;
+      }
+
+      details {
+        border: 1px solid #cbd5e1;
+        border-radius: 8px;
+        padding: 12px;
+        background: #f8fafc;
+      }
+
+      summary {
+        min-height: 44px;
+        display: flex;
+        align-items: center;
+        font-weight: 600;
+        cursor: pointer;
+      }
+
+      summary:focus-visible {
+        outline: 3px solid #1a73e8;
+        outline-offset: 2px;
+      }
+
+      .account-links {
+        display: grid;
+        gap: 8px;
+        margin-top: 12px;
+        padding-top: 12px;
+        border-top: 1px solid #e2e8f0;
+      }
+
+      .account-links a {
+        color: #1d4ed8;
+      }
+
+      .account-links button {
+        justify-self: start;
+        min-height: 44px;
+        padding: 0 16px;
+        font: inherit;
+        border: 1px solid #1e293b;
+        border-radius: 6px;
+        background: #fff;
+        cursor: pointer;
+      }
+
+      .account-links button:focus-visible {
+        outline: 3px solid #1a73e8;
+        outline-offset: 2px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Account menu</h1>
+    <p>
+      For simple dropdowns like this, use native disclosure with
+      <code>&lt;details&gt;</code> and <code>&lt;summary&gt;</code> — not
+      <code>role="menu"</code>. It opens and closes with no JavaScript.
+    </p>
+
+    <details>
+      <summary>Account options</summary>
+      <div class="account-links">
+        <a href="/profile">Profile</a>
+        <a href="/billing">Billing</a>
+        <button type="button">Sign out</button>
+      </div>
+    </details>
+  </body>
+</html>
 ```
 
-[![Edit 060-Disclosure as a safer default for many dropdown-like UIs](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/060-disclosure-as-a-safer-default-for-many-dropdown-like-uis-5k2wgs)
+For a custom-styled disclosure with `aria-expanded`, see [States/properties define current condition and relationships](#statesproperties-define-current-condition-and-relationships).
+
+[![Edit 058-Disclosure as a safer default for many dropdown-like UIs](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/058-disclosure-as-a-safer-default-for-many-dropdown-like-uis-5k2wgs)
 
 [^58]CodeSandbox: Disclosure as a safer default for many dropdown-like UIs.
 
-[^58]:[CodeSandbox: Disclosure as a safer default for many dropdown-like UIs](https://5k2wgs.csb.app/), last access: June 24, 2026.
-
-
-```js
-const accountToggle = document.getElementById('account-toggle');
-const accountPanel = document.getElementById('account-panel');
-
-accountToggle.addEventListener('click', () => {
-  const expanded = accountToggle.getAttribute('aria-expanded') === 'true';
-  accountToggle.setAttribute('aria-expanded', String(!expanded));
-  accountPanel.hidden = expanded;
-});
-```
+[^58]:[CodeSandbox: Disclosure as a safer default for many dropdown-like UIs](https://5k2wgs.csb.app/), last access: July 6, 2026.
 
 ### Summary: HTML Semantics and ARIA
 
