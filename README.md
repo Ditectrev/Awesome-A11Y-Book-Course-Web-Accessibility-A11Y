@@ -5252,12 +5252,11 @@ Even when modern browsers recover from HTML errors visually, accessibility APIs 
 <p id="email-help">We will never share your email.</p>
 ```
 
-[![Edit 053-Start and end tags, nesting, duplicate id and ARIA IDs](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/053-start-and-end-tags-nesting-duplicate-id-and-aria-ids-y63z2r)
+[![Edit 054-Start and end tags, nesting, duplicate id and ARIA IDs](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/054-start-and-end-tags-nesting-duplicate-id-and-aria-ids-y63z2r)
 
 [^54]CodeSandbox: Start and end tags, nesting, duplicate id and ARIA IDs.
 
-[^54]:[CodeSandbox: Start and end tags, nesting, duplicate id and ARIA IDs](https://y63z2r.csb.app/), last access: June 24, 2026.
-
+[^54]:[CodeSandbox: Start and end tags, nesting, duplicate id and ARIA IDs](https://y63z2r.csb.app/), last access: July 6, 2026.
 
 #### W3C validator and Nu Html Checker
 
