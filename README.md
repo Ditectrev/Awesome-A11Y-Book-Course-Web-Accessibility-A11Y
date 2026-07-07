@@ -5868,21 +5868,23 @@ Reliable labeling patterns:
 - Use explicit association: `<label for="email">` + `<input id="email">`.
 - Wrapping an input inside `<label>` is also valid for simple layouts.
 - Do not use placeholder text as the only label; placeholders are hints, not persistent names.
-- If the visual UI cannot show a label, keep a programmatic label with a visually hidden class.
+- When the layout shows only a placeholder or icon (no visible label text), still associate a real `<label>`—often with a visually hidden class so sighted users see the compact UI while assistive tech gets a stable name.
 
 ```html
+<!-- Visible label (preferred default) -->
 <label for="email">Email address</label>
 <input id="email" name="email" type="email" autocomplete="email" />
 
+<!-- Placeholder visible on screen; accessible name comes from the sr-only label -->
 <label class="sr-only" for="search">Search documentation</label>
 <input id="search" name="search" type="search" placeholder="Search docs" />
 ```
 
-[![Edit 061-for and id, wrapping with label, visually hidden label](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/061-for-and-id-wrapping-with-label-visually-hidden-label-w9v3nw)
+[![Edit 059-for and id, wrapping with label, visually hidden label](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/059-for-and-id-wrapping-with-label-visually-hidden-label-w9v3nw)
 
-[^58]CodeSandbox: for and id, wrapping with label, visually hidden label.
+[^59]CodeSandbox: for and id, wrapping with label, visually hidden label.
 
-[^58]:[CodeSandbox: for and id, wrapping with label, visually hidden label](https://w9v3nw.csb.app/), last access: June 24, 2026.
+[^59]:[CodeSandbox: for and id, wrapping with label, visually hidden label](https://w9v3nw.csb.app/), last access: July 7, 2026.
 
 #### fieldset, legend, radio groups and checkbox groups
 
