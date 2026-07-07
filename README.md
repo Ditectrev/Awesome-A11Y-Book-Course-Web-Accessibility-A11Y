@@ -5911,12 +5911,11 @@ Grouping benefits:
 </fieldset>
 ```
 
-[![Edit 062-fieldset, legend, radio groups and checkbox groups](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/062-fieldset-legend-radio-groups-and-checkbox-groups-ww87pz)
+[![Edit 060-fieldset, legend, radio groups and checkbox groups](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/060-fieldset-legend-radio-groups-and-checkbox-groups-ww87pz)
 
-[^58]CodeSandbox: fieldset, legend, radio groups and checkbox groups.
+[^60]CodeSandbox: fieldset, legend, radio groups and checkbox groups.
 
-[^58]:[CodeSandbox: fieldset, legend, radio groups and checkbox groups](https://ww87pz.csb.app/), last access: June 24, 2026.
-
+[^60]:[CodeSandbox: fieldset, legend, radio groups and checkbox groups](https://ww87pz.csb.app/), last access: July 7, 2026.
 
 ### Grouping, required fields, error association
 
