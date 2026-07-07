@@ -251,12 +251,8 @@ We are so thankful for every contribution, which makes sure we can deliver top-n
   - [Labels, placeholders, fieldset and legend](#labels-placeholders-fieldset-and-legend)
     - [for and id, wrapping with label, visually hidden label](#for-and-id-wrapping-with-label-visually-hidden-label)
     - [fieldset, legend, radio groups and checkbox groups](#fieldset-legend-radio-groups-and-checkbox-groups)
-  - [Grouping, required fields, error association](#grouping-required-fields-error-association)
+  - [Grouping and required fields](#grouping-and-required-fields)
     - [Required field indication, aria-required and HTML required](#required-field-indication-aria-required-and-html-required)
-    - [Linking error message to input id, aria-describedby](#linking-error-message-to-input-id-aria-describedby)
-  - [Validation messages, aria-describedby, role=alert](#validation-messages-aria-describedby-rolealert)
-    - [Error summary at top of form, focus on first error](#error-summary-at-top-of-form-focus-on-first-error)
-    - [role="alert" for critical errors, announcing to screen readers](#rolealert-for-critical-errors-announcing-to-screen-readers)
   - [Summary: Forms and Validation](#summary-forms-and-validation)
 - [Testing and Evaluation](#testing-and-evaluation)
   - [Manual testing: keyboard and screen readers](#manual-testing-keyboard-and-screen-readers)
@@ -5174,7 +5170,7 @@ When validation fails, assistive technologies need both field-level context and 
 Recommended wiring:
 
 - Set `aria-invalid="true"` on invalid controls.
-- Reference hint and error text with `aria-describedby`.
+- Reference hint and error text with `aria-describedby` (space-separated IDs when both apply).
 - Provide an error summary at the top of the form that links to each invalid field.
 - Move focus to the summary after failed submit, then allow users to jump directly to each field.
 
@@ -5193,8 +5189,9 @@ Recommended wiring:
   name="email"
   type="email"
   aria-invalid="true"
-  aria-describedby="email-error"
+  aria-describedby="email-hint email-error"
 />
+<p id="email-hint">Use your work email (example@company.com).</p>
 <p id="email-error">Enter a valid email address.</p>
 
 <label for="postal">Postal code</label>
@@ -5917,7 +5914,7 @@ Grouping benefits:
 
 [^60]:[CodeSandbox: fieldset, legend, radio groups and checkbox groups](https://ww87pz.csb.app/), last access: July 7, 2026.
 
-### Grouping, required fields, error association
+### Grouping and required fields
 
 #### Required field indication, aria-required and HTML required
 
@@ -5954,105 +5951,15 @@ Recommended approach:
 
 [^61]CodeSandbox: Required field indication, aria-required and HTML required.
 
-[^61]:[CodeSandbox: Required field indication, aria-required and HTML required](https://8v5phc.csb.app/), last access: June 24, 2026.
+[^61]:[CodeSandbox: Required field indication, aria-required and HTML required](https://8v5phc.csb.app/), last access: July 7, 2026.
 
+For linking field-level hints and errors with `aria-describedby`, `aria-invalid`, and a top-of-form error summary, see [aria-describedby, aria-invalid, error summary](#aria-describedby-aria-invalid-error-summary) in Input Assistance.
 
-#### Linking error message to input id, aria-describedby
-
-Validation feedback should be connected directly to the relevant control so it is announced when the field receives focus.
-
-Error association checklist:
-
-- Give each error message a stable `id`.
-- Reference that `id` from the input with `aria-describedby`.
-- Toggle `aria-invalid="true"` when the field has a validation error.
-- Keep the error text specific and action-oriented.
-
-```html
-<label for="password">Password</label>
-<input
-  id="password"
-  name="password"
-  type="password"
-  aria-describedby="password-help password-error"
-  aria-invalid="true" />
-<p id="password-help">Use at least 12 characters.</p>
-<p id="password-error">Password must include at least one number.</p>
-```
-
-[![Edit 064-Linking error message to input id, aria-describedby](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/064-linking-error-message-to-input-id-aria-describedby-cwt5yy)
-
-[^58]CodeSandbox: Linking error message to input id, aria-describedby.
-
-[^58]:[CodeSandbox: Linking error message to input id, aria-describedby](https://cwt5yy.csb.app/), last access: June 24, 2026.
-
-
-### Validation messages, aria-describedby, role=alert
-
-#### Error summary at top of form, focus on first error
-
-For long forms, provide an error summary near the top after submission fails. This helps users quickly understand what must be fixed.
-
-Summary behavior:
-
-- Render a heading such as "Please fix the following errors."
-- Include links to each invalid field.
-- Move focus to the summary or first invalid control after submit.
-- Keep inline field-level messages as the primary source of correction detail.
-
-```html
-<div id="form-errors" role="region" aria-labelledby="form-errors-title" tabindex="-1" hidden>
-  <h2 id="form-errors-title">Please fix the following errors:</h2>
-  <ul>
-    <li><a href="#email">Enter a valid email address.</a></li>
-    <li><a href="#password">Password must include at least one number.</a></li>
-  </ul>
-</div>
-```
-
-[![Edit 065-Error summary at top of form, focus on first error](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/065-error-summary-at-top-of-form-focus-on-first-error-tlvmct)
-
-[^58]CodeSandbox: Error summary at top of form, focus on first error.
-
-[^58]:[CodeSandbox: Error summary at top of form, focus on first error](https://tlvmct.csb.app/), last access: June 24, 2026.
-
-
-```js
-const errorBox = document.getElementById('form-errors');
-errorBox.hidden = false;
-errorBox.focus();
-```
-
-#### role="alert" for critical errors, announcing to screen readers
-
-Use `role="alert"` for urgent validation failures that need immediate announcement (for example, payment failure or session-expiring submission problems).
-
-Guidelines for alerts:
-
-- Reserve alerts for critical messages; overuse causes noisy interruptions.
-- Keep the message short, specific, and actionable.
-- Prefer `aria-live="polite"` or `role="status"` for non-blocking informational feedback.
-- Do not shift keyboard focus unless the workflow requires immediate action.
-
-```html
-<div id="payment-error" role="alert"></div>
-```
-
-[![Edit 066-role="alert" for critical errors, announcing to screen readers](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/066-role-alert-for-critical-errors-announcing-to-screen-readers-lr5tk6)
-
-[^58]CodeSandbox: role="alert" for critical errors, announcing to screen readers.
-
-[^58]:[CodeSandbox: role="alert" for critical errors, announcing to screen readers](https://lr5tk6.csb.app/), last access: June 24, 2026.
-
-
-```js
-document.getElementById('payment-error').textContent =
-  'Payment failed. Your card was declined. Check details and try again.';
-```
+For urgent announcements with `role="alert"` (versus routine field errors or `role="status"`), see [aria-live, role="status", and role="alert"](#aria-live-rolestatus-and-rolealert).
 
 ### Summary: Forms and Validation
 
-Accessible forms combine clear structure, explicit labeling, and predictable feedback. Every input needs a dependable accessible name (visible label first, visually hidden label when necessary), and related options should be grouped with `fieldset` and `legend` so question context is preserved. Required fields should use native `required` plus clear visual indication, while errors must be programmatically associated through `aria-describedby` and `aria-invalid`. Effective validation uses both inline messages and a top-level error summary with managed focus, and reserves interruptive announcements (`role="alert"`) for truly critical failures.
+Accessible forms combine clear structure, explicit labeling, and predictable feedback. Every input needs a dependable accessible name (visible label first, visually hidden label when necessary), and related options should be grouped with `fieldset` and `legend` so question context is preserved. Required fields should use native `required` plus clear visual indication.
 
 ## Testing and Evaluation
 
