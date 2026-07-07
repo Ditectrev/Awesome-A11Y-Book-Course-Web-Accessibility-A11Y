@@ -28,49 +28,2066 @@
 			<div class="slides">
 				<section data-markdown>
 					<textarea data-template>
-# Slide 1 <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+# Welcome <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
 
 ---
-
-## Slide 2 <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
-
----
-
-### Slide with an image <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
-
-|![Sample image description.](images/codesandbox.svg)|
-|:--:|
-| *Sample image description.* |
+## Introduction to Web Accessibility <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
 
 ---
+### What is accessibility? <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
 
-##### Sample slide with a code and a link <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+---
+### Accessibility defined by W3C WAI <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
 
-```html[|1|2|3,6|4|5|7,10|8|9]
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>My First HTML Page</title>
-  </head>
-  <body>
-    <h1>Hello, World!</h1>
-    <p>This is my first HTML page.</p>
-  </body>
-</html>
+---
+### Definition and scope of web accessibility <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+```html[|1|2|3|4|5|6|7|8|9|10|11|12|13]
+    <a href="#main">Skip to main content</a>
+    <header>
+      <nav aria-label="Primary">
+        <a href="/">Home</a>
+      </nav>
+    </header>
+    <section aria-label="Site banner">
+      <!-- repeated content on every page -->
+    </section>
+    <main id="main">
+      <h1>Shipping address</h1>
+      <!-- primary content -->
+    </main>
 ```
 
-[![Edit 001-Basic HTML Structure](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/001-basic-html-structure-7gq85k)
+[![Edit 001-Definition and scope of web accessibility](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/blue-sound-llqcqj)
 
-[CodeSandbox: Basic HTML Structure](https://7gq85k.csb.app/).
+[CodeSandbox: Definition and scope of web accessibility](https://7gq85k.csb.app/).
 
 ---
+### Accessibility as a continuum, no binary "accessible" vs "inaccessible" <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
 
-### Sample slide with a list <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+---
+### Who benefits and why it matters <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
 
-* Element 1 <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
-* Element 2 <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
-* Element 3 <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+---
+### Users with disabilities and beyond, demographics <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+---
+### The business and human case, ROI, legal risk <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+---
+### Inclusive design and the curb-cut effect <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+---
+### Universal design principles, examples of curb-cut benefits <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+---
+### Legal and compliance (ADA, Section 508, WCAG, EAA) <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+---
+### ADA and digital accessibility, Section 508, EAA scope <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+---
+### WCAG as the technical standard, defining scope <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+```html[|1|2|3|4|5]
+    <!-- Avoid: looks like a button, but no keyboard, no implicit role/name pipeline -->
+    <div class="btn" onclick="submit()">Continue</div>
+
+    <!-- Prefer: native semantics and keyboard behavior -->
+    <button type="submit">Continue</button>
+```
+
+[![Edit 002-WCAG as the technical standard, defining scope](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/002-wcag-as-the-technical-standard-defining-scope-vctm8p)
+
+[CodeSandbox: WCAG as the technical standard, defining scope](https://vctm8p.csb.app/).
+
+---
+### Defining scope, policy, and getting started <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+---
+### Accessibility policy and ownership, compliance timeline <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+---
+### Accessibility audit types and conformance timeline <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+---
+### Quick, full, and continuous audits, risk assessment <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+```json[|1|2|3|4|5|6|7|8|9|10]
+{
+  "scripts": {
+    "lint:a11y": "eslint 'src/**/*.{js,jsx,ts,tsx}'",
+    "test:a11y": "jest --testPathPattern=a11y"
+  },
+  "devDependencies": {
+    "eslint-plugin-jsx-a11y": "^6.10.0",
+    "jest-axe": "^10.0.0"
+  }
+}
+```
+
+---
+### Summary: Introduction to Web Accessibility <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+---
+## Understanding Users and Disabilities <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+---
+### Types of disabilities (visual, auditory, motor, cognitive) <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+---
+### Visual: blindness, low vision, color blindness <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+```html[|1|2|3|4|5|6|7|8|9|10]
+<!-- Informative: describe the message or function -->
+<img src="images/codesandbox.svg" alt="Edit meaningful and decorative images example in CodeSandbox" />
+
+<!-- Decorative: empty alt so the screen reader skips it -->
+<img src="images/codesandbox.svg" alt="" />
+
+<!-- Icon-only control: the name belongs on the button, not only on the icon -->
+<button type="button" aria-label="Close dialog">
+  <img src="images/codesandbox.svg" alt="" />
+</button>
+```
+
+[![Edit 003-Visual: blindness, low vision, color blindness](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/003-visual-blindness-low-vision-color-blindness-2p49l2)
+
+[CodeSandbox: Visual: blindness, low vision, color blindness](https://2p49l2.csb.app/).
+
+---
+### Protanopia, deuteranopia, tritanopia <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+---
+### Simulating color blindness in dev tools <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+---
+### Auditory: deafness and hard of hearing <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+```html[|1|2|3|4]
+<video controls>
+  <source src="sample-video.mp4" type="video/mp4" />
+  <track kind="captions" src="sample-video-en.vtt" srclang="en" label="English" default />
+</video>
+```
+
+[![Edit 005-Auditory: deafness and hard of hearing](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/005-auditory-deafness-and-hard-of-hearing-4h92vv)
+
+[CodeSandbox: Auditory: deafness and hard of hearing](https://4h92vv.csb.app/).
+
+---
+### Dyslexia and reading difficulties <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+---
+### Autism and sensory considerations <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+---
+### Vestibular disorders and motion sensitivity <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+```html[|1|2|3|4|5|6|7|8|9|10|11]
+    <main>
+      <section
+        class="promo"
+        aria-labelledby="promo-heading"
+      >
+        <h1 id="promo-heading">
+          Summer sale
+        </h1>
+        <p>20% off through Friday.</p>
+      </section>
+    </main>
+```
+
+[![Edit 006-Vestibular disorders and motion sensitivity](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/006-vestibular-disorders-and-motion-sensitivity-55gk5n)
+
+[CodeSandbox: Vestibular disorders and motion sensitivity](https://55gk5n.csb.app/).
+
+---
+### Screen readers and how they interpret content <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+---
+### Navigation by tables, lists, and headings <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+```html[|1-3|4-6|7-9|10-12|13-15|16-18|19|20|21|22]
+  <header>
+    <nav aria-label="Primary">…</nav>
+  </header>
+  <main>
+    <h1>Invoices</h1>
+    <h2>Outstanding</h2>
+    <ul>
+      <li><a href="/inv/1">Invoice #1 — due 12 May</a></li>
+      <li><a href="/inv/2">Invoice #2 — due 18 May</a></li>
+    </ul>
+    <h2>Summary by region</h2>
+    <table>
+      <caption>Revenue by region, Q1</caption>
+      <thead>
+        <tr>
+          <th scope="col">Region</th>
+          <th scope="col">Amount</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><th scope="row">EMEA</th><td>…</td></tr>
+<!-- … -->
+```
+
+[![Edit 007-Navigation by tables, lists, and headings](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/007-navigation-by-tables-lists-and-headings-vh93w6)
+
+[CodeSandbox: Navigation by tables, lists, and headings](https://vh93w6.csb.app/).
+
+---
+### Punctuation and verbosity settings <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+---
+### Keyboard-only and switch users <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+```html[|1-3|4-6|7-9|10-12|13|14|15]
+    <a class="skip-link" href="#main">Skip to main content</a>
+    <header>
+      <nav aria-label="Primary">
+        <a href="/">Home</a>
+        <a href="/help">Help</a>
+      </nav>
+    </header>
+    <main id="main" tabindex="-1">
+      <h1>Contact support</h1>
+      <form>
+        <label for="email">Email</label>
+        <input id="email" name="email" type="email" autocomplete="email" />
+        <button type="submit">Send</button>
+      </form>
+    </main>
+```
+
+[![Edit 008-Keyboard-only and switch users](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/008-keyboard-only-and-switch-users-8flmx9)
+
+[CodeSandbox: Keyboard-only and switch users](https://8flmx9.csb.app/).
+
+---
+### Assistive technologies (magnification, braille, voice control) <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+---
+### Situational limitations and user research with disabled users <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+---
+### Summary: Understanding Users and Disabilities <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+---
+## Standards and Guidelines <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+---
+### WCAG 2.1 / 2.2 and the POUR principles <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+```html[|1|2|3]
+    <button type="button" role="switch" aria-checked="false" id="notifications">
+      <span class="visually-hidden">Notifications</span>
+    </button>
+```
+
+[![Edit 009-WCAG 2.1 / 2.2 and the POUR principles](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/009-wcag-2-1-2-2-and-the-pour-principles-txggyd)
+
+[CodeSandbox: WCAG 2.1 / 2.2 and the POUR principles](https://txggyd.csb.app/).
+
+---
+### Conformance levels (A, AA, AAA) and scope <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+```yaml[|1|2|3|4|5|6|7|8|9]
+# accessibility-scope.yaml (illustrative)
+wcag_version: "2.2"
+conformance_level: "AA"
+in_scope:
+  - "https://example.com/app/"
+  - "https://example.com/help/"
+out_of_scope:
+  - "Third-party chat widget (vendor roadmap Q4)"
+  - "Legacy PDFs pre-2020 (linked alternatives provided)"
+```
+
+---
+### How to read success criteria and use techniques <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+---
+### Sufficient techniques, failures, and exceptions <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+```html[|1|2|3|4]
+<!-- Problem: focus can reach the button, but it may be omitted from the tree for AT -->
+<div aria-hidden="true">
+  <button type="button">Save</button>
+</div>
+```
+
+[![Edit 010-Sufficient techniques, failures, and exceptions](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/010-sufficient-techniques-failures-and-exceptions-n6plxz)
+
+[CodeSandbox: Sufficient techniques, failures, and exceptions](https://n6plxz.csb.app/).
+
+---
+### Summary: Standards and Guidelines <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+---
+## Text Alternatives <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+---
+### WCAG 1.1.1 Non-text Content <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+---
+### Images: alt text, decorative vs meaningful, empty alt <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+---
+### Empty alt vs omitted alt, when to use alt="" <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+```html[|1|2|3|4|5|6|7|8]
+<!-- Meaningful: short description -->
+<img src="images/codesandbox.svg" alt="J. Patel, head of engineering, smiling in front of a bookshelf">
+
+<!-- Decorative: empty alt -->
+<img src="images/codesandbox.svg" alt="">
+
+<!-- Wrong: missing alt (avoid) -->
+<img src="images/codesandbox.svg">
+```
+
+[![Edit 011-Empty alt vs omitted alt, when to use alt=""](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/crimson-wind-5pfn8h)
+
+[CodeSandbox: Empty alt vs omitted alt, when to use alt=""](https://5pfn8h.csb.app/).
+
+---
+### Decorative vs meaningful images, alt text decision tree <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+---
+### Alt for linked images (describe destination), image button <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+```html[|1|2|3]
+<a href="https://codesandbox.io">
+  <img src="images/codesandbox.svg" alt="Check CodeSandbox website">
+</a>
+```
+
+[![Edit 012-Alt for linked images (describe destination), image button](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/012-alt-for-linked-images-describe-destination-image-button-qxs6pg)
+
+[CodeSandbox: Alt for linked images (describe destination), image button](https://qxs6pg.csb.app/).
+
+---
+### Writing effective alt text and common pitfalls <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+---
+### Length and context, avoid "image of" and "picture of" <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+---
+### Common pitfall: missing or redundant alt <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+* Missing or useless `alt`: fails 1.1.1; fix with meaningful text, `alt=""` for decorative cases, or refactoring so text appears in the DOM. <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+* Redundant alt next to visible captions: if the caption is visible and describes the image, `alt=""` on the image can avoid “hearing” the same text twice—unless the image adds detail not in the caption; then the `alt` should cover what is unique. <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+* Stuffing keywords for SEO into `alt` hurts real users and is discouraged; write for humans using assistive tech first. <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+
+---
+### Complex images, long descriptions, and data tables <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+---
+### Charts, diagrams, longdesc and aria-describedby <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+```html[|1|2|3|4|5|6|7|8]
+<img
+  src="images/chart-q1.png"
+  alt="Q1 revenue by region: EMEA highest, APAC lowest"
+  aria-describedby="chart-q1-desc"
+>
+<p id="chart-q1-desc">
+  Detailed data: Americas 12.5M, EMEA 19.9M, APAC 8.5M. …
+</p>
+```
+
+[![Edit 013-Charts, diagrams, longdesc and aria-describedby](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/013-charts-diagrams-longdesc-and-aria-describedby-qyh9tg)
+
+[CodeSandbox: Charts, diagrams, longdesc and aria-describedby](https://qyh9tg.csb.app/).
+
+---
+### figcaption and figure, providing a data table <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+```html[|1|2|3|4|5|6|7|8]
+<figure>
+  <img src="images/chart-q1.png" alt="Infographics summarized in the following table">
+  <figcaption>Q1 revenue by region. Full data in the table below.</figcaption>
+</figure>
+<table>
+  <caption>Q1 revenue by region (millions EUR)</caption>
+  …
+</table>
+```
+
+[![Edit 014-figcaption and figure, providing a data table](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/014-figcaption-and-figure-providing-a-data-table-65fyrm)
+
+[CodeSandbox: figcaption and figure, providing a data table](https://65fyrm.csb.app/).
+
+---
+### SVG, icons, image maps, and CAPTCHA <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+---
+### SVG as img vs inline SVG, role="img" and title <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+```html[|1|2|3|4|5]
+<button type="button" aria-label="Close dialog">
+  <svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+    <path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+  </svg>
+</button>
+```
+
+[![Edit 015-SVG as img vs inline SVG, role="img" and title](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/015-svg-as-img-vs-inline-svg-role-img-and-title-w8kfrp)
+
+[CodeSandbox: SVG as img vs inline SVG, role="img" and title](https://w8kfrp.csb.app/).
+
+---
+### Image maps and area alt, CAPTCHA alternatives <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+---
+### Summary: Text Alternatives <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+---
+## Time-Based Media <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+---
+### Audio and video alternatives <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+---
+### Transcripts, captions, and audio description as alternatives <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+* Captions synchronize text with the audio track (dialogue and important non-speech information) so people who are deaf or hard of hearing, or who cannot enable sound, get an equivalent of what is heard. <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+* Transcripts are a text version of the spoken content (and, for video, often descriptions of meaningful visuals). They support reading at one’s own pace, search, translation, and some assistive technology workflows. <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+* Audio description (also called video description) adds spoken narration of important visual information that is not in the main soundtrack—so people who are blind or have low vision can follow action, on-screen text, and scene changes. <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+
+---
+### Captions and subtitles (1.2.2, WebVTT, quality) <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+---
+### Open vs closed captions, caption timing and synchronization <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+* Open captions are burned into the video frames. Everyone sees them; they cannot be toggled off. They simplify delivery (one file) but reduce user choice (language, size, placement) and can clash with branding or cropping. <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+* Closed captions are separate timed text (often WebVTT or TTML) displayed by the player. Users can often turn them on or off, choose tracks, and sometimes adjust style. Closed captions are the usual pattern on the web because they support multiple languages and personalization. <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+
+---
+### WebVTT cue and timestamp format, kind="captions" vs "subtitles" <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+```vtt[|1|2|3|4|5|6|7|8|9|10]
+WEBVTT
+
+00:00:01.000 --> 00:00:04.500
+Welcome to the quarterly results webinar.
+
+00:00:04.500 --> 00:00:07.000
+[upbeat music]
+
+00:00:07.000 --> 00:00:11.000
+<v Speaker 1>Revenue grew twelve percent year over year.</v>
+```
+
+---
+### Transcripts for audio-only and video-only <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+---
+### 1.2.1 and video-only (transcript or description), transcript placement <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+* Prerecorded audio-only (for example a podcast episode), and <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+* Prerecorded video-only (for example a silent demo or animation with no audio track). <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+
+---
+### Audio description and when it is needed <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+---
+### Pauses in dialogue, extended vs standard audio description <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+* Standard audio description fits natural pauses in the soundtrack. Narration is squeezed into gaps between dialogue lines. When pauses are too short, you may need to edit the video to extend silence slightly (where editorially allowed) or use extended description. <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+* Extended audio description (WCAG 1.2.7, Level AAA) pauses the video to allow longer description when there is no room otherwise. The player must support freeze-and-describe behavior. This is more disruptive to pacing but necessary for dense visuals or rapid dialogue. <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+
+---
+### Live captions and sign language (AAA) <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+---
+### 1.2.4 Captions live, CART and real-time transcription <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+* Human stenography / CART (Communication Access Realtime Translation): A trained provider captions in real time with high accuracy for formal events; often the gold standard for legal, medical, or high-stakes live content. <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+* Automatic speech recognition (ASR) quality varies; for conformance, plan for human correction, good audio, low latency, and fallback if the service fails. <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+* Display captions in the same session as the video (embedded player or associated caption pane), with stable synchronization and readable typography. <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+
+---
+### Video player controls and track element <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+---
+### track element and default attribute, keyboard access <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+* `kind` — `captions`, `subtitles`, `descriptions`, `chapters`, `metadata` <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+* `src` — URL of the `.vtt` file <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+* `srclang` — BCP 47 language tag <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+* `label` — Human-readable name in the UI <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+* `default` — Hint to enable this track by default if preferences do not override <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+
+---
+### Summary: Time-Based Media <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+---
+## Adaptable Content <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+---
+### Semantic structure: headings, one h1, hierarchy <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+---
+### Heading hierarchy (h1–h6), skipping levels (avoid) <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+```html[|1|2|3|4|5|6|7|8|9|10]
+<main>
+  <h1>Account settings</h1>
+  <section>
+    <h2>Profile</h2>
+    <h3>Contact details</h3>
+    <!-- … -->
+    <h3>Security</h3>
+    <!-- … -->
+  </section>
+</main>
+```
+
+[![Edit 016-Heading hierarchy (h1–h6), skipping levels (avoid)](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/016-heading-hierarchy-h1-h6-skipping-levels-avoid-sqcmdl)
+
+[CodeSandbox: Heading hierarchy (h1–h6), skipping levels (avoid)](https://sqcmdl.csb.app/).
+
+---
+### Tables: headers, scope, caption, complex tables <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+---
+### scope="col" and scope="row", headers attribute for complex tables <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+```html[|1-3|4-6|7-9|10-12|13|14|15|16|17]
+<table>
+  <caption>Quarterly revenue by region</caption>
+  <thead>
+    <tr>
+      <th scope="col">Region</th>
+      <th scope="col">Q1</th>
+      <th scope="col">Q2</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">EMEA</th>
+      <td>…</td>
+      <td>…</td>
+    </tr>
+  </tbody>
+</table>
+```
+
+[![Edit 017-scope="col" and scope="row", headers attribute for complex tables](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/017-scope-col-and-scope-row-headers-attribute-for-complex-tables-gnd7f7)
+
+[CodeSandbox: scope="col" and scope="row", headers attribute for complex tables](https://gnd7f7.csb.app/).
+
+---
+### caption and table summary, responsive tables <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+```html[|1|2|3|4|5]
+<p id="sales-table-help">Percentages are year over year. Totals include tax.</p>
+<table aria-describedby="sales-table-help">
+  <caption>Regional sales</caption>
+  <!-- … -->
+</table>
+```
+
+[![Edit 018-caption and table summary, responsive tables](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/018-caption-and-table-summary-responsive-tables-9p7z8j)
+
+[CodeSandbox: caption and table summary, responsive tables](https://9p7z8j.csb.app/).
+
+---
+### Lists, form label relationships, and reading order <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+---
+### ol, ul, dl and programmatic associations, 1.3.1 and form labels <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+```html[|1-3|4-6|7-9|10-12|13|14|15|16|17]
+<ul>
+  <li>Keyboard navigation</li>
+  <li>Screen reader testing</li>
+</ul>
+
+<ol>
+  <li>Sign in</li>
+  <li>Confirm email</li>
+  <li>Choose a plan</li>
+</ol>
+
+<dl>
+  <dt>WCAG</dt>
+  <dd>Web Content Accessibility Guidelines</dd>
+  <dt>AT</dt>
+  <dd>Assistive technology</dd>
+</dl>
+```
+
+[![Edit 020-ol, ul, dl and programmatic associations, 1.3.1 and form labels](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/020-ol-ul-dl-and-programmatic-associations-1-3-1-and-form-labels-dts7sj)
+
+[CodeSandbox: ol, ul, dl and programmatic associations, 1.3.1 and form labels](https://dts7sj.csb.app/).
+
+---
+### Logical order vs visual order (CSS, flexbox, grid) <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+---
+### DOM order vs visual order, CSS order and flexbox/grid <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+```html[|1|2|3|4]
+<div class="layout">
+  <article>Content</article>
+  <aside>Aside</aside>
+</div>
+```
+
+[![Edit 022-DOM order vs visual order, CSS order and flexbox/grid](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/022-dom-order-vs-visual-order-css-order-and-flexbox-grid-qqcyd6)
+
+[CodeSandbox: DOM order vs visual order, CSS order and flexbox/grid](https://qqcyd6.csb.app/).
+
+---
+### Responsive design <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+```html[|1|2|3|4|5|6|7|8|9]
+  <header role="banner">…</header>
+  <nav aria-label="Primary">…</nav>
+  <main>
+    <h1>…</h1>
+  </main>
+  <aside aria-labelledby="related-heading">
+    <h2 id="related-heading">Related</h2>
+  </aside>
+  <footer role="contentinfo">…</footer>
+```
+
+[![Edit 023-Responsive design](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/023-responsive-design-npmyw5)
+
+[CodeSandbox: Responsive design](https://npmyw5.csb.app/).
+
+---
+### Visually hidden and screen reader only, aria-hidden <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+```html[|1|2|3|4|5|6|7|8|9]
+    <!-- sr-only: add spoken context for AT; sighted users see the placeholder only -->
+    <label class="sr-only" for="search">Search documentation</label>
+    <input id="search" name="search" type="search" placeholder="Search docs" />
+
+    <!-- aria-hidden="true": hide decorative duplicate; visible text names the control once -->
+    <button type="button">
+      <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M17 3H7a2 2 0 0 0-2 2v14l7-3 7 3V5a2 2 0 0 0-2-2z"/></svg>
+      Save draft
+    </button>
+```
+
+[![Edit 024-Visually hidden and screen reader only, aria-hidden](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/024-visually-hidden-and-screen-reader-only-aria-hidden-7mk24h)
+
+[CodeSandbox: Visually hidden and screen reader only, aria-hidden](https://7mk24h.csb.app/).
+
+---
+### Reflow (1.4.10), 320px, and meaningful sequence <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+---
+### 320px width and 400% zoom, no horizontal scrolling <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+```html[|1|2|3|4|5|6|7|8|9|10|11|12|13|14]
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <main class="page">
+      <h1>Account settings</h1>
+      <p>
+        At narrow widths (for example 320 CSS pixels), this column grows and
+        shrinks with the viewport instead of forcing horizontal scrolling.
+        Line length stays readable because <code>max-width: 70ch</code> caps the
+        text measure on large screens.
+      </p>
+      <p>
+        Resize the window or zoom to 400%: vertical scrolling is expected;
+        users should not need to pan sideways to read this paragraph.
+      </p>
+    </main>
+```
+
+[![Edit 025-320px width and 400% zoom, no horizontal scrolling](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/025-320px-width-and-400-zoom-no-horizontal-scrolling-jxcy6g)
+
+[CodeSandbox: 320px width and 400% zoom, no horizontal scrolling](https://jxcy6g.csb.app/).
+
+---
+### 1.3.2 Meaningful sequence, reading order and DOM order match <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+---
+### Sensory characteristics (1.3.3) <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+---
+### Summary: Adaptable Content <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+---
+## Distinguishable <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+---
+### Color and contrast (1.4.3, 4.5:1, large text) <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+---
+### Contrast ratio 4.5:1 and 3:1, large text 18pt or 14pt bold <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+```html[|1-3|4-6|7-9|10-12|13-15|16-18|19|20|21]
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <main>
+      <h1>Account settings</h1>
+      <p>
+        Normal body text must meet at least <strong>4.5:1</strong> contrast
+        against its background.
+      </p>
+      <p class="help-text">
+        Help text can be slightly muted, but it still needs to be readable —
+        this pair is 7.6:1, well above the minimum.
+      </p>
+      <p class="text-large">
+        Large text (18pt / 24px+) only needs <strong>3:1</strong>.
+      </p>
+      <p class="text-large-bold">
+        Or 14pt bold (~18.67px bold) — also 3:1 minimum.
+      </p>
+      <p>
+        <a href="#details">View billing details</a>
+      </p>
+    </main>
+```
+
+[![Edit 026-Contrast ratio 4.5:1 and 3:1, large text 18pt or 14pt bold](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/026-contrast-ratio-4-5-1-and-3-1-large-text-18pt-or-14pt-bold-fh4ngl)
+
+[CodeSandbox: Contrast ratio 4.5:1 and 3:1, large text 18pt or 14pt bold](https://fh4ngl.csb.app/).
+
+---
+### Calculating contrast, tools (Colour Contrast Analyser, WebAIM) <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+* [TPGi Colour Contrast Analyser](https://www.tpgi.com/color-contrast-checker/) (desktop): sample rendered pixels or enter color values. <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+* [WebAIM Contrast Checker](https://webaim.org/resources/contrastchecker/) (web): quick AA/AAA checks for normal and large text. <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+
+---
+### Not relying on color alone (1.4.1) <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+---
+### Icons, patterns, and text as supplements, form validation and error states <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+```html[|1-3|4-6|7-9|10-12|13-15|16|17|18]
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <p>
+    Links need a non-color cue — here, an underline —
+    <a href="#details">not only blue vs black</a>.
+  </p>
+
+  <form>
+    <label for="pwd">Password</label>
+    <input
+      id="pwd"
+      class="field"
+      type="password"
+      name="password"
+      aria-invalid="true"
+      aria-describedby="pwd-error"
+    />
+    <p id="pwd-error">Password must be at least 12 characters.</p>
+  </form>
+```
+
+[![Edit 027-Icons, patterns, and text as supplements, form validation and error states](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/027-icons-patterns-and-text-as-supplements-form-validation-and-error-states-wtxcsx)
+
+[CodeSandbox: Icons, patterns, and text as supplements, form validation and error states](https://wtxcsx.csb.app/).
+
+---
+### Non-text contrast (1.4.11), focus visible <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+---
+### 1.4.11 and icons/UI components, focus ring contrast (2.4.7, 2.4.11) <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+```html[|1-3|4-6|7-9|10-12|13-15|16-18|19|20|21|22]
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <a class="skip-link" href="#main">Skip to main content</a>
+
+    <header class="site-header">
+      <strong>Acme Billing</strong>
+      <nav aria-label="Primary">
+        <a href="#main">Settings</a>
+        <a href="#notifications">Notifications</a>
+      </nav>
+    </header>
+
+    <main id="main" tabindex="-1">
+      <h1>Account settings</h1>
+      <p>
+        Use Tab and Shift+Tab to move through controls. Focus should stay visible
+        and land below the sticky header when you follow in-page links.
+      </p>
+
+      <section aria-labelledby="contrast-heading">
+        <h2 id="contrast-heading">UI component contrast (1.4.11)</h2>
+        <p>
+<!-- … -->
+```
+
+[![Edit 028-1.4.11 and icons/UI components, focus ring contrast (2.4.7, 2.4.11)](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/028-1-4-11-and-icons-ui-components-focus-ring-contrast-2-4-7-2-4-11-7mmtmj)
+
+[CodeSandbox: 1.4.11 and icons/UI components, focus ring contrast (2.4.7, 2.4.11)](https://7mmtmj.csb.app/).
+
+---
+### Resize text, images of text, audio control <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+---
+### 1.4.4 Resize text, 200% zoom, rem/em vs px; 1.4.2 Audio control <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+```html[|1-3|4-6|7-9|10-12|13-15|16-18|19|20|21|22]
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <main>
+      <h1>Resize text and audio control</h1>
+      <p>
+        Zoom this page to 200% (for example <kbd>Cmd</kbd>+<kbd>+</kbd> or
+        <kbd>Ctrl</kbd>+<kbd>+</kbd>). The rem-based card should grow and
+        reflow; the fixed-pixel card clips overflow.
+      </p>
+
+      <section aria-labelledby="resize-heading">
+        <h2 id="resize-heading">Resize text (1.4.4)</h2>
+        <p>
+          Use <code>rem</code> for typography and spacing tied to user
+          preferences. Reserve <code>px</code> for hairlines and borders.
+        </p>
+
+        <div class="comparison">
+          <article class="card card-pass">
+            <span class="label label-pass">Passes at 200% zoom</span>
+            <p>
+              This panel uses <code>1rem</code> body text, fluid padding, and no
+<!-- … -->
+```
+
+[![Edit 029-1.4.4 Resize text, 200% zoom, rem/em vs px; 1.4.2 Audio control](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/029-1-4-4-resize-text-200-zoom-rem-em-vs-px-1-4-2-audio-control-l87f96)
+
+[CodeSandbox: 1.4.4 Resize text, 200% zoom, rem/em vs px; 1.4.2 Audio control](https://l87f96.csb.app/).
+
+---
+### 1.4.5 Images of text, when text can be visual <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+* The image is essential (for example a logotype or historical screenshot). <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+* The presentation is genuinely user-customizable (rare for static bitmaps). <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+
+---
+### Summary: Distinguishable <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+---
+## Keyboard Accessible <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+---
+### Keyboard operability (2.1.1) and no keyboard trap (2.1.2) <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+---
+### All functionality via keyboard, Space vs Enter for buttons and links <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+```html[|1|2|3]
+<button type="button" id="saveBtn">Save settings</button>
+<a href="#account" id="accountLink">Go to account</a>
+<span role="button" tabindex="0" id="fauxSave">Save (custom control)</span>
+```
+
+[![Edit 030-All functionality via keyboard, Space vs Enter for buttons and links](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/030-all-functionality-via-keyboard-space-vs-enter-for-buttons-and-links-4zxpnc)
+
+[CodeSandbox: All functionality via keyboard, Space vs Enter for buttons and links](https://4zxpnc.csb.app/).
+
+---
+### No keyboard trap, focus must not be trapped in a component <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+* Custom media players where `Tab` stops working. <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+* Embedded widgets/iframes with incorrect focus management. <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+* Off-canvas panels that capture focus but provide no close route. <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+
+---
+### Focus trap in modals, returning focus, tabindex <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+---
+### Tab cycle within modal, first and last focusable, inert <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+```html[|1|2|3|4|5|6|7|8|9|10|11|12]
+<button type="button" id="openDialog">Delete account</button>
+
+<div id="appRoot">
+  <!-- main app content -->
+</div>
+
+<dialog id="confirmDialog" aria-labelledby="confirmTitle">
+  <h2 id="confirmTitle" tabindex="-1">Confirm account deletion</h2>
+  <p>This action cannot be undone.</p>
+  <button type="button" id="cancelDelete">Cancel</button>
+  <button type="button" id="confirmDelete">Delete</button>
+</dialog>
+```
+
+[![Edit 031-Tab cycle within modal, first and last focusable, inert](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/031-tab-cycle-within-modal-first-and-last-focusable-inert-jgcpws)
+
+[CodeSandbox: Tab cycle within modal, first and last focusable, inert](https://jgcpws.csb.app/).
+
+---
+### Returning focus on close, tabindex=0 vs tabindex=-1 <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+```html[|1|2|3|4|5|6|7|8|9|10|11|12]
+<button type="button" id="openDialog">Delete account</button>
+
+<div id="appRoot">
+  <!-- main app content -->
+</div>
+
+<dialog id="confirmDialog" aria-labelledby="confirmTitle">
+  <h2 id="confirmTitle" tabindex="-1">Confirm account deletion</h2>
+  <p>This action cannot be undone.</p>
+  <button type="button" id="cancelDelete">Cancel</button>
+  <button type="button" id="confirmDelete">Delete</button>
+</dialog>
+```
+
+[![Edit 032-Returning focus on close, tabindex=0 vs tabindex=-1](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/032-returning-focus-on-close-tabindex-0-vs-tabindex-1-jq8s7l)
+
+[CodeSandbox: Returning focus on close, tabindex=0 vs tabindex=-1](https://jq8s7l.csb.app/).
+
+---
+### Skip links and bypass blocks (2.4.1) <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+---
+### Skip to main content, skip link and href="#main" <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+```html[|1-3|4-6|7-9|10-12|13-15|16-18|19|20|21|22]
+    <a class="skip-link" href="#main">Skip to main content</a>
+
+    <header>
+      <p>Example Shop</p>
+    </header>
+
+    <nav aria-label="Primary">
+      <a href="/">Home</a>
+      <a href="/products">Products</a>
+      <a href="/cart">Cart</a>
+      <a href="/account">Account</a>
+      <a href="/help">Help</a>
+    </nav>
+
+    <main id="main" tabindex="-1">
+      <h1>Checkout</h1>
+      <p>Review your order and enter shipping details.</p>
+      <form>
+        <label for="ship-name">Full name</label>
+        <input id="ship-name" name="name" type="text" autocomplete="name" />
+        <button type="submit">Continue to payment</button>
+<!-- … -->
+```
+
+[![Edit 033-Skip to main content, skip link and href="#main"](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/033-skip-to-main-content-skip-link-and-href-main-8hhzgq)
+
+[CodeSandbox: Skip to main content, skip link and href="#main"](https://8hhzgq.csb.app/).
+
+---
+### Skip link visible on focus only, styling <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+```html[|1-3|4-6|7-9|10-12|13-15|16-18|19|20|21|22]
+    <a class="skip-link" href="#main">Skip to main content</a>
+
+    <header>
+      <p>Example Shop</p>
+    </header>
+
+    <nav aria-label="Primary">
+      <a href="/">Home</a>
+      <a href="/products">Products</a>
+      <a href="/cart">Cart</a>
+      <a href="/account">Account</a>
+      <a href="/help">Help</a>
+    </nav>
+
+    <main id="main" tabindex="-1">
+      <h1>Checkout</h1>
+      <p>Review your order and enter shipping details.</p>
+      <form>
+        <label for="ship-name">Full name</label>
+        <input id="ship-name" name="name" type="text" autocomplete="name" />
+        <button type="submit">Continue to payment</button>
+<!-- … -->
+```
+
+[![Edit 034-Skip link visible on focus only, styling](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/034-skip-link-visible-on-focus-only-styling-2g3jnv)
+
+[CodeSandbox: Skip link visible on focus only, styling](https://2g3jnv.csb.app/).
+
+---
+### Landmarks (banner, main, navigation, complementary) <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+---
+### Landmark regions and HTML5, region and aria-label <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+```html[|1|2|3|4|5|6|7|8|9|10|11|12|13|14]
+<header>
+  <h1>Product Docs</h1>
+</header>
+
+<nav aria-label="Primary navigation">...</nav>
+
+<main id="main">
+  <section aria-labelledby="release-notes-heading">
+    <h2 id="release-notes-heading">Release notes</h2>
+    ...
+  </section>
+</main>
+
+<aside aria-label="Related articles">...</aside>
+```
+
+[![Edit 035-Landmark regions and HTML5, region and aria-label](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/035-landmark-regions-and-html5-region-and-aria-label-s3dmvy)
+
+[CodeSandbox: Landmark regions and HTML5, region and aria-label](https://s3dmvy.csb.app/).
+
+---
+### contentinfo, search, landmark order and nesting <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+```html[|1|2|3|4]
+<nav aria-label="Primary">...</nav>
+<main id="main">...</main>
+<nav aria-label="Footer">...</nav>
+<footer>...</footer>
+```
+
+[![Edit 036-contentinfo, search, landmark order and nesting](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/036-contentinfo-search-landmark-order-and-nesting-g5gghd)
+
+[CodeSandbox: contentinfo, search, landmark order and nesting](https://g5gghd.csb.app/).
+
+---
+### Character key shortcuts (2.1.4) <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+* Turn the shortcut off. <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+* Remap it to include a modifier (`Alt+S`, `Ctrl+K`). <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+* Activate it only when the relevant component has focus. <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+
+---
+### Summary: Keyboard Accessible <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+---
+## Enough Time <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+---
+### Timing adjustable (2.2.1): session timeouts, warnings <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+```html[|1|2|3|4|5|6|7|8|9|10|11]
+    <main>
+      <h1>Account settings</h1>
+      <p>Signed in as <strong>demo@example.com</strong></p>
+      <p id="timeout-countdown"></p>
+
+      <div id="timeout-warning" hidden role="status" aria-live="polite">
+        <p id="timeout-msg"></p>
+        <button type="button" id="extend-session">Stay signed in</button>
+        <button type="button" id="logout-now">Sign out</button>
+      </div>
+    </main>
+```
+
+[![Edit 037-Timing adjustable (2.2.1): session timeouts, warnings](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/037-timing-adjustable-2-2-1-session-timeouts-warnings-c9jxsg)
+
+[CodeSandbox: Timing adjustable (2.2.1): session timeouts, warnings](https://c9jxsg.csb.app/).
+
+---
+### Pause, stop, hide (2.2.2): carousels, animation <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+```html[|1-3|4-6|7-9|10-12|13-15|16-18|19|20|21|22]
+    <main>
+      <h1>Featured articles</h1>
+
+      <section
+        class="carousel"
+        id="carousel"
+        aria-roledescription="carousel"
+        aria-label="Featured articles"
+      >
+        <div class="carousel-viewport">
+          <ul class="carousel-track" id="carousel-track">
+            <li class="carousel-slide" aria-hidden="false">Slide 1: Keyboard-first navigation</li>
+            <li class="carousel-slide" aria-hidden="true">Slide 2: Color contrast basics</li>
+            <li class="carousel-slide" aria-hidden="true">Slide 3: Form error patterns</li>
+          </ul>
+        </div>
+
+        <div class="carousel-controls">
+          <button type="button" id="prev">Previous slide</button>
+          <button type="button" id="pause" aria-pressed="false">Pause slides</button>
+          <button type="button" id="next">Next slide</button>
+<!-- … -->
+```
+
+[![Edit 038-Pause, stop, hide (2.2.2): carousels, animation](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/038-pause-stop-hide-2-2-2-carousels-animation-tg2hgz)
+
+[CodeSandbox: Pause, stop, hide (2.2.2): carousels, animation](https://tg2hgz.csb.app/).
+
+---
+### Exceptions: essential, real-time, ticket/auction <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+* **Essential**: the time limit is fundamental (for example a real-time exam simulation where timing is the skill being tested). <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+* **Real-time events**: genuinely live processes where delays invalidate participation. <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+* **No alternative timing model**: some interactions cannot be paused without changing the experience. <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+
+---
+### Summary: Enough Time <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+---
+## Seizures and Physical Reactions <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+---
+### Three flashes (2.3.1), general and red flash <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+* Promo banners with strobe-like transitions <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+* Animated ad slots and embedded third-party creatives <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+* Video overlays, game effects, and alert patterns <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+
+---
+### Animation from interactions (2.3.3) <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+```html[|1-3|4-6|7-9|10-12|13-15|16-18|19|20|21|22]
+    <main>
+      <h1>Interaction-driven motion</h1>
+      <p>
+        Hover the card or use the carousel buttons. With
+        <code>prefers-reduced-motion: reduce</code>, lift and slide effects are
+        removed.
+      </p>
+
+      <article class="card">
+        <h2>Accessible card</h2>
+        <p>Decorative lift on hover; shadow change remains in reduced-motion mode.</p>
+      </article>
+
+      <section aria-label="Manual carousel preview">
+        <div class="carousel-viewport">
+          <ul class="carousel-track" id="carousel-track">
+            <li class="carousel-slide">Slide 1</li>
+            <li class="carousel-slide">Slide 2</li>
+            <li class="carousel-slide">Slide 3</li>
+          </ul>
+        </div>
+<!-- … -->
+```
+
+[![Edit 039-Animation from interactions (2.3.3)](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/039-contentinfo-search-landmark-order-and-nesting-f9t45s)
+
+[CodeSandbox: Animation from interactions (2.3.3)](https://f9t45s.csb.app/).
+
+---
+### prefers-reduced-motion <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+```html[|1-3|4-6|7-9|10-12|13-15|16-18|19|20|21|22]
+    <main>
+      <h1>Reduced motion preferences</h1>
+
+      <p id="motion-status" role="status" aria-live="polite"></p>
+
+      <p>
+        <a href="#details">Jump to details</a> to test smooth scrolling. Hover the
+        card to see CSS interaction motion.
+      </p>
+
+      <article class="card">
+        <h2>Hover lift</h2>
+        <p>Transform is removed when reduced motion is enabled.</p>
+      </article>
+
+      <p>
+        <button type="button" id="reveal">Show update</button>
+      </p>
+      <div id="update" hidden role="status">
+        Settings saved. This message appears instantly when reduced motion is on,
+        or fades in when full motion is allowed.
+<!-- … -->
+```
+
+[![Edit 040-prefers-reduced-motion](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/040-contentinfo-search-landmark-order-and-nesting-msmjhr)
+
+[CodeSandbox: prefers-reduced-motion](https://msmjhr.csb.app/).
+
+---
+### Summary: Seizures and Physical Reactions <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+---
+## Navigable <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+---
+### Page title (2.4.2) and focus order (2.4.3) <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+```html[|1|2|3|4|5|6|7|8|9]
+    <nav aria-label="Demo views">
+      <button type="button" data-view="dashboard">Dashboard</button>
+      <button type="button" data-view="settings">Settings</button>
+    </nav>
+
+    <main id="main">
+      <h1 id="page-heading" tabindex="-1">Dashboard</h1>
+      <p id="page-body">Account overview and recent activity.</p>
+    </main>
+```
+
+[![Edit 041-Page title (2.4.2) and focus order (2.4.3)](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/041-page-title-2-4-2-and-focus-order-2-4-3-df2583)
+
+[CodeSandbox: Page title (2.4.2) and focus order (2.4.3)](https://df2583.csb.app/).
+
+---
+### Link purpose in context (2.4.4), multiple ways (2.4.5) <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+```html[|1|2|3]
+<h2 id="post-1-title">WCAG Quick Start</h2>
+<p>Understand POUR principles and ship practical checks in one sprint.</p>
+<a href="https://www.w3.org/WAI/standards-guidelines/wcag/" aria-labelledby="post-1-title">Read: WCAG Quick Start</a>
+```
+
+[![Edit 042-Link purpose in context (2.4.4), multiple ways (2.4.5)](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/041-contentinfo-search-landmark-order-and-nesting-c82pcv)
+
+[CodeSandbox: Link purpose in context (2.4.4), multiple ways (2.4.5)](https://c82pcv.csb.app/).
+
+---
+### Headings and labels (2.4.6), focus visible (2.4.7) <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+```html[|1|2|3|4|5]
+    <h2 id="post-1-title">WCAG Quick Start</h2>
+    <p>Understand POUR principles and ship practical checks in one sprint.</p>
+    <a href="https://www.w3.org/WAI/standards-guidelines/wcag/" aria-labelledby="post-1-title"
+      >Read: WCAG Quick Start</a
+    >
+```
+
+[![Edit 043-Headings and labels (2.4.6), focus visible (2.4.7)](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/043-headings-and-labels-2-4-6-focus-visible-2-4-7-d8cxhh)
+
+[CodeSandbox: Headings and labels (2.4.6), focus visible (2.4.7)](https://d8cxhh.csb.app/).
+
+---
+### Focus not obscured (2.4.11, 2.4.12) <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+```html[|1|2|3|4|5|6|7]
+    <h2 id="post-1-title">WCAG Quick Start</h2>
+    <p>Understand POUR principles and ship practical checks in one sprint.</p>
+    <a
+      href="https://www.w3.org/WAI/standards-guidelines/wcag/"
+      aria-labelledby="post-1-title"
+      >Read: WCAG Quick Start</a
+    >
+```
+
+[![Edit 044-Focus not obscured (2.4.11, 2.4.12)](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/044-focus-not-obscured-2-4-11-2-4-12-pjj6vz)
+
+[CodeSandbox: Focus not obscured (2.4.11, 2.4.12)](https://pjj6vz.csb.app/).
+
+---
+### Summary: Navigable <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+---
+## Input Modalities <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+---
+### Pointer gestures (2.5.1) and single-pointer alternatives <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+```html[|1-3|4-6|7-9|10-12|13-15|16-18|19|20|21|22]
+    <h1>Store locator map</h1>
+    <p>
+      Zoom with the buttons below. Pinch-to-zoom is optional progressive
+      enhancement for touch users who can use it.
+    </p>
+
+    <div class="map-shell">
+      <div
+        class="map-viewport"
+        id="map-viewport"
+        role="region"
+        aria-label="Interactive map of downtown locations"
+        tabindex="0"
+      >
+        <div class="map-canvas" id="map-canvas" aria-hidden="true">
+          Downtown — 3 locations
+        </div>
+      </div>
+
+      <div class="map-controls" aria-label="Map zoom controls">
+        <button type="button" id="zoom-in">Zoom in</button>
+<!-- … -->
+```
+
+[![Edit 045-Pointer gestures (2.5.1) and single-pointer alternatives](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/045-pointer-gestures-2-5-1-and-single-pointer-alternatives-7tc9tq)
+
+[CodeSandbox: Pointer gestures (2.5.1) and single-pointer alternatives](https://7tc9tq.csb.app/).
+
+---
+### Pointer cancellation (2.5.2), target size (2.5.8) <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+```html[|1-3|4-6|7-9|10-12|13-15|16-18|19|20|21|22]
+    <h1>Task list</h1>
+    <p>
+      Compare the two delete patterns below. Pointer cancellation (2.5.2) means
+      the action should complete on release, and users must be able to abort by
+      sliding off the control before letting go.
+    </p>
+
+    <section aria-labelledby="unsafe-heading">
+      <h2 id="unsafe-heading">Fails 2.5.2 — deletes on press</h2>
+      <p>
+        Press and hold, then drag off before release. The item is already gone
+        because the handler runs on <code>pointerdown</code>.
+      </p>
+      <ul class="item-list" id="unsafe-list">
+        <li data-id="1">
+          <span>Draft blog post</span>
+          <button
+            type="button"
+            class="danger-button"
+            data-action="unsafe-delete"
+            aria-label="Unsafe delete: Draft blog post"
+<!-- … -->
+```
+
+[![Edit 046-Pointer cancellation (2.5.2), target size (2.5.8)](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/046-pointer-cancellation-2-5-2-target-size-2-5-8-gs4tlv)
+
+[CodeSandbox: Pointer cancellation (2.5.2), target size (2.5.8)](https://gs4tlv.csb.app/).
+
+---
+### Label in name (2.5.3), motion actuation (2.5.4) <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+```html[|1-3|4-6|7-9|10-12|13-15|16-18|19|20|21|22]
+    <h1>Note editor</h1>
+
+    <section aria-labelledby="label-name-heading">
+      <h2 id="label-name-heading">Label in name (2.5.3)</h2>
+      <p>
+        Speech-input users say the words they see. The accessible name must
+        include that same visible wording.
+      </p>
+
+      <div class="good-example">
+        <h3>Passes — visible text is the accessible name</h3>
+        <div class="button-row">
+          <button type="button" id="save-good">Save draft</button>
+        </div>
+        <p>
+          Saying <strong>“Save draft”</strong> activates this control. No
+          extra <code>aria-label</code> is needed when visible text is enough.
+        </p>
+      </div>
+
+      <div class="bad-example">
+<!-- … -->
+```
+
+[![Edit 047-Label in name (2.5.3), motion actuation (2.5.4)](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/047-label-in-name-2-5-3-motion-actuation-2-5-4-m5rp2k)
+
+[CodeSandbox: Label in name (2.5.3), motion actuation (2.5.4)](https://m5rp2k.csb.app/).
+
+---
+### Input purpose (1.3.5), concurrent input (2.5.6) <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+```html[|1-3|4-6|7-9|10-12|13-15|16-18|19|20|21|22]
+    <h1>Checkout form demo</h1>
+
+    <section aria-labelledby="purpose-heading">
+      <h2 id="purpose-heading">Input purpose and autocomplete (1.3.5)</h2>
+      <p>
+        Both forms look the same to users. The difference is what the browser
+        can infer from each field. Focus a field or click
+        <strong>Fill billing details</strong> to compare.
+      </p>
+
+      <div
+        class="purpose-panel"
+        aria-live="polite"
+        id="purpose-panel"
+      >
+        Focus a field to see what purpose the browser can identify.
+      </div>
+
+      <div class="compare">
+        <div class="good-example">
+          <h3>Passes — purpose exposed</h3>
+<!-- … -->
+```
+
+[![Edit 048-Input purpose (1.3.5), concurrent input (2.5.6)](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/048-input-purpose-1-3-5-concurrent-input-2-5-6-gpszt9)
+
+[CodeSandbox: Input purpose (1.3.5), concurrent input (2.5.6)](https://gpszt9.csb.app/).
+
+---
+### Summary: Input Modalities <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+---
+## Readable <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+---
+### Language of page (3.1.1) and language of parts (3.1.2) <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+```html[|1|2]
+<!doctype html>
+    <p>The French word <span lang="fr">bonjour</span> means "hello".</p>
+```
+
+[![Edit 049-Language of page (3.1.1) and language of parts (3.1.2)](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/049-language-of-page-3-1-1-and-language-of-parts-3-1-2-3ylhzq)
+
+[CodeSandbox: Language of page (3.1.1) and language of parts (3.1.2)](https://3ylhzq.csb.app/).
+
+---
+### Unusual words, abbreviations (3.1.3, 3.1.4) <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+```html[|1|2|3|4|5|6|7|8|9]
+<p>
+  Our team follows
+  <abbr title="Web Content Accessibility Guidelines">WCAG</abbr>
+  to improve accessibility quality.
+</p>
+<p>
+  We use a progressive enhancement approach, meaning core functionality
+  works before advanced features load.
+</p>
+```
+
+[![Edit 050-Unusual words, abbreviations (3.1.3, 3.1.4)](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/050-unusual-words-abbreviations-3-1-3-3-1-4-wghqn5)
+
+[CodeSandbox: Unusual words, abbreviations (3.1.3, 3.1.4)](https://wghqn5.csb.app/).
+
+---
+### Summary: Readable <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+---
+## Predictable <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+---
+### On focus (3.2.1) and on input (3.2.2) <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+```html[|1|2|3|4|5|6|7|8]
+<label for="topic">Choose a topic</label>
+<select id="topic" name="topic">
+  <option value="">Select one</option>
+  <option value="a11y">Accessibility</option>
+  <option value="ux">User Experience</option>
+</select>
+
+<button type="submit">Apply</button>
+```
+
+[![Edit 051-On focus (3.2.1) and on input (3.2.2)](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/051-on-focus-3-2-1-and-on-input-3-2-2-7zz7q3)
+
+[CodeSandbox: On focus (3.2.1) and on input (3.2.2)](https://7zz7q3.csb.app/).
+
+---
+### Consistent navigation and identification (3.2.3, 3.2.4) <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+* Keep repeated navigation mechanisms in the same relative order across pages. <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+* Use the same label for the same destination (`Support` should not become `Help Center` randomly). <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+* Keep icon + text combinations consistent for recurrent actions. <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+* Reuse component behavior patterns (same menu opens the same way everywhere). <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+
+---
+### Change on request and common pitfalls <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+* Auto-redirecting users after a short timer without warning or extension options. <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+* Opening external links in a new tab without visible notice. <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+* Triggering route changes from `onchange` handlers in forms. <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+* Re-rendering large sections on blur/focus in ways that steal focus. <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+
+---
+### Summary: Predictable <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+---
+## Input Assistance <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+---
+### Error identification (3.3.1) and labels or instructions (3.3.2) <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+```html[|1|2|3]
+<label for="email">Email address</label>
+<input id="email" name="email" type="email" aria-describedby="email-hint">
+<p id="email-hint">Use your work email (example@company.com).</p>
+```
+
+[![Edit 052-Error identification (3.3.1) and labels or instructions (3.3.2)](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/052-error-identification-3-3-1-and-labels-or-instructions-3-3-2-3jyk7w)
+
+[CodeSandbox: Error identification (3.3.1) and labels or instructions (3.3.2)](https://3jyk7w.csb.app/).
+
+---
+### Error suggestion (3.3.3) and error prevention (3.3.4) <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+* Explain what went wrong and how to fix it (`Password must be at least 12 characters`). <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+* Prefer concrete examples over generic text (`Use format: MM/DD/YYYY`). <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+* Keep suggestion text near the field and include it in the accessibility tree. <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+
+---
+### aria-describedby, aria-invalid, error summary <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+```html[|1-3|4-6|7-9|10-12|13-15|16-18|19|20|21|22]
+<div role="alert" aria-labelledby="error-title">
+  <h2 id="error-title">Please fix the 2 errors below.</h2>
+  <ul>
+    <li><a href="#email">Enter a valid email address.</a></li>
+    <li><a href="#postal">Postal code is required.</a></li>
+  </ul>
+</div>
+
+<label for="email">Email address</label>
+<input
+  id="email"
+  name="email"
+  type="email"
+  aria-invalid="true"
+  aria-describedby="email-hint email-error"
+/>
+<p id="email-hint">Use your work email (example@company.com).</p>
+<p id="email-error">Enter a valid email address.</p>
+
+<label for="postal">Postal code</label>
+<input
+<!-- … -->
+```
+
+[![Edit 053-aria-describedby, aria-invalid, error summary](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/053-aria-describedby-aria-invalid-error-summary-kzgxcj)
+
+[CodeSandbox: aria-describedby, aria-invalid, error summary](https://kzgxcj.csb.app/).
+
+---
+### Required fields, autocomplete, confirmation steps <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+* Mark required fields consistently in labels (for example, `*` plus text such as `Required`). <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+* Use the semantic `required` attribute, not only visual markers. <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+* Group related required instructions near the start of the form. <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+
+---
+### Summary: Input Assistance <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+---
+## Compatible <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+---
+### Parsing (4.1.1), valid HTML, duplicate IDs <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+---
+### Start and end tags, nesting, duplicate id and ARIA IDs <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+```html[|1|2|3|4|5|6|7|8|9|10]
+<!-- Bad: duplicate ids and broken ARIA reference -->
+<label for="email">Email</label>
+<input id="email" type="email">
+<input id="email" type="email" aria-describedby="email-help">
+<p id="email-help-typo">We will never share your email.</p>
+
+<!-- Good: unique ids and valid references -->
+<label for="email-primary">Email</label>
+<input id="email-primary" type="email" aria-describedby="email-help">
+<p id="email-help">We will never share your email.</p>
+```
+
+[![Edit 054-Start and end tags, nesting, duplicate id and ARIA IDs](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/054-start-and-end-tags-nesting-duplicate-id-and-aria-ids-y63z2r)
+
+[CodeSandbox: Start and end tags, nesting, duplicate id and ARIA IDs](https://y63z2r.csb.app/).
+
+---
+### W3C validator and Nu Html Checker <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+* Duplicate IDs and invalid attributes. <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+* Missing required element relationships and malformed nesting. <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+* Obsolete or invalid ARIA usage. <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+* Broken references used by labels and descriptions. <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+
+---
+### Name, role, value (4.1.2) for custom controls <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+---
+### Exposing name, role, value to assistive tech, custom control requirements <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+```html[|1-3|4-6|7-9|10-12|13-15|16-18|19|20|21|22]
+    <h1>Dark mode switch</h1>
+    <p>Both controls do the same thing. Only the custom one needs JavaScript.</p>
+
+    <div class="example">
+      <h2>Preferred: native switch</h2>
+      <div class="row">
+        <label for="dark-mode-native">Dark mode</label>
+        <input type="checkbox" id="dark-mode-native" role="switch" />
+      </div>
+    </div>
+
+    <div class="example">
+      <h2>Custom: same switch rebuilt with ARIA</h2>
+      <div class="row">
+        <span id="dark-mode-custom-label">Dark mode</span>
+        <div
+          id="dark-mode-custom"
+          role="switch"
+          tabindex="0"
+          aria-checked="false"
+          aria-labelledby="dark-mode-custom-label"
+<!-- … -->
+```
+
+[![Edit 055-Exposing name, role, value to assistive tech, custom control requirements](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/055-exposing-name-role-value-to-assistive-tech-custom-control-requirements-cykvdg)
+
+[CodeSandbox: Exposing name, role, value to assistive tech, custom control requirements](https://cykvdg.csb.app/).
+
+---
+### Status messages (4.1.3), live regions, aria-live <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+---
+### aria-live, role="status", and role="alert" <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+```html[|1-3|4-6|7-9|10-12|13-15|16-18|19|20|21|22]
+    <h1>Live region demo</h1>
+    <p>
+      Both pairs announce updates without moving focus. Use a screen reader to
+      compare polite/status with assertive/alert.
+    </p>
+
+    <h2>Non-critical updates</h2>
+    <div class="compare">
+      <div class="demo">
+        <h3><code>aria-live="polite"</code></h3>
+        <button type="button" id="load-results">Load search results</button>
+        <p
+          id="search-status"
+          class="message"
+          aria-live="polite"
+          aria-atomic="true"
+        ></p>
+      </div>
+
+      <div class="demo">
+        <h3><code>role="status"</code></h3>
+<!-- … -->
+```
+
+[![Edit 056-aria-live, role="status", and role="alert"](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/056-aria-live-role-status-and-role-alert-kl8pd2)
+
+[CodeSandbox: aria-live, role="status", and role="alert"](https://kl8pd2.csb.app/).
+
+---
+### Summary: Compatible <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+---
+## HTML Semantics and ARIA <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+---
+### When to use native HTML vs ARIA <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+---
+### Add ARIA only when native HTML cannot express intent <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+* You need to expose relationships (`aria-controls`, `aria-labelledby`, `aria-describedby`). <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+* A custom widget must communicate state (`aria-expanded`, `aria-selected`, `aria-checked`). <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+* You are implementing a recognized composite pattern (tabs, listbox, combobox, menu button) and can match the full keyboard behavior. <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+
+---
+### ARIA roles, states, and properties <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+---
+### Role defines what a component is <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+* Use role values from the WAI-ARIA spec only (`button`, `tab`, `dialog`, `alert`, `status`). <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+* Keep role and interaction model aligned (for example, a `tab` must support roving focus and selected state). <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+* Prefer implicit native roles before explicit role attributes. <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+
+---
+### States/properties define current condition and relationships <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+```html[|1-3|4-6|7-9|10-12|13-15|16|17|18|19|20]
+    <h1>Filter panel</h1>
+    <p>
+      <code>aria-expanded</code> and <code>aria-controls</code> expose the
+      relationship between the button and the collapsible panel.
+    </p>
+
+    <button
+      id="filters-toggle"
+      type="button"
+      aria-expanded="false"
+      aria-controls="filters-panel"
+    >
+      Filters
+    </button>
+
+    <section id="filters-panel" hidden>
+      <h2>Filter products</h2>
+      <label><input type="checkbox" name="in-stock" /> In stock only</label>
+      <label><input type="checkbox" name="sale" /> On sale</label>
+    </section>
+```
+
+[![Edit 057-States/properties define current condition and relationships](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/057-states-properties-define-current-condition-and-relationships-m722hw)
+
+[CodeSandbox: States/properties define current condition and relationships](https://m722hw.csb.app/).
+
+---
+### Tabs (roving focus, selected panel) <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+---
+### Tabs: roving focus plus selected panel mapping <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+* Use `role="tablist"` on the container, `role="tab"` on each trigger, and `role="tabpanel"` on each panel. <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+* Connect tabs and panels with `aria-controls` and `aria-labelledby`. <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+* Track selection with `aria-selected` and `tabindex` (selected tab `0`, others `-1`). <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+* Support Arrow keys to move between tabs and Enter/Space to activate when needed. <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+
+---
+### Menus, combobox, listbox, disclosure <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+---
+### Choose the right pattern for the interaction <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+* Use **disclosure** (button + expandable region) for show/hide content sections. <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+* Use **menu button/menu** for application-style command lists with strict arrow-key navigation. <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+* Use **listbox** for selecting one or many options from a list. <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+* Use **combobox** for editable/selectable inputs that reveal suggestions. <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+
+---
+### Disclosure as a safer default for many dropdown-like UIs <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+```html[|1-3|4-6|7-9|10-12|13|14|15]
+    <h1>Account menu</h1>
+    <p>
+      For simple dropdowns like this, use native disclosure with
+      <code>&lt;details&gt;</code> and <code>&lt;summary&gt;</code> — not
+      <code>role="menu"</code>. It opens and closes with no JavaScript.
+    </p>
+
+    <details>
+      <summary>Account options</summary>
+      <div class="account-links">
+        <a href="/profile">Profile</a>
+        <a href="/billing">Billing</a>
+        <button type="button">Sign out</button>
+      </div>
+    </details>
+```
+
+[![Edit 058-Disclosure as a safer default for many dropdown-like UIs](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/058-disclosure-as-a-safer-default-for-many-dropdown-like-uis-5k2wgs)
+
+[CodeSandbox: Disclosure as a safer default for many dropdown-like UIs](https://5k2wgs.csb.app/).
+
+---
+### Summary: HTML Semantics and ARIA <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+---
+## Forms and Validation <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+---
+### Labels, placeholders, fieldset and legend <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+---
+### for and id, wrapping with label, visually hidden label <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+```html[|1|2|3|4|5|6|7]
+<!-- Visible label (preferred default) -->
+<label for="email">Email address</label>
+<input id="email" name="email" type="email" autocomplete="email" />
+
+<!-- Placeholder visible on screen; accessible name comes from the sr-only label -->
+<label class="sr-only" for="search">Search documentation</label>
+<input id="search" name="search" type="search" placeholder="Search docs" />
+```
+
+[![Edit 059-for and id, wrapping with label, visually hidden label](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/059-for-and-id-wrapping-with-label-visually-hidden-label-w9v3nw)
+
+[CodeSandbox: for and id, wrapping with label, visually hidden label](https://w9v3nw.csb.app/).
+
+---
+### fieldset, legend, radio groups and checkbox groups <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+```html[|1|2|3|4|5|6|7|8|9|10|11|12]
+<fieldset>
+  <legend>Preferred contact method</legend>
+
+  <label>
+    <input type="radio" name="contact" value="email" />
+    Email
+  </label>
+  <label>
+    <input type="radio" name="contact" value="phone" />
+    Phone
+  </label>
+</fieldset>
+```
+
+[![Edit 060-fieldset, legend, radio groups and checkbox groups](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/060-fieldset-legend-radio-groups-and-checkbox-groups-ww87pz)
+
+[CodeSandbox: fieldset, legend, radio groups and checkbox groups](https://ww87pz.csb.app/).
+
+---
+### Grouping and required fields <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+---
+### Required field indication, aria-required and HTML required <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+```html[|1-3|4-6|7-9|10-12|13|14|15|16|17]
+<label for="first-name">First name <span aria-hidden="true">*</span></label>
+<input id="first-name" name="firstName" type="text" required />
+<hr />
+
+<!-- Native required is not available on custom controls -->
+<span id="terms-label">Terms <span aria-hidden="true">*</span></span>
+<button
+  type="button"
+  role="checkbox"
+  aria-labelledby="terms-label"
+  aria-required="true"
+  aria-checked="false"
+>
+  I agree
+</button>
+
+<p id="required-note">Fields marked with * are required.</p>
+```
+
+[![Edit 061-Required field indication, aria-required and HTML required](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/061-required-field-indication-aria-required-and-html-required-8v5phc)
+
+[CodeSandbox: Required field indication, aria-required and HTML required](https://8v5phc.csb.app/).
+
+---
+### Summary: Forms and Validation <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+---
+## Testing and Evaluation <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+---
+### Manual testing: keyboard and screen readers <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+---
+### Keyboard testing procedure: tab through, Enter/Space, Escape <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+* Start at the browser address bar, then use `Tab` to enter the page and move forward through all controls. <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+* Use `Shift+Tab` to verify reverse navigation order is logical. <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+* Activate controls with `Enter` and `Space` (buttons, links, checkboxes, toggles, menu triggers). <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+* Use arrow keys where expected (radio groups, tabs, listbox options, menus). <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+* Use `Escape` to close overlays such as dialogs, popovers, and dropdowns. <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+* Confirm focus remains visible at all times and never disappears behind styling resets. <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+
+---
+### Screen reader testing (NVDA, VoiceOver), browse mode vs focus mode <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+* Test at least one Windows + NVDA flow and one macOS + VoiceOver flow when possible. <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+* Check headings, landmarks, and links list/rotor to confirm page structure. <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+* Navigate in **browse/virtual mode** for reading flow and semantic structure. <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+* Switch to **focus/forms mode** when operating form fields and widgets. <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+
+---
+### Automated testing: axe, WAVE, Lighthouse <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+---
+### axe-core and browser extensions, Lighthouse a11y score <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+* **axe DevTools / axe-core**: robust rule set, useful in-browser and test automation. <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+* **WAVE**: fast visual overlay for missing labels, contrast warnings, and landmark issues. <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+* **Lighthouse**: broad health signal and trend metric for accessibility improvements over time. <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+
+---
+### Interpreting results, limitations of automation, false positives/negatives <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+* Automated tools cannot reliably judge link purpose in context, writing clarity, or meaningful alt text quality. <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+* Keyboard behavior defects (focus trap logic, roving index bugs) are often missed. <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+* Screen reader announcement quality and timing issues are mostly manual-test findings. <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+
+---
+### CI/CD, jest-axe, eslint-plugin-jsx-a11y <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+---
+### npm packages, unit tests for a11y, linting rules <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+```js[|1|2|3|4|5|6|7|8|9|10|11]
+import { render } from '@testing-library/react';
+import { axe, toHaveNoViolations } from 'jest-axe';
+import LoginForm from './LoginForm';
+
+expect.extend(toHaveNoViolations);
+
+test('LoginForm has no detectable accessibility violations', async () => {
+  const { container } = render(<LoginForm />);
+  const results = await axe(container);
+  expect(results).toHaveNoViolations();
+});
+```
+
+---
+### Reporting issues and prioritization <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+---
+### Severity and impact, steps to reproduce and WCAG criterion <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+* **User impact:** who is affected (keyboard-only users, screen reader users, low-vision users). <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+* **Severity:** blocker/critical/high/medium/low based on task interruption and workaround availability. <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+* **Steps to reproduce:** exact path, environment, input method, and expected vs actual result. <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+* **Standards mapping:** related WCAG criterion (for example `1.3.1`, `2.1.1`, `4.1.2`) and internal policy if applicable. <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+* **Evidence:** screenshots, short recordings, DOM snippet, and tool output if available. <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+
+---
+### Summary: Testing and Evaluation <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+---
+## Documentation and Maintenance <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+---
+### Accessibility statements and VPATs <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+---
+### Transparency, legal alignment, and procurement readiness <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+* **Accessibility statement:** public-facing page describing standards target (for example WCAG level), supported technologies, contact channel, and response timelines. <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+* **VPAT/ACR (Accessibility Conformance Report):** structured conformance report used mainly for procurement and vendor evaluation. <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+* **Known issues log:** concise list of active barriers, impacted features, and mitigation or workaround status. <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+
+---
+### Embedding a11y in design and dev workflows <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+---
+### Definition of done, tickets, and design handoff integration <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+* Add accessibility acceptance criteria to user stories (keyboard behavior, name/role/value, error handling, focus visibility). <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+* Include component accessibility requirements in design handoff (semantics, states, contrast, interaction patterns). <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+* Require accessibility checks in pull request templates and code review prompts. <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+* Add "a11y done" gates in CI and release readiness checklists. <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+
+---
+### Training, governance, and review cycles <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+---
+### Shared ownership model and recurring quality loops <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+* Define accountable owners for policy, implementation quality, and issue triage. <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+* Assign accessibility champions in product squads to support day-to-day decisions. <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+* Establish escalation paths for blocker issues that affect critical user tasks. <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+
+---
+### Summary: Documentation and Maintenance <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+---
+## Appendix A: Quick Reference (WCAG 2.x) <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+---
+### Perceivable, Operable, Understandable, Robust quick list <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+---
+### Fast mental model and implementation checkpoints <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+* **Perceivable:** users can detect content regardless of sense used (text alternatives, captions, adaptable structure, sufficient contrast). <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+* **Operable:** users can interact with all controls and flows (keyboard access, enough time, no seizure triggers, clear navigation). <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+* **Understandable:** users can read and predict behavior (plain language, consistent navigation, clear instructions and error handling). <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+* **Robust:** content works across browsers, assistive technologies, and future agents (valid semantics, correct name/role/value, resilient patterns). <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+
+---
+### Criterion ID to title lookup <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+---
+### Frequently used WCAG 2.x criteria at a glance <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+* `1.1.1` Non-text Content <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+* `1.3.1` Info and Relationships <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+* `1.3.2` Meaningful Sequence <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+* `1.3.5` Identify Input Purpose <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+* `1.4.1` Use of Color <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+* `1.4.3` Contrast (Minimum) <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+* `1.4.4` Resize Text <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+* `1.4.10` Reflow <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+
+---
+### Summary: Appendix A: Quick Reference (WCAG 2.x) <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+---
+## Appendix B: Glossary <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+---
+### Key terms (accessible name, landmark, live region, etc.) <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+---
+### Practical vocabulary used in audits, design reviews, and implementation <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+* **Accessible name:** the spoken label assistive technologies use for an element (from visible text, `aria-label`, `aria-labelledby`, alt text, etc.). <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+* **Accessible description:** supplemental context announced with the accessible name, often from `aria-describedby`. <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+* **Alternative text (alt text):** text alternative for meaningful images that communicates purpose or information. <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+* **ARIA (Accessible Rich Internet Applications):** attributes that expose semantics/state when native HTML alone is insufficient. <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+* **Assistive technology (AT):** software/hardware used by disabled users to interact with content (screen readers, switch devices, magnifiers, voice input). <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+* **Color contrast ratio:** luminance difference between foreground and background; critical for text and non-text UI visibility. <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+* **Focus indicator:** visible cue showing which element currently receives keyboard interaction. <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+* **Focus order:** sequence keyboard users move through interactive elements; should follow logical reading/task order. <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+
+---
+### Acronyms and abbreviations <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+---
+### Common shorthand in accessibility documentation and issue tracking <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+* **A11Y:** numeronym for accessibility. <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+* **ACR:** Accessibility Conformance Report. <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+* **AT:** Assistive Technology. <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+* **ARIA:** Accessible Rich Internet Applications. <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+* **DOM:** Document Object Model. <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+* **EAA:** European Accessibility Act. <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+* **EN 301 549:** European ICT accessibility standard used in procurement/compliance contexts. <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+* **HCM:** High Contrast Mode. <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+
+---
+### Summary: Appendix B: Glossary <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+---
+## Appendix C: Resources and Tools <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+---
+### Official standards and WAI documentation <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+---
+### Canonical sources for requirements, interpretation, and implementation patterns <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+* **W3C WAI home:** [https://www.w3.org/WAI/](https://www.w3.org/WAI/) for standards, tutorials, and planning guidance. <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+* **WCAG 2.2 Recommendation:** [https://www.w3.org/TR/WCAG22/](https://www.w3.org/TR/WCAG22/) as the normative reference for success criteria. <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+* **Understanding WCAG 2.2:** [https://www.w3.org/WAI/WCAG22/Understanding/](https://www.w3.org/WAI/WCAG22/Understanding/) for intent, benefits, and examples per criterion. <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+* **How to Meet WCAG (Quick Reference):** [https://www.w3.org/WAI/WCAG22/quickref/](https://www.w3.org/WAI/WCAG22/quickref/) for filterable implementation guidance. <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+* **WAI-ARIA Authoring Practices (APG):** [https://www.w3.org/WAI/ARIA/apg/](https://www.w3.org/WAI/ARIA/apg/) for accessible interaction patterns and keyboard behavior. <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+* **HTML Accessibility guidance:** [https://www.w3.org/WAI/tutorials/](https://www.w3.org/WAI/tutorials/) for practical tutorials on page structure, forms, tables, images, and media. <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+
+---
+### Testing tools and screen readers <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+---
+### Practical toolkit for automated checks and manual verification <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+* **Browser DevTools accessibility panes:** inspect roles, names, contrast, heading order, landmarks, and computed accessibility tree. <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+* **axe DevTools / axe-core:** fast automated scans for common failures (missing labels, contrast failures, ARIA misuse, landmark gaps). <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+* **WAVE:** visual page overlays that help spot structural and labeling issues quickly during review. <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+* **Lighthouse accessibility audit:** high-level baseline checks integrated with Chrome workflows and CI reporting. <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+* **Keyboard-only test pass:** verify focus visibility, focus order, skip links, modal traps, and full task completion without a mouse. <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+* **Screen readers to include in testing matrix:** NVDA (Windows), JAWS (Windows), VoiceOver (macOS/iOS), TalkBack (Android). <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+
+---
+### Learning and certification <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+---
+### Continuous upskilling for designers, developers, QA, and product teams <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+* **W3C WAI tutorials and courses:** foundational, standards-aligned learning for teams new to accessibility. <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+* **Deque University:** structured, role-based training (development, design, testing, leadership) with practical exercises. <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+* **The A11Y Project:** community-curated checklists, articles, and practical guidance for day-to-day implementation. <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+* **WebAIM articles and training:** practical explanations, testing techniques, and reference material for teams and auditors. <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+* **IAAP certifications (e.g., CPACC, WAS):** industry-recognized credentials for accessibility knowledge and technical competence. <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+* **Internal enablement practice:** maintain a shared pattern library, host defect postmortems, and run recurring accessibility office hours. <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+
+---
+### Summary: Appendix C: Resources and Tools <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+---
+## Appendix D: Checklist Template <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+---
+### Design, development, and release checklists <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+---
+### Reusable checklists for integrating accessibility into delivery workflows <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+* **Design checklist** <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+* **Development checklist** <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+* **QA and release checklist** <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+
+---
+### Audit report and exemption templates <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+---
+### Standardized reporting format for findings, risk, and remediation tracking <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+* **Audit report template** <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+* **Exemption template (when temporary exception is required)** <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+
+---
+### Summary: Appendix D: Checklist Template <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
 					</textarea>
 				</section>
 			</div>
@@ -81,14 +2098,9 @@
 		<script src="plugin/markdown/markdown.js"></script>
 		<script src="plugin/highlight/highlight.js"></script>
 		<script>
-			// More info about initialization & config:
-			// - https://revealjs.com/initialization/
-			// - https://revealjs.com/config/
 			Reveal.initialize({
 				hash: true,
 				slideNumber: 'c/t',
-
-				// Learn about plugins: https://revealjs.com/plugins/
 				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
 			});
 		</script>
