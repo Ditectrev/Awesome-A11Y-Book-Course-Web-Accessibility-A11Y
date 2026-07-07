@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>Presentation theme starter for Ditectrev courses based on reveal.js.</title>
+
+		<link rel="stylesheet" href="dist/reset.css">
+		<link rel="stylesheet" href="dist/reveal.css">
+		<link rel="stylesheet" href="dist/theme/serif.css">
+
+		<!-- Theme used for syntax highlighted code -->
+		<link rel="stylesheet" href="plugin/highlight/monokai.css">
+
+		<style>
+			.fragment.blur {
+				filter: blur(1rem);
+			}
+
+			.fragment.blur.visible {
+				filter: none;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section data-markdown>
+					<textarea data-template>
+# Slide 1 <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+---
+
+## Slide 2 <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+---
+
+### Slide with an image <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+|![Sample image description.](images/codesandbox.svg)|
+|:--:|
+| *Sample image description.* |
+
+---
+
+##### Sample slide with a code and a link <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+```html[|1|2|3,6|4|5|7,10|8|9]
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>My First HTML Page</title>
+  </head>
+  <body>
+    <h1>Hello, World!</h1>
+    <p>This is my first HTML page.</p>
+  </body>
+</html>
+```
+
+[![Edit 001-Basic HTML Structure](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/001-basic-html-structure-7gq85k)
+
+[CodeSandbox: Basic HTML Structure](https://7gq85k.csb.app/).
+
+---
+
+### Sample slide with a list <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+* Element 1 <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+* Element 2 <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+* Element 3 <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+					</textarea>
+				</section>
+			</div>
+		</div>
+
+		<script src="dist/reveal.js"></script>
+		<script src="plugin/notes/notes.js"></script>
+		<script src="plugin/markdown/markdown.js"></script>
+		<script src="plugin/highlight/highlight.js"></script>
+		<script>
+			// More info about initialization & config:
+			// - https://revealjs.com/initialization/
+			// - https://revealjs.com/config/
+			Reveal.initialize({
+				hash: true,
+				slideNumber: 'c/t',
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
+			});
+		</script>
+	</body>
+</html>
