@@ -5933,14 +5933,28 @@ Recommended approach:
 ```html
 <label for="first-name">First name <span aria-hidden="true">*</span></label>
 <input id="first-name" name="firstName" type="text" required />
+<hr />
+
+<!-- Native required is not available on custom controls -->
+<span id="terms-label">Terms <span aria-hidden="true">*</span></span>
+<button
+  type="button"
+  role="checkbox"
+  aria-labelledby="terms-label"
+  aria-required="true"
+  aria-checked="false"
+>
+  I agree
+</button>
+
 <p id="required-note">Fields marked with * are required.</p>
 ```
 
-[![Edit 063-Required field indication, aria-required and HTML required](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/063-required-field-indication-aria-required-and-html-required-8v5phc)
+[![Edit 061-Required field indication, aria-required and HTML required](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/061-required-field-indication-aria-required-and-html-required-8v5phc)
 
-[^58]CodeSandbox: Required field indication, aria-required and HTML required.
+[^61]CodeSandbox: Required field indication, aria-required and HTML required.
 
-[^58]:[CodeSandbox: Required field indication, aria-required and HTML required](https://8v5phc.csb.app/), last access: June 24, 2026.
+[^61]:[CodeSandbox: Required field indication, aria-required and HTML required](https://8v5phc.csb.app/), last access: June 24, 2026.
 
 
 #### Linking error message to input id, aria-describedby
