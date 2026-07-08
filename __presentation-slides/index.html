@@ -107,20 +107,23 @@
 #### Universal design principles, examples of curb-cut benefits <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
 
 ---
+
 ### Legal and compliance (ADA, Section 508, WCAG, EAA) <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
 
 ---
-### ADA and digital accessibility, Section 508, EAA scope <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+#### ADA and digital accessibility, Section 508, EAA scope <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
 
 ---
-### WCAG as the technical standard, defining scope <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
 
-```html[|1|2|3|4|5]
-    <!-- Avoid: looks like a button, but no keyboard, no implicit role/name pipeline -->
-    <div class="btn" onclick="submit()">Continue</div>
+#### WCAG as the technical standard, defining scope <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
 
-    <!-- Prefer: native semantics and keyboard behavior -->
-    <button type="submit">Continue</button>
+```html[|1|2|4|5]
+<!-- Avoid: looks like a button, but no keyboard, no implicit role/name pipeline -->
+<div class="btn" onclick="submit()">Continue</div>
+
+<!-- Prefer: native semantics and keyboard behavior -->
+<button type="submit">Continue</button>
 ```
 
 [![Edit 002-WCAG as the technical standard, defining scope](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/002-wcag-as-the-technical-standard-defining-scope-vctm8p)
