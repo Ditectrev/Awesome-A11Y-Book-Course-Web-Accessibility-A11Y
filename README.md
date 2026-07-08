@@ -320,7 +320,7 @@ At the code level, that starts with a valid document, a human language, landmark
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>Checkout — Shipping | Example Shop</title>
+    <title>Definition and scope of web accessibility</title>
     <style>
       /* Demo only: push main below the fold so the skip link scroll is visible */
       section[aria-label="Site banner"] {

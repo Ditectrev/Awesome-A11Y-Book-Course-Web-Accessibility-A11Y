@@ -31,18 +31,36 @@
 # Welcome <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
 
 ---
+
 ## Introduction to Web Accessibility <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
 
 ---
+
 ### What is accessibility? <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
 
 ---
-### Accessibility defined by W3C WAI <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+#### Accessibility defined by W3C WAI <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
 
 ---
-### Definition and scope of web accessibility <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
 
-```html[|1|2|3|4|5|6|7|8|9|10|11|12|13]
+#### Definition and scope of web accessibility <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+```html[|1|2|29|2,29|3|13|3,13|5|15|16|20|16,20|17|19|17,19|21|23|21,23|24|27|24,27|25]
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Definition and scope of web accessibility</title>
+    <style>
+      /* Demo only: push main below the fold so the skip link scroll is visible */
+      section[aria-label="Site banner"] {
+        min-height: 600px;
+        background: #f3f4f6;
+      }
+    </style>
+  </head>
+  <body>
     <a href="#main">Skip to main content</a>
     <header>
       <nav aria-label="Primary">
@@ -56,6 +74,8 @@
       <h1>Shipping address</h1>
       <!-- primary content -->
     </main>
+  </body>
+</html>
 ```
 
 [![Edit 001-Definition and scope of web accessibility](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/blue-sound-llqcqj)
@@ -63,7 +83,8 @@
 [CodeSandbox: Definition and scope of web accessibility](https://7gq85k.csb.app/).
 
 ---
-### Accessibility as a continuum, no binary "accessible" vs "inaccessible" <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+#### Accessibility as a continuum, no binary "accessible" vs "inaccessible" <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
 
 ---
 ### Who benefits and why it matters <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->

@@ -302,7 +302,9 @@ gulp.task('serve', () => {
         root: root,
         port: port,
         host: host,
-        livereload: true
+        // Disabled: connect-livereload injects before the first </body> in the
+        // response, including </body> inside slide code fences in index.html.
+        livereload: false
     })
 
     const slidesRoot = root.endsWith('/') ? root : root + '/'
