@@ -164,15 +164,18 @@
 ### Summary: Introduction to Web Accessibility <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
 
 ---
+
 ## Understanding Users and Disabilities <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
 
 ---
+
 ### Types of disabilities (visual, auditory, motor, cognitive) <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
 
 ---
-### Visual: blindness, low vision, color blindness <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
 
-```html[|1|2|3|4|5|6|7|8|9|10]
+#### Visual: blindness, low vision, color blindness <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+```html[|1|2|4|5|7|8|10|8,10|9]
 <!-- Informative: describe the message or function -->
 <img src="images/codesandbox.svg" alt="Edit meaningful and decorative images example in CodeSandbox" />
 
@@ -190,15 +193,18 @@
 [CodeSandbox: Visual: blindness, low vision, color blindness](https://2p49l2.csb.app/).
 
 ---
-### Protanopia, deuteranopia, tritanopia <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+#### Protanopia, deuteranopia, tritanopia <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
 
 ---
-### Simulating color blindness in dev tools <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+#### Simulating color blindness in dev tools <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
 
 ---
-### Auditory: deafness and hard of hearing <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
 
-```html[|1|2|3|4]
+#### Auditory: deafness and hard of hearing <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+```html[|1|4|1,4|2|3]
 <video controls>
   <source src="sample-video.mp4" type="video/mp4" />
   <track kind="captions" src="sample-video-en.vtt" srclang="en" label="English" default />
@@ -210,26 +216,23 @@
 [CodeSandbox: Auditory: deafness and hard of hearing](https://4h92vv.csb.app/).
 
 ---
-### Dyslexia and reading difficulties <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+#### Dyslexia and reading difficulties <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
 
 ---
-### Autism and sensory considerations <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+#### Autism and sensory considerations <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
 
 ---
-### Vestibular disorders and motion sensitivity <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
 
-```html[|1|2|3|4|5|6|7|8|9|10|11]
-    <main>
-      <section
-        class="promo"
-        aria-labelledby="promo-heading"
-      >
-        <h1 id="promo-heading">
-          Summer sale
-        </h1>
-        <p>20% off through Friday.</p>
-      </section>
-    </main>
+#### Vestibular disorders and motion sensitivity <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+```css[|1|5|1,5|2|4|2,4|3]
+@media (prefers-reduced-motion: reduce) {
+  .promo {
+    animation: none !important;
+  }
+}
 ```
 
 [![Edit 006-Vestibular disorders and motion sensitivity](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/006-vestibular-disorders-and-motion-sensitivity-55gk5n)
