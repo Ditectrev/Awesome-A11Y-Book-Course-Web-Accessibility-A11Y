@@ -918,7 +918,7 @@ Stable URLs for Understanding documents follow a predictable pattern you can boo
 The `{slug}` is a lowercase, hyphenated version of the criterion title. Examples:
 
 | Criterion | Understanding page |
-|-----------|-------------------|
+| --------- | ------------------ |
 | **1.1.1** Non-text Content | [non-text-content.html](https://www.w3.org/WAI/WCAG22/Understanding/non-text-content.html) |
 | **1.4.3** Contrast (Minimum) | [contrast-minimum.html](https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html) |
 | **2.4.7** Focus Visible | [focus-visible.html](https://www.w3.org/WAI/WCAG22/Understanding/focus-visible.html) |
