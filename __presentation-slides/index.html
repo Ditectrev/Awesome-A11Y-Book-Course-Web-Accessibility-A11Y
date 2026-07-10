@@ -456,12 +456,14 @@ out_of_scope:
 ### Common pitfall: missing or redundant alt <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
 
 ---
+
 ### Complex images, long descriptions, and data tables <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
 
 ---
-### Charts, diagrams, longdesc and aria-describedby <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
 
-```html[|1|2|3|4|5|6|7|8]
+#### Charts, diagrams, longdesc and aria-describedby <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+```html[|4|6|8|6,8|7]
 <img
   src="images/chart-q1.png"
   alt="Q1 revenue by region: EMEA highest, APAC lowest"
@@ -477,9 +479,10 @@ out_of_scope:
 [CodeSandbox: Charts, diagrams, longdesc and aria-describedby](https://qyh9tg.csb.app/).
 
 ---
-### figcaption and figure, providing a data table <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
 
-```html[|1|2|3|4|5|6|7|8]
+#### figcaption and figure, providing a data table <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+```html[|1|4|1,4|2|3|5|8|5,8|6|7]
 <figure>
   <img src="images/chart-q1.png" alt="Infographics summarized in the following table">
   <figcaption>Q1 revenue by region. Full data in the table below.</figcaption>
