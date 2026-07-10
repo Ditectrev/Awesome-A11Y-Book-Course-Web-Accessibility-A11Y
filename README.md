@@ -1006,22 +1006,14 @@ Functional images (part of a link or button) must describe the function or desti
 
 When an image is the only content inside a link, the image’s text alternative effectively becomes the link name. Describe where the link goes or what it does, not a literal description of the bitmap unless that is genuinely what users need.
 
+For `<input type="image">`, the `alt` attribute provides the accessible name for the submit control (equivalent to a submit button’s label).
+
 ```html
 <a href="https://codesandbox.io">
   <img src="images/codesandbox.svg" alt="Check CodeSandbox website">
 </a>
-```
-
-[![Edit 012-Alt for linked images (describe destination), image button](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/012-alt-for-linked-images-describe-destination-image-button-qxs6pg)
-
-[^12]CodeSandbox: Alt for linked images (describe destination), image button.
-
-[^12]:[CodeSandbox: Alt for linked images (describe destination), image button](https://qxs6pg.csb.app/), last access: June 9, 2026.
-
-For `<input type="image">`, the `alt` attribute provides the accessible name for the submit control (equivalent to a submit button’s label).
-
-```html
-<input type="image" src="images/codesandbox.svg" alt="Edit CodeSandbox">
+<hr />
+<input type="image" src="images/codesandbox.svg" alt="Edit CodeSandbox" />
 ```
 
 [![Edit 012-Alt for linked images (describe destination), image button](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/012-alt-for-linked-images-describe-destination-image-button-qxs6pg)
