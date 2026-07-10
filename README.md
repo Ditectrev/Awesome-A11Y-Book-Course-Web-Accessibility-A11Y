@@ -142,8 +142,8 @@ We are so thankful for every contribution, which makes sure we can deliver top-n
     - [Pauses in dialogue, extended vs standard audio description](#pauses-in-dialogue-extended-vs-standard-audio-description)
   - [Live captions and sign language (AAA)](#live-captions-and-sign-language-aaa)
     - [1.2.4 Captions live, CART and real-time transcription](#124-captions-live-cart-and-real-time-transcription)
-  - [Video player controls and track element](#video-player-controls-and-track-element)
-    - [track element and default attribute, keyboard access](#track-element-and-default-attribute-keyboard-access)
+  - [Video player controls and `track` element](#video-player-controls-and-track-element)
+    - [`track` element and default attribute, keyboard access](#track-element-and-default-attribute-keyboard-access)
   - [Summary: Time-Based Media](#summary-time-based-media)
 - [Adaptable Content](#adaptable-content)
   - [Semantic structure: headings, one h1, hierarchy](#semantic-structure-headings-one-h1-hierarchy)
@@ -1233,9 +1233,9 @@ Implementation notes:
 
 WCAG 1.2.6 Sign Language (Prerecorded) (Level AAA) is separate: an interpretation of all audio (including dialogue) in sign language, synchronized with the media. It is not a substitute for captions—deaf users have diverse needs; some use sign, some rely on captions, many use both.
 
-### Video player controls and track element
+### Video player controls and `track` element
 
-#### track element and default attribute, keyboard access
+#### `track` element and default attribute, keyboard access
 
 The `<video>` element should expose native or custom controls that are keyboard operable (see 2.1.1) and labeled: play/pause, volume, caption/subtitle menu, fullscreen, scrubber, and mute as applicable.
 
