@@ -628,12 +628,14 @@ Welcome to the quarterly results webinar.
 [CodeSandbox: Heading hierarchy (h1–h6), skipping levels (avoid)](https://sqcmdl.csb.app/).
 
 ---
+
 ### Tables: headers, scope, caption, complex tables <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
 
 ---
-### scope="col" and scope="row", headers attribute for complex tables <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
 
-```html[|1-3|4-6|7-9|10-12|13|14|15|16|17]
+#### `scope="col"` and `scope="row"`, `headers` attribute for complex tables <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+```html[|5-7|12]
 <table>
   <caption>Quarterly revenue by region</caption>
   <thead>
@@ -646,21 +648,18 @@ Welcome to the quarterly results webinar.
   <tbody>
     <tr>
       <th scope="row">EMEA</th>
-      <td>…</td>
-      <td>…</td>
-    </tr>
-  </tbody>
-</table>
+      ...
 ```
 
 [![Edit 017-scope="col" and scope="row", headers attribute for complex tables](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/017-scope-col-and-scope-row-headers-attribute-for-complex-tables-gnd7f7)
 
-[CodeSandbox: scope="col" and scope="row", headers attribute for complex tables](https://gnd7f7.csb.app/).
+[CodeSandbox: `scope="col"` and `scope="row"`, `headers` attribute for complex tables](https://gnd7f7.csb.app/).
 
 ---
-### caption and table summary, responsive tables <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
 
-```html[|1|2|3|4|5]
+#### `caption` and table summary, responsive tables <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+```html[|1|2|5|2,5|3|4]
 <p id="sales-table-help">Percentages are year over year. Totals include tax.</p>
 <table aria-describedby="sales-table-help">
   <caption>Regional sales</caption>
@@ -670,7 +669,7 @@ Welcome to the quarterly results webinar.
 
 [![Edit 018-caption and table summary, responsive tables](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/018-caption-and-table-summary-responsive-tables-9p7z8j)
 
-[CodeSandbox: caption and table summary, responsive tables](https://9p7z8j.csb.app/).
+[CodeSandbox: `caption` and table summary, responsive tables](https://9p7z8j.csb.app/).
 
 ---
 ### Lists, form label relationships, and reading order <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
