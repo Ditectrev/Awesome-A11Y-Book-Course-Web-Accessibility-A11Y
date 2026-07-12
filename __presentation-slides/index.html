@@ -817,26 +817,20 @@ Welcome to the quarterly results webinar.
 [CodeSandbox: Visually hidden and screen reader only, aria-hidden](https://7mk24h.csb.app/).
 
 ---
+
 ### Reflow (1.4.10), 320px, and meaningful sequence <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
 
 ---
-### 320px width and 400% zoom, no horizontal scrolling <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
 
-```html[|1|2|3|4|5|6|7|8|9|10|11|12|13|14]
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <main class="page">
-      <h1>Account settings</h1>
-      <p>
-        At narrow widths (for example 320 CSS pixels), this column grows and
-        shrinks with the viewport instead of forcing horizontal scrolling.
-        Line length stays readable because <code>max-width: 70ch</code> caps the
-        text measure on large screens.
-      </p>
-      <p>
-        Resize the window or zoom to 400%: vertical scrolling is expected;
-        users should not need to pan sideways to read this paragraph.
-      </p>
-    </main>
+#### 320px width and 400% zoom, no horizontal scrolling <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+```css[|1|6|1,6|2]
+.page {
+  width: 100%;
+  max-width: 70ch;
+  margin-inline: auto;
+  padding-inline: clamp(1rem, 4vw, 2rem);
+}
 ```
 
 [![Edit 025-320px width and 400% zoom, no horizontal scrolling](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/025-320px-width-and-400-zoom-no-horizontal-scrolling-jxcy6g)
@@ -844,6 +838,7 @@ Welcome to the quarterly results webinar.
 [CodeSandbox: 320px width and 400% zoom, no horizontal scrolling](https://jxcy6g.csb.app/).
 
 ---
+
 ### 1.3.2 Meaningful sequence, reading order and DOM order match <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
 
 ---
