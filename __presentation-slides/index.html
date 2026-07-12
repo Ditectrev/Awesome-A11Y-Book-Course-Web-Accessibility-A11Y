@@ -677,7 +677,7 @@ Welcome to the quarterly results webinar.
 
 ---
 
-#### ol, ul, dl and programmatic associations, 1.3.1 and form labels <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+#### `ol`, `ul`, `dl` and programmatic associations, 1.3.1 and form labels <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
 
 ```html[|1|4|1,4|2-3|6|10|6,10|7-9|12|17|12,17|13,15|14,16]
 <ul>
@@ -701,7 +701,48 @@ Welcome to the quarterly results webinar.
 
 [![Edit 020-ol, ul, dl and programmatic associations, 1.3.1 and form labels](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/020-ol-ul-dl-and-programmatic-associations-1-3-1-and-form-labels-dts7sj)
 
-[CodeSandbox: ol, ul, dl and programmatic associations, 1.3.1 and form labels](https://dts7sj.csb.app/).
+[CodeSandbox: `ol`, `ul`, `dl` and programmatic associations, 1.3.1 and form labels](https://dts7sj.csb.app/).
+
+---
+
+#### `ol`, `ul`, `dl` and programmatic associations, 1.3.1 and form labels <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+```html[|1|3|12|18|12,18|13|14|15|16|17|21|24|22|28|30]
+<label for="email">Work email</label>
+<input
+  id="email"
+  type="email"
+  name="email"
+  autocomplete="email"
+  required
+  aria-describedby="email-hint"
+/>
+<p id="email-hint">We will only use this for invoices.</p>
+
+<fieldset>
+  <legend>Shipping speed</legend>
+  <input type="radio" id="ship-std" name="ship" value="standard" />
+  <label for="ship-std">Standard (5–7 days)</label>
+  <input type="radio" id="ship-exp" name="ship" value="express" />
+  <label for="ship-exp">Express (2 days)</label>
+</fieldset>
+
+<!-- After a failed submit (hint + error both in describedby): -->
+<label for="email2">Work email</label>
+<p id="email2-hint">We will only use this for invoices.</p>
+<input
+  id="email2"
+  type="email"
+  name="email"
+  aria-invalid="true"
+  aria-describedby="email2-err email2-hint"
+/>
+<p id="email2-err" role="alert">Enter an email address in the form name@example.com.</p>
+```
+
+[![Edit 021-ol, ul, dl and programmatic associations, 1.3.1 and form labels](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/021-ol-ul-dl-and-programmatic-associations-1-3-1-and-form-labels-xp6959)
+
+[CodeSandbox: `ol`, `ul`, `dl` and programmatic associations, 1.3.1 and form labels](https://xp6959.csb.app/).
 
 ---
 ### Logical order vs visual order (CSS, flexbox, grid) <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->

@@ -152,7 +152,7 @@ We are so thankful for every contribution, which makes sure we can deliver top-n
     - [scope="col" and scope="row", headers attribute for complex tables](#scopecol-and-scoperow-headers-attribute-for-complex-tables)
     - [caption and table summary, responsive tables](#caption-and-table-summary-responsive-tables)
   - [Lists, form label relationships, and reading order](#lists-form-label-relationships-and-reading-order)
-    - [ol, ul, dl and programmatic associations, 1.3.1 and form labels](#ol-ul-dl-and-programmatic-associations-131-and-form-labels)
+    - [`ol`, `ul`, `dl` and programmatic associations, 1.3.1 and form labels](#ol-ul-dl-and-programmatic-associations-131-and-form-labels)
   - [Logical order vs visual order (CSS, flexbox, grid)](#logical-order-vs-visual-order-css-flexbox-grid)
     - [DOM order vs visual order, CSS order and flexbox/grid](#dom-order-vs-visual-order-css-order-and-flexboxgrid)
     - [Responsive design](#responsive-design)
@@ -1512,7 +1512,7 @@ Scroll container with an accessible name (keyboard users can focus the region wh
 
 ### Lists, form label relationships, and reading order
 
-#### ol, ul, dl and programmatic associations, 1.3.1 and form labels
+#### `ol`, `ul`, `dl` and programmatic associations, 1.3.1 and form labels
 
 Lists should use real list elements when the content is a list:
 
@@ -1541,9 +1541,9 @@ Lists should use real list elements when the content is a list:
 
 [![Edit 020-ol, ul, dl and programmatic associations, 1.3.1 and form labels](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/020-ol-ul-dl-and-programmatic-associations-1-3-1-and-form-labels-dts7sj)
 
-[^20]CodeSandbox: ol, ul, dl and programmatic associations, 1.3.1 and form labels.
+[^20]CodeSandbox: `ol`, `ul`, `dl` and programmatic associations, 1.3.1 and form labels.
 
-[^20]:[CodeSandbox: ol, ul, dl and programmatic associations, 1.3.1 and form labels](https://dts7sj.csb.app/), last access: June 11, 2026.
+[^20]:[CodeSandbox: `ol`, `ul`, `dl` and programmatic associations, 1.3.1 and form labels](https://dts7sj.csb.app/), last access: June 11, 2026.
 
 Do not fake lists with bullet characters and `<br>` only—that loses list semantics and list navigation in AT.
 
@@ -1588,9 +1588,9 @@ Forms and 1.3.1: programmatically associate labels with controls:
 
 [![Edit 021-ol, ul, dl and programmatic associations, 1.3.1 and form labels](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/021-ol-ul-dl-and-programmatic-associations-1-3-1-and-form-labels-xp6959)
 
-[^21]CodeSandbox: ol, ul, dl and programmatic associations, 1.3.1 and form labels.
+[^21]CodeSandbox: `ol`, `ul`, `dl` and programmatic associations, 1.3.1 and form labels.
 
-[^21]:[CodeSandbox: ol, ul, dl and programmatic associations, 1.3.1 and form labels](https://xp6959.csb.app/), last access: June 11, 2026.
+[^21]:[CodeSandbox: `ol`, `ul`, `dl` and programmatic associations, 1.3.1 and form labels](https://xp6959.csb.app/), last access: June 11, 2026.
 
 Reading order should follow a sensible sequence in the DOM (see 1.3.2)—labels before inputs in source order unless your design system consistently uses another documented pattern tested with AT.
 
