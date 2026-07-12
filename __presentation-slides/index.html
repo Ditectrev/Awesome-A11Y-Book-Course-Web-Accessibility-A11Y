@@ -745,12 +745,14 @@ Welcome to the quarterly results webinar.
 [CodeSandbox: `ol`, `ul`, `dl` and programmatic associations, 1.3.1 and form labels](https://xp6959.csb.app/).
 
 ---
+
 ### Logical order vs visual order (CSS, flexbox, grid) <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
 
 ---
-### DOM order vs visual order, CSS order and flexbox/grid <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
 
-```html[|1|2|3|4]
+#### DOM order vs visual order, CSS order and flexbox/grid <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+```html[|1|4|1,4|2|3]
 <div class="layout">
   <article>Content</article>
   <aside>Aside</aside>
@@ -762,9 +764,11 @@ Welcome to the quarterly results webinar.
 [CodeSandbox: DOM order vs visual order, CSS order and flexbox/grid](https://qqcyd6.csb.app/).
 
 ---
+
 ### Responsive design <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
 
-```html[|1|2|3|4|5|6|7|8|9]
+```html[|1|11|1,11|2|3|4|6|4,6|5|7|9|7,9|8|10]
+<body>
   <header role="banner">…</header>
   <nav aria-label="Primary">…</nav>
   <main>
@@ -774,6 +778,7 @@ Welcome to the quarterly results webinar.
     <h2 id="related-heading">Related</h2>
   </aside>
   <footer role="contentinfo">…</footer>
+</body>
 ```
 
 [![Edit 023-Responsive design](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/023-responsive-design-npmyw5)
@@ -781,18 +786,30 @@ Welcome to the quarterly results webinar.
 [CodeSandbox: Responsive design](https://npmyw5.csb.app/).
 
 ---
-### Visually hidden and screen reader only, aria-hidden <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
 
-```html[|1|2|3|4|5|6|7|8|9]
-    <!-- sr-only: add spoken context for AT; sighted users see the placeholder only -->
-    <label class="sr-only" for="search">Search documentation</label>
-    <input id="search" name="search" type="search" placeholder="Search docs" />
+#### Visually hidden and screen reader only, aria-hidden <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
 
-    <!-- aria-hidden="true": hide decorative duplicate; visible text names the control once -->
-    <button type="button">
-      <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M17 3H7a2 2 0 0 0-2 2v14l7-3 7 3V5a2 2 0 0 0-2-2z"/></svg>
-      Save draft
-    </button>
+```html[|1|2|3|5|6|20|6,20|7|13|7,13|7,13,18|8]
+<!-- sr-only: add spoken context for AT; sighted users see the placeholder only -->
+<label class="sr-only" for="search">Search documentation</label>
+<input id="search" name="search" type="search" placeholder="Search docs" />
+
+<!-- aria-hidden="true": hide decorative duplicate; visible text names the control once -->
+<button type="button">
+  <svg
+    aria-hidden="true"
+    focusable="false"
+    viewBox="0 0 24 24"
+    width="20"
+    height="20"
+  >
+    <path
+      fill="currentColor"
+      d="M17 3H7a2 2 0 0 0-2 2v14l7-3 7 3V5a2 2 0 0 0-2-2z"
+    />
+  </svg>
+  Save draft
+</button>
 ```
 
 [![Edit 024-Visually hidden and screen reader only, aria-hidden](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/024-visually-hidden-and-screen-reader-only-aria-hidden-7mk24h)
