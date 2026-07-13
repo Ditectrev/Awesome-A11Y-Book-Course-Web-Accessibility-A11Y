@@ -949,34 +949,30 @@ body {
 [CodeSandbox: 1.4.11 and icons/UI components, focus ring contrast (2.4.7, 2.4.11)](https://7mmtmj.csb.app/).
 
 ---
+
 ### Resize text, images of text, audio control <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
 
 ---
-### 1.4.4 Resize text, 200% zoom, rem/em vs px; 1.4.2 Audio control <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
 
-```html[|1-3|4-6|7-9|10-12|13-15|16-18|19|20|21|22]
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <main>
-      <h1>Resize text and audio control</h1>
-      <p>
-        Zoom this page to 200% (for example <kbd>Cmd</kbd>+<kbd>+</kbd> or
-        <kbd>Ctrl</kbd>+<kbd>+</kbd>). The rem-based card should grow and
-        reflow; the fixed-pixel card clips overflow.
-      </p>
+#### 1.4.4 Resize text, 200% zoom, rem/em vs px; 1.4.2 Audio control <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
 
-      <section aria-labelledby="resize-heading">
-        <h2 id="resize-heading">Resize text (1.4.4)</h2>
-        <p>
-          Use <code>rem</code> for typography and spacing tied to user
-          preferences. Reserve <code>px</code> for hairlines and borders.
-        </p>
+```css[|1|2|4|2,4|3|6|9|6,9|7|8|11|12|16|12,16|13|14|15]
+/* Passes 1.4.4 — rem sizing and no fixed height; text reflows when zoomed */
+.card-pass {
+  border: 2px solid #047857;
+}
 
-        <div class="comparison">
-          <article class="card card-pass">
-            <span class="label label-pass">Passes at 200% zoom</span>
-            <p>
-              This panel uses <code>1rem</code> body text, fluid padding, and no
-<!-- … -->
+.card-pass p {
+  margin: 0;
+  font-size: 1rem;
+}
+
+/* Fails 1.4.4 — fixed px font and height clip content at 200% zoom */
+.card-fail {
+  border: 2px solid #b91c1c;
+  font-size: 14px;
+  height: 5rem;
+}
 ```
 
 [![Edit 029-1.4.4 Resize text, 200% zoom, rem/em vs px; 1.4.2 Audio control](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/029-1-4-4-resize-text-200-zoom-rem-em-vs-px-1-4-2-audio-control-l87f96)
@@ -984,10 +980,26 @@ body {
 [CodeSandbox: 1.4.4 Resize text, 200% zoom, rem/em vs px; 1.4.2 Audio control](https://l87f96.csb.app/).
 
 ---
-### 1.4.5 Images of text, when text can be visual <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
 
-* The image is essential (for example a logotype or historical screenshot). <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
-* The presentation is genuinely user-customizable (rare for static bitmaps). <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+#### 1.4.4 Resize text, 200% zoom, rem/em vs px; 1.4.2 Audio control <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+```html[|1|3|1,3|2|5|7|5,7|6]
+<audio autoplay>
+  <source src="t-rex-roar.mp3" type="audio/mpeg" />
+</audio>
+
+<audio controls autoplay>
+  <source src="t-rex-roar.mp3" type="audio/mpeg" />
+</audio>
+```
+
+[![Edit 029-1.4.4 Resize text, 200% zoom, rem/em vs px; 1.4.2 Audio control](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/029-1-4-4-resize-text-200-zoom-rem-em-vs-px-1-4-2-audio-control-l87f96)
+
+[CodeSandbox: 1.4.4 Resize text, 200% zoom, rem/em vs px; 1.4.2 Audio control](https://l87f96.csb.app/).
+
+---
+
+### 1.4.5 Images of text, when text can be visual <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
 
 ---
 ### Summary: Distinguishable <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->

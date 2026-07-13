@@ -2292,9 +2292,12 @@ The page below puts both criteria together: rem-based typography and a fluid car
         font-size: 1rem;
       }
 
-      /* Fails 1.4.4 — fixed px font and height clip content at 200% zoom */
       .card-fail {
         border: 2px solid #b91c1c;
+      }
+
+      /* Fails 1.4.4 — fixed px font and height clip content at 200% zoom */
+      .card-fail-resize {
         font-size: 14px;
         height: 5rem;
         overflow: hidden;
@@ -2302,6 +2305,15 @@ The page below puts both criteria together: rem-based typography and a fluid car
 
       .card-fail p {
         margin: 0;
+      }
+
+      .card-fail pre {
+        margin: 0.5rem 0 0;
+        padding: 0.75rem;
+        background: #fef2f2;
+        border-radius: 0.25rem;
+        font-size: 0.85rem;
+        overflow-x: auto;
       }
 
       .label {
@@ -2369,7 +2381,7 @@ The page below puts both criteria together: rem-based typography and a fluid car
             </p>
           </article>
 
-          <article class="card card-fail">
+          <article class="card card-fail card-fail-resize">
             <span class="label label-fail">Clips at 200% zoom</span>
             <p>
               This panel locks text at 14px and height at 5rem with hidden
@@ -2388,12 +2400,12 @@ The page below puts both criteria together: rem-based typography and a fluid car
         </p>
 
         <p>
-          <strong>On-demand audio with controls</strong> — user presses play;
-          pause, stop, and volume are available:
+          <strong>On-demand audio</strong> — the user presses play; native
+          <code>controls</code> are enough:
         </p>
         <audio controls preload="metadata">
           <source
-            src="https://interactive-examples.mdn.mozilla.net/media/cc0-audio/t-rex-roar.mp3"
+            src="t-rex-roar.mp3"
             type="audio/mpeg"
           />
           Your browser does not support the audio element.
@@ -2401,24 +2413,29 @@ The page below puts both criteria together: rem-based typography and a fluid car
 
         <p class="note">
           <strong>Autoplay longer than 3 seconds</strong> must expose pause,
-          stop, or a volume control on the page—not only the OS mixer. Add the
-          <code>controls</code> attribute (or an equivalent custom control) to
-          any <code>&lt;audio autoplay&gt;</code> that can run more than three
+          stop, or a volume control on the page—not only the OS mixer. Add
+          <code>controls</code> (or an equivalent custom control) to any
+          <code>&lt;audio autoplay&gt;</code> that can run more than three
           seconds. Prefer not to autoplay at all unless the user expects sound.
         </p>
 
-        <p>
-          <strong>Compliant autoplay pattern</strong> — if sound must start
-          automatically, keep native controls visible so users can stop it
-          immediately:
-        </p>
-        <audio controls preload="metadata">
-          <source
-            src="https://interactive-examples.mdn.mozilla.net/media/cc0-audio/t-rex-roar.mp3"
-            type="audio/mpeg"
-          />
-          Your browser does not support the audio element.
-        </audio>
+        <div class="comparison">
+          <article class="card card-fail">
+            <span class="label label-fail">Fails 1.4.2 (&gt;3 s autoplay)</span>
+            <p>Autoplay with no page-level control:</p>
+            <audio autoplay>
+              <source src="t-rex-roar.mp3" type="audio/mpeg" />
+            </audio>
+          </article>
+
+          <article class="card card-pass">
+            <span class="label label-pass">Passes 1.4.2</span>
+            <p>Autoplay with native <code>controls</code>:</p>
+            <audio controls autoplay>
+              <source src="t-rex-roar.mp3" type="audio/mpeg" />
+            </audio>
+          </article>
+        </div>
       </section>
     </main>
   </body>
