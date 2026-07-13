@@ -1032,12 +1032,14 @@ body {
 ### No keyboard trap, focus must not be trapped in a component <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
 
 ---
+
 ### Focus trap in modals, returning focus, tabindex <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
 
 ---
-### Tab cycle within modal, first and last focusable, inert <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
 
-```html[|1|2|3|4|5|6|7|8|9|10|11|12]
+#### Tab cycle within modal, first and last focusable, inert <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+```html[|1|3-5|7|12|7,12|8|9|10|11]
 <button type="button" id="openDialog">Delete account</button>
 
 <div id="appRoot">
@@ -1057,9 +1059,10 @@ body {
 [CodeSandbox: Tab cycle within modal, first and last focusable, inert](https://jgcpws.csb.app/).
 
 ---
-### Returning focus on close, tabindex=0 vs tabindex=-1 <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
 
-```html[|1|2|3|4|5|6|7|8|9|10|11|12]
+#### Returning focus on close, tabindex=0 vs tabindex=-1 <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+```html[|1|3-5|7|12|7,12|8|9|10|11]
 <button type="button" id="openDialog">Delete account</button>
 
 <div id="appRoot">
