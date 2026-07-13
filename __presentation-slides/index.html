@@ -850,36 +850,31 @@ Welcome to the quarterly results webinar.
 ### Summary: Adaptable Content <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
 
 ---
+
 ## Distinguishable <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
 
 ---
+
 ### Color and contrast (1.4.3, 4.5:1, large text) <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
 
 ---
-### Contrast ratio 4.5:1 and 3:1, large text 18pt or 14pt bold <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
 
-```html[|1-3|4-6|7-9|10-12|13-15|16-18|19|20|21]
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <main>
-      <h1>Account settings</h1>
-      <p>
-        Normal body text must meet at least <strong>4.5:1</strong> contrast
-        against its background.
-      </p>
-      <p class="help-text">
-        Help text can be slightly muted, but it still needs to be readable —
-        this pair is 7.6:1, well above the minimum.
-      </p>
-      <p class="text-large">
-        Large text (18pt / 24px+) only needs <strong>3:1</strong>.
-      </p>
-      <p class="text-large-bold">
-        Or 14pt bold (~18.67px bold) — also 3:1 minimum.
-      </p>
-      <p>
-        <a href="#details">View billing details</a>
-      </p>
-    </main>
+#### Contrast ratio 4.5:1 and 3:1, large text 18pt or 14pt bold <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+```css[|1|6|1,6|2|3|4|5|8|13|8,13|11|12]
+:root {
+  --fg-default: #1f2937; /* 12.6:1 on white */
+  --fg-muted: #4b5563; /* 7.6:1 on white */
+  --bg-default: #ffffff;
+  --link-default: #0047b3; /* 8.7:1 on white */
+}
+
+body {
+  margin: 0;
+  line-height: 1.6;
+  color: var(--fg-default);
+  background: var(--bg-default);
+}
 ```
 
 [![Edit 026-Contrast ratio 4.5:1 and 3:1, large text 18pt or 14pt bold](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/026-contrast-ratio-4-5-1-and-3-1-large-text-18pt-or-14pt-bold-fh4ngl)
@@ -887,10 +882,11 @@ Welcome to the quarterly results webinar.
 [CodeSandbox: Contrast ratio 4.5:1 and 3:1, large text 18pt or 14pt bold](https://fh4ngl.csb.app/).
 
 ---
-### Calculating contrast, tools (Colour Contrast Analyser, WebAIM) <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
 
-* [TPGi Colour Contrast Analyser](https://www.tpgi.com/color-contrast-checker/) (desktop): sample rendered pixels or enter color values. <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
-* [WebAIM Contrast Checker](https://webaim.org/resources/contrastchecker/) (web): quick AA/AAA checks for normal and large text. <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+#### Calculating contrast, tools (Colour Contrast Analyser, WebAIM) <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+* [TPGi Colour Contrast Analyser (desktop)](https://www.tpgi.com/color-contrast-checker/) <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+* [WebAIM Contrast Checker (web)](https://webaim.org/resources/contrastchecker/) <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
 
 ---
 ### Not relying on color alone (1.4.1) <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
