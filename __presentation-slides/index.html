@@ -889,30 +889,26 @@ body {
 * [WebAIM Contrast Checker (web)](https://webaim.org/resources/contrastchecker/) <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
 
 ---
+
 ### Not relying on color alone (1.4.1) <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
 
 ---
-### Icons, patterns, and text as supplements, form validation and error states <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
 
-```html[|1-3|4-6|7-9|10-12|13-15|16|17|18]
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <p>
-    Links need a non-color cue — here, an underline —
-    <a href="#details">not only blue vs black</a>.
-  </p>
+#### Icons, patterns, and text as supplements, form validation and error states <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
 
-  <form>
-    <label for="pwd">Password</label>
-    <input
-      id="pwd"
-      class="field"
-      type="password"
-      name="password"
-      aria-invalid="true"
-      aria-describedby="pwd-error"
-    />
-    <p id="pwd-error">Password must be at least 12 characters.</p>
-  </form>
+```html[|1|12|1,12|2|3|10|3,10|4|8|9|11]
+<form>
+  <label for="pwd">Password</label>
+  <input
+    id="pwd"
+    class="field"
+    type="password"
+    name="password"
+    aria-invalid="true"
+    aria-describedby="pwd-error"
+  />
+  <p id="pwd-error">Password must be at least 12 characters.</p>
+</form>
 ```
 
 [![Edit 027-Icons, patterns, and text as supplements, form validation and error states](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/027-icons-patterns-and-text-as-supplements-form-validation-and-error-states-wtxcsx)

@@ -1934,23 +1934,23 @@ Forms should not mark invalid fields with red border only. Set `aria-invalid="tr
     </style>
   </head>
   <body>
-  <p>
-    Links need a non-color cue — here, an underline —
-    <a href="#details">not only blue vs black</a>.
-  </p>
+    <p>
+      Links need a non-color cue — here, an underline —
+      <a href="#details">not only blue vs black</a>.
+    </p>
 
-  <form>
-    <label for="pwd">Password</label>
-    <input
-      id="pwd"
-      class="field"
-      type="password"
-      name="password"
-      aria-invalid="true"
-      aria-describedby="pwd-error"
-    />
-    <p id="pwd-error">Password must be at least 12 characters.</p>
-  </form>
+    <form>
+      <label for="pwd">Password</label>
+      <input
+        id="pwd"
+        class="field"
+        type="password"
+        name="password"
+        aria-invalid="true"
+        aria-describedby="pwd-error"
+      />
+      <p id="pwd-error">Password must be at least 12 characters.</p>
+    </form>
   </body>
 </html>
 ```
