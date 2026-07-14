@@ -182,7 +182,7 @@ We are so thankful for every contribution, which makes sure we can deliver top-n
     - [Tab cycle within modal, first and last focusable, inert](#tab-cycle-within-modal-first-and-last-focusable-inert)
     - [Returning focus on close, tabindex=0 vs tabindex=-1](#returning-focus-on-close-tabindex0-vs-tabindex-1)
   - [Skip links and bypass blocks (2.4.1)](#skip-links-and-bypass-blocks-241)
-    - [Skip to main content, skip link and href="#main"](#skip-to-main-content-skip-link-and-hrefmain)
+    - [Skip to main content, skip link and `href="#main"`](#skip-to-main-content-skip-link-and-hrefmain)
     - [Skip link visible on focus only, styling](#skip-link-visible-on-focus-only-styling)
   - [Landmarks (banner, main, navigation, complementary)](#landmarks-banner-main-navigation-complementary)
     - [Landmark regions and HTML5, region and aria-label](#landmark-regions-and-html5-region-and-aria-label)
@@ -2651,7 +2651,7 @@ When a modal/menu/popover closes, return focus to the trigger that opened it. Ot
 
 ### Skip links and bypass blocks (2.4.1)
 
-#### Skip to main content, skip link and href="#main"
+#### Skip to main content, skip link and `href="#main"`
 
 WCAG 2.4.1 Bypass Blocks (Level A): users should be able to skip repeated content (nav, headers, sidebars) and jump to main content quickly.
 
@@ -2662,7 +2662,7 @@ Use a skip link as the first focusable item on the page:
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>Checkout | Example Shop</title>
+    <title>Skip to main content, skip link and `href="#main"`</title>
     <style>
       /* Demo only: push main below the fold so the skip link scroll is visible */
       header,
@@ -2709,7 +2709,7 @@ Use a skip link as the first focusable item on the page:
 
 [^33]CodeSandbox: Skip to main content, skip link and href="#main".
 
-[^33]:[CodeSandbox: Skip to main content, skip link and href="#main"](https://8hhzgq.csb.app/), last access: June 19, 2026.
+[^33]:[CodeSandbox: Skip to main content, skip link and `href="#main"`](https://8hhzgq.csb.app/), last access: June 19, 2026.
 
 `href="#main"` moves to the main landmark. Adding `tabindex="-1"` on `<main>` helps with reliable focus placement across browser/screen reader combinations. The tall header and nav stand in for repeated site chrome; activating **Skip to main content** scrolls the page down to `#main`.
 
