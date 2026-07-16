@@ -1364,18 +1364,19 @@ document.documentElement.toggleAttribute("data-reduce-motion", event.matches);
 ## Navigable <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
 
 ---
-### Page title (2.4.2) and focus order (2.4.3) <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
 
-```html[|1|2|3|4|5|6|7|8|9]
-    <nav aria-label="Demo views">
-      <button type="button" data-view="dashboard">Dashboard</button>
-      <button type="button" data-view="settings">Settings</button>
-    </nav>
+#### Page title (2.4.2) and focus order (2.4.3) <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
 
-    <main id="main">
-      <h1 id="page-heading" tabindex="-1">Dashboard</h1>
-      <p id="page-body">Account overview and recent activity.</p>
-    </main>
+```html[|1|4|1,4|2|3|6|9|6,9|7|8]
+<nav aria-label="Demo views">
+  <button type="button" data-view="dashboard">Dashboard</button>
+  <button type="button" data-view="settings">Settings</button>
+</nav>
+
+<main id="main">
+  <h1 id="page-heading" tabindex="-1">Dashboard</h1>
+  <p id="page-body">Account overview and recent activity.</p>
+</main>
 ```
 
 [![Edit 041-Page title (2.4.2) and focus order (2.4.3)](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/041-page-title-2-4-2-and-focus-order-2-4-3-df2583)
@@ -1383,6 +1384,24 @@ document.documentElement.toggleAttribute("data-reduce-motion", event.matches);
 [CodeSandbox: Page title (2.4.2) and focus order (2.4.3)](https://df2583.csb.app/).
 
 ---
+
+#### Page title (2.4.2) and focus order (2.4.3) <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+```js[|1|6|1,6|2|3|4|5]
+function onRouteChange(page) {
+  document.title = `${page.title} - Awesome A11Y`;
+  document.getElementById("page-heading").textContent = page.heading;
+  document.getElementById("page-body").textContent = page.body;
+  document.getElementById("page-heading").focus();
+}
+```
+
+[![Edit 041-Page title (2.4.2) and focus order (2.4.3)](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/041-page-title-2-4-2-and-focus-order-2-4-3-df2583)
+
+[CodeSandbox: Page title (2.4.2) and focus order (2.4.3)](https://df2583.csb.app/).
+
+---
+
 ### Link purpose in context (2.4.4), multiple ways (2.4.5) <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
 
 ```html[|1|2|3]
