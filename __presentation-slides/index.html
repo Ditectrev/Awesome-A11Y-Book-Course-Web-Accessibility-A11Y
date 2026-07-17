@@ -1444,16 +1444,34 @@ function onRouteChange(page) {
 [CodeSandbox: Headings and labels (2.4.6), focus visible (2.4.7)](https://d8cxhh.csb.app/).
 
 ---
-### Focus not obscured (2.4.11, 2.4.12) <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
 
-```html[|1|2|3|4|5|6|7]
-    <h2 id="post-1-title">WCAG Quick Start</h2>
-    <p>Understand POUR principles and ship practical checks in one sprint.</p>
-    <a
-      href="https://www.w3.org/WAI/standards-guidelines/wcag/"
-      aria-labelledby="post-1-title"
-      >Read: WCAG Quick Start</a
-    >
+#### Focus not obscured (2.4.11, 2.4.12) <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+```html[|1|2|3]
+<h2 id="post-1-title">WCAG Quick Start</h2>
+<p>Understand POUR principles and ship practical checks in one sprint.</p>
+<a href="https://www.w3.org/WAI/standards-guidelines/wcag/" aria-labelledby="post-1-title">Read: WCAG Quick Start</a>
+```
+
+[![Edit 044-Focus not obscured (2.4.11, 2.4.12)](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/044-focus-not-obscured-2-4-11-2-4-12-pjj6vz)
+
+[CodeSandbox: Focus not obscured (2.4.11, 2.4.12)](https://pjj6vz.csb.app/).
+
+---
+
+#### Focus not obscured (2.4.11, 2.4.12) <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+```css[|1|3|1,3|2|5-8|10|5-8,10|9]
+:root {
+  --sticky-header-height: 72px;
+}
+
+h1,
+h2,
+h3,
+[data-focus-target] {
+  scroll-margin-top: calc(var(--sticky-header-height) + 12px);
+}
 ```
 
 [![Edit 044-Focus not obscured (2.4.11, 2.4.12)](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/044-focus-not-obscured-2-4-11-2-4-12-pjj6vz)
