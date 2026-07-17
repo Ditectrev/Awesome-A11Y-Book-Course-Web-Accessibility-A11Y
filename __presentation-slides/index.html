@@ -1415,14 +1415,28 @@ function onRouteChange(page) {
 [CodeSandbox: Link purpose in context (2.4.4), multiple ways (2.4.5)](https://c82pcv.csb.app/).
 
 ---
-### Headings and labels (2.4.6), focus visible (2.4.7) <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
 
-```html[|1|2|3|4|5]
-    <h2 id="post-1-title">WCAG Quick Start</h2>
-    <p>Understand POUR principles and ship practical checks in one sprint.</p>
-    <a href="https://www.w3.org/WAI/standards-guidelines/wcag/" aria-labelledby="post-1-title"
-      >Read: WCAG Quick Start</a
-    >
+#### Headings and labels (2.4.6), focus visible (2.4.7) <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+```html[|1|2|3]
+<h2 id="post-1-title">WCAG Quick Start</h2>
+<p>Understand POUR principles and ship practical checks in one sprint.</p>
+<a href="https://www.w3.org/WAI/standards-guidelines/wcag/" aria-labelledby="post-1-title">Read: WCAG Quick Start</a>
+```
+
+[![Edit 043-Headings and labels (2.4.6), focus visible (2.4.7)](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/043-headings-and-labels-2-4-6-focus-visible-2-4-7-d8cxhh)
+
+[CodeSandbox: Headings and labels (2.4.6), focus visible (2.4.7)](https://d8cxhh.csb.app/).
+
+---
+
+#### Headings and labels (2.4.6), focus visible (2.4.7) <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+```css[|1|4|1,4|2|3]
+:focus {
+  outline: 3px solid #1a73e8;
+  outline-offset: 2px;
+}
 ```
 
 [![Edit 043-Headings and labels (2.4.6), focus visible (2.4.7)](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/043-headings-and-labels-2-4-6-focus-visible-2-4-7-d8cxhh)
