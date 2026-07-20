@@ -1735,34 +1735,21 @@ safeList.addEventListener("click", function (event) {
 * [Nu Html Checker](https://validator.w3.org/nu/) <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
 
 ---
+
 ### Name, role, value (4.1.2) for custom controls <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
 
 ---
-### Exposing name, role, value to assistive tech, custom control requirements <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
 
-```html[|1-3|4-6|7-9|10-12|13-15|16-18|19|20|21|22]
-    <h1>Dark mode switch</h1>
-    <p>Both controls do the same thing. Only the custom one needs JavaScript.</p>
+#### Exposing name, role, value to assistive tech, custom control requirements <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
 
-    <div class="example">
-      <h2>Preferred: native switch</h2>
-      <div class="row">
-        <label for="dark-mode-native">Dark mode</label>
-        <input type="checkbox" id="dark-mode-native" role="switch" />
-      </div>
-    </div>
-
-    <div class="example">
-      <h2>Custom: same switch rebuilt with ARIA</h2>
-      <div class="row">
-        <span id="dark-mode-custom-label">Dark mode</span>
-        <div
-          id="dark-mode-custom"
-          role="switch"
-          tabindex="0"
-          aria-checked="false"
-          aria-labelledby="dark-mode-custom-label"
-<!-- … -->
+```html[|1|7|1,7|2|3|6|3,6|4|5]
+<div class="example">
+  <h2>Preferred: native switch</h2>
+  <div class="row">
+    <label for="dark-mode-native">Dark mode</label>
+    <input type="checkbox" id="dark-mode-native" role="switch" />
+  </div>
+</div>
 ```
 
 [![Edit 055-Exposing name, role, value to assistive tech, custom control requirements](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/055-exposing-name-role-value-to-assistive-tech-custom-control-requirements-cykvdg)
