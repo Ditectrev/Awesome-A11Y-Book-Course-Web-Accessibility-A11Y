@@ -1703,12 +1703,14 @@ safeList.addEventListener("click", function (event) {
 ## Compatible <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
 
 ---
+
 ### Parsing (4.1.1), valid HTML, duplicate IDs <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
 
 ---
-### Start and end tags, nesting, duplicate id and ARIA IDs <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
 
-```html[|1|2|3|4|5|6|7|8|9|10]
+#### Start and end tags, nesting, duplicate id and ARIA IDs <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+```html[|1|2|3|4|5|7|8|9|10]
 <!-- Bad: duplicate ids and broken ARIA reference -->
 <label for="email">Email</label>
 <input id="email" type="email">
@@ -1726,12 +1728,11 @@ safeList.addEventListener("click", function (event) {
 [CodeSandbox: Start and end tags, nesting, duplicate id and ARIA IDs](https://y63z2r.csb.app/).
 
 ---
-### W3C validator and Nu Html Checker <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
 
-* Duplicate IDs and invalid attributes. <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
-* Missing required element relationships and malformed nesting. <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
-* Obsolete or invalid ARIA usage. <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
-* Broken references used by labels and descriptions. <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+#### W3C validator and Nu Html Checker <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+* [W3C Validator](https://validator.w3.org/) <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+* [Nu Html Checker](https://validator.w3.org/nu/) <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
 
 ---
 ### Name, role, value (4.1.2) for custom controls <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
