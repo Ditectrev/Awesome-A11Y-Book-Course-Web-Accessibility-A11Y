@@ -1757,34 +1757,36 @@ safeList.addEventListener("click", function (event) {
 [CodeSandbox: Exposing name, role, value to assistive tech, custom control requirements](https://cykvdg.csb.app/).
 
 ---
+
 ### Status messages (4.1.3), live regions, aria-live <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
 
 ---
-### aria-live, role="status", and role="alert" <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
 
-```html[|1-3|4-6|7-9|10-12|13-15|16-18|19|20|21|22]
-    <h1>Live region demo</h1>
-    <p>
-      Both pairs announce updates without moving focus. Use a screen reader to
-      compare polite/status with assertive/alert.
-    </p>
+#### aria-live, role="status", and role="alert" <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
 
-    <h2>Non-critical updates</h2>
-    <div class="compare">
-      <div class="demo">
-        <h3><code>aria-live="polite"</code></h3>
-        <button type="button" id="load-results">Load search results</button>
-        <p
-          id="search-status"
-          class="message"
-          aria-live="polite"
-          aria-atomic="true"
-        ></p>
-      </div>
-
-      <div class="demo">
-        <h3><code>role="status"</code></h3>
-<!-- … -->
+```html[|1|6|1,6|4|5|8|13|8,13|11|12|15|20|15,20|18|19|22]
+<p
+  id="search-status"
+  class="message"
+  aria-live="polite"
+  aria-atomic="true"
+></p>
+...
+<div
+  id="save-status"
+  class="message"
+  role="status"
+  aria-atomic="true"
+></div>
+...
+<p
+  id="payment-error"
+  class="message critical"
+  aria-live="assertive"
+  aria-atomic="true"
+></p>
+...
+<div id="form-error" class="message critical" role="alert"></div>
 ```
 
 [![Edit 056-aria-live, role="status", and role="alert"](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/056-aria-live-role-status-and-role-alert-kl8pd2)
