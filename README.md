@@ -6332,11 +6332,11 @@ Tip: treat automated findings as triage input, not proof of compliance; always p
 
 Build sustained capability through role-specific learning paths, practice labs, and periodic assessment.
 
-- **W3C WAI tutorials and courses:** foundational, standards-aligned learning for teams new to accessibility.
-- **Deque University:** structured, role-based training (development, design, testing, leadership) with practical exercises.
-- **The A11Y Project:** community-curated checklists, articles, and practical guidance for day-to-day implementation.
-- **WebAIM articles and training:** practical explanations, testing techniques, and reference material for teams and auditors.
-- **IAAP certifications (e.g., CPACC, WAS):** industry-recognized credentials for accessibility knowledge and technical competence.
+- **[W3C WAI tutorials and courses](https://www.w3.org/WAI/tutorials/):** foundational, standards-aligned learning for teams new to accessibility.
+- **[Deque University](https://www.deque.com/university/):** structured, role-based training (development, design, testing, leadership) with practical exercises.
+- **[The A11Y Project](https://www.a11yproject.com/):** community-curated checklists, articles, and practical guidance for day-to-day implementation.
+- **[WebAIM articles and training](https://webaim.org/training/):** practical explanations, testing techniques, and reference material for teams and auditors.
+- **[IAAP certifications (e.g., CPACC, WAS)](https://www.iaap.org/certification/):** industry-recognized credentials for accessibility knowledge and technical competence.
 - **Internal enablement practice:** maintain a shared pattern library, host defect postmortems, and run recurring accessibility office hours.
 
 Tip: pair formal training with hands-on remediation work so knowledge is retained and translated into production quality.
