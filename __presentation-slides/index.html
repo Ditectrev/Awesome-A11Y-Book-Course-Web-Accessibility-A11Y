@@ -1961,28 +1961,26 @@ safeList.addEventListener("click", function (event) {
 ### Summary: Forms and Validation <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
 
 ---
+
 ## Testing and Evaluation <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
 
 ---
+
 ### Manual testing: keyboard and screen readers <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
 
 ---
-### Keyboard testing procedure: tab through, Enter/Space, Escape <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
 
-* Start at the browser address bar, then use `Tab` to enter the page and move forward through all controls. <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
-* Use `Shift+Tab` to verify reverse navigation order is logical. <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
-* Activate controls with `Enter` and `Space` (buttons, links, checkboxes, toggles, menu triggers). <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
-* Use arrow keys where expected (radio groups, tabs, listbox options, menus). <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
-* Use `Escape` to close overlays such as dialogs, popovers, and dropdowns. <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
-* Confirm focus remains visible at all times and never disappears behind styling resets. <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+#### Keyboard testing procedure: tab through, Enter/Space, Escape <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+* Keyboard test flow <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+* What to record <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
 
 ---
-### Screen reader testing (NVDA, VoiceOver), browse mode vs focus mode <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
 
-* Test at least one Windows + NVDA flow and one macOS + VoiceOver flow when possible. <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
-* Check headings, landmarks, and links list/rotor to confirm page structure. <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
-* Navigate in **browse/virtual mode** for reading flow and semantic structure. <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
-* Switch to **focus/forms mode** when operating form fields and widgets. <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+#### Screen reader testing (NVDA, VoiceOver), browse mode vs focus mode <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+* Baseline setup <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+* Screen reader checklist <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
 
 ---
 ### Automated testing: axe, WAVE, Lighthouse <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
