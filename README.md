@@ -249,8 +249,8 @@ We are so thankful for every contribution, which makes sure we can deliver top-n
   - [Summary: HTML Semantics and ARIA](#summary-html-semantics-and-aria)
 - [Forms and Validation](#forms-and-validation)
   - [Labels, placeholders, fieldset and legend](#labels-placeholders-fieldset-and-legend)
-    - [for and id, wrapping with label, visually hidden label](#for-and-id-wrapping-with-label-visually-hidden-label)
-    - [fieldset, legend, radio groups and checkbox groups](#fieldset-legend-radio-groups-and-checkbox-groups)
+    - [`for` and `id`, wrapping with `label`, visually hidden `label`](#for-and-id-wrapping-with-label-visually-hidden-label)
+    - [`fieldset`, `legend`, radio groups and checkbox groups](#fieldset-legend-radio-groups-and-checkbox-groups)
   - [Grouping and required fields](#grouping-and-required-fields)
     - [Required field indication, aria-required and HTML required](#required-field-indication-aria-required-and-html-required)
   - [Summary: Forms and Validation](#summary-forms-and-validation)
@@ -5865,7 +5865,7 @@ Effective accessibility starts with semantic HTML and only layers ARIA where nat
 
 ### Labels, placeholders, fieldset and legend
 
-#### for and id, wrapping with label, visually hidden label
+#### `for` and `id`, wrapping with `label`, visually hidden `label`
 
 Every form control needs an accessible name. In most cases, this comes from a visible `<label>` associated with the input.
 
@@ -5888,11 +5888,11 @@ Reliable labeling patterns:
 
 [![Edit 059-for and id, wrapping with label, visually hidden label](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/059-for-and-id-wrapping-with-label-visually-hidden-label-w9v3nw)
 
-[^59]CodeSandbox: for and id, wrapping with label, visually hidden label.
+[^59]CodeSandbox: `for` and `id`, wrapping with `label`, visually hidden `label`.
 
-[^59]:[CodeSandbox: for and id, wrapping with label, visually hidden label](https://w9v3nw.csb.app/), last access: July 7, 2026.
+[^59]:[CodeSandbox: `for` and `id`, wrapping with `label`, visually hidden `label`](https://w9v3nw.csb.app/), last access: July 7, 2026.
 
-#### fieldset, legend, radio groups and checkbox groups
+#### `fieldset`, `legend`, radio groups and checkbox groups
 
 When multiple controls answer one question, group them with `<fieldset>` and describe the group with `<legend>`.
 
@@ -5919,9 +5919,9 @@ Grouping benefits:
 
 [![Edit 060-fieldset, legend, radio groups and checkbox groups](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/060-fieldset-legend-radio-groups-and-checkbox-groups-ww87pz)
 
-[^60]CodeSandbox: fieldset, legend, radio groups and checkbox groups.
+[^60]CodeSandbox: `fieldset`, `legend`, radio groups and checkbox groups.
 
-[^60]:[CodeSandbox: fieldset, legend, radio groups and checkbox groups](https://ww87pz.csb.app/), last access: July 7, 2026.
+[^60]:[CodeSandbox: `fieldset`, `legend`, radio groups and checkbox groups](https://ww87pz.csb.app/), last access: July 7, 2026.
 
 ### Grouping and required fields
 
