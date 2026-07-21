@@ -1845,15 +1845,12 @@ safeList.addEventListener("click", function (event) {
 [CodeSandbox: States/properties define current condition and relationships](https://m722hw.csb.app/).
 
 ---
+
 ### Tabs (roving focus, selected panel) <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
 
 ---
-### Tabs: roving focus plus selected panel mapping <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
 
-* Use `role="tablist"` on the container, `role="tab"` on each trigger, and `role="tabpanel"` on each panel. <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
-* Connect tabs and panels with `aria-controls` and `aria-labelledby`. <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
-* Track selection with `aria-selected` and `tabindex` (selected tab `0`, others `-1`). <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
-* Support Arrow keys to move between tabs and Enter/Space to activate when needed. <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+#### Tabs: roving focus plus selected panel mapping <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
 
 ---
 ### Menus, combobox, listbox, disclosure <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
