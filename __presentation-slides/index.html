@@ -1983,21 +1983,24 @@ safeList.addEventListener("click", function (event) {
 * Screen reader checklist <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
 
 ---
+
 ### Automated testing: axe, WAVE, Lighthouse <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
 
 ---
-### axe-core and browser extensions, Lighthouse a11y score <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
 
-* **axe DevTools / axe-core**: robust rule set, useful in-browser and test automation. <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
-* **WAVE**: fast visual overlay for missing labels, contrast warnings, and landmark issues. <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
-* **Lighthouse**: broad health signal and trend metric for accessibility improvements over time. <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+#### axe-core and browser extensions, Lighthouse a11y score <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+* [axe DevTools](https://www.deque.com/axe/devtools/) <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+* [axe-core](https://github.com/dequelabs/axe-core) <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+* [WAVE](https://wave.webaim.org/) <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+* [Lighthouse](https://developer.chrome.com/docs/lighthouse/overview) <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
 
 ---
-### Interpreting results, limitations of automation, false positives/negatives <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
 
-* Automated tools cannot reliably judge link purpose in context, writing clarity, or meaningful alt text quality. <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
-* Keyboard behavior defects (focus trap logic, roving index bugs) are often missed. <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
-* Screen reader announcement quality and timing issues are mostly manual-test findings. <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+#### Interpreting results, limitations of automation, false positives/negatives <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+* Important limitations <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
+* Result triage guidance <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
 
 ---
 ### CI/CD, jest-axe, eslint-plugin-jsx-a11y <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->

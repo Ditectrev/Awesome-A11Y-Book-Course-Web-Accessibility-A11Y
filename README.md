@@ -6017,9 +6017,9 @@ Automated tools quickly catch recurring issues and are best used as a first-pass
 
 Common tooling:
 
-- **axe DevTools / axe-core**: robust rule set, useful in-browser and test automation.
-- **WAVE**: fast visual overlay for missing labels, contrast warnings, and landmark issues.
-- **Lighthouse**: broad health signal and trend metric for accessibility improvements over time.
+- **[axe DevTools](https://www.deque.com/axe/devtools/) / [axe-core](https://github.com/dequelabs/axe-core)**: robust rule set, useful in-browser and test automation.
+- **[WAVE](https://wave.webaim.org/)**: fast visual overlay for missing labels, contrast warnings, and landmark issues.
+- **[Lighthouse](https://developer.chrome.com/docs/lighthouse/overview)**: broad health signal and trend metric for accessibility improvements over time.
 
 How to use effectively:
 
@@ -6318,9 +6318,9 @@ Tip: in policy or audit documents, cite both the criterion ID (for example `1.4.
 No single tool finds all issues; combine automation, keyboard testing, and screen reader validation.
 
 - **Browser DevTools accessibility panes:** inspect roles, names, contrast, heading order, landmarks, and computed accessibility tree.
-- **axe DevTools / axe-core:** fast automated scans for common failures (missing labels, contrast failures, ARIA misuse, landmark gaps).
-- **WAVE:** visual page overlays that help spot structural and labeling issues quickly during review.
-- **Lighthouse accessibility audit:** high-level baseline checks integrated with Chrome workflows and CI reporting.
+- **[axe DevTools](https://www.deque.com/axe/devtools/) / [axe-core](https://github.com/dequelabs/axe-core):** fast automated scans for common failures (missing labels, contrast failures, ARIA misuse, landmark gaps).
+- **[WAVE](https://wave.webaim.org/):** visual page overlays that help spot structural and labeling issues quickly during review.
+- **[Lighthouse](https://developer.chrome.com/docs/lighthouse/overview) accessibility audit:** high-level baseline checks integrated with Chrome workflows and CI reporting.
 - **Keyboard-only test pass:** verify focus visibility, focus order, skip links, modal traps, and full task completion without a mouse.
 - **Screen readers to include in testing matrix:** NVDA (Windows), JAWS (Windows), VoiceOver (macOS/iOS), TalkBack (Android).
 
