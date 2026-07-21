@@ -5931,7 +5931,7 @@ Mark required fields in both visual and programmatic ways.
 
 Recommended approach:
 
-- Use the native `required` attribute whenever possible (best browser + AT support).
+- Use the native `required` attribute whenever possible (best browser and assistive technology support).
 - Show a clear visual cue, such as text "(required)" or an asterisk with explanation.
 - Use `aria-required="true"` primarily on custom widgets that are not native form controls.
 - Avoid announcing "required" twice through conflicting labels and attributes.
