@@ -1853,10 +1853,12 @@ safeList.addEventListener("click", function (event) {
 #### Tabs: roving focus plus selected panel mapping <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
 
 ---
+
 ### Menus, combobox, listbox, disclosure <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
 
 ---
-### Choose the right pattern for the interaction <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+#### Choose the right pattern for the interaction <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
 
 * Use **disclosure** (button + expandable region) for show/hide content sections. <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
 * Use **menu button/menu** for application-style command lists with strict arrow-key navigation. <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
@@ -1864,24 +1866,18 @@ safeList.addEventListener("click", function (event) {
 * Use **combobox** for editable/selectable inputs that reveal suggestions. <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
 
 ---
-### Disclosure as a safer default for many dropdown-like UIs <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
 
-```html[|1-3|4-6|7-9|10-12|13|14|15]
-    <h1>Account menu</h1>
-    <p>
-      For simple dropdowns like this, use native disclosure with
-      <code>&lt;details&gt;</code> and <code>&lt;summary&gt;</code> — not
-      <code>role="menu"</code>. It opens and closes with no JavaScript.
-    </p>
+#### Disclosure as a safer default for many dropdown-like UIs <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
 
-    <details>
-      <summary>Account options</summary>
-      <div class="account-links">
-        <a href="/profile">Profile</a>
-        <a href="/billing">Billing</a>
-        <button type="button">Sign out</button>
-      </div>
-    </details>
+```html[|1|8|1,8|2|3|7|3,7|4|5|6]
+<details>
+  <summary>Account options</summary>
+  <div class="account-links">
+    <a href="/profile">Profile</a>
+    <a href="/billing">Billing</a>
+    <button type="button">Sign out</button>
+  </div>
+</details>
 ```
 
 [![Edit 058-Disclosure as a safer default for many dropdown-like UIs](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/058-disclosure-as-a-safer-default-for-many-dropdown-like-uis-5k2wgs)
