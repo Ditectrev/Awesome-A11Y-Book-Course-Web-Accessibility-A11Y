@@ -5962,10 +5962,6 @@ Recommended approach:
 
 [^61]:[CodeSandbox: Required field indication, aria-required and HTML required](https://8v5phc.csb.app/), last access: July 7, 2026.
 
-For linking field-level hints and errors with `aria-describedby`, `aria-invalid`, and a top-of-form error summary, see [aria-describedby, aria-invalid, error summary](#aria-describedby-aria-invalid-error-summary) in Input Assistance.
-
-For urgent announcements with `role="alert"` (versus routine field errors or `role="status"`), see [aria-live, role="status", and role="alert"](#aria-live-rolestatus-and-rolealert).
-
 ### Summary: Forms and Validation
 
 Accessible forms combine clear structure, explicit labeling, and predictable feedback. Every input needs a dependable accessible name (visible label first, visually hidden label when necessary), and related options should be grouped with `fieldset` and `legend` so question context is preserved. Required fields should use native `required` plus clear visual indication.
