@@ -2003,12 +2003,14 @@ safeList.addEventListener("click", function (event) {
 * Result triage guidance <!-- .element: class="fragment custom blur highlight-current-blue fade-up" -->
 
 ---
+
 ### CI/CD, jest-axe, eslint-plugin-jsx-a11y <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
 
 ---
-### npm packages, unit tests for a11y, linting rules <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
 
-```js[|1|2|3|4|5|6|7|8|9|10|11]
+#### npm packages, unit tests for a11y, linting rules <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+```js[|2|5|7|11|7,11|8|9|10]
 import { render } from '@testing-library/react';
 import { axe, toHaveNoViolations } from 'jest-axe';
 import LoginForm from './LoginForm';
@@ -2020,6 +2022,16 @@ test('LoginForm has no detectable accessibility violations', async () => {
   const results = await axe(container);
   expect(results).toHaveNoViolations();
 });
+```
+
+---
+
+#### npm packages, unit tests for a11y, linting rules <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+```json[|1|3|1,3|2]
+{
+  "extends": ["plugin:jsx-a11y/recommended"]
+}
 ```
 
 ---
