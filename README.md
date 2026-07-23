@@ -135,7 +135,7 @@ We are so thankful for every contribution, which makes sure we can deliver top-n
     - [Transcripts, captions, and audio description as alternatives](#transcripts-captions-and-audio-description-as-alternatives)
   - [Captions and subtitles (1.2.2, WebVTT, quality)](#captions-and-subtitles-122-webvtt-quality)
     - [Open vs closed captions, caption timing and synchronization](#open-vs-closed-captions-caption-timing-and-synchronization)
-    - [WebVTT cue and timestamp format, kind="captions" vs "subtitles"](#webvtt-cue-and-timestamp-format-kindcaptions-vs-kindsubtitles)
+    - [WebVTT cue and timestamp format, kind="captions" vs "subtitles"](#webvtt-cue-and-timestamp-format-kindcaptions-vs-subtitles)
   - [Transcripts for audio-only and video-only](#transcripts-for-audio-only-and-video-only)
     - [1.2.1 and video-only (transcript or description), transcript placement](#121-and-video-only-transcript-or-description-transcript-placement)
   - [Audio description and when it is needed](#audio-description-and-when-it-is-needed)
