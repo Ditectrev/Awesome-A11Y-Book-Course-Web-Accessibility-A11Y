@@ -43,7 +43,7 @@ There are many ways to support us; in exchange, you'll get this material in a pr
  - **Much More!**
 4. Real Life examples ✅
 5. The book & course explains the topic fully in-depth 🔬
-6. Interactive examples and exercises 🕹️
+6. 61 **unique** interactive `Tap2Play` CodeSandboxes 🕹️
 
 ## ☝️ Book & Course Updates
 
