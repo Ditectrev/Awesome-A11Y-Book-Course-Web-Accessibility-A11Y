@@ -173,7 +173,7 @@
 
 ---
 
-### Visual: blindness, low vision, color blindness <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+#### Visual: blindness, low vision, color blindness <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
 
 ```html[|1|2|4|5|7|8|10|8,10|9]
 <!-- Informative: describe the message or function -->
@@ -194,15 +194,44 @@
 
 ---
 
-### Protanopia, deuteranopia, tritanopia <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+#### Visual: blindness, low vision, color blindness <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+```html[|1|2|15|2,15|3|4|5|6|16|18|16,18|17|7-14]
+<label for="email">Email</label>
+<input
+  id="email"
+  type="email"
+  aria-invalid="true"
+  aria-describedby="email-error"
+  style="
+    border: 2px solid #b91c1c;
+    background-image: repeating-linear-gradient(
+      -45deg,
+      transparent 0 6px,
+      rgb(185 28 28 / 0.12) 6px 12px
+    );
+  "
+/>
+<p id="email-error" style="color: #b91c1c; margin: 0.25rem 0 0">
+  Enter an email address in the form name@example.com.
+</p>
+```
+
+[![Edit 004-Visual: blindness, low vision, color blindness](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/004-visual-blindness-low-vision-color-blindness-r6l62s)
+
+[CodeSandbox: Visual: blindness, low vision, color blindness](https://r6l62s.csb.app/).
 
 ---
 
-### Simulating color blindness in dev tools <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+#### Protanopia, deuteranopia, tritanopia <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
 
 ---
 
-### Auditory: deafness and hard of hearing <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+#### Simulating color blindness in dev tools <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+
+---
+
+#### Auditory: deafness and hard of hearing <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
 
 ```html[|1|4|1,4|2|3]
 <video controls>
@@ -217,15 +246,15 @@
 
 ---
 
-### Dyslexia and reading difficulties <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+#### Dyslexia and reading difficulties <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
 
 ---
 
-### Autism and sensory considerations <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+#### Autism and sensory considerations <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
 
 ---
 
-### Vestibular disorders and motion sensitivity <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+#### Vestibular disorders and motion sensitivity <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
 
 ```css[|1|5|1,5|2|4|2,4|3]
 @media (prefers-reduced-motion: reduce) {
@@ -268,7 +297,7 @@
 
 ---
 
-### Punctuation and verbosity settings <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+#### Punctuation and verbosity settings <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
 
 ---
 
