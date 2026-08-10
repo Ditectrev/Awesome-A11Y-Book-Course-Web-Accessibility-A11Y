@@ -1,5 +1,7 @@
 # 📚 Awesome A11Y Book & Course: Web Accessibility (A11Y)
 
+![Promotional image](images/promotional.png)
+
 ## ❣️ Support
 
 There are many ways to support us; in exchange, you'll get this material in a proper format:
