@@ -9,7 +9,7 @@ There are many ways to support us; in exchange, you'll get this material in a pr
 - ❤️ [shop.ditectrev.com, in EPUB or PDF formats](https://shop.ditectrev.com/product/awesome-a11y-book-web-accessibility-a11y),
 - ▶️ [Udemy, in an interactive video course format](https://www.udemy.com),
 - 🆓 [Shorter, but free, part of our Udemy course is available on YouTube](https://www.youtube.com/playlist?list=PLEsUeRVDa5Oo),
-- 📚 [Google Play Books, in PDF format](https://play.google.com/store/books),
+- 📚 [Google Play Books, in PDF format](https://play.google.com/store/books/details?id=2CgAEgAAQBAJ),
 - 🛍️ [Etsy, in PDF format](https://ditectrev.etsy.com/listing/4551476759),
 - 🛒 [eBay, in PDF format](https://ebay.io/m/pQLHJL),
 - 🔄 [Patreon subscription allows you to get access to all of the materials in EPUB and PDF formats. You can also buy separate items on Patreon, but the subscription technically allows us to include all updates for EPUB and PDF formats. Hence, you get EPUB and PDF updates when you subscribe to Patreon](https://patreon.com).
