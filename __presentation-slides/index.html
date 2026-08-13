@@ -985,7 +985,7 @@ body {
 
 #### 1.4.4 Resize text, 200% zoom, rem/em vs px; 1.4.2 Audio control <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
 
-```css[|1|2|4|2,4|3|6|9|6,9|7|8|11|12|16|12,16|13|14|15]
+```css[|1|2|4|2,4|3|6|9|6,9|7|8|11|12|15|12,15|13|14]
 /* Passes 1.4.4 — rem sizing and no fixed height; text reflows when zoomed */
 .card-pass {
   border: 2px solid #047857;
@@ -997,10 +997,9 @@ body {
 }
 
 /* Fails 1.4.4 — fixed px font and height clip content at 200% zoom */
-.card-fail {
-  border: 2px solid #b91c1c;
+.card-fail-resize {
   font-size: 14px;
-  height: 5rem;
+  height: 10rem;
 }
 ```
 
@@ -1028,7 +1027,7 @@ body {
 
 ---
 
-### 1.4.5 Images of text, when text can be visual <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
+#### 1.4.5 Images of text, when text can be visual <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
 
 ---
 
