@@ -49,7 +49,7 @@ There are many ways to support us; in exchange, you'll get this material in a pr
 
 ## ☝️ Book & Course Updates
 
-**[v1.0.0](releases/tag/v1.0.0): TBD.**
+**[v1.0.0](releases/tag/v1.0.0): August 13, 2026.**
 
 - Launch of the book.
 
