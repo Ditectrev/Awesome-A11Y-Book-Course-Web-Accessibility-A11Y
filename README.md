@@ -2898,6 +2898,7 @@ Before time expires, users should be able to do at least one of:
 
 Session timeout pattern:
 
+- Offer a setting to **disable the timeout** before it starts (simplest 2.2.1 option).
 - Trigger warning 60-120 seconds before expiry.
 - Surface a visible, keyboard-operable warning with **Stay signed in** and **Sign out** actions.
 - Add a `role="status"` or `aria-live="polite"` region for remaining-time updates (avoid announcing every second).
@@ -2915,6 +2916,12 @@ Session timeout pattern:
     <main>
       <h1>Account settings</h1>
       <p>Signed in as <strong>demo@example.com</strong></p>
+      <p>
+        <label>
+          <input type="checkbox" id="disable-timeout" />
+          Disable session timeout
+        </label>
+      </p>
       <p id="timeout-countdown"></p>
 
       <div id="timeout-warning" hidden role="status" aria-live="polite">
@@ -2928,12 +2935,18 @@ Session timeout pattern:
       const warning = document.getElementById("timeout-warning");
       const countdown = document.getElementById("timeout-countdown");
       const msg = document.getElementById("timeout-msg");
+      const disableTimeout = document.getElementById("disable-timeout");
 
       const SESSION_MS = 15 * 1000; // production: 15 * 60 * 1000
       const WARNING_MS = 8 * 1000; // production: 2 * 60 * 1000
       let expiryAt = Date.now() + SESSION_MS;
 
       function tick() {
+        if (disableTimeout.checked) {
+          warning.hidden = true;
+          countdown.textContent = "Session timeout is off.";
+          return;
+        }
         const remaining = expiryAt - Date.now();
         if (remaining <= 0) {
           warning.hidden = true;
@@ -2950,9 +2963,16 @@ Session timeout pattern:
         countdown.textContent = `Session expires in ${Math.ceil(remaining / 1000)} seconds.`;
       }
 
+      disableTimeout.addEventListener("change", () => {
+        if (!disableTimeout.checked) {
+          expiryAt = Date.now() + SESSION_MS;
+        }
+        tick();
+      });
+
       document.getElementById("extend-session").addEventListener("click", () => {
         expiryAt = Date.now() + SESSION_MS;
-        hideWarning();
+        warning.hidden = true;
         countdown.textContent = "Session extended.";
       });
 
@@ -2968,11 +2988,11 @@ Session timeout pattern:
 </html>
 ```
 
-[![Edit 037-Timing adjustable (2.2.1): session timeouts, warnings](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/037-timing-adjustable-2-2-1-session-timeouts-warnings-c9jxsg)
+[![Edit 037-Timing adjustable (2.2.1): session timeouts, warnings](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/037-timing-adjustable-2-2-1-session-timeouts-warnings-w827xg)
 
 [^37]CodeSandbox: Timing adjustable (2.2.1): session timeouts, warnings.
 
-[^37]:[CodeSandbox: Timing adjustable (2.2.1): session timeouts, warnings](https://c9jxsg.csb.app/), last access: June 28, 2026.
+[^37]:[CodeSandbox: Timing adjustable (2.2.1): session timeouts, warnings](https://w827xg.csb.app/), last access: June 28, 2026.
 
 ### Pause, stop, hide (2.2.2): carousels, animation
 

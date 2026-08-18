@@ -1219,10 +1219,16 @@ body {
 
 #### Timing adjustable (2.2.1): session timeouts, warnings <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
 
-```html[|1|11|1,11|2|3|4|6|10|6,10|7|8|9]
+```html[|1|17|1,17|2|3|4-9|10|12|16|12,16|13|14|15]
 <main>
   <h1>Account settings</h1>
   <p>Signed in as <strong>demo@example.com</strong></p>
+  <p>
+    <label>
+      <input type="checkbox" id="disable-timeout" />
+      Disable session timeout
+    </label>
+  </p>
   <p id="timeout-countdown"></p>
 
   <div id="timeout-warning" hidden role="status" aria-live="polite">
@@ -1233,9 +1239,9 @@ body {
 </main>
 ```
 
-[![Edit 037-Timing adjustable (2.2.1): session timeouts, warnings](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/037-timing-adjustable-2-2-1-session-timeouts-warnings-c9jxsg)
+[![Edit 037-Timing adjustable (2.2.1): session timeouts, warnings](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/037-timing-adjustable-2-2-1-session-timeouts-warnings-w827xg)
 
-[CodeSandbox: Timing adjustable (2.2.1): session timeouts, warnings](https://c9jxsg.csb.app/).
+[CodeSandbox: Timing adjustable (2.2.1): session timeouts, warnings](https://w827xg.csb.app/).
 
 ---
 
