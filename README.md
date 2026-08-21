@@ -3791,12 +3791,22 @@ Mitigations:
 <html lang="en">
   <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Focus not obscured (2.4.11, 2.4.12)</title>
-
     <style>
-      :focus {
-        outline: 3px solid #1a73e8;
-        outline-offset: 2px;
+      :root {
+        --sticky-header-height: 72px;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: system-ui, sans-serif;
+        line-height: 1.5;
+        color: #111827;
       }
 
       :focus:not(:focus-visible) {
@@ -3807,11 +3817,43 @@ Mitigations:
         outline: 3px solid #1a73e8;
         outline-offset: 2px;
       }
-    </style>
 
-    <style>
-      :root {
-        --sticky-header-height: 72px;
+      .skip-link {
+        position: absolute;
+        left: 0.5rem;
+        top: 0.5rem;
+        z-index: 20;
+        transform: translateY(-180%);
+        padding: 0.5rem 0.75rem;
+        background: #111827;
+        color: #ffffff;
+        text-decoration: none;
+      }
+
+      .skip-link:focus-visible {
+        transform: translateY(0);
+      }
+
+      .site-header {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        display: flex;
+        align-items: center;
+        min-height: var(--sticky-header-height);
+        padding: 0 1rem;
+        gap: 1.25rem;
+        background: #111827;
+        color: #ffffff;
+      }
+
+      .site-header nav {
+        display: flex;
+        gap: 1rem;
+      }
+
+      .site-header a {
+        color: #ffffff;
       }
 
       h1,
@@ -3820,16 +3862,53 @@ Mitigations:
       [data-focus-target] {
         scroll-margin-top: calc(var(--sticky-header-height) + 12px);
       }
+
+      main {
+        max-width: 40rem;
+        margin: 0 auto;
+        padding: 1.5rem 1rem 4rem;
+      }
+
+      section {
+        min-height: 80vh;
+        padding-top: 0.5rem;
+      }
     </style>
   </head>
   <body>
-    <h2 id="post-1-title">WCAG Quick Start</h2>
-    <p>Understand POUR principles and ship practical checks in one sprint.</p>
-    <a
-      href="https://www.w3.org/WAI/standards-guidelines/wcag/"
-      aria-labelledby="post-1-title"
-      >Read: WCAG Quick Start</a
-    >
+    <a class="skip-link" href="#main">Skip to main content</a>
+
+    <header class="site-header">
+      <strong>Docs</strong>
+      <nav aria-label="On this page">
+        <a href="#quick-start">Quick start</a>
+        <a href="#keyboard">Keyboard checks</a>
+      </nav>
+    </header>
+
+    <main id="main" tabindex="-1" data-focus-target>
+      <h1>Focus not obscured</h1>
+      <p>
+        Tab from the top to reveal the skip link, then follow an in-page nav
+        link. The destination should sit fully below the sticky header, not
+        hidden under it.
+      </p>
+
+      <section>
+        <h2 id="quick-start">WCAG Quick Start</h2>
+        <p>Understand POUR principles and ship practical checks in one sprint.</p>
+        <a href="#keyboard">Continue to keyboard checks</a>
+      </section>
+
+      <section>
+        <h2 id="keyboard">Keyboard checks</h2>
+        <p>
+          After jumping here, this heading and
+          <a href="#quick-start">the link back to Quick start</a>
+          should remain fully visible below the header (2.4.11 / 2.4.12).
+        </p>
+      </section>
+    </main>
   </body>
 </html>
 ```
@@ -3839,6 +3918,8 @@ Mitigations:
 [^44]CodeSandbox: Focus not obscured (2.4.11, 2.4.12).
 
 [^44]:[CodeSandbox: Focus not obscured (2.4.11, 2.4.12)](https://pjj6vz.csb.app/), last access: July 3, 2026.
+
+Test in the browser: press Tab to show the skip link, then activate it or use **Quick start** / **Keyboard checks**. The heading should land fully below the sticky header. Comment out `scroll-margin-top` to see the 2.4.11 failure.
 
 ### Summary: Navigable
 

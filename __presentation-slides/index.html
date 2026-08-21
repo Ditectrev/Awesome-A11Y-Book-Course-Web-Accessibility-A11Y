@@ -1481,10 +1481,20 @@ function onRouteChange(page) {
 
 #### Focus not obscured (2.4.11, 2.4.12) <!-- .slide: data-transition="zoom" data-transition-speed="slow" -->
 
-```html[|1|2|3]
-<h2 id="post-1-title">WCAG Quick Start</h2>
-<p>Understand POUR principles and ship practical checks in one sprint.</p>
-<a href="https://www.w3.org/WAI/standards-guidelines/wcag/" aria-labelledby="post-1-title">Read: WCAG Quick Start</a>
+```html[|1|3|8|3,8|4|7|4,7|5|6|10|13|10,13|11|12]
+<a class="skip-link" href="#main">Skip to main content</a>
+
+<header class="site-header">
+  <nav aria-label="On this page">
+    <a href="#quick-start">Quick start</a>
+    <a href="#keyboard">Keyboard checks</a>
+  </nav>
+</header>
+
+<main id="main" tabindex="-1" data-focus-target>
+  <h2 id="quick-start">WCAG Quick Start</h2>
+  <h2 id="keyboard">Keyboard checks</h2>
+</main>
 ```
 
 [![Edit 044-Focus not obscured (2.4.11, 2.4.12)](images/codesandbox.svg)](https://codesandbox.io/p/sandbox/044-focus-not-obscured-2-4-11-2-4-12-pjj6vz)
