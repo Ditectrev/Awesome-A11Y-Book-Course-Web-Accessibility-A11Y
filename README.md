@@ -5258,7 +5258,7 @@ Implementation guidance:
 
 ### Error suggestion (3.3.3) and error prevention (3.3.4)
 
-WCAG 3.3.3 Error Suggestion (Level AA) asks for corrective suggestions when a fix is known, and WCAG 3.3.4 Error Prevention (Level AA/AAA depending on context) protects users from costly mistakes, especially for legal, financial, or important data actions.
+WCAG 3.3.3 Error Suggestion (Level AA) asks for corrective suggestions when a fix is known. WCAG 3.3.4 Error Prevention (Legal, Financial, Data) (Level AA) protects users from costly mistakes on legal commitments, financial transactions, user-controllable data changes, and test submissions: the action must be reversible, checked with a chance to correct, or confirmed before it is finalized. WCAG 3.3.6 Error Prevention (All) (Level AAA) applies that same three-way safeguard to every information submission, not only high-stakes ones.
 
 Suggestion patterns:
 
