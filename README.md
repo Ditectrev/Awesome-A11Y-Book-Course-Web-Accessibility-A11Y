@@ -5352,9 +5352,13 @@ Input Assistance criteria ensure form interactions are understandable, recoverab
 
 ### Parsing (4.1.1), valid HTML, duplicate IDs
 
+[WCAG 2.2 removed 4.1.1 Parsing](https://www.w3.org/WAI/WCAG22/Understanding/parsing). Assistive technologies no longer parse HTML themselves; they use the browser accessibility tree, so this criterion is obsolete for 2.2 conformance. Many of the same defects still fail [1.3.1 Info and Relationships](https://www.w3.org/WAI/WCAG22/Understanding/info-and-relationships) or [4.1.2 Name, Role, Value](https://www.w3.org/WAI/WCAG22/Understanding/name-role-value).
+
+The original advice remains useful in practice: complete tags, correct nesting, unique IDs, and valid ARIA references keep names, labels, and relationships stable. HTML scanners such as the W3C Validator and Nu Html Checker still catch those issues early, including in WCAG 2.0/2.1 audits where 4.1.1 still applies.
+
 #### Start and end tags, nesting, duplicate id and ARIA IDs
 
-Parsing reliability starts with valid, well-formed markup. Assistive technologies and browser accessibility trees depend on correct element boundaries, valid nesting, and unique ID references.
+Valid, well-formed markup still matters. Assistive technologies and browser accessibility trees depend on correct element boundaries, valid nesting, and unique ID references.
 
 Key practices:
 
@@ -5706,7 +5710,7 @@ Use live regions intentionally: over-announcing creates noise, while missing ann
 
 ### Summary: Compatible
 
-Compatible implementations ensure UI semantics remain machine-readable across browsers and assistive technologies. Reliable parsing and valid HTML prevent broken accessibility-tree relationships caused by malformed structure or duplicate IDs, while routine validator checks catch foundational defects early. Interactive components must expose accurate name, role, and value/state information, especially when custom widgets are used instead of native controls (4.1.2). Dynamic updates should be announced through well-scoped live regions and appropriate message roles (`status` vs `alert`) so users receive timely feedback without unnecessary interruption (4.1.3).
+Compatible implementations ensure UI semantics remain machine-readable across browsers and assistive technologies. WCAG 2.2 removed 4.1.1 Parsing, but valid HTML, unique IDs, and routine validator checks still prevent broken accessibility-tree relationships and remain useful with scanners. Interactive components must expose accurate name, role, and value/state information, especially when custom widgets are used instead of native controls (4.1.2). Dynamic updates should be announced through well-scoped live regions and appropriate message roles (`status` vs `alert`) so users receive timely feedback without unnecessary interruption (4.1.3).
 
 ## HTML Semantics and ARIA
 
