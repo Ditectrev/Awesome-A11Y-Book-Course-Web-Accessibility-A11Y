@@ -53,6 +53,14 @@ There are many ways to support us; in exchange, you'll get this material in a pr
 
 - Launch of the book.
 
+**[v1.1.0](../../releases/tag/v1.1.0): September 4, 2026.**
+
+- Post-recording improvements.
+
+**[v1.1.0](../../releases/tag/v1.1.0): September 7, 2026.**
+
+- Launch of the course.
+
 ## 🙋‍♀️ & 🙋‍♂️ Contribution
 
 We are so thankful for every contribution, which makes sure we can deliver top-notch content. Whenever you find a missing resource, broken link in a [Table of Contents](#table-of-contents), the wrong answer, please submit an [issue](issues). Even better would be a [Pull Request (PR)](pulls).
@@ -66,7 +74,7 @@ We are so thankful for every contribution, which makes sure we can deliver top-n
 - 👨‍🎓 Self-paced Learners for whom expensive Bootcamps are unaffordable;
 - 👨‍🎓 Students interested in Web Development and Inclusive Design;
 - 👨‍🎓 Students willing to start a career in Software Development;
-- 👨‍🎓 Web Developers and Designers willing to know A to Z about Web Accessibility;
+- 👨‍🎓 Web Developers and Designers willing to know A to Z about Web Accessibility.
 
 ## Requirements
 
