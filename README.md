@@ -361,7 +361,7 @@ At the code level, that starts with a valid document, a human language, landmark
 
 [^1]CodeSandbox: Definition and scope of web accessibility.
 
-[^1]:[CodeSandbox: Definition and scope of web accessibility](https://7gq85k.csb.app/), last access: June 6, 2026.
+[^1]:[CodeSandbox: Definition and scope of web accessibility](https://llqcqj.csb.app/), last access: June 6, 2026.
 
 The `lang` attribute helps pronunciation and translation tools; the `title` identifies the page in tabs and history; the skip link and `main` landmark support keyboard and screen reader navigation—topics you will see again in WCAG and in later chapters. The section before `<main>` stands in for repeated site chrome; at 600px tall, clicking **Skip to main content** scrolls the page down to `#main`.
 
