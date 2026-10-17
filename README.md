@@ -8,8 +8,8 @@ There are many ways to support us; in exchange, you'll get this material in a pr
 
 - ❤️ [shop.ditectrev.com, in EPUB or PDF formats](https://shop.ditectrev.com/product/awesome-a11y-book-web-accessibility-a11y),
 - ▶️ [Udemy, in an interactive video course format](https://www.udemy.com/course/awesome-a11y-incl-aaa-aria-html-pour-w3c-wai-wcag/?referralCode=3B38E59915822EF2A24C),
-- 🖨️ [Amazon, printable physical book in paperback or hardcover (Kindle available, too)](https://www.amazon.com//Daniel-Danielecki-book/dp/B0HM3VVN7B),
 - 🆓 [Shorter, but free, part of our Udemy course is available on YouTube](https://www.youtube.com/playlist?list=PLEsUeRVDa5Oo),
+- 🖨️ [Amazon, printable physical book in paperback or hardcover (Kindle available, too)](https://www.amazon.com//Daniel-Danielecki-book/dp/B0HM3VVN7B),
 - 📚 [Google Play Books, in PDF format](https://play.google.com/store/books/details?id=2CgAEgAAQBAJ),
 - 🛍️ [Etsy, in PDF format](https://ditectrev.etsy.com/listing/4551476759),
 - 🛒 [eBay, in PDF format](https://ebay.io/m/pQLHJL),
